@@ -36,8 +36,9 @@
     },
 
     "scripts": {
-        "build": "grunt build",
-        "test": "grunt test"
+        "build": "gulp build",
+        "test": "gulp test",
+        "start": "gulp serve"
     },
 
     "private": true
