@@ -12,7 +12,7 @@ module Lttp.Entities {
         //moveSpeed the ent moves at
         moveSpeed: number = 75;
 
-        spritesheet: Phaser.Spritesheet = spritesheet;
+        spritesheet: Phaser.Rectangle;
     }
 }
 

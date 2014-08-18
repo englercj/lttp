@@ -1,5 +1,5 @@
 # sublime text 2 files
-*.sublime-*
+*.sublime*
 *.*~*.TMP
 
 # temp files
