@@ -1,0 +1,12 @@
+/**
+ * <%= pkg.name %> - <%= pkg.description %>
+ * @version v<%= pkg.version %>
+ * @link <%= pkg.homepage %>
+ * @license <%= pkg.license %>
+ *
+ * <%= pkg.name %> - v<%= pkg.version %>
+ * Copyright © 2012-2014, Chad Engler
+ * <%= pkg.homepage %>
+ *
+ * <%= pkg.name %> is licensed under the <%= pkg.license %> License.
+ */

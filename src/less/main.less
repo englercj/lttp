@@ -1,0 +1,46 @@
+@assets: "../assets";
+
+/*@font-face {
+    font-family: ReturnOfGanon;
+    src: url("@{assets}/fonts/retganon.ttf");
+    font-weight: 400;
+}*/
+
+body {
+    background:left top url("@{assets}/ui/bg.jpg") repeat #EBEBEB;
+    color: black;
+    font-family: Verdana,sans-serif;
+    margin: 0;
+}
+
+#game-container {
+    display: block;
+    position: absolute;
+    width: 768px;
+    height: 672px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
+    left: 50%;
+    top: 50%;
+    margin-left: -384px;
+    margin-top: -336px;
+}
+
+#game {
+    height: 100%;
+    width: 100%;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#game canvas {
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+
+    background-color: #000;
+}
