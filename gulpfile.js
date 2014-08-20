@@ -62,7 +62,7 @@ gulp.task('scripts', function () {
         // output normal bundle
         .pipe(concat(fname))
         .pipe(header(banner, { pkg: pkg }))
-        .pipe(sourcemaps.write({ includeContent: false, sourceRoot: 'public' }))
+        .pipe(sourcemaps.write())
         .pipe(size({ title: fname }))
         .pipe(gulp.dest(outputDir))
 
