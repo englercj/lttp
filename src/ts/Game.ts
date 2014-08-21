@@ -13,5 +13,10 @@ module Lttp {
             this.state.start('Boot');
         }
 
+        boot() {
+            super.boot();
+            // this.scale.setScreenSize(false); //TODO: phaser.d.ts says param is required, but it isn't
+        }
+
     }
 }

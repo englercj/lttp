@@ -117,11 +117,11 @@
 
         create() {
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
-            tween.onComplete.add(this.startMainMenu, this);
+            tween.onComplete.add(this.startIntro, this);
         }
 
-        startMainMenu() {
-            this.game.state.start('MainMenu', true, false);
+        startIntro() {
+            this.game.state.start('Intro', true, false);
         }
 
     }

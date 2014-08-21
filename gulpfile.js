@@ -55,14 +55,14 @@ gulp.task('scripts', function () {
         fnameMin = 'lttp.min.js',
         outputDir = './public/js',
         tsResult = gulp.src(['./src/ts/**/*.ts', './bower_components/phaser-official/build/phaser.d.ts'])
-            .pipe(sourcemaps.init())
+            // .pipe(sourcemaps.init())
             .pipe(ts(tsProject));
 
     return tsResult.js
         // output normal bundle
         .pipe(concat(fname))
         .pipe(header(banner, { pkg: pkg }))
-        .pipe(sourcemaps.write())
+        // .pipe(sourcemaps.write())
         .pipe(size({ title: fname }))
         .pipe(gulp.dest(outputDir))
 
@@ -73,6 +73,18 @@ gulp.task('scripts', function () {
         .pipe(size({ title: fnameMin }))
         .pipe(gulp.dest(outputDir));
 });
+
+// gulp.task('script2', function () {
+//     return gulp.src(['./src/ts/**/*.ts', './bower_components/phaser-official/build/phaser.d.ts'])
+//         .pipe(typescript({
+//             emitError: false,
+//             target: 'ES5',
+//             out: 'lttp.js',
+//             // sourcemap: true,
+//             noLib: false
+//         }))
+//         .pipe(gulp.dest('./public/js'));
+// });
 
 /*****
  * Copy task, copies vendor files to public

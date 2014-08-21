@@ -18,7 +18,7 @@ module Lttp.States {
         shine: Phaser.Sprite;
         sparkle: Phaser.Sprite;
 
-        flashes: Effects.ScreenFlash[];
+        flashes: Effects.ScreenFlash[] = [];
 
         create() {
             this.introMusic = this.add.audio('music_title', Data.Constants.AUDIO_MUSIC_VOLUME);

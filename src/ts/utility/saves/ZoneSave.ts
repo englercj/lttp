@@ -1,3 +1,5 @@
+/// <reference path="Save.ts" />
+
 module Lttp.Utility {
     export class ZoneSave extends Save {
 

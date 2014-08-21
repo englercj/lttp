@@ -1,4 +1,6 @@
-﻿module Lttp.Levels {
+﻿/// <reference path="Level.ts" />
+
+module Lttp.Levels {
     export class LinksHouse extends Level {
 
         preload() {
