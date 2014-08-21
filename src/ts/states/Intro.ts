@@ -42,7 +42,7 @@ module Lttp.States {
                 'sparkle/3.png',
                 'sparkle/4.png',
                 'sparkle/5.png'
-            ], 15, false, false);
+            ], 17, false, false);
 
             this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png');
 
@@ -173,7 +173,7 @@ module Lttp.States {
 
                 setTimeout(function() {
                     self.showSparkle(++p);
-                }, 500);
+                }, 180);
             });
         }
 
