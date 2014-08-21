@@ -4,6 +4,8 @@ module Lttp {
         constructor() {
             super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
 
+            // PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
+
             this.state.add('Boot', States.Boot, false);
             this.state.add('Preloader', States.Preloader, false);
             this.state.add('Intro', States.Intro, false);

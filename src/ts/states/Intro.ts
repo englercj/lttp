@@ -25,6 +25,10 @@ module Lttp.States {
             this.swordSound = this.add.audio('effect_sword1', Data.Constants.AUDIO_EFFECT_VOLUME);
             this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
 
+            this.flashes[0] = new Effects.ScreenFlash(this.game, 'red');
+            this.flashes[1] = new Effects.ScreenFlash(this.game, 'green');
+            this.flashes[2] = new Effects.ScreenFlash(this.game, 'blue');
+
             this.background = this.add.sprite(0, 0, 'sprite_intro', 'background.png');
 
             this.intro = this.add.sprite(0, 0, 'sprite_intro');
@@ -51,10 +55,6 @@ module Lttp.States {
 
             this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png');
             this.zpart.visible = false;
-
-            this.flashes[0] = new Effects.ScreenFlash(this.game, 'red');
-            this.flashes[1] = new Effects.ScreenFlash(this.game, 'green');
-            this.flashes[2] = new Effects.ScreenFlash(this.game, 'blue');
 
             this.keyEnter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             this.keySpace = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -168,7 +168,7 @@ module Lttp.States {
                     break;
             }
 
-            sp.play('sparkle').onComplete.add(function() {
+            sp.play('sparkle').onComplete.addOnce(function() {
                 sp.visible = false;
 
                 setTimeout(function() {
