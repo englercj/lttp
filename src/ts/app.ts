@@ -1,5 +1,6 @@
 /// <reference path="../../bower_components/phaser-official/build/phaser.d.ts" />
 
+var game;
 window.onload = () => {
-    var game = new Lttp.Game();
+    game = new Lttp.Game();
 };

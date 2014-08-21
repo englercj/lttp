@@ -25,10 +25,6 @@ module Lttp.States {
             this.swordSound = this.add.audio('effect_sword1', Data.Constants.AUDIO_EFFECT_VOLUME);
             this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
 
-            this.flashes[0] = new Effects.ScreenFlash(this.game, 'red');
-            this.flashes[1] = new Effects.ScreenFlash(this.game, 'green');
-            this.flashes[2] = new Effects.ScreenFlash(this.game, 'blue');
-
             this.background = this.add.sprite(0, 0, 'sprite_intro', 'background.png');
 
             this.intro = this.add.sprite(0, 0, 'sprite_intro');
@@ -55,6 +51,10 @@ module Lttp.States {
 
             this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png');
             this.zpart.visible = false;
+
+            this.flashes[0] = this.game.add.existing(new Effects.ScreenFlash(this.game, 'red'));
+            this.flashes[1] = this.game.add.existing(new Effects.ScreenFlash(this.game, 'green'));
+            this.flashes[2] = this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue'));
 
             this.keyEnter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             this.keySpace = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -110,7 +110,7 @@ module Lttp.States {
                             .start()
                             .onComplete.add(function () {
                                 // blink the screen
-                                self.blink(8, function () {
+                                self.blink(3, function () {
                                     //Fade out the intro
                                     self.game.add.tween(self.intro)
                                         .to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None)
@@ -177,16 +177,16 @@ module Lttp.States {
             });
         }
 
-        blink(num: number, cb: Function) {
+        blink(num: number, cb?: Function) {
             if(num === 0)
-                return cb();
+                return cb && cb();
 
             num--;
 
             console.log(num);
 
             var self = this,
-                len = 20,
+                len = 45,
                 alpha = 0.9;
 
             this.flashes[0].flash(alpha, len).onComplete.addOnce(function () {
