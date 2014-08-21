@@ -101,9 +101,8 @@ module Lttp.States {
                         self.zpart.visible = true;
 
                         //play sword sounds
-                        self.swordSound.play().onMarkerComplete.add(function () {
-                            self.dingSound.play();
-                        });
+                        self.swordSound.play();
+                        self.dingSound.play();
 
                         //drop the sword animation
                         self.game.add.tween(self.sword)
