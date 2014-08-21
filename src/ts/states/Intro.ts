@@ -25,20 +25,12 @@ module Lttp.States {
             this.swordSound = this.add.audio('effect_sword1', Data.Constants.AUDIO_EFFECT_VOLUME);
             this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
 
-            this.intro = this.add.sprite(0, 0, 'sprite_intro');
-
             this.background = this.add.sprite(0, 0, 'sprite_intro', 'background.png');
 
-            this.title = this.add.sprite(49, 60, 'sprite_intro', 'logo.png');
+            this.intro = this.add.sprite(0, 0, 'sprite_intro');
+
+            this.title = this.add.sprite(0, 0, 'sprite_intro', 'logo.png');
             this.title.alpha = 0;
-
-            this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png');
-
-            this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png');
-            this.zpart.visible = false;
-
-            this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png');
-            this.shine.visible = false;
 
             this.sparkle = this.add.sprite(0, 0, 'sprite_particles');
             this.sparkle.visible = false;
@@ -50,7 +42,15 @@ module Lttp.States {
                 'sparkle/3.png',
                 'sparkle/4.png',
                 'sparkle/5.png'
-            ], 0.25, false, false);
+            ], 15, false, false);
+
+            this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png');
+
+            this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png');
+            this.shine.visible = false;
+
+            this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png');
+            this.zpart.visible = false;
 
             this.flashes[0] = new Effects.ScreenFlash(this.game, 'red');
             this.flashes[1] = new Effects.ScreenFlash(this.game, 'green');
@@ -184,13 +184,15 @@ module Lttp.States {
 
             num--;
 
+            console.log(num);
+
             var self = this,
                 len = 20,
                 alpha = 0.9;
 
-            this.flashes[0].flash(alpha, len).onComplete.add(function () {
-                this.flashes[1].flash(alpha, len).onComplete.add(function () {
-                    this.flashes[2].flash(alpha, len).onComplete.add(function () {
+            this.flashes[0].flash(alpha, len).onComplete.addOnce(function () {
+                this.flashes[1].flash(alpha, len).onComplete.addOnce(function () {
+                    this.flashes[2].flash(alpha, len).onComplete.addOnce(function () {
                         this.blink(num, cb);
                     }, this);
                 }, this);
@@ -207,7 +209,7 @@ module Lttp.States {
                 frames.push('Zelda - A Link to the Past_' + s + '.png');
             }
 
-            this.intro.animations.add('intro', frames, 0.5, false, false);
+            this.intro.animations.add('intro', frames, 30, false, false);
         }
 
     }
