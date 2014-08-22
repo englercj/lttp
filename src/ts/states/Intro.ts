@@ -113,7 +113,7 @@ module Lttp.States {
                                 self.blink(3, function () {
                                     //Fade out the intro
                                     self.game.add.tween(self.intro)
-                                        .to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None)
+                                        .to({ alpha: 0 }, 500, Phaser.Easing.Linear.None)
                                         .start()
                                         .onComplete.add(function () {
                                             // show the sword shine
