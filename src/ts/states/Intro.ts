@@ -256,8 +256,8 @@ module Lttp.States {
             this.loreGroup.visible = false;
             this.loreGroup.alpha = 0;
 
-            this.loreBg1 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'sprite_particles', 'lore/bg1.png', this.loreGroup);
-            this.loreBg2 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'sprite_particles', 'lore/bg2.png', this.loreGroup);
+            this.loreBg1 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg1', null, this.loreGroup);
+            this.loreBg2 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg2', null, this.loreGroup);
 
             this.loreHighlight = this.add.graphics(0, 0, this.loreGroup);
             this.loreHighlight.beginFill(0xFFFF00, 0.12);

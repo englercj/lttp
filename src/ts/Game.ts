@@ -2,7 +2,7 @@ module Lttp {
     export class Game extends Phaser.Game {
 
         constructor() {
-            super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.CANVAS, 'game');
+            super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
 
             // PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
 
