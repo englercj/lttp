@@ -2,1587 +2,1785 @@
 
 "Zelda - A Link to the Past_00003.png":
 {
-	"frame": {"x":3840,"y":2464,"w":256,"h":224},
+	"frame": {"x":0,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00004.png":
 {
-	"frame": {"x":3840,"y":2464,"w":256,"h":224},
+	"frame": {"x":0,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00005.png":
 {
-	"frame": {"x":3584,"y":2464,"w":256,"h":224},
+	"frame": {"x":256,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00006.png":
 {
-	"frame": {"x":3328,"y":2464,"w":256,"h":224},
+	"frame": {"x":512,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00007.png":
 {
-	"frame": {"x":3328,"y":2464,"w":256,"h":224},
+	"frame": {"x":512,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00008.png":
 {
-	"frame": {"x":3072,"y":2464,"w":256,"h":224},
+	"frame": {"x":768,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00009.png":
 {
-	"frame": {"x":2816,"y":2464,"w":256,"h":224},
+	"frame": {"x":1024,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00010.png":
 {
-	"frame": {"x":2560,"y":2464,"w":256,"h":224},
+	"frame": {"x":1280,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00011.png":
 {
-	"frame": {"x":2560,"y":2464,"w":256,"h":224},
+	"frame": {"x":1280,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00012.png":
 {
-	"frame": {"x":2304,"y":3808,"w":256,"h":224},
+	"frame": {"x":1536,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00013.png":
 {
-	"frame": {"x":2304,"y":3584,"w":256,"h":224},
+	"frame": {"x":1792,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00014.png":
 {
-	"frame": {"x":2304,"y":3360,"w":256,"h":224},
+	"frame": {"x":2048,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00015.png":
 {
-	"frame": {"x":2304,"y":3136,"w":256,"h":224},
+	"frame": {"x":2304,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00016.png":
 {
-	"frame": {"x":2304,"y":2912,"w":256,"h":224},
+	"frame": {"x":2560,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00017.png":
 {
-	"frame": {"x":2304,"y":2688,"w":256,"h":224},
+	"frame": {"x":2816,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00018.png":
 {
-	"frame": {"x":2304,"y":2464,"w":256,"h":224},
+	"frame": {"x":3072,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00019.png":
 {
-	"frame": {"x":3840,"y":2240,"w":256,"h":224},
+	"frame": {"x":3328,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00020.png":
 {
-	"frame": {"x":3584,"y":2240,"w":256,"h":224},
+	"frame": {"x":3584,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00021.png":
 {
-	"frame": {"x":3328,"y":2240,"w":256,"h":224},
+	"frame": {"x":3840,"y":0,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00022.png":
 {
-	"frame": {"x":3072,"y":2240,"w":256,"h":224},
+	"frame": {"x":0,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00023.png":
 {
-	"frame": {"x":2816,"y":2240,"w":256,"h":224},
+	"frame": {"x":256,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00024.png":
 {
-	"frame": {"x":2560,"y":2240,"w":256,"h":224},
+	"frame": {"x":512,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00025.png":
 {
-	"frame": {"x":2560,"y":2240,"w":256,"h":224},
+	"frame": {"x":512,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00026.png":
 {
-	"frame": {"x":2304,"y":2240,"w":256,"h":224},
+	"frame": {"x":768,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00027.png":
 {
-	"frame": {"x":2048,"y":3808,"w":256,"h":224},
+	"frame": {"x":1024,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00028.png":
 {
-	"frame": {"x":2048,"y":3584,"w":256,"h":224},
+	"frame": {"x":1280,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00029.png":
 {
-	"frame": {"x":2048,"y":3360,"w":256,"h":224},
+	"frame": {"x":1536,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00030.png":
 {
-	"frame": {"x":2048,"y":3136,"w":256,"h":224},
+	"frame": {"x":1792,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00031.png":
 {
-	"frame": {"x":2048,"y":2912,"w":256,"h":224},
+	"frame": {"x":2048,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00032.png":
 {
-	"frame": {"x":2048,"y":2688,"w":256,"h":224},
+	"frame": {"x":2304,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00033.png":
 {
-	"frame": {"x":2048,"y":2464,"w":256,"h":224},
+	"frame": {"x":2560,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00034.png":
 {
-	"frame": {"x":2048,"y":2240,"w":256,"h":224},
+	"frame": {"x":2816,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00035.png":
 {
-	"frame": {"x":3840,"y":2016,"w":256,"h":224},
+	"frame": {"x":3072,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00036.png":
 {
-	"frame": {"x":3584,"y":2016,"w":256,"h":224},
+	"frame": {"x":3328,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00037.png":
 {
-	"frame": {"x":3328,"y":2016,"w":256,"h":224},
+	"frame": {"x":3584,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00038.png":
 {
-	"frame": {"x":3072,"y":2016,"w":256,"h":224},
+	"frame": {"x":3840,"y":224,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00039.png":
 {
-	"frame": {"x":2816,"y":2016,"w":256,"h":224},
+	"frame": {"x":0,"y":448,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00040.png":
 {
-	"frame": {"x":2560,"y":2016,"w":256,"h":224},
+	"frame": {"x":256,"y":448,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00041.png":
-{
-	"frame": {"x":2304,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00042.png":
-{
-	"frame": {"x":2048,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00043.png":
-{
-	"frame": {"x":1792,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00044.png":
-{
-	"frame": {"x":1792,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00045.png":
-{
-	"frame": {"x":1792,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00046.png":
-{
-	"frame": {"x":1792,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00047.png":
-{
-	"frame": {"x":1792,"y":2912,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00048.png":
-{
-	"frame": {"x":1792,"y":2688,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00049.png":
-{
-	"frame": {"x":1792,"y":2464,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00050.png":
-{
-	"frame": {"x":1792,"y":2240,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00051.png":
-{
-	"frame": {"x":1792,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00052.png":
-{
-	"frame": {"x":3840,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00053.png":
-{
-	"frame": {"x":3584,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00054.png":
-{
-	"frame": {"x":3328,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00055.png":
-{
-	"frame": {"x":3072,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00056.png":
-{
-	"frame": {"x":2816,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00057.png":
-{
-	"frame": {"x":2560,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00058.png":
-{
-	"frame": {"x":2304,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00059.png":
-{
-	"frame": {"x":2048,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00060.png":
-{
-	"frame": {"x":1792,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00061.png":
-{
-	"frame": {"x":1536,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00062.png":
-{
-	"frame": {"x":1536,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00063.png":
-{
-	"frame": {"x":1536,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00064.png":
-{
-	"frame": {"x":1536,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00065.png":
-{
-	"frame": {"x":1536,"y":2912,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00066.png":
-{
-	"frame": {"x":1536,"y":2688,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00067.png":
-{
-	"frame": {"x":1536,"y":2464,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00068.png":
-{
-	"frame": {"x":1536,"y":2240,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00069.png":
-{
-	"frame": {"x":1536,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00070.png":
-{
-	"frame": {"x":1536,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00071.png":
-{
-	"frame": {"x":3840,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00072.png":
-{
-	"frame": {"x":3584,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00073.png":
-{
-	"frame": {"x":3328,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00074.png":
-{
-	"frame": {"x":3072,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00075.png":
-{
-	"frame": {"x":2816,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00076.png":
-{
-	"frame": {"x":2560,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00077.png":
-{
-	"frame": {"x":2304,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00078.png":
-{
-	"frame": {"x":2048,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00079.png":
-{
-	"frame": {"x":1792,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00080.png":
-{
-	"frame": {"x":1536,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00081.png":
-{
-	"frame": {"x":1280,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00082.png":
-{
-	"frame": {"x":1280,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00083.png":
-{
-	"frame": {"x":1280,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00084.png":
-{
-	"frame": {"x":1280,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00085.png":
-{
-	"frame": {"x":1280,"y":2912,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00086.png":
-{
-	"frame": {"x":1280,"y":2688,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00087.png":
-{
-	"frame": {"x":1280,"y":2464,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00088.png":
-{
-	"frame": {"x":1280,"y":2240,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00089.png":
-{
-	"frame": {"x":1280,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00090.png":
-{
-	"frame": {"x":1280,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00091.png":
-{
-	"frame": {"x":1280,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00092.png":
-{
-	"frame": {"x":3840,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00093.png":
-{
-	"frame": {"x":3584,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00094.png":
-{
-	"frame": {"x":3328,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00095.png":
-{
-	"frame": {"x":3072,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00096.png":
-{
-	"frame": {"x":2816,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00097.png":
-{
-	"frame": {"x":2560,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00098.png":
-{
-	"frame": {"x":2304,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00099.png":
-{
-	"frame": {"x":2048,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00100.png":
-{
-	"frame": {"x":1792,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00101.png":
-{
-	"frame": {"x":1536,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00102.png":
-{
-	"frame": {"x":1280,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00103.png":
-{
-	"frame": {"x":3840,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00104.png":
-{
-	"frame": {"x":3584,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00105.png":
-{
-	"frame": {"x":3328,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00106.png":
-{
-	"frame": {"x":3072,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00107.png":
-{
-	"frame": {"x":2816,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00108.png":
-{
-	"frame": {"x":2560,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00109.png":
-{
-	"frame": {"x":2304,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00110.png":
-{
-	"frame": {"x":2048,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00111.png":
-{
-	"frame": {"x":1792,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00112.png":
-{
-	"frame": {"x":1536,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00113.png":
-{
-	"frame": {"x":1280,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00114.png":
-{
-	"frame": {"x":1024,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00115.png":
-{
-	"frame": {"x":1024,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00116.png":
-{
-	"frame": {"x":1024,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00117.png":
-{
-	"frame": {"x":1024,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00118.png":
-{
-	"frame": {"x":1024,"y":2912,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00119.png":
-{
-	"frame": {"x":1024,"y":2688,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00120.png":
-{
-	"frame": {"x":1024,"y":2464,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00121.png":
-{
-	"frame": {"x":1024,"y":2240,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00122.png":
-{
-	"frame": {"x":1024,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00123.png":
-{
-	"frame": {"x":1024,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00124.png":
-{
-	"frame": {"x":1024,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00125.png":
-{
-	"frame": {"x":1024,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00126.png":
-{
-	"frame": {"x":1024,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00127.png":
-{
-	"frame": {"x":3840,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00128.png":
-{
-	"frame": {"x":3584,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00129.png":
-{
-	"frame": {"x":3328,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00130.png":
-{
-	"frame": {"x":3072,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00131.png":
-{
-	"frame": {"x":2816,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00132.png":
-{
-	"frame": {"x":2560,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00133.png":
-{
-	"frame": {"x":2304,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00134.png":
-{
-	"frame": {"x":2048,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00135.png":
-{
-	"frame": {"x":1792,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00136.png":
-{
-	"frame": {"x":1536,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00137.png":
-{
-	"frame": {"x":1280,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00138.png":
-{
-	"frame": {"x":1024,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00139.png":
-{
-	"frame": {"x":768,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00140.png":
-{
-	"frame": {"x":768,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00141.png":
-{
-	"frame": {"x":768,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00142.png":
-{
-	"frame": {"x":768,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00143.png":
-{
-	"frame": {"x":768,"y":2912,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00144.png":
-{
-	"frame": {"x":768,"y":2688,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00145.png":
-{
-	"frame": {"x":768,"y":2464,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00146.png":
-{
-	"frame": {"x":768,"y":2240,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00147.png":
-{
-	"frame": {"x":768,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00148.png":
-{
-	"frame": {"x":768,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00149.png":
-{
-	"frame": {"x":768,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00150.png":
-{
-	"frame": {"x":768,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00151.png":
-{
-	"frame": {"x":768,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00152.png":
-{
-	"frame": {"x":768,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00153.png":
-{
-	"frame": {"x":3840,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00154.png":
-{
-	"frame": {"x":3584,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00155.png":
-{
-	"frame": {"x":3328,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00156.png":
-{
-	"frame": {"x":3072,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00157.png":
-{
-	"frame": {"x":2816,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00158.png":
-{
-	"frame": {"x":2560,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00159.png":
-{
-	"frame": {"x":2304,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00160.png":
-{
-	"frame": {"x":2048,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00161.png":
-{
-	"frame": {"x":1792,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00162.png":
-{
-	"frame": {"x":1536,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00163.png":
-{
-	"frame": {"x":1280,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00164.png":
-{
-	"frame": {"x":1024,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00165.png":
-{
-	"frame": {"x":768,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00166.png":
-{
-	"frame": {"x":512,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00167.png":
-{
-	"frame": {"x":512,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00168.png":
-{
-	"frame": {"x":512,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00169.png":
-{
-	"frame": {"x":512,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00170.png":
-{
-	"frame": {"x":512,"y":2912,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00171.png":
-{
-	"frame": {"x":512,"y":2688,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00172.png":
-{
-	"frame": {"x":512,"y":2464,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00173.png":
-{
-	"frame": {"x":512,"y":2240,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00174.png":
-{
-	"frame": {"x":512,"y":2016,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00175.png":
-{
-	"frame": {"x":512,"y":1792,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00176.png":
-{
-	"frame": {"x":512,"y":1568,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00177.png":
-{
-	"frame": {"x":512,"y":1344,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00178.png":
-{
-	"frame": {"x":512,"y":1120,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00179.png":
-{
-	"frame": {"x":512,"y":896,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00180.png":
-{
-	"frame": {"x":512,"y":672,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00181.png":
-{
-	"frame": {"x":3840,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00182.png":
-{
-	"frame": {"x":3584,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00183.png":
-{
-	"frame": {"x":3328,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00184.png":
-{
-	"frame": {"x":3072,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00185.png":
-{
-	"frame": {"x":2816,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00186.png":
-{
-	"frame": {"x":2560,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00187.png":
-{
-	"frame": {"x":2304,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00188.png":
-{
-	"frame": {"x":2048,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00189.png":
-{
-	"frame": {"x":1792,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00190.png":
-{
-	"frame": {"x":1536,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00191.png":
-{
-	"frame": {"x":1280,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00192.png":
-{
-	"frame": {"x":1024,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00193.png":
-{
-	"frame": {"x":768,"y":448,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00194.png":
 {
 	"frame": {"x":512,"y":448,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00042.png":
+{
+	"frame": {"x":768,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00043.png":
+{
+	"frame": {"x":1024,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00044.png":
+{
+	"frame": {"x":1280,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00045.png":
+{
+	"frame": {"x":1536,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00046.png":
+{
+	"frame": {"x":1792,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00047.png":
+{
+	"frame": {"x":2048,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00048.png":
+{
+	"frame": {"x":2304,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00049.png":
+{
+	"frame": {"x":2560,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00050.png":
+{
+	"frame": {"x":2816,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00051.png":
+{
+	"frame": {"x":3072,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00052.png":
+{
+	"frame": {"x":3328,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00053.png":
+{
+	"frame": {"x":3584,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00054.png":
+{
+	"frame": {"x":3840,"y":448,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00055.png":
+{
+	"frame": {"x":0,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00056.png":
+{
+	"frame": {"x":256,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00057.png":
+{
+	"frame": {"x":512,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00058.png":
+{
+	"frame": {"x":768,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00059.png":
+{
+	"frame": {"x":1024,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00060.png":
+{
+	"frame": {"x":1280,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00061.png":
+{
+	"frame": {"x":1536,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00062.png":
+{
+	"frame": {"x":1792,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00063.png":
+{
+	"frame": {"x":2048,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00064.png":
+{
+	"frame": {"x":2304,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00065.png":
+{
+	"frame": {"x":2560,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00066.png":
+{
+	"frame": {"x":2816,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00067.png":
+{
+	"frame": {"x":3072,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00068.png":
+{
+	"frame": {"x":3328,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00069.png":
+{
+	"frame": {"x":3584,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00070.png":
+{
+	"frame": {"x":3840,"y":672,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00071.png":
+{
+	"frame": {"x":0,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00072.png":
+{
+	"frame": {"x":256,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00073.png":
+{
+	"frame": {"x":512,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00074.png":
+{
+	"frame": {"x":768,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00075.png":
+{
+	"frame": {"x":1024,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00076.png":
+{
+	"frame": {"x":1280,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00077.png":
+{
+	"frame": {"x":1536,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00078.png":
+{
+	"frame": {"x":1792,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00079.png":
+{
+	"frame": {"x":2048,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00080.png":
+{
+	"frame": {"x":2304,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00081.png":
+{
+	"frame": {"x":2560,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00082.png":
+{
+	"frame": {"x":2816,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00083.png":
+{
+	"frame": {"x":3072,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00084.png":
+{
+	"frame": {"x":3328,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00085.png":
+{
+	"frame": {"x":3584,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00086.png":
+{
+	"frame": {"x":3840,"y":896,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00087.png":
+{
+	"frame": {"x":0,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00088.png":
+{
+	"frame": {"x":256,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00089.png":
+{
+	"frame": {"x":512,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00090.png":
+{
+	"frame": {"x":768,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00091.png":
+{
+	"frame": {"x":1024,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00092.png":
+{
+	"frame": {"x":1280,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00093.png":
+{
+	"frame": {"x":1536,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00094.png":
+{
+	"frame": {"x":1792,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00095.png":
+{
+	"frame": {"x":2048,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00096.png":
+{
+	"frame": {"x":2304,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00097.png":
+{
+	"frame": {"x":2560,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00098.png":
+{
+	"frame": {"x":2816,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00099.png":
+{
+	"frame": {"x":3072,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00100.png":
+{
+	"frame": {"x":3328,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00101.png":
+{
+	"frame": {"x":3584,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00102.png":
+{
+	"frame": {"x":3840,"y":1120,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00103.png":
+{
+	"frame": {"x":0,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00104.png":
+{
+	"frame": {"x":256,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00105.png":
+{
+	"frame": {"x":512,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00106.png":
+{
+	"frame": {"x":768,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00107.png":
+{
+	"frame": {"x":1024,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00108.png":
+{
+	"frame": {"x":1280,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00109.png":
+{
+	"frame": {"x":1536,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00110.png":
+{
+	"frame": {"x":1792,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00111.png":
+{
+	"frame": {"x":2048,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00112.png":
+{
+	"frame": {"x":2304,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00113.png":
+{
+	"frame": {"x":2560,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00114.png":
+{
+	"frame": {"x":2816,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00115.png":
+{
+	"frame": {"x":3072,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00116.png":
+{
+	"frame": {"x":3328,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00117.png":
+{
+	"frame": {"x":3584,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00118.png":
+{
+	"frame": {"x":3840,"y":1344,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00119.png":
+{
+	"frame": {"x":0,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00120.png":
+{
+	"frame": {"x":256,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00121.png":
+{
+	"frame": {"x":512,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00122.png":
+{
+	"frame": {"x":768,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00123.png":
+{
+	"frame": {"x":1024,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00124.png":
+{
+	"frame": {"x":1280,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00125.png":
+{
+	"frame": {"x":1536,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00126.png":
+{
+	"frame": {"x":1792,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00127.png":
+{
+	"frame": {"x":2048,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00128.png":
+{
+	"frame": {"x":2304,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00129.png":
+{
+	"frame": {"x":2560,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00130.png":
+{
+	"frame": {"x":2816,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00131.png":
+{
+	"frame": {"x":3072,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00132.png":
+{
+	"frame": {"x":3328,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00133.png":
+{
+	"frame": {"x":3584,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00134.png":
+{
+	"frame": {"x":3840,"y":1568,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00135.png":
+{
+	"frame": {"x":0,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00136.png":
+{
+	"frame": {"x":256,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00137.png":
+{
+	"frame": {"x":512,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00138.png":
+{
+	"frame": {"x":768,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00139.png":
+{
+	"frame": {"x":1024,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00140.png":
+{
+	"frame": {"x":1280,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00141.png":
+{
+	"frame": {"x":1536,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00142.png":
+{
+	"frame": {"x":1792,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00143.png":
+{
+	"frame": {"x":2048,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00144.png":
+{
+	"frame": {"x":2304,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00145.png":
+{
+	"frame": {"x":2560,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00146.png":
+{
+	"frame": {"x":2816,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00147.png":
+{
+	"frame": {"x":3072,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00148.png":
+{
+	"frame": {"x":3328,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00149.png":
+{
+	"frame": {"x":3584,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00150.png":
+{
+	"frame": {"x":3840,"y":1792,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00151.png":
+{
+	"frame": {"x":0,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00152.png":
+{
+	"frame": {"x":256,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00153.png":
+{
+	"frame": {"x":512,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00154.png":
+{
+	"frame": {"x":768,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00155.png":
+{
+	"frame": {"x":1024,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00156.png":
+{
+	"frame": {"x":1280,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00157.png":
+{
+	"frame": {"x":1536,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00158.png":
+{
+	"frame": {"x":1792,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00159.png":
+{
+	"frame": {"x":2048,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00160.png":
+{
+	"frame": {"x":2304,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00161.png":
+{
+	"frame": {"x":2560,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00162.png":
+{
+	"frame": {"x":2816,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00163.png":
+{
+	"frame": {"x":3072,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00164.png":
+{
+	"frame": {"x":3328,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00165.png":
+{
+	"frame": {"x":3584,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00166.png":
+{
+	"frame": {"x":3840,"y":2016,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00167.png":
+{
+	"frame": {"x":0,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00168.png":
+{
+	"frame": {"x":256,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00169.png":
+{
+	"frame": {"x":512,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00170.png":
+{
+	"frame": {"x":768,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00171.png":
+{
+	"frame": {"x":1024,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00172.png":
+{
+	"frame": {"x":1280,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00173.png":
+{
+	"frame": {"x":1536,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00174.png":
+{
+	"frame": {"x":1792,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00175.png":
+{
+	"frame": {"x":2048,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00176.png":
+{
+	"frame": {"x":2304,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00177.png":
+{
+	"frame": {"x":2560,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00178.png":
+{
+	"frame": {"x":2816,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00179.png":
+{
+	"frame": {"x":3072,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00180.png":
+{
+	"frame": {"x":3328,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00181.png":
+{
+	"frame": {"x":3584,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00182.png":
+{
+	"frame": {"x":3840,"y":2240,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00183.png":
+{
+	"frame": {"x":0,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00184.png":
+{
+	"frame": {"x":256,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00185.png":
+{
+	"frame": {"x":512,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00186.png":
+{
+	"frame": {"x":768,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00187.png":
+{
+	"frame": {"x":1024,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00188.png":
+{
+	"frame": {"x":1280,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00189.png":
+{
+	"frame": {"x":1536,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00190.png":
+{
+	"frame": {"x":1792,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00191.png":
+{
+	"frame": {"x":2048,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00192.png":
+{
+	"frame": {"x":2304,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00193.png":
+{
+	"frame": {"x":2560,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00194.png":
+{
+	"frame": {"x":2816,"y":2464,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00195.png":
 {
-	"frame": {"x":256,"y":3808,"w":256,"h":224},
+	"frame": {"x":3072,"y":2464,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00196.png":
 {
-	"frame": {"x":256,"y":3584,"w":256,"h":224},
+	"frame": {"x":3328,"y":2464,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00197.png":
 {
-	"frame": {"x":256,"y":3360,"w":256,"h":224},
+	"frame": {"x":3584,"y":2464,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00198.png":
 {
-	"frame": {"x":256,"y":3136,"w":256,"h":224},
+	"frame": {"x":3840,"y":2464,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00199.png":
 {
-	"frame": {"x":256,"y":3136,"w":256,"h":224},
+	"frame": {"x":3840,"y":2464,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00200.png":
 {
-	"frame": {"x":256,"y":2912,"w":256,"h":224},
+	"frame": {"x":0,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00201.png":
 {
@@ -1590,663 +1788,781 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00202.png":
 {
-	"frame": {"x":256,"y":2464,"w":256,"h":224},
+	"frame": {"x":512,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00203.png":
 {
-	"frame": {"x":256,"y":2240,"w":256,"h":224},
+	"frame": {"x":768,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00204.png":
 {
-	"frame": {"x":256,"y":2016,"w":256,"h":224},
+	"frame": {"x":1024,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00205.png":
 {
-	"frame": {"x":256,"y":1792,"w":256,"h":224},
+	"frame": {"x":1280,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00206.png":
 {
-	"frame": {"x":256,"y":1568,"w":256,"h":224},
+	"frame": {"x":1536,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00207.png":
 {
-	"frame": {"x":256,"y":1344,"w":256,"h":224},
+	"frame": {"x":1792,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00208.png":
 {
-	"frame": {"x":256,"y":1120,"w":256,"h":224},
+	"frame": {"x":2048,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00209.png":
 {
-	"frame": {"x":256,"y":896,"w":256,"h":224},
+	"frame": {"x":2304,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00210.png":
 {
-	"frame": {"x":256,"y":672,"w":256,"h":224},
+	"frame": {"x":2560,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00211.png":
 {
-	"frame": {"x":256,"y":448,"w":256,"h":224},
+	"frame": {"x":2816,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00212.png":
 {
-	"frame": {"x":3840,"y":224,"w":256,"h":224},
+	"frame": {"x":3072,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00213.png":
 {
-	"frame": {"x":3584,"y":224,"w":256,"h":224},
+	"frame": {"x":3328,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00214.png":
 {
-	"frame": {"x":3328,"y":224,"w":256,"h":224},
+	"frame": {"x":3584,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00215.png":
 {
-	"frame": {"x":3072,"y":224,"w":256,"h":224},
+	"frame": {"x":3840,"y":2688,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00216.png":
-{
-	"frame": {"x":2816,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00217.png":
-{
-	"frame": {"x":2560,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00218.png":
-{
-	"frame": {"x":2304,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00219.png":
-{
-	"frame": {"x":2048,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00220.png":
-{
-	"frame": {"x":1792,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00221.png":
-{
-	"frame": {"x":1536,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00222.png":
-{
-	"frame": {"x":1280,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00223.png":
-{
-	"frame": {"x":1024,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00224.png":
-{
-	"frame": {"x":768,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00225.png":
-{
-	"frame": {"x":512,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00226.png":
-{
-	"frame": {"x":256,"y":224,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00227.png":
-{
-	"frame": {"x":0,"y":3808,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00228.png":
-{
-	"frame": {"x":0,"y":3584,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00229.png":
-{
-	"frame": {"x":0,"y":3360,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00230.png":
-{
-	"frame": {"x":0,"y":3136,"w":256,"h":224},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
-},
-"Zelda - A Link to the Past_00231.png":
 {
 	"frame": {"x":0,"y":2912,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00217.png":
+{
+	"frame": {"x":256,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00218.png":
+{
+	"frame": {"x":512,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00219.png":
+{
+	"frame": {"x":768,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00220.png":
+{
+	"frame": {"x":1024,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00221.png":
+{
+	"frame": {"x":1280,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00222.png":
+{
+	"frame": {"x":1536,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00223.png":
+{
+	"frame": {"x":1792,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00224.png":
+{
+	"frame": {"x":2048,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00225.png":
+{
+	"frame": {"x":2304,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00226.png":
+{
+	"frame": {"x":2560,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00227.png":
+{
+	"frame": {"x":2816,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00228.png":
+{
+	"frame": {"x":3072,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00229.png":
+{
+	"frame": {"x":3328,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00230.png":
+{
+	"frame": {"x":3584,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Zelda - A Link to the Past_00231.png":
+{
+	"frame": {"x":3840,"y":2912,"w":256,"h":224},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00232.png":
 {
-	"frame": {"x":0,"y":2688,"w":256,"h":224},
+	"frame": {"x":0,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00233.png":
 {
-	"frame": {"x":0,"y":2464,"w":256,"h":224},
+	"frame": {"x":256,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00234.png":
 {
-	"frame": {"x":0,"y":2464,"w":256,"h":224},
+	"frame": {"x":256,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00235.png":
 {
-	"frame": {"x":0,"y":2240,"w":256,"h":224},
+	"frame": {"x":512,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00236.png":
 {
-	"frame": {"x":0,"y":2016,"w":256,"h":224},
+	"frame": {"x":768,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00237.png":
 {
-	"frame": {"x":0,"y":2016,"w":256,"h":224},
+	"frame": {"x":768,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00238.png":
 {
-	"frame": {"x":0,"y":1792,"w":256,"h":224},
+	"frame": {"x":1024,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00239.png":
 {
-	"frame": {"x":0,"y":1792,"w":256,"h":224},
+	"frame": {"x":1024,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00240.png":
 {
-	"frame": {"x":0,"y":1568,"w":256,"h":224},
+	"frame": {"x":1280,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00241.png":
 {
-	"frame": {"x":0,"y":1344,"w":256,"h":224},
+	"frame": {"x":1536,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00242.png":
 {
-	"frame": {"x":0,"y":1344,"w":256,"h":224},
+	"frame": {"x":1536,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00243.png":
 {
-	"frame": {"x":0,"y":1120,"w":256,"h":224},
+	"frame": {"x":1792,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00244.png":
 {
-	"frame": {"x":0,"y":896,"w":256,"h":224},
+	"frame": {"x":2048,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00245.png":
 {
-	"frame": {"x":0,"y":896,"w":256,"h":224},
+	"frame": {"x":2048,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00246.png":
 {
-	"frame": {"x":0,"y":672,"w":256,"h":224},
+	"frame": {"x":2304,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00247.png":
 {
-	"frame": {"x":0,"y":672,"w":256,"h":224},
+	"frame": {"x":2304,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00248.png":
 {
-	"frame": {"x":0,"y":448,"w":256,"h":224},
+	"frame": {"x":2560,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00249.png":
 {
-	"frame": {"x":0,"y":224,"w":256,"h":224},
+	"frame": {"x":2816,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00250.png":
 {
-	"frame": {"x":0,"y":224,"w":256,"h":224},
+	"frame": {"x":2816,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00251.png":
 {
-	"frame": {"x":3840,"y":0,"w":256,"h":224},
+	"frame": {"x":3072,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00252.png":
 {
-	"frame": {"x":3584,"y":0,"w":256,"h":224},
+	"frame": {"x":3328,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00253.png":
 {
-	"frame": {"x":3584,"y":0,"w":256,"h":224},
+	"frame": {"x":3328,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00254.png":
 {
-	"frame": {"x":3328,"y":0,"w":256,"h":224},
+	"frame": {"x":3584,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00255.png":
 {
-	"frame": {"x":3328,"y":0,"w":256,"h":224},
+	"frame": {"x":3584,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00256.png":
 {
-	"frame": {"x":3072,"y":0,"w":256,"h":224},
+	"frame": {"x":3840,"y":3136,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00257.png":
 {
-	"frame": {"x":2816,"y":0,"w":256,"h":224},
+	"frame": {"x":0,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00258.png":
 {
-	"frame": {"x":2816,"y":0,"w":256,"h":224},
+	"frame": {"x":0,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00259.png":
 {
-	"frame": {"x":2560,"y":0,"w":256,"h":224},
+	"frame": {"x":256,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00260.png":
 {
-	"frame": {"x":2304,"y":0,"w":256,"h":224},
+	"frame": {"x":512,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00261.png":
 {
-	"frame": {"x":2304,"y":0,"w":256,"h":224},
+	"frame": {"x":512,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00262.png":
 {
-	"frame": {"x":2048,"y":0,"w":256,"h":224},
+	"frame": {"x":768,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00263.png":
 {
-	"frame": {"x":2048,"y":0,"w":256,"h":224},
+	"frame": {"x":768,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00264.png":
 {
-	"frame": {"x":1792,"y":0,"w":256,"h":224},
+	"frame": {"x":1024,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00265.png":
 {
-	"frame": {"x":1536,"y":0,"w":256,"h":224},
+	"frame": {"x":1280,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00266.png":
 {
-	"frame": {"x":1280,"y":0,"w":256,"h":224},
+	"frame": {"x":1536,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00267.png":
 {
-	"frame": {"x":1024,"y":0,"w":256,"h":224},
+	"frame": {"x":1792,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00268.png":
 {
-	"frame": {"x":768,"y":0,"w":256,"h":224},
+	"frame": {"x":2048,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00269.png":
 {
-	"frame": {"x":512,"y":0,"w":256,"h":224},
+	"frame": {"x":2304,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00270.png":
 {
-	"frame": {"x":512,"y":0,"w":256,"h":224},
+	"frame": {"x":2304,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00271.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00272.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00273.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00274.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00275.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00276.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00277.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "Zelda - A Link to the Past_00278.png":
 {
-	"frame": {"x":256,"y":0,"w":256,"h":224},
+	"frame": {"x":2560,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "background.png":
 {
-	"frame": {"x":0,"y":0,"w":256,"h":224},
+	"frame": {"x":2816,"y":3360,"w":256,"h":224},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":224},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "logo.png":
 {
-	"frame": {"x":2560,"y":2688,"w":176,"h":132},
+	"frame": {"x":3072,"y":3360,"w":176,"h":132},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":60,"w":176,"h":132},
-	"sourceSize": {"w":256,"h":224}
+	"sourceSize": {"w":256,"h":224},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"lore_img1.png":
+{
+	"frame": {"x":3248,"y":3360,"w":168,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":168,"h":48},
+	"sourceSize": {"w":168,"h":48},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"lore_img2.png":
+{
+	"frame": {"x":3416,"y":3360,"w":168,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":168,"h":48},
+	"sourceSize": {"w":168,"h":48},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"lore_img3.png":
+{
+	"frame": {"x":3584,"y":3360,"w":168,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":168,"h":48},
+	"sourceSize": {"w":168,"h":48},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"lore_img4.png":
+{
+	"frame": {"x":3752,"y":3360,"w":168,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":168,"h":48},
+	"sourceSize": {"w":168,"h":48},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "sword.png":
 {
-	"frame": {"x":2560,"y":2820,"w":31,"h":128},
+	"frame": {"x":3920,"y":3360,"w":31,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":128},
-	"sourceSize": {"w":31,"h":128}
+	"sourceSize": {"w":31,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
 },
 "zpart.png":
 {
-	"frame": {"x":0,"y":4032,"w":36,"h":49},
+	"frame": {"x":3951,"y":3360,"w":36,"h":49},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":49},
-	"sourceSize": {"w":36,"h":49}
+	"sourceSize": {"w":36,"h":49},
+	"pivot": {"x":0.5,"y":0.5}
 }},
 "meta": {
-	"app": "http://www.codeandweb.com/texturepacker ",
+	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "intro.png",
 	"format": "RGBA8888",
 	"size": {"w":4096,"h":4096},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:76e760a7110700289760037795dec02d:1/1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:282052ce16c563784f1ea54655ea6867:2824ba0b5294d7e0cd9591f6ed8ef2be:1c3925316af8212576a1ec3cf99896c2$"
 }
 }

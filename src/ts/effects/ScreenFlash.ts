@@ -3,7 +3,7 @@ module Lttp.Effects {
 
         onComplete: Phaser.Signal;
 
-        constructor(game, color) {
+        constructor(game: Phaser.Game, color?: String) {
             super(game, 0, 0, game.add.bitmapData(game.width, game.height));
 
             color = color || 'white';

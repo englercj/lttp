@@ -2,7 +2,7 @@ module Lttp {
     export class Game extends Phaser.Game {
 
         constructor() {
-            super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
+            super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.CANVAS, 'game');
 
             // PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
 
@@ -25,6 +25,17 @@ module Lttp {
             //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
             this.scale.setScreenSize(false); //TODO: phaser.d.ts says param is required, but it isn't
+
+            this.onPause.add(this.lttpPaused.bind(this));
+            this.onResume.add(this.lttpResumed.bind(this));
+        }
+
+        lttpPaused() {
+            this.sound.pauseAll();
+        }
+
+        lttpResumed() {
+            this.sound.resumeAll();
         }
 
     }

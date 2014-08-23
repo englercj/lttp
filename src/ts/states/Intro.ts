@@ -10,6 +10,10 @@ module Lttp.States {
 
         gamepad: Phaser.SinglePad;
 
+        introGroup: Phaser.Group;
+        loreGroup: Phaser.Group;
+
+        // intro group sprites
         intro: Phaser.Sprite;
         background: Phaser.Sprite;
         title: Phaser.Sprite;
@@ -18,55 +22,30 @@ module Lttp.States {
         shine: Phaser.Sprite;
         sparkle: Phaser.Sprite;
 
+        // lore group sprites
+        loreBg1: Phaser.TileSprite;
+        loreBg2: Phaser.TileSprite;
+        loreImg1: Phaser.Sprite;
+        loreImg2: Phaser.Sprite;
+        loreImg3: Phaser.Sprite;
+        loreHighlight: Phaser.Graphics;
+
         flashes: Effects.ScreenFlash[] = [];
+
+        count: number = 0;
 
         create() {
             this.introMusic = this.add.audio('music_title', Data.Constants.AUDIO_MUSIC_VOLUME);
             this.swordSound = this.add.audio('effect_sword1', Data.Constants.AUDIO_EFFECT_VOLUME);
             this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
 
-            this.background = this.add.sprite(0, 0, 'sprite_intro', 'background.png');
+            this._createIntroGroup();
+            this._createLoreGroup();
 
-            this.intro = this.add.sprite(0, 0, 'sprite_intro');
+            this._bindInput();
 
-            this.title = this.add.sprite(0, 0, 'sprite_intro', 'logo.png');
-            this.title.alpha = 0;
-
-            this.sparkle = this.add.sprite(0, 0, 'sprite_particles');
-            this.sparkle.visible = false;
-            this.sparkle.anchor.set(0.5, 0.5);
-            this.sparkle.animations.add('sparkle', [
-                'sparkle/0.png',
-                'sparkle/1.png',
-                'sparkle/2.png',
-                'sparkle/3.png',
-                'sparkle/4.png',
-                'sparkle/5.png'
-            ], 17, false, false);
-
-            this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png');
-
-            this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png');
-            this.shine.visible = false;
-
-            this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png');
-            this.zpart.visible = false;
-
-            this.flashes[0] = this.game.add.existing(new Effects.ScreenFlash(this.game, 'red'));
-            this.flashes[1] = this.game.add.existing(new Effects.ScreenFlash(this.game, 'green'));
-            this.flashes[2] = this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue'));
-
-            this.keyEnter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-            this.keySpace = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-            this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.ENTER);
-            this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
-
-            this.game.input.gamepad.start();
-            this.gamepad = this.game.input.gamepad.pad1;
-
-            this._setupIntroSprite();
-            this.startAnimation();
+            // this.startIntroAnimation();
+            this.startLoreAnimation();
         }
 
         update() {
@@ -74,18 +53,38 @@ module Lttp.States {
                 this.gamepad.isDown(Phaser.Gamepad.XBOX360_A) ||
                 this.gamepad.isDown(Phaser.Gamepad.XBOX360_B)
             ) {
-                this.complete();
+                this.skip();
+            }
+
+            this.count++;
+            if (this.loreGroup.visible && (this.count % 3) === 0) {
+
+                this.loreBg1.tilePosition.x += 1;
+                this.loreBg1.tilePosition.y -= 1;
+
+                this.loreBg2.tilePosition.x -= 1;
+                this.loreBg2.tilePosition.y -= 1;
             }
         }
 
-        startAnimation() {
+        startIntroAnimation() {
+            this.introGroup.visible = true;
+            this.loreGroup.visible = false;
+
             this.intro.animations.play('intro');
 
             var self = this;
 
-            setTimeout(function() {
-                self.introMusic.play();
-            }, 3100);
+            this.introMusic.play().onStop.addOnce(function () {
+                console.log('MUSIC STOP');
+                // after music stops playing (there is silence padding on either side) fade to lore screen
+                self.game.add.tween(self.introGroup)
+                    .to({ alpha: 0 }, 500, Phaser.Easing.Linear.None)
+                    .start()
+                    .onComplete.addOnce(function () {
+                        self.startLoreAnimation();
+                    });
+            });
 
             // When the intro completes
             this.intro.events.onAnimationComplete.add(function () {
@@ -132,7 +131,16 @@ module Lttp.States {
             });
         }
 
-        complete() {
+        startLoreAnimation() {
+            this.introGroup.visible = false;
+            this.loreGroup.visible = true;
+
+            this.game.add.tween(this.loreGroup)
+                .to({ alpha: 1 }, 500, Phaser.Easing.Linear.None)
+                .start();
+        }
+
+        skip() {
             //TODO: Cleanup, cancel tweens, hide sprites, etc
 
             this.game.state.start('MainMenu', true, false);
@@ -198,7 +206,13 @@ module Lttp.States {
             }, this);
         }
 
-        _setupIntroSprite() {
+        _createIntroGroup() {
+            this.introGroup = this.add.group();
+            this.introGroup.visible = false;
+
+            this.background = this.add.sprite(0, 0, 'sprite_intro', 'background.png', this.introGroup);
+
+            this.intro = this.add.sprite(0, 0, 'sprite_intro', null, this.introGroup);
             var frames = [];
 
             for(var i = 3; i < 278; ++i) {
@@ -207,8 +221,80 @@ module Lttp.States {
 
                 frames.push('Zelda - A Link to the Past_' + s + '.png');
             }
-
             this.intro.animations.add('intro', frames, 30, false, false);
+
+            this.title = this.add.sprite(0, 0, 'sprite_intro', 'logo.png', this.introGroup);
+            this.title.alpha = 0;
+
+            this.sparkle = this.add.sprite(0, 0, 'sprite_particles', null, this.introGroup);
+            this.sparkle.visible = false;
+            this.sparkle.anchor.set(0.5, 0.5);
+            this.sparkle.animations.add('sparkle', [
+                'sparkle/0.png',
+                'sparkle/1.png',
+                'sparkle/2.png',
+                'sparkle/3.png',
+                'sparkle/4.png',
+                'sparkle/5.png'
+            ], 17, false, false);
+
+            this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png', this.introGroup);
+
+            this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png', this.introGroup);
+            this.shine.visible = false;
+
+            this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png', this.introGroup);
+            this.zpart.visible = false;
+
+            this.flashes[0] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'red')));
+            this.flashes[1] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'green')));
+            this.flashes[2] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue')));
+        }
+
+        _createLoreGroup() {
+            this.loreGroup = this.add.group();
+            this.loreGroup.visible = false;
+            this.loreGroup.alpha = 0;
+
+            this.loreBg1 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'sprite_particles', 'lore/bg1.png', this.loreGroup);
+            this.loreBg2 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'sprite_particles', 'lore/bg2.png', this.loreGroup);
+
+            this.loreHighlight = this.add.graphics(0, 0, this.loreGroup);
+            this.loreHighlight.beginFill(0xFFFF00, 0.12);
+
+            //top
+            this.loreHighlight.drawRect(24, 32, 200, 40);
+
+            //right
+            this.loreHighlight.drawRect(214, 72, 10, 48);
+
+            //bottom
+            this.loreHighlight.drawRect(24, 120, 200, 72);
+
+            //left
+            this.loreHighlight.drawRect(24, 72, 26, 48);
+
+            this.loreHighlight.endFill();
+
+            this.loreImg1 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img1.png', this.loreGroup);
+
+            this.loreImg2 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img2.png', this.loreGroup);
+            this.loreImg2.visible = false;
+
+            this.loreImg3 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img3.png', this.loreGroup);
+            this.loreImg3.visible = false;
+
+        }
+
+        _bindInput() {
+            this.keyEnter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+            this.keySpace = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+            this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.ENTER);
+            this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+
+            this.game.input.gamepad.start();
+            this.gamepad = this.game.input.gamepad.pad1;
         }
 
     }
