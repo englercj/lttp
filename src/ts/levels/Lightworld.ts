@@ -1,7 +1,7 @@
 ﻿/// <reference path="Level.ts" />
 
 module Lttp.Levels {
-    export class Lightworld extends Level {
+    export class Lightworld extends Levels.Level {
 
         preload() {
             // Tilemap

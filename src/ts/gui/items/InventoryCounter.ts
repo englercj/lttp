@@ -1,3 +1,5 @@
+/// <reference path="Item.ts" />
+
 module Lttp.Gui.Items {
     export class InventoryCounter extends Gui.Items.Item {
         icon: Phaser.Sprite;
@@ -16,8 +18,7 @@ module Lttp.Gui.Items {
                 this.icon.position.x += 5;
             }
 
-            this.font = new Fonts.Hud();
-            this.font.position.y = 30;
+            this.font = new Fonts.Hud(game, 0, 30);
             this.add(this.font);
 
             this.setValue(value);

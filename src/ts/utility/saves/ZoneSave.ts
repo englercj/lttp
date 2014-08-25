@@ -1,7 +1,7 @@
 /// <reference path="Save.ts" />
 
 module Lttp.Utility {
-    export class ZoneSave extends Save {
+    export class ZoneSave extends Utility.Save {
 
         constructor(public slot: number, public zone: Zone, public map: string) {
             super('zone_' + slot + '_' + map + '_' + zone.name);

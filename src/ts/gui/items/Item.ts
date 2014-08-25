@@ -2,7 +2,7 @@ module Lttp.Gui.Items {
     export class Item extends Phaser.Group {
         value: any;
 
-        constructor(game: Phaser.Game, parent: Lttp.Gui.Hud, x: number, y: number, name: string, value: number = 0) {
+        constructor(game: Phaser.Game, parent: Gui.Hud, x: number, y: number, name: string, value: any = 0) {
             super(game, parent, name);
 
             this.value = value;

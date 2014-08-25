@@ -54,7 +54,10 @@ gulp.task('scripts', function () {
     var fname = 'lttp.js',
         fnameMin = 'lttp.min.js',
         outputDir = './public/js',
-        tsResult = gulp.src(['./src/ts/**/*.ts', './bower_components/phaser-official/build/phaser.d.ts'])
+        tsResult = gulp.src([
+                './src/ts/**/*.ts',
+                './bower_components/phaser-official/build/phaser.d.ts'
+            ])
             // .pipe(sourcemaps.init())
             .pipe(ts(tsProject));
 

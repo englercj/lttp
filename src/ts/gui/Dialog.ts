@@ -6,7 +6,7 @@ module Lttp.Gui {
 
         frameSprite: Phaser.Sprite;
 
-        font: Lttp.Fonts.ReturnOfGanon;
+        font: Fonts.ReturnOfGanon;
 
         doneCb: () => void;
 
@@ -35,9 +35,8 @@ module Lttp.Gui {
             this.frameSprite = this.game.add.sprite(0, 0, 'sprite_gui', 'dialog.png', this);
 
             //add font
-            this.font = new Fonts.ReturnOfGanon();
+            this.font = new Fonts.ReturnOfGanon(game, 8, 8);
             // this.font.scale.set(0.5);
-            this.font.position.set(8, 8);
             this.add(this.font);
         }
 

@@ -7,7 +7,7 @@ module Lttp.Utility {
         position: Phaser.Point;
     }
 
-    export class PlayerSave extends Save {
+    export class PlayerSave extends Utility.Save {
 
         constructor(public slot: number, public name: string) {
             super('link_' + slot);

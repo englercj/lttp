@@ -1,3 +1,5 @@
+/// <reference path="Item.ts" />
+
 module Lttp.Gui.Items {
     export class MagicMeter extends Gui.Items.Item {
         background: Phaser.Sprite;

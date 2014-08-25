@@ -1,3 +1,5 @@
+/// <reference path="Item.ts" />
+
 module Lttp.Gui.Items {
     export class EquiptedItem extends Gui.Items.Item {
         frameSprite: Phaser.Sprite;
@@ -5,7 +7,7 @@ module Lttp.Gui.Items {
 
         frames: Phaser.FrameData;
 
-        constructor(game: Phaser.Game, parent: Lttp.Gui.Hud, x: number, y: number, value: number = 0) {
+        constructor(game: Phaser.Game, parent: Gui.Hud, x: number, y: number, value: string = '') {
             super(game, parent, x, y, 'equipted', value);
 
             this.frames = game.cache.getFrameData('sprite_gui');

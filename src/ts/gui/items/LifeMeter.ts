@@ -1,3 +1,5 @@
+/// <reference path="Item.ts" />
+
 module Lttp.Gui.Items {
     export class LifeMeter extends Gui.Items.Item {
         max: number;
