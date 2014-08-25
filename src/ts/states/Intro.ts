@@ -206,7 +206,7 @@ module Lttp.States {
             }, this);
         }
 
-        _createIntroGroup() {
+        private _createIntroGroup() {
             this.introGroup = this.add.group();
             this.introGroup.visible = false;
 
@@ -251,7 +251,7 @@ module Lttp.States {
             this.flashes[2] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue')));
         }
 
-        _createLoreGroup() {
+        private _createLoreGroup() {
             this.loreGroup = this.add.group();
             this.loreGroup.visible = false;
             this.loreGroup.alpha = 0;
@@ -286,7 +286,7 @@ module Lttp.States {
 
         }
 
-        _bindInput() {
+        private _bindInput() {
             this.keyEnter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
             this.keySpace = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
