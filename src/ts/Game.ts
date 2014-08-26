@@ -18,14 +18,19 @@ module Lttp {
         boot() {
             super.boot();
 
-            //  This sets a limit on the up-scale
+            // This sets the limits for Phaser's auto scaling
+            this.scale.minWidth = Data.Constants.GAME_WIDTH;
+            this.scale.minHeight = Data.Constants.GAME_HEIGHT;
+
             this.scale.maxWidth = Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE;
             this.scale.maxHeight = Data.Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE;
 
-            //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
+            // Then we tell Phaser that we want it to scale between those values, the largest the browser can fit
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.scale.setScreenSize(false); //TODO: phaser.d.ts says param is required, but it isn't
+            this.scale.setScreenSize();
 
+            // Phaser by default mutes sound on pause, but I actually want to pause
+            // it so it can resume from the same spot.
             this.onPause.add(this.lttpPaused.bind(this));
             this.onResume.add(this.lttpResumed.bind(this));
         }

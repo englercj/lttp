@@ -47,7 +47,7 @@ module Lttp.States {
     export class Intro extends Phaser.State {
 
         introMusic: Phaser.Sound;
-        swordSound: Phaser.Sound;
+        loreMusic: Phaser.Sound;
         dingSound: Phaser.Sound;
 
         keyEnter: Phaser.Key;
@@ -85,7 +85,7 @@ module Lttp.States {
 
         create() {
             this.introMusic = this.add.audio('music_title', Data.Constants.AUDIO_MUSIC_VOLUME);
-            this.swordSound = this.add.audio('effect_sword1', Data.Constants.AUDIO_EFFECT_VOLUME);
+            this.loreMusic = this.add.audio('music_lore', Data.Constants.AUDIO_MUSIC_VOLUME);
             this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
 
             this._createIntroGroup();
@@ -93,11 +93,10 @@ module Lttp.States {
 
             this._bindInput();
 
-            // this.startIntroAnimation();
-            this.startLoreAnimation();
-
             this.timer = this.game.time.create(false);
             this.timer.start();
+
+            this.startIntroAnimation();
         }
 
         update() {
@@ -146,8 +145,6 @@ module Lttp.States {
                     .onComplete.add(function () {
                         this.zpart.visible = true;
 
-                        //play sword sounds
-                        this.swordSound.play();
                         this.dingSound.play();
 
                         //drop the sword animation
@@ -167,7 +164,9 @@ module Lttp.States {
                                             this.game.add.tween(this.shine)
                                                 .to({ y: 150 }, 250)
                                                 .start()
-                                                .onComplete.add(function () { this.shine.visible = false; });
+                                                .onComplete.add(function () {
+                                                    this.shine.visible = false;
+                                                }, this);
 
                                             // hide the intro
                                             this.intro.visible = false;
@@ -182,83 +181,17 @@ module Lttp.States {
             this.introGroup.visible = false;
             this.loreGroup.visible = true;
 
+            this.loreMusic.play();
+
             this.game.add.tween(this.loreGroup)
                 .to({ alpha: 1 }, 500)
                 .start()
                 .onComplete.addOnce(function () {
                     this._showLoreSequence(0, function () {
                         //TODO: Show map zoom sequence
+                        console.log('ZOOOOOM');
                     });
                 }, this);
-        }
-
-        private _showLoreSequence(seq, cb) {
-            switch(seq) {
-                case 0:
-                    if (this.loreImg1.alpha !== 1) {
-                        this.game.add.tween(this.loreImg1)
-                            .to({ alpha: 1 }, 500)
-                            .start()
-                            .onComplete.add(function () {
-                                this._showLoreSequence(seq, cb);
-                            }, this);
-
-                        return;
-                    }
-                    break;
-
-                case 2:
-                    if (this._switchLoreImages(this.loreImg1, this.loreImg2, seq, cb)) {
-                        return;
-                    }
-                    break;
-
-                case 5:
-                    if (this._switchLoreImages(this.loreImg2, this.loreImg3, seq, cb)) {
-                        return;
-                    }
-                    break;
-
-                case 6:
-                    if (this._switchLoreImages(this.loreImg3, this.loreImg4, seq, cb)) {
-                        return;
-                    }
-                    break;
-
-                case 7:
-                    if(cb) cb.call(this);
-                    return;
-            }
-
-            if (seq === 0) {
-                this.loreDialog.show(loreText[seq], null, false, false).onTypingComplete.addOnce(function () {
-                    this.timer.add(3000, this._showLoreSequence, this, ++seq, cb);
-                }, this);
-            } else {
-                this.loreDialog.append(loreText[seq], false).onTypingComplete.addOnce(function () {
-                    this.timer.add(3000, this._showLoreSequence, this, ++seq, cb);
-                }, this);
-            }
-        }
-
-        private _switchLoreImages(fromImg, toImg, seq, cb) {
-            if (toImg.alpha !== 1) {
-                this.game.add.tween(fromImg)
-                    .to({ alpha: 0 }, 500)
-                    .start()
-                    .onComplete.add(function () {
-                        this.game.add.tween(toImg)
-                            .to({ alpha: 1 }, 500)
-                            .start()
-                            .onComplete.add(function () {
-                                this._showLoreSequence(seq, cb);
-                            }, this);
-                    }, this);
-
-                return true;
-            }
-
-            return false;
         }
 
         skip() {
@@ -320,6 +253,75 @@ module Lttp.States {
                     }, this);
                 }, this);
             }, this);
+        }
+
+        private _showLoreSequence(seq, cb) {
+            switch(seq) {
+                case 0:
+                    if (this.loreImg1.alpha !== 1) {
+                        this.game.add.tween(this.loreImg1)
+                            .to({ alpha: 1 }, 500)
+                            .start()
+                            .onComplete.add(function () {
+                                this._showLoreSequence(seq, cb);
+                            }, this);
+
+                        return;
+                    }
+                    break;
+
+                case 2:
+                    if (this._switchLoreImages(this.loreImg1, this.loreImg2, seq, cb)) {
+                        return;
+                    }
+                    break;
+
+                case 5:
+                    if (this._switchLoreImages(this.loreImg2, this.loreImg3, seq, cb)) {
+                        return;
+                    }
+                    break;
+
+                case 6:
+                    if (this._switchLoreImages(this.loreImg3, this.loreImg4, seq, cb)) {
+                        return;
+                    }
+                    break;
+
+                case 7:
+                    if(cb) cb.call(this);
+                    return;
+            }
+
+            if (seq === 0) {
+                this.loreDialog.show(loreText[seq], null, false, false).onTypingComplete.addOnce(function () {
+                    this.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
+                }, this);
+            } else {
+                this.loreDialog.append(loreText[seq], false).onTypingComplete.addOnce(function () {
+                    this.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
+                }, this);
+            }
+        }
+
+        private _switchLoreImages(fromImg, toImg, seq, cb) {
+            if (toImg.alpha !== 1) {
+                this.game.add.tween(fromImg)
+                    .to({ alpha: 0 }, 500)
+                    .start()
+                    .onComplete.add(function () {
+                        this.game.add.tween(toImg)
+                            .to({ alpha: 1 }, 500)
+                            .start()
+                            .onComplete.add(function () {
+                                this._showLoreSequence(seq, cb);
+                            }, this);
+                    }, this);
+
+                return true;
+            }
+
+            return false;
         }
 
         private _createIntroGroup() {

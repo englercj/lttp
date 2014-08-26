@@ -33,7 +33,8 @@ module Lttp.Gui {
             super(game, parent);
 
             // load sound
-            this.openSound = this.game.add.audio('effect_pause_close', Data.Constants.AUDIO_MUSIC_VOLUME);
+            this.openSound = this.game.add.audio('effect_pause_close', Data.Constants.AUDIO_EFFECT_VOLUME);
+            this.letterSound = this.game.add.audio('effect_text_letter', Data.Constants.AUDIO_EFFECT_VOLUME);
 
             // setup visibility
             // this.position.set(102, 438);

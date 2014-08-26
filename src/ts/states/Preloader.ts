@@ -34,11 +34,23 @@
                 'assets/audio/music/title.lite.ogg'
             ]);
 
+            this.load.audio('music_lore', [
+                'assets/audio/music/opening_demo.lite.ogg'
+            ]);
+
             this.load.audio('music_select', [
                 'assets/audio/music/select_screen.lite.ogg'
             ]);
 
             // Sound Effects
+            this.load.audio('effect_text_done', [
+                'assets/audio/effects/LTTP_Text_Done.lite.ogg'
+            ]);
+
+            this.load.audio('effect_text_letter', [
+                'assets/audio/effects/LTTP_Text_Letter.lite.ogg'
+            ]);
+
             this.load.audio('effect_grass_cut', [
                 'assets/audio/effects/LTTP_Grass_Cut.lite.ogg'
             ]);
