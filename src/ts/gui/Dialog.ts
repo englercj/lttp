@@ -120,6 +120,7 @@ module Lttp.Gui {
             return this;
         }
 
+        // TODO: This needs to be cleaned up quite a bit
         private _type(cb?: () => void) {
             var newlines = this.font.text.match(rgxNewlines);
 
