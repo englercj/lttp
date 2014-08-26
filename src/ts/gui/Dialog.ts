@@ -8,8 +8,6 @@ module Lttp.Gui {
 
         font: Fonts.ReturnOfGanon;
 
-        doneCb: () => void;
-
         text: string = '';
         range: number[] = [0, 1]; //start pos, length
 
@@ -26,6 +24,10 @@ module Lttp.Gui {
         buffer: Phaser.RenderTexture;
         bufferSprite: Phaser.Sprite;
         bufferScroll: Phaser.Point;
+
+        onTypingComplete: Phaser.Signal;
+
+        timer: Phaser.Timer;
 
         constructor(game: Phaser.Game, parent?: any, showFrame: boolean = true) {
             super(game, parent);
@@ -52,6 +54,11 @@ module Lttp.Gui {
             this.bufferSprite = game.add.sprite(0, 0, this.buffer, null, this);
             this.bufferSprite.scale.set(0.5, 0.5);
             this.bufferSprite.position.set(this.font.position.x, this.font.position.y);
+
+            this.onTypingComplete = new Phaser.Signal();
+
+            this.timer = game.time.create(false);
+            this.timer.start();
         }
 
         show(text: string, speed?: number, insertNewlines: boolean = true, playSound: boolean = true, cb?: () => void) {
@@ -62,7 +69,6 @@ module Lttp.Gui {
 
             this.text = insertNewlines ? this._insertNewlines(text) : text;
             this.speed = speed || this.typeSpeed;
-            this.doneCb = null;
             this.font.text = '';
 
             if (this.text.charAt(this.text.length - 1) !== '\n') {
@@ -73,12 +79,7 @@ module Lttp.Gui {
                 this.openSound.play();
             }
 
-            var self = this;
-            this._type(function() {
-                setTimeout(function() {
-                    self.doneCb = cb;
-                }, self.speedCooldown);
-            });
+            this._type();
 
             return this;
         }
@@ -99,29 +100,20 @@ module Lttp.Gui {
             if (!this.typing) {
                 this._type();
             }
+
+            return this;
         }
 
-        advance() {
-            // done typing
-            if(this.doneCb) {
-                this.doneCb();
-                this.doneCb = null;
-            }
-            // speed up typing
-            else {
-                this.speed = this.fastSpeed;
+        speedUp() {
+            this.speed = this.fastSpeed;
 
-                var self = this;
-                setTimeout(function() {
-                    self.speed = self.typeSpeed;
-                }, this.speedCooldown);
-            }
+            this.timer.add(this.speedCooldown, () => { this.speed = this.typeSpeed }, this);
 
             return this;
         }
 
         // TODO: This needs to be cleaned up quite a bit
-        private _type(cb?: () => void) {
+        private _type() {
             var newlines = this.font.text.match(rgxNewlines);
 
             if((this.range[0] + this.range[1]) > this.text.length) {
@@ -132,7 +124,7 @@ module Lttp.Gui {
                 this.bufferSprite.visible = true;
                 this.font.visible = false;
 
-                if(cb) cb();
+                this.onTypingComplete.dispatch();
             }
             else if (newlines && newlines.length && newlines.length === 3) {
                 this.typing = true;
@@ -145,7 +137,7 @@ module Lttp.Gui {
                 this.bufferScroll.y -= 1;
 
                 if (this.bufferScroll.y > -32) {
-                    setTimeout(this._type.bind(this, cb), this.fastSpeed);
+                    this.timer.add(this.fastSpeed, this._type, this);
                 } else {
                     var newStart = this.text.indexOf('\n', this.range[0]);
 
@@ -156,7 +148,7 @@ module Lttp.Gui {
 
                     this.bufferScroll.y = 0;
 
-                    setTimeout(this._type.bind(this, cb), this.speed);
+                    this.timer.add(this.speed, this._type, this);
                 }
             }
             else {
@@ -169,7 +161,7 @@ module Lttp.Gui {
 
                 this.range[1]++;
 
-                setTimeout(this._type.bind(this, cb), this.speed);
+                this.timer.add(this.speed, this._type, this);
             }
         }
 
