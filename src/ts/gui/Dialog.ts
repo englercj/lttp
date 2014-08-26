@@ -3,6 +3,7 @@ var rgxNewlines = /\n/g;
 module Lttp.Gui {
     export class Dialog extends Phaser.Group {
         openSound: Phaser.Sound;
+        letterSound: Phaser.Sound;
 
         frameSprite: Phaser.Sprite;
 
