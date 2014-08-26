@@ -33,7 +33,7 @@ var loreText = [
     [
         'That seal should have remained',
         'for all time...',
-        ''
+        ' '
     ].join('\n'),
     // pause, Image #4
     [
