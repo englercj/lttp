@@ -48,9 +48,16 @@ module Lttp.Fonts {
             });
 
             // these characters are offset a bit
-            'acegjmnopqrsuvwxyz,<>'.split('').forEach(function(c) {
+            'acegjmnopqrsuvwxyz<>'.split('').forEach(function(c) {
                 map[c] = {
                     yOffset: 6,
+                    name: map[c]
+                };
+            });
+
+            ','.split('').forEach(function (c) {
+                map[c] = {
+                    yOffset: 18,
                     name: map[c]
                 };
             });

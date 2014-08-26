@@ -1,3 +1,48 @@
+var loreText = [
+    // Image #1
+    [
+        'Long ago, in the beautiful',
+        'kingdom of Hyrule surrounded',
+        'by mountains and forests...'
+    ].join('\n'),
+    //pause
+    [
+        'legends told of an omnipotent',
+        'and omniscient Golden Power',
+        'that resided in a hidden land.'
+    ].join('\n'),
+    // pause, Image #2
+    [
+        'Many people aggressively',
+        'sought to enter the hidden',
+        'Golden Land...'
+    ].join('\n'),
+    //pause
+    [
+        'But no one ever returned.',
+        'One day evil power began to',
+        'flow from the Golden Land...'
+    ].join('\n'),
+    //pause
+    [
+        'So the King commanded seven',
+        'wise men to seal the gate to',
+        'the Land of the Golden Power.'
+    ].join('\n'),
+    // pause, Image #3
+    [
+        'That seal should have remained',
+        'for all time...',
+        ''
+    ].join('\n'),
+    // pause, Image #4
+    [
+        '... ...But, when these events',
+        'were obscured by the mists of',
+        'time and became legend...'
+    ].join('\n')
+];
+
 module Lttp.States {
     export class Intro extends Phaser.State {
 
@@ -29,6 +74,7 @@ module Lttp.States {
         loreImg2: Phaser.Sprite;
         loreImg3: Phaser.Sprite;
         loreHighlight: Phaser.Graphics;
+        loreDialog: Gui.Dialog;
 
         flashes: Effects.ScreenFlash[] = [];
 
@@ -78,13 +124,13 @@ module Lttp.States {
             this.introMusic.play().onStop.addOnce(function () {
                 console.log('MUSIC STOP');
                 // after music stops playing (there is silence padding on either side) fade to lore screen
-                self.game.add.tween(self.introGroup)
+                this.game.add.tween(self.introGroup)
                     .to({ alpha: 0 }, 500, Phaser.Easing.Linear.None)
                     .start()
                     .onComplete.addOnce(function () {
-                        self.startLoreAnimation();
-                    });
-            });
+                        this.startLoreAnimation();
+                    }, this);
+            }, this);
 
             // When the intro completes
             this.intro.events.onAnimationComplete.add(function () {
@@ -137,7 +183,10 @@ module Lttp.States {
 
             this.game.add.tween(this.loreGroup)
                 .to({ alpha: 1 }, 500, Phaser.Easing.Linear.None)
-                .start();
+                .start()
+                .onComplete.addOnce(function () {
+                    this.loreDialog.show(loreText[0], null, false, false);
+                }, this);
         }
 
         skip() {
@@ -284,6 +333,8 @@ module Lttp.States {
             this.loreImg3 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img3.png', this.loreGroup);
             this.loreImg3.visible = false;
 
+            this.loreDialog = new Gui.Dialog(game, this.loreGroup, false);
+            this.loreDialog.position.set(34, 124);
         }
 
         private _bindInput() {
