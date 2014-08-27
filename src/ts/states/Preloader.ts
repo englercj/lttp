@@ -29,6 +29,10 @@
             this.load.atlas('sprite_gui',       'assets/sprites/ui/gui.png',                'assets/sprites/ui/gui.json',               null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
             this.load.atlas('sprite_hud_font',  'assets/sprites/fonts/hud.png',             'assets/sprites/fonts/hud.json',            null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
+            // Minimaps
+            this.load.tilemap('map_minimap_lightworld', 'assets/levels/minimaps/lw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
+            this.load.tilemap('map_minimap_darkworld', 'assets/levels/minimaps/dw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
+
             // Music
             this.load.audio('music_title', [
                 'assets/audio/music/title.lite.ogg'

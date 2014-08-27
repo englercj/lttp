@@ -136,7 +136,7 @@ module Lttp.Gui {
                 this.bufferSprite.visible = true;
                 this.font.visible = false;
 
-                this.bufferScroll.y -= 1;
+                this.bufferScroll.y -= 2;
 
                 if (this.bufferScroll.y > -32) {
                     this.timer.add(this.fastSpeed, this._type, this);
