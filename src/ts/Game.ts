@@ -6,7 +6,7 @@ module Lttp {
 
             //////////////////////////////////////////////////////
             //issue: https://code.google.com/p/chromium/issues/detail?id=134040
-            // When a chrome bug that prevents CSS scaling from being NEAREST filtered is fixed, remove this
+            // When that chrome bug that prevents CSS scaling from being NEAREST filtered is fixed, remove this
             // and uncomment above.
             super(
                 Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE,
@@ -43,7 +43,7 @@ module Lttp {
 
             //////////////////////////////////////////////////////
             //issue: https://code.google.com/p/chromium/issues/detail?id=134040
-            // When a chrome bug that prevents CSS scaling from being NEAREST filtered is fixed, remove this
+            // When that chrome bug that prevents CSS scaling from being NEAREST filtered is fixed, remove this
             // and uncomment above.
             this.world.scale.set(Data.Constants.GAME_SCALE);
             //////////////////////////////////////////////////////
