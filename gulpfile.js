@@ -27,5 +27,5 @@ gulp.task('dev', ['build'], function () {
 /*****
  * Base tasks
  *****/
-gulp.task('build', ['less', 'scripts', 'copy']);
+gulp.task('build', ['less', 'scripts', 'copy', 'assets']);
 gulp.task('default', ['build']);
