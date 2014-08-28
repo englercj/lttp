@@ -41,7 +41,7 @@
     "scripts": {
         "build": "gulp build",
         "test": "gulp test",
-        "start": "gulp serve"
+        "start": "gulp build serve"
     },
 
     "private": true
