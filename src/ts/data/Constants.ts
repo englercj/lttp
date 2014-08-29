@@ -41,7 +41,8 @@ module Lttp.Data {
         public static AUDIO_MUSIC_VOLUME:   number = 0.20;
 
         //tilemap pack location
-        public static ASSET_TILEMAP_PACKS:  string = 'assets/tilemap-assets.json';
+        public static ASSET_TILEMAP_PACKS_URL: string = 'assets/tilemap-assets.json';
+        public static ASSET_TILEMAP_PACKS_KEY: string = 'pack_tilemap_asssets';
 
     }
 }
