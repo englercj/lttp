@@ -31,7 +31,7 @@
             this.load.atlas('sprite_gui',       'assets/sprites/ui/gui.png',                'assets/sprites/ui/gui.json',               null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
             this.load.atlas('sprite_hud_font',  'assets/sprites/fonts/hud.png',             'assets/sprites/fonts/hud.json',            null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
-            // Asset packs
+            // Asset packs for tilemaps
             this.load.json(Data.Constants.ASSET_TILEMAP_PACKS_KEY, Data.Constants.ASSET_TILEMAP_PACKS_URL);
 
             // Minimaps
