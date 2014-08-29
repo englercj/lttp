@@ -3,9 +3,10 @@
 module Lttp.Levels {
     export class Lightworld extends Levels.Level {
 
+        levelKey: string = 'lightworld';
+
         preload() {
-            // Tilemap and assets
-            this.load.pack('lightworld', 'assets/tilemap-assets.json');
+            super.preload();
 
             // Music
             this.load.audio('music_lightworld', [

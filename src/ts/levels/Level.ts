@@ -7,6 +7,8 @@ module Lttp.Levels {
         preload() {
             // should be loaded by the preloader state
             this.packData = this.cache.getJSON(Data.Constants.ASSET_TILEMAP_PACKS_KEY);
+
+            this.load.pack(this.levelKey, null, this.packData);
         }
 
         create() {

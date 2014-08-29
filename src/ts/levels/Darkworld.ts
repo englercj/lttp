@@ -3,9 +3,10 @@
 module Lttp.Levels {
     export class Darkworld extends Levels.Level {
 
+        levelKey: string = 'darkworld';
+
         preload() {
-            // Tilemap
-            this.load.tilemap('level_darkworld', 'assets/worlds/darkworld/darkworld.json', null, Phaser.Tilemap.TILED_JSON);
+            super.preload();
 
             // Music
             this.load.audio('music_darkworld', [
