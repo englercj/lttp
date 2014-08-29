@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 /*****
  * Assets Phaser packs task, creates phaser asset loader packs for tilemaps
  *****/
-gulp.task('assets:generate-phaser-packs', function () {
+gulp.task('assets:tilemap-pack', function () {
     return gulp.src('./src/assets/**/*.json')
         .pipe(tilemapPack({ baseUrl: 'assets' }))
         .pipe(gulp.dest('./public/assets'));
@@ -39,7 +39,7 @@ gulp.task('assets:copy', function () {
 });
 
 
-gulp.task('assets', ['assets:generate-phaser-packs', 'assets:imagemin', 'assets:jsonmin', 'assets:copy']);
+gulp.task('assets', ['assets:tilemap-pack', 'assets:imagemin', 'assets:jsonmin', 'assets:copy']);
 
 // --------------------------
 
@@ -56,8 +56,8 @@ function tilemapPack(options) {
         meta: {
             generated: Date.now().toString(),
             version: "1.0",
-            app: "gulp-phaser-pack",
-            url: "https://github.com/englercj/gulp-phaser-pack"
+            app: "gulp-tilemap-pack",
+            url: "https://github.com/englercj/gulp-tilemap-pack"
         }
     };
 
@@ -67,16 +67,17 @@ function tilemapPack(options) {
         }
 
         if (file.isStream()) {
-            this.emit('error', new gutil.PluginError('gulp-phaser-pack', 'Streaming not supported'));
+            this.emit('error', new gutil.PluginError('gulp-tilemap-pack', 'Streaming not supported'));
             return cb();
         }
 
         try {
             var fname = path.basename(file.path),
+                relDir = file.relative.replace(fname, ''),
                 key = path.basename(file.path, path.extname(file.path));
 
             if (result[key]) {
-                gutil.log('gulp-phaser-pack: Key already exists in asset pack:', key);
+                gutil.log('gulp-tilemap-pack: Key already exists in asset pack:', key);
                 return cb();
             }
 
@@ -87,8 +88,9 @@ function tilemapPack(options) {
                 for(var i = 0; i < fdata.tilesets.length; ++i) {
                     assets.push({
                         type: 'image',
+                        subtype: 'tileset',
                         key: fdata.tilesets[i].name,
-                        url: path.join(options.baseUrl, file.relative, fdata.tilesets[i].image).replace(/\\/g, '/'),
+                        url: path.join(options.baseUrl, relDir, fdata.tilesets[i].image).replace(/\\/g, '/'),
                         overwrite: false
                     });
                 }
@@ -96,14 +98,14 @@ function tilemapPack(options) {
                 assets.push({
                     type: 'tilemap',
                     key: 'tilemap_' + key,
-                    url: path.join(options.baseUrl, file.relative, fname).replace(/\\/g, '/'),
+                    url: path.join(options.baseUrl, file.relative).replace(/\\/g, '/'),
                     format: 'TILED_JSON'
                 });
 
                 result[key] = assets;
             }
         } catch (err) {
-            this.emit('error', new gutil.PluginError('gulp-jsonmin', err));
+            this.emit('error', new gutil.PluginError('gulp-tilemap-pack', err));
         }
 
         cb();

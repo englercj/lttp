@@ -1,9 +1,11 @@
 ﻿module Lttp.States {
-    export class Preloader extends Phaser.State {
+    export class Preloader extends State {
 
         preloadBar: Phaser.Sprite;
 
         preload() {
+            super.preload();
+
             //  Set-up our preloader sprite
             this.preloadBar = this.add.sprite(200, 250, 'image_preloader');
             this.load.setPreloadSprite(this.preloadBar);
@@ -30,8 +32,10 @@
             this.load.atlas('sprite_hud_font',  'assets/sprites/fonts/hud.png',             'assets/sprites/fonts/hud.json',            null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
             // Minimaps
-            this.load.tilemap('map_minimap_lightworld', 'assets/levels/minimaps/lw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
-            this.load.tilemap('map_minimap_darkworld', 'assets/levels/minimaps/dw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
+            this.load.pack('lw_minimap', Data.Constants.ASSET_TILEMAP_PACKS);
+            this.load.pack('lw_minimap', Data.Constants.ASSET_TILEMAP_PACKS);
+            // this.load.tilemap('map_minimap_lightworld', 'assets/levels/minimaps/lw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
+            // this.load.tilemap('map_minimap_darkworld', 'assets/levels/minimaps/dw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
 
             // Music
             this.load.audio('music_title', [
@@ -134,6 +138,8 @@
         }
 
         create() {
+            super.create();
+
             var tween = this.add.tween(this.preloadBar).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
             tween.onComplete.add(this.startIntro, this);
         }

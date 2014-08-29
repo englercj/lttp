@@ -4,11 +4,8 @@ module Lttp.Levels {
     export class Lightworld extends Levels.Level {
 
         preload() {
-            // Tilemap
-            this.load.tilemap('level_lightworld', 'assets/worlds/lightworld/lightworld.json', null, Phaser.Tilemap.TILED_JSON);
-
-            // Overlay sprite atlases
-            //this.load.atlas('sprite_overlay',       'assets/sprites/overlays/overlays.png',         'assets/sprites/overlays/overlays.json',        null, gf.ATLAS_FORMAT.JSON_HASH);
+            // Tilemap and assets
+            this.load.pack('lightworld', 'assets/tilemap-assets.json');
 
             // Music
             this.load.audio('music_lightworld', [

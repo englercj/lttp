@@ -44,7 +44,7 @@ var loreText = [
 ];
 
 module Lttp.States {
-    export class Intro extends Phaser.State {
+    export class Intro extends State {
 
         introMusic: Phaser.Sound;
         loreMusic: Phaser.Sound;
@@ -84,6 +84,8 @@ module Lttp.States {
         timer: Phaser.Timer;
 
         create() {
+            super.create();
+
             this.introMusic = this.add.audio('music_title', Data.Constants.AUDIO_MUSIC_VOLUME);
             this.loreMusic = this.add.audio('music_lore', Data.Constants.AUDIO_MUSIC_VOLUME);
             this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
@@ -100,6 +102,8 @@ module Lttp.States {
         }
 
         update() {
+            super.update();
+
             if (this.keyEnter.isDown || this.keySpace.isDown ||
                 this.gamepad.isDown(Phaser.Gamepad.XBOX360_A) ||
                 this.gamepad.isDown(Phaser.Gamepad.XBOX360_B)
