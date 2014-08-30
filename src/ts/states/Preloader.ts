@@ -1,4 +1,6 @@
-﻿module Lttp.States {
+/// <reference path="State.ts" />
+
+module Lttp.States {
     export class Preloader extends State {
 
         preloadBar: Phaser.Sprite;

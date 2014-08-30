@@ -1,4 +1,6 @@
-﻿module Lttp.States {
+/// <reference path="State.ts" />
+
+module Lttp.States {
     export class MainMenu extends State {
 
         sounds: { [index: string]: Phaser.Sound; };

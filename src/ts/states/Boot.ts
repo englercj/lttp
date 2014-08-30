@@ -1,3 +1,5 @@
+/// <reference path="State.ts" />
+
 module Lttp.States {
     export class Boot extends State {
 
