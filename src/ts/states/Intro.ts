@@ -50,11 +50,6 @@ module Lttp.States {
         loreMusic: Phaser.Sound;
         dingSound: Phaser.Sound;
 
-        keyEnter: Phaser.Key;
-        keySpace: Phaser.Key;
-
-        gamepad: Phaser.SinglePad;
-
         introGroup: Phaser.Group;
         loreGroup: Phaser.Group;
 
@@ -93,8 +88,6 @@ module Lttp.States {
             this._createIntroGroup();
             this._createLoreGroup();
 
-            this._bindInput();
-
             this.timer = this.game.time.create(false);
             this.timer.start();
 
@@ -104,9 +97,10 @@ module Lttp.States {
         update() {
             super.update();
 
-            if (this.keyEnter.isDown || this.keySpace.isDown ||
-                this.gamepad.isDown(Phaser.Gamepad.XBOX360_A) ||
-                this.gamepad.isDown(Phaser.Gamepad.XBOX360_B)
+            if (this.input.keyboard.isDown(Phaser.Keyboard.ENTER) ||
+                this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) ||
+                this.input.gamepad.isDown(Phaser.Gamepad.XBOX360_A) ||
+                this.input.gamepad.isDown(Phaser.Gamepad.XBOX360_B)
             ) {
                 this.skip();
             }
@@ -412,17 +406,6 @@ module Lttp.States {
 
             this.loreDialog = new Gui.Dialog(game, this.loreGroup, false);
             this.loreDialog.position.set(34, 124);
-        }
-
-        private _bindInput() {
-            this.keyEnter = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-            this.keySpace = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-            this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.ENTER);
-            this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
-
-            this.game.input.gamepad.start();
-            this.gamepad = this.game.input.gamepad.pad1;
         }
 
     }

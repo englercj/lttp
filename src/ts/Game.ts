@@ -48,17 +48,27 @@ module Lttp {
             this.world.scale.set(Data.Constants.GAME_SCALE);
             //////////////////////////////////////////////////////
 
-            // Phaser by default mutes sound on pause, but I actually want to pause
-            // it so it can resume from the same spot.
-            this.onPause.add(this.lttpPaused.bind(this));
-            this.onResume.add(this.lttpResumed.bind(this));
+            this.input.keyboard.addKeyCapture([
+                Phaser.Keyboard.SPACEBAR,
+                Phaser.Keyboard.ENTER,
+                Phaser.Keyboard.UP,
+                Phaser.Keyboard.DOWN,
+                Phaser.Keyboard.LEFT,
+                Phaser.Keyboard.RIGHT
+            ]);
+
+            this.input.gamepad.start();
         }
 
-        lttpPaused() {
+        gamePaused(event: Object) {
+            super.gamePaused(event);
+
             this.sound.pauseAll();
         }
 
-        lttpResumed() {
+        gameResumed(event: Object) {
+            super.gameResumed(event);
+
             this.sound.resumeAll();
         }
 

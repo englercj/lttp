@@ -1,5 +1,5 @@
 module Lttp.Data {
-    interface ParticleDescriptor {
+    export interface ParticleDescriptor {
         path: string;
         ext: string;
         type: string;
@@ -10,7 +10,7 @@ module Lttp.Data {
         hitArea: Phaser.Rectangle;
     }
 
-    interface ItemDescriptor {
+    export interface ItemDescriptor {
         name: string;
         icon: any;
         position: number[];
