@@ -1,6 +1,11 @@
 module Lttp {
     export class Game extends Phaser.Game {
 
+        player: Entities.Player;
+
+        onInputDown: Phaser.Signal;
+        onInputUp: Phaser.Signal;
+
         constructor() {
             // super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
 
@@ -17,6 +22,9 @@ module Lttp {
 
             PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
             //////////////////////////////////////////////////////
+
+            this.onInputDown = new Phaser.Signal();
+            this.onInputUp = new Phaser.Signal();
 
             this.state.add('Boot', States.Boot, false);
             this.state.add('Preloader', States.Preloader, false);
@@ -58,6 +66,13 @@ module Lttp {
             ]);
 
             this.input.gamepad.start();
+
+            this.input.keyboard.addCallbacks(this, this.onKeyboardDown, this.onKeyboardUp);
+            this.input.gamepad.addCallbacks(this, {
+                onDown: this.onGamepadDown,
+                onUp: this.onGamepadUp,
+                onAxis: this.onGamepadAxis
+            });
         }
 
         gamePaused(event: Object) {
@@ -72,5 +87,30 @@ module Lttp {
             this.sound.resumeAll();
         }
 
+        onKeyboardDown(event) {
+            this.onInputDown.dispatch(event.keyCode, 1, event);
+        }
+
+        onKeyboardUp(event) {
+            this.onInputUp.dispatch(event.keyCode, 1, event);
+        }
+
+        onGamepadDown(button: number, value: number, padIndex: number) {
+            this.onInputDown.dispatch(button, value, event);
+        }
+
+        onGamepadUp(button: number, value: number, padIndex: number) {
+            this.onInputUp.dispatch(button, value, event);
+        }
+
+        onGamepadAxis(axisState: GamepadAxisState, padIndex: number) {
+            //TODO: axis input
+        }
+
+    }
+
+    export interface GamepadAxisState {
+        axis: number; //the axis index
+        value: number; //the value of the axis
     }
 }
