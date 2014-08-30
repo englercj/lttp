@@ -57,10 +57,10 @@ module Lttp.Data {
 
         public static bow: ItemDescriptor = {
             name: 'bow',
-            icon: function(link) {
-                if(link.inventory.silver_arrows && link.inventory.arrows)
+            icon: function(game) {
+                if(game.player.inventory.silver_arrows && game.player.inventory.arrows)
                     return 'items/bow_and_silver_arrow.png';
-                else if(link.inventory.arrows)
+                else if(game.player.inventory.arrows)
                     return 'items/bow_and_arrow.png'
                 else
                     return 'items/bow.png';

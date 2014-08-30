@@ -7,7 +7,7 @@ var fontData = {
 
 module Lttp.Fonts {
     export class ReturnOfGanon extends Phaser.BitmapText {
-        constructor(game: Phaser.Game, x: number, y: number, text: string = '', size: number = 32) {
+        constructor(game: Phaser.Game, x: number = 0, y: number = 0, text: string = '', size: number = 32) {
             super(game, x, y, this.prepareFontData(game), text, size);
         }
 
