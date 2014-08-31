@@ -53,8 +53,6 @@ module Lttp {
             this.world.scale.set(Data.Constants.GAME_SCALE);
             //////////////////////////////////////////////////////
 
-            this.player = new Entities.Player(this);
-
             this.onInputDown = new Phaser.Signal();
             this.onInputUp = new Phaser.Signal();
 

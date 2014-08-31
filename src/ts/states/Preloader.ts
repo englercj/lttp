@@ -147,6 +147,7 @@ module Lttp.States {
         }
 
         startIntro() {
+            (<Lttp.Game>this.game).player = new Entities.Player(this.game);
             this.game.state.start('Intro', true, false);
         }
 
