@@ -1,19 +1,34 @@
 module Lttp.Entities {
     export class Entity extends Phaser.Sprite {
 
-        //is this sprite able to move?
+        // is this sprite able to move?
         locked: boolean = false;
 
-        //maximum health of this entity
+        // maximum health of this entity
         maxHealth: number = 3;
 
-        //current health of this entity
+        // current health of this entity
         health: number = 3;
 
-        //moveSpeed the entity moves at
+        // moveSpeed the entity moves at
         moveSpeed: number = 75;
 
-        constructor(game: Phaser.Game, x: number, y: number, key?: any, frame?: any) {
+        // current direction of movement
+        movement: Phaser.Point = new Phaser.Point();
+
+        // the amount of damage this entity deals normally
+        attackDamage: number = 1;
+
+        moveState: any = {
+            up: false,
+            down: false,
+            left: false,
+            right: false
+        };
+
+        entityType: Data.ENTITY_TYPE = Data.ENTITY_TYPE.NEUTRAL;
+
+        constructor(game: Phaser.Game, x: number = 0, y: number = 0, key?: any, frame?: any) {
             super(game, x, y, key, frame);
         }
 
@@ -25,7 +40,17 @@ module Lttp.Entities {
             return this;
         }
 
-        _addDirectionalFrames(type: string, num: number, speed: number, loop: boolean) {
+        lock() {
+            this.setVelocity(new gf.Vector());
+            this.locked = true;
+        }
+
+        unlock() {
+            this.setVelocity(this.movement);
+            this.locked = false;
+        }
+
+        _addDirectionalFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
             if(type.indexOf('%s') === -1) {
                 type += '_%s';
             }
@@ -35,10 +60,10 @@ module Lttp.Entities {
                 type.replace(/%s/g, 'right'),
                 type.replace(/%s/g, 'down'),
                 type.replace(/%s/g, 'up')
-            ], num, speed, loop);
+            ], num, frameRate, loop);
         }
 
-        _addFrames(types: string[], num: number, speed: number, loop: boolean) {
+        _addFrames(types: string[], num: number, frameRate: number = 60, loop: boolean = false) {
             for(var t = 0, tl = types.length; t < tl; ++t) {
                 var frames = [],
                     type = types[t],
@@ -52,7 +77,7 @@ module Lttp.Entities {
                     frames.push(type.replace(/%d/g, f.toString()) + '.png');
                 }
 
-                this.animations.add(name, frames, speed, loop);
+                this.animations.add(name, frames, frameRate, loop);
             }
         }
 

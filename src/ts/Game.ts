@@ -1,10 +1,10 @@
 module Lttp {
     export class Game extends Phaser.Game {
 
-        player: Entities.Player;
+        player: Entities.Player = null;
 
-        onInputDown: Phaser.Signal;
-        onInputUp: Phaser.Signal;
+        onInputDown: Phaser.Signal = null;
+        onInputUp: Phaser.Signal = null;
 
         constructor() {
             // super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
@@ -22,9 +22,6 @@ module Lttp {
 
             PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
             //////////////////////////////////////////////////////
-
-            this.onInputDown = new Phaser.Signal();
-            this.onInputUp = new Phaser.Signal();
 
             this.state.add('Boot', States.Boot, false);
             this.state.add('Preloader', States.Preloader, false);
@@ -55,6 +52,11 @@ module Lttp {
             // and uncomment above.
             this.world.scale.set(Data.Constants.GAME_SCALE);
             //////////////////////////////////////////////////////
+
+            this.player = new Entities.Player(this);
+
+            this.onInputDown = new Phaser.Signal();
+            this.onInputUp = new Phaser.Signal();
 
             this.input.keyboard.addKeyCapture([
                 Phaser.Keyboard.SPACEBAR,
@@ -104,7 +106,16 @@ module Lttp {
         }
 
         onGamepadAxis(axisState: GamepadAxisState, padIndex: number) {
-            //TODO: axis input
+            // if we pass the threshold send a "down" signal
+            if (axisState.value > Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD ||
+                axisState.value < -Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
+            ) {
+                this.onInputDown.dispatch(axisState.axis, axisState.value, null);
+            }
+            // otherwise send an "up" signal
+            else {
+                this.onInputUp.dispatch(axisState.axis, axisState.value, null);
+            }
         }
 
     }

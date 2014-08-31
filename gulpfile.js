@@ -15,13 +15,11 @@ files.forEach(function (file) {
 /*****
  * Dev task, incrementally rebuilds less and scripts for development
  *****/
-gulp.task('dev', ['build'], function () {
+gulp.task('dev', ['build', 'serve'], function () {
     gulp.watch('./src/ts/**/*.ts', ['scripts']);
     gulp.watch('./src/less/**/*.less', ['less']);
     gulp.watch('./index.html', ['copy:index']);
     gulp.watch(config.vendorFiles, ['copy:vendor']);
-
-    return gulp.run('serve');
 });
 
 /*****

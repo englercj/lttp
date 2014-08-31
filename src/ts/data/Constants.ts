@@ -1,14 +1,21 @@
 module Lttp.Data {
+    export enum ENTITY_TYPE {
+        // player/npc entities
+        PLAYER,
+        ENEMY,
+        FRIENDLY,
+        NEUTRAL,
+
+        // misc interactable entities
+        COLLECTABLE,
+        CHEST,
+        SIGN,
+        ROCK,
+        GRASS,
+        POT
+    }
+
     export class Constants {
-
-        // entity types
-        public static ENTITY_PLAYER:        string = 'player';
-        public static ENTITY_ENEMY:         string = 'enemy';
-        public static ENTITY_FRIENDLY:      string = 'friendly';
-        public static ENTITY_NEUTRAL:       string = 'neutral';
-        public static ENTITY_TILE:          string = 'tile';
-        public static ENTITY_COLLECTABLE:   string = 'collectable';
-
         // deminsions of the screen
         public static GAME_WIDTH:           number = 256;
         public static GAME_HEIGHT:          number = 224;
@@ -43,6 +50,15 @@ module Lttp.Data {
         //tilemap pack location
         public static ASSET_TILEMAP_PACKS_URL: string = 'assets/tilemap-assets.json';
         public static ASSET_TILEMAP_PACKS_KEY: string = 'pack_tilemap_asssets';
+
+        //input data
+        public static INPUT_GAMEPAD_AXIS_THRESHOLD: number = 0.25;
+
+        // direction vectors
+        public static VECTOR_UP: Phaser.Point = new Phaser.Point(0, -1);
+        public static VECTOR_DOWN: Phaser.Point = new Phaser.Point(0, 1);
+        public static VECTOR_LEFT: Phaser.Point = new Phaser.Point(-1, 0);
+        public static VECTOR_RIGHT: Phaser.Point = new Phaser.Point(1, 0);
 
     }
 }

@@ -1,6 +1,7 @@
 module Lttp.Gui {
     class InventoryItemSprite extends Phaser.Sprite {
         item: Data.ItemDescriptor;
+        _frame: Phaser.Frame;
     }
 
     export class Inventory extends Phaser.Group {
@@ -42,6 +43,65 @@ module Lttp.Gui {
             this._temp = new Phaser.Point();
 
             this._setup();
+
+            this._bindInput();
+        }
+
+        destroy(destroyChildren?: boolean) {
+            super.destroy(destroyChildren);
+
+            (<Lttp.Game>this.game).onInputDown.removeAll(this);
+            (<Lttp.Game>this.game).onInputUp.removeAll(this);
+        }
+
+        private _bindInput() {
+            (<Lttp.Game>this.game).onInputDown.add(this._onInputDown, this);
+            (<Lttp.Game>this.game).onInputUp.add(this._onInputUp, this);
+        }
+
+        private _onInputDown(key: number, value: number) {
+            switch(key) {
+                // UP
+                case Phaser.Keyboard.UP:
+                case Phaser.Keyboard.W:
+                case Phaser.Gamepad.XBOX360_DPAD_UP:
+                    this.move(Phaser.UP);
+                    break;
+
+                // DOWN
+                case Phaser.Keyboard.DOWN:
+                case Phaser.Keyboard.S:
+                case Phaser.Gamepad.XBOX360_DPAD_DOWN:
+                    this.move(Phaser.DOWN);
+                    break;
+
+                // LEFT
+                case Phaser.Keyboard.LEFT:
+                case Phaser.Keyboard.A:
+                case Phaser.Gamepad.XBOX360_DPAD_LEFT:
+                    this.move(Phaser.LEFT);
+                    break;
+
+                // RIGHT
+                case Phaser.Keyboard.RIGHT:
+                case Phaser.Keyboard.D:
+                case Phaser.Gamepad.XBOX360_DPAD_RIGHT:
+                    this.move(Phaser.RIGHT);
+                    break;
+
+                // AXIS UP/DOWN
+                case Phaser.Gamepad.XBOX360_STICK_LEFT_Y:
+                    this.move(value > 0 ? Phaser.DOWN : Phaser.UP);
+                    break;
+
+                // AXIS LEFT/RIGHT
+                case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
+                    this.move(value > 0 ? Phaser.RIGHT : Phaser.LEFT);
+                    break;
+            }
+        }
+
+        private _onInputUp() {
         }
 
         updateValues() {
@@ -193,7 +253,7 @@ module Lttp.Gui {
             this.add(this.activeText);
         }
 
-        private _addToGrid(sprite: Phaser.Sprite, pos: number[]) {
+        private _addToGrid(sprite: InventoryItemSprite, pos: number[]) {
             if (!this.grid[pos[0]]) {
                 this.grid[pos[0]] = [];
             }

@@ -24,7 +24,7 @@
         "gulp-sourcemaps": "^1.1.1",
         "gulp-concat-sourcemap": "^1.3.1",
         "gulp-jshint": "^1.8.4",
-        "gulp-uglify": "^0.3.1",
+        "gulp-uglify": "^1.0.0",
         "gulp-size": "^1.0.0",
         "gulp-header": "^1.0.5",
         "gulp-rename": "^1.2.0",
@@ -36,6 +36,11 @@
         "browserify": "^5.10.0",
         "vinyl-source-stream": "^0.1.1",
         "vinyl-buffer": "^0.0.0"
+
+        ,
+        "through2": "^0.6.1",
+        "vinyl": "^0.4.2",
+        "gulp-util": "^3.0.1"
     },
 
     "scripts": {
