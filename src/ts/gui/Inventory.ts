@@ -115,7 +115,7 @@ module Lttp.Gui {
                 if (!item) continue;
 
                 name = item.name;
-                val = this.game.player.inventory[name];
+                val = (<Lttp.Game>this.game).player.inventory[name];
 
                 // set the texture and visibility
                 if (val || (val === 0 && (name === 'armor' || name === 'crystal'))) {
@@ -149,7 +149,7 @@ module Lttp.Gui {
             // always show lift power
             this.items['txtLiftNum'].visible = true;
             this.items['txtLiftNum'].setFrame(this.frames.getFrameByName(
-                this.items['txtLiftNum'].item.icon.replace('%d', this.game.player.inventory.gloves + 1)
+                this.items['txtLiftNum'].item.icon.replace('%d', (<Lttp.Game>this.game).player.inventory.gloves + 1)
             ));
 
             // first item added

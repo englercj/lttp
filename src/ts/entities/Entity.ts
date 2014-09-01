@@ -19,6 +19,7 @@ module Lttp.Entities {
         // the amount of damage this entity deals normally
         attackDamage: number = 1;
 
+        // state of movement of this entity
         moveState: any = {
             up: false,
             down: false,
@@ -26,10 +27,15 @@ module Lttp.Entities {
             right: false
         };
 
+        // type of this entity
         entityType: Data.ENTITY_TYPE = Data.ENTITY_TYPE.NEUTRAL;
+
+        frames: Phaser.FrameData;
 
         constructor(game: Phaser.Game, x: number = 0, y: number = 0, key?: any, frame?: any) {
             super(game, x, y, key, frame);
+
+            this.frames = key && game.cache.getFrameData(key);
         }
 
         heal(amount: number) {
@@ -41,12 +47,12 @@ module Lttp.Entities {
         }
 
         lock() {
-            this.setVelocity(new gf.Vector());
+            // this.setVelocity(new gf.Vector());
             this.locked = true;
         }
 
         unlock() {
-            this.setVelocity(this.movement);
+            // this.setVelocity(this.movement);
             this.locked = false;
         }
 

@@ -1,7 +1,7 @@
 module Lttp.States {
     export class State extends Phaser.State {
 
-        addTilemap(key: string, group?: Phaser.Group) {
+        addTilemap(key: string, scale: number = 1, group?: Phaser.Group) {
             var levelData: TiledMapData = <TiledMapData>(this.cache.getTilemapData('tilemap_' + key).data),
                 level: Phaser.Tilemap = this.add.tilemap('tilemap_' + key, levelData.tilewidth, levelData.tileheight, levelData.width, levelData.height),
                 layer: Phaser.TilemapLayer = null,
@@ -20,10 +20,16 @@ module Lttp.States {
             for (i = 0, il = levelData.layers.length; i < il; ++i) {
                 layerData = levelData.layers[i];
 
-                layer = level.createLayer(layerData.name, null, null, group);
+                layer = level.createLayer(
+                    layerData.name,
+                    layerData.width * levelData.tilewidth * (1 / scale),
+                    layerData.height * levelData.tileheight * (1 / scale),
+                    group
+                );
                 layer.visible = layerData.visible;
                 layer.alpha = layerData.opacity;
                 layer.position.set(layerData.x, layerData.y);
+                layer.scale.set(scale);
                 layer.resizeWorld();
             }
 

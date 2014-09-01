@@ -1,3 +1,5 @@
+/// <reference path="State.ts" />
+
 var loreText = [
     // Image #1
     [
@@ -50,10 +52,8 @@ module Lttp.States {
         loreMusic: Phaser.Sound;
         dingSound: Phaser.Sound;
 
-        introGroup: Phaser.Group;
-        loreGroup: Phaser.Group;
-
         // intro group sprites
+        introGroup: Phaser.Group;
         intro: Phaser.Sprite;
         background: Phaser.Sprite;
         title: Phaser.Sprite;
@@ -63,6 +63,7 @@ module Lttp.States {
         sparkle: Phaser.Sprite;
 
         // lore group sprites
+        loreGroup: Phaser.Group;
         loreBg1: Phaser.TileSprite;
         loreBg2: Phaser.TileSprite;
         loreImg1: Phaser.Sprite;
@@ -72,11 +73,22 @@ module Lttp.States {
         loreHighlight: Phaser.Graphics;
         loreDialog: Gui.Dialog;
 
+        // minimap sprites
+        mapGroup: Phaser.Group;
+        minimap: Phaser.Tilemap;
+        minimapLayer: Phaser.TilemapLayer;
+        thronemap: Phaser.Tilemap;
+        thronemapLayer: Phaser.TilemapLayer;
+
         flashes: Effects.ScreenFlash[] = [];
 
         count: number = 0;
 
-        timer: Phaser.Timer;
+        preload() {
+            super.preload();
+
+            this.load.pack('lw_minimap', Data.Constants.ASSET_TILEMAP_PACKS_URL);
+        }
 
         create() {
             super.create();
@@ -87,9 +99,7 @@ module Lttp.States {
 
             this._createIntroGroup();
             this._createLoreGroup();
-
-            this.timer = this.game.time.create(false);
-            this.timer.start();
+            this._createMapGroup();
 
             this.startIntroAnimation();
         }
@@ -106,7 +116,7 @@ module Lttp.States {
             }
 
             this.count++;
-            if (this.loreGroup.visible && (this.count % 3) === 0) {
+            if (this.loreGroup.visible && (this.count % 4) === 0) {
 
                 this.loreBg1.tilePosition.x += 1;
                 this.loreBg1.tilePosition.y -= 1;
@@ -118,7 +128,6 @@ module Lttp.States {
 
         startIntroAnimation() {
             this.introGroup.visible = true;
-            this.loreGroup.visible = false;
 
             this.intro.animations.play('intro');
 
@@ -128,13 +137,14 @@ module Lttp.States {
                     .to({ alpha: 0 }, 500)
                     .start()
                     .onComplete.addOnce(function () {
+                        this.introGroup.visible = false;
                         this.startLoreAnimation();
                     }, this);
             }, this);
 
             // When the intro completes
             this.intro.events.onAnimationComplete.add(function () {
-                this.timer.add(500, this.showSparkle, this);
+                Game.timer.add(500, this.showSparkle, this);
 
                 //Fade in the title
                 this.game.add.tween(this.title)
@@ -176,7 +186,6 @@ module Lttp.States {
         }
 
         startLoreAnimation() {
-            this.introGroup.visible = false;
             this.loreGroup.visible = true;
 
             this.loreMusic.play();
@@ -186,9 +195,39 @@ module Lttp.States {
                 .start()
                 .onComplete.addOnce(function () {
                     this._showLoreSequence(0, function () {
-                        //TODO: Show map zoom sequence
-                        console.log('ZOOOOOM');
+                        this.game.add.tween(this.loreGroup)
+                            .to({ alpha: 0 }, 500)
+                            .start()
+                            .onComplete.addOnce(function () {
+                                this.loreGroup.visible = false;
+                                this.startMinimapFlythrough();
+                            }, this);
                     });
+                }, this);
+        }
+
+        startMinimapFlythrough() {
+            this.mapGroup.visible = true;
+
+            console.log(this.minimapLayer);
+
+            this.game.add.tween(this.mapGroup)
+                .to({ alpha: 1 }, 500)
+                .start()
+                .onComplete.addOnce(function () {
+                    this.game.add.tween(this.minimapLayer.scale)
+                        .to({ x: 65, y: 65 }, 5000, Phaser.Easing.Exponential.In)
+                        .start();
+
+                    this.game.add.tween(this.mapGroup)
+                        .delay(4000)
+                        .to({ alpha: 0 }, 1000)
+                        .start()
+                        .onComplete.addOnce(function () {
+                            Game.timer.add(1000, function () {
+
+                            }, this);
+                        }, this);
                 }, this);
         }
 
@@ -230,7 +269,7 @@ module Lttp.States {
             sp.play('sparkle').onComplete.addOnce(function() {
                 sp.visible = false;
 
-                this.timer.add(180, this.showSparkle, this, ++p);
+                Game.timer.add(180, this.showSparkle, this, ++p);
             }, this);
         }
 
@@ -241,7 +280,7 @@ module Lttp.States {
 
             num--;
 
-            var len = 45,
+            var len = 60,
                 alpha = 0.9;
 
             this.flashes[0].flash(alpha, len).onComplete.addOnce(function () {
@@ -293,11 +332,11 @@ module Lttp.States {
 
             if (seq === 0) {
                 this.loreDialog.show(loreText[seq], null, false, false).onTypingComplete.addOnce(function () {
-                    this.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
+                    Game.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
                 }, this);
             } else {
                 this.loreDialog.append(loreText[seq], false).onTypingComplete.addOnce(function () {
-                    this.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
+                    Game.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
                 }, this);
             }
         }
@@ -406,6 +445,18 @@ module Lttp.States {
 
             this.loreDialog = new Gui.Dialog(game, this.loreGroup, false);
             this.loreDialog.position.set(34, 124);
+        }
+
+        private _createMapGroup() {
+            this.mapGroup = this.add.group();
+            this.mapGroup.visible = false;
+            this.mapGroup.alpha = 0;
+
+            this.minimap = this.addTilemap('lw_minimap', 0.75, this.mapGroup);
+            this.minimapLayer = <Phaser.TilemapLayer>this.mapGroup.children[0];
+            this.minimapLayer.fixedToCamera = false;
+            this.minimapLayer.anchor.set(0.375, 0.350);
+            this.minimapLayer.position.set(128, 100);
         }
 
     }

@@ -6,6 +6,8 @@ module Lttp {
         onInputDown: Phaser.Signal = null;
         onInputUp: Phaser.Signal = null;
 
+        static timer: Phaser.Timer = null;
+
         constructor() {
             // super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
 
@@ -73,6 +75,11 @@ module Lttp {
                 onUp: this.onGamepadUp,
                 onAxis: this.onGamepadAxis
             });
+
+            this.sound.mute = true;
+
+            Game.timer = this.time.create(false);
+            Game.timer.start();
         }
 
         gamePaused(event: Object) {

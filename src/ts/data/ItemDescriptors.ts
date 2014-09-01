@@ -4,7 +4,7 @@ module Lttp.Data {
         ext: string;
         type: string;
         num: number;
-        speed: number;
+        framerate: number;
         loop: boolean;
         spacing: number;
         hitArea: Phaser.Rectangle;
@@ -80,7 +80,7 @@ module Lttp.Data {
                 ext: '.png',
                 type: 'fire',
                 num: 3,
-                speed: 0.15,
+                framerate: 9,
                 loop: false,
                 spacing: 2,
                 hitArea: new Phaser.Rectangle(0, 8, 8, 8)
