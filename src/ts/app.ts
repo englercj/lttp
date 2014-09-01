@@ -1,4 +1,4 @@
-/// <reference path="../../bower_components/phaser-official/build/phaser.d.ts" />
+/// <reference path="../../node_modules/phaser/build/phaser.d.ts" />
 
 var game;
 window.onload = () => {
