@@ -32,6 +32,8 @@ module Lttp.Entities {
 
         frames: Phaser.FrameData;
 
+        properties: any;
+
         constructor(game: Phaser.Game, x: number = 0, y: number = 0, key?: any, frame?: any) {
             super(game, x, y, key, frame);
 
@@ -46,14 +48,18 @@ module Lttp.Entities {
             return this;
         }
 
-        lock() {
+        lock(): Entity {
             // this.setVelocity(new gf.Vector());
             this.locked = true;
+
+            return this;
         }
 
-        unlock() {
+        unlock(): Entity {
             // this.setVelocity(this.movement);
             this.locked = false;
+
+            return this;
         }
 
         _addDirectionalFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {

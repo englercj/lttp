@@ -87,5 +87,17 @@ module Lttp.Entities.Items {
             }
         }
 
+        dropLoot() {
+            if (!this.properties.loot) return;
+
+            var obj = (<Lttp.Game>this.game).player.itemPool.alloc();
+
+            obj.boot(this);
+            (<Lttp.Game>this.game).player.parent.addChild(obj);
+
+            // TODO: remove loot from level for next time
+            // this._markEmpty(this);
+        }
+
     }
 }

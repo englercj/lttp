@@ -513,105 +513,137 @@ module Lttp.Entities {
             this._setMoveAnimation();
         }
 
+        // TODO: Move this into a new Chest class
         openChest(chest: Entities.Entity) {
-            // if(!chest.properties.loot)
-            //     return;
+            if (!chest.properties.loot) {
+                return;
+            }
 
-            // //conditional loot based on inventory
-            // var loot = chest.properties.loot.split(','),
-            //     i = 0;
+            // conditional loot based on inventory
+            var loot = chest.properties.loot.split(','),
+                i = 0;
 
-            // //find the first loot item they don't have already
-            // while(i < loot.length - 1 && this.inventory[loot[i]])
-            //     ++i;
+            // find the first loot item they don't have already
+            while(i < loot.length - 1 && this.inventory[loot[i]]) {
+                ++i;
+            }
 
-            // //use this loot
-            // loot = loot[i];
+            // use the loot they don't have, or the last one
+            loot = loot[i];
 
-            // this.lock();
-            // this.goto(0, 'lift_walk_down').stop();
+            // lock player movement and go to the open animation
+            this.lock().animations.stop('lift_walk_down');
 
-            // //open chest
-            // chest.setTexture(lttp.game.cache.getTextures('sprite_worlditems')['dungeon/chest_open.png']);
-            // this.sounds.openChest.play();
+            // set chest texture to the open state
+            chest.setFrame(this.game.cache.getFrameData('sprite_worlditems').getFrameByName('dungeon/chest_open.png'));
 
-            // //show loot
-            // var obj = this.itempool.create();
-            // this.parent.addChild(obj);
-            // obj.setup(chest, null, loot);
-            // obj.position.y -= 5;
+            // play the check open sound
+            this.openChestSound.play();
 
-            // //small animation
-            // var self = this;
-            // setTimeout(function() {
-            //     self.sounds.itemFanfaire.play();
-            // }, 100);
-            // TweenLite.to(obj.position, 1.5, {
-            //     y: '-=5',
-            //     ease: Linear.easenone,
-            //     onComplete: function() {
-            //         //TODO: SHOW DIALOG
-            //         self.unlock();
-            //         self.itempool.free(obj);
-            //         obj.pickup();
+            // show loot
+            var obj = this.itemPool.alloc();
+            this.parent.addChild(obj);
+            obj.boot(chest, loot);
+            obj.position.y -= 5;
 
-            //         //update hud
-            //         self.inventory[obj.type] += obj.value;
-            //         self.emit('updateHud');
-            //     }
-            // })
+            // small animation
+            Game.timer.add(100, function () {
+                this.itemFanfaireSound.play();
+            }, this);
 
-            // //remove loot for next time
+            this.game.add.tween(obj)
+                .to({ y: obj.y - 5 }, 1500)
+                .start()
+                .onComplete.addOnce(function () {
+                    //TODO: Show dialog when first time item has been got
+
+                    // unlock the player
+                    this.unlock();
+
+                    // remove the item
+                    this.itemPool.free(obj);
+                    obj.pickup();
+
+                    // update the inventory/hud
+                    this.inventory[obj.itemType] += obj.value;
+
+                    //TODO: hud updates
+                    // this.emit('updateHud');
+                }, this);
+
+            // TODO: remove loot from level for next time
             // this._markEmpty(chest);
         }
 
         readSign(sign) {
+            // TODO: Signage
             // this.emit('readSign', sign);
         }
 
-        liftItem(item) {
-            // //Do lifting of the object
-            // this.lock();
+        liftItem(item: Entities.Items.WorldItem) {
+            // lock player movement
+            this.lock();
 
-            // //change physics to sensor
+            //TODO: item physics
+            // change physics to sensor
             // item.disablePhysics();
             // item.sensor = true;
             // item.enablePhysics();
 
-            // //remove from collision list
-            // var idx = this.colliding.indexOf(item);
-            // if(idx !== -1) {
-            //     this.colliding.splice(idx, 1);
-            // }
+            // remove from collision list
+            var idx = this.colliding.indexOf(item);
+            if (idx !== -1) {
+                this.colliding.splice(idx, 1);
+            }
 
-            // //drop the loot
-            // if(item.properties.loot) {
-            //     this.dropLoot(item);
-            // }
+            // drop the loot
+            if (item.properties.loot) {
+                item.dropLoot();
+            }
 
-            // //make it just below loot
-            // item.parent.removeChild(item);
-            // this.parent.addChild(item);
+            // make it just below loot in the draw array (so you can see loot on top)
+            item.parent.removeChild(item);
+            this.parent.addChild(item);
 
-            // //set the correct texture
-            // var tx = 'dungeon/' + item.properties.type + (item.properties.heavy ? '_heavy' : '') + '.png';
-            // item.setTexture(lttp.game.cache.getTextures('sprite_worlditems')[tx]);
+            // set the correct texture
+            item.setFrame(item.frames.getFrameByName('dungeon/' + item.itemType + (item.properties.heavy ? '_heavy' : '') + '.png'));
 
-            // //lift the item
-            // this.goto(0, 'lift_' + this.lastDir).play();
-            // this.sounds.lift.play();
+            //lift the item
+            this.animations.play('lift_' + this.lastDirection);
+            this.liftSound.play();
 
-            // var self = this;
-            // TweenLite.to(item.position, 0.15, {
-            //     x: self.position.x,
-            //     y: self.position.y - self.height + 5,
-            //     ease: Linear.easeNone,
-            //     onComplete: function() {
-            //         //set that we are carrying it
-            //         self.carrying = item;
-            //         self.unlock();
-            //     }
-            // });
+            this.game.add.tween(item)
+                .to({ x: this.x, y: this.y - this.height + 5 }, 150)
+                .start()
+                .onComplete.addOnce(function () {
+                    this.unlock().carrying = item;
+                }, this);
+        }
+
+        collectLoot(item: Entities.Items.WorldItem) {
+            switch(item.itemType) {
+                case 'heart':
+                    this.heal(1);
+                    break;
+
+                case 'magic':
+                    this.magic += item.value;
+                    if(this.magic > this.maxMagic) {
+                        this.magic = this.maxMagic;
+                    }
+                    break;
+
+                case 'arrows':
+                case 'bombs':
+                case 'rupees':
+                    this.inventory[item.type] += item.value;
+                    break;
+            }
+
+            item.pickup();
+            this.itemPool.free(item);
+            //TODO: hud updates
+            // this.emit('updateHud');
         }
 
         /*******************************
@@ -762,39 +794,8 @@ module Lttp.Entities {
 //             phys.addBody(this.atkSensor);*/
 //         },
 
-//         dropLoot: function(item) {
-//             if(!item.properties.loot) return;
-
-//             var obj = this.itempool.create();
-
-//             obj.setup(item, this._phys.system);
-//             this.parent.addChild(obj);
-
-//             this._markEmpty(item);
-//         },
-//         collectLoot: function(obj) {
-//             switch(obj.type) {
-//                 case 'heart':
-//                     this.heal(1);
-//                     break;
-
-//                 case 'magic':
-//                     this.magic += obj.value;
-//                     if(this.magic > this.maxMagic)
-//                         this.magic = this.maxMagic;
-//                     break;
-
-//                 case 'arrows':
-//                 case 'bombs':
-//                 case 'rupees':
-//                     this.inventory[obj.type] += obj.value;
-//                     break;
-//             }
-
-//             obj.pickup();
-//             this.itempool.free(obj);
-//             this.emit('updateHud');
-//         },
+//         ,
+//         ,
 
 //         _markEmpty: function(item) {
 //             //mark as empty
