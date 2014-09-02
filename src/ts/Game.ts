@@ -57,7 +57,14 @@ module Lttp {
 
             this.onInputDown = new Phaser.Signal();
             this.onInputUp = new Phaser.Signal();
+            Game.timer = this.time.create(false);
+        }
 
+        create() {
+            //  Enable p2 physics
+            this.physics.startSystem(Phaser.Physics.P2JS);
+
+            // capture keyboard keys
             this.input.keyboard.addKeyCapture([
                 Phaser.Keyboard.SPACEBAR,
                 Phaser.Keyboard.ENTER,
@@ -67,8 +74,10 @@ module Lttp {
                 Phaser.Keyboard.RIGHT
             ]);
 
+            // start polling for gamepad input
             this.input.gamepad.start();
 
+            // add callbacks for keyboard/gamepad data
             this.input.keyboard.addCallbacks(this, this.onKeyboardDown, this.onKeyboardUp);
             this.input.gamepad.addCallbacks(this, {
                 onDown: this.onGamepadDown,
@@ -76,9 +85,7 @@ module Lttp {
                 onAxis: this.onGamepadAxis
             });
 
-            this.sound.mute = true;
-
-            Game.timer = this.time.create(false);
+            // start the static game timer
             Game.timer.start();
         }
 

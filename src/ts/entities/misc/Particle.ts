@@ -3,8 +3,10 @@ module Lttp.Entities.Misc {
 
         particleType: string;
 
-        constructor(game: Phaser.Game, x: number = 0, y: number = 0) {
-            super(game, x, y, 'sprite_particles');
+        constructor(game: Phaser.Game) {
+            super(game, 'sprite_particles');
+
+            this.body.data.shapes[0].sensor = true;
 
             this.particleType = '';
 

@@ -10,8 +10,10 @@ module Lttp.Entities.Items {
 
         value: number;
 
-        constructor(game: Phaser.Game, x: number = 0, y: number = 0) {
-            super(game, x, y, 'sprite_worlditems');
+        constructor(game: Phaser.Game) {
+            super(game, 'sprite_worlditems');
+
+            this.body.data.shapes[0].sensor = true;
 
             this.itemSound = game.add.sound('effect_item', Data.Constants.AUDIO_EFFECT_VOLUME);
             this.rupeesSound1 = game.add.sound('effect_rupee1', Data.Constants.AUDIO_EFFECT_VOLUME);

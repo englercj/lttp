@@ -34,10 +34,19 @@ module Lttp.Entities {
 
         properties: any;
 
-        constructor(game: Phaser.Game, x: number = 0, y: number = 0, key?: any, frame?: any) {
-            super(game, x, y, key, frame);
+        constructor(game: Phaser.Game, key: any, physical: boolean = true, frame?: any) {
+            super(game, 0, 0, key, frame);
 
-            this.frames = key && game.cache.getFrameData(key);
+            this.frames = typeof key === 'string' ? game.cache.getFrameData(key) : null;
+
+            if (physical) {
+                // Enable physics for this entity
+                game.physics.p2.enable(this);
+
+                // Modify a few body properties
+                this.body.setZeroDamping();
+                this.body.fixedRotation = true;
+            }
         }
 
         heal(amount: number) {
@@ -49,14 +58,15 @@ module Lttp.Entities {
         }
 
         lock(): Entity {
-            // this.setVelocity(new gf.Vector());
+            this.body.setZeroVelocity();
             this.locked = true;
 
             return this;
         }
 
         unlock(): Entity {
-            // this.setVelocity(this.movement);
+            this.body.velocity.x = this.movement.x;
+            this.body.velocity.y = this.movement.y;
             this.locked = false;
 
             return this;

@@ -45,7 +45,7 @@ module Lttp.Entities {
         private _coneVec: Phaser.Point;
 
         constructor(game: Phaser.Game) {
-            super(game, 0, 0, 'sprite_link');
+            super(game, 'sprite_link');
 
             this.name = 'link';
             this.moveSpeed = 87;
@@ -82,6 +82,7 @@ module Lttp.Entities {
 
             this.anchor.set(0.5);
 
+            // TODO: carry follow
             // this.on('physUpdate', this._physUpdate.bind(this));
 
             this.addAnimations();
@@ -169,10 +170,10 @@ module Lttp.Entities {
             super.destroy(destroyChildren);
         }
 
-        unlock() {
+        unlock(): Player {
             this._setMoveAnimation();
 
-            super.unlock();
+            return <Player>super.unlock();
         }
 
         private _addDirectionalPrefixedFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
@@ -313,7 +314,8 @@ module Lttp.Entities {
             if(this.locked) return;
 
             this._setMoveAnimation();
-            this.setVelocity(this.movement);
+            this.body.velocity.x = this.movement.x;
+            this.body.velocity.y = this.movement.y;
         }
 
         private _setMoveAnimation(force: boolean = false) {
@@ -431,19 +433,19 @@ module Lttp.Entities {
                             if(this.lastDirection === 'up') {
                                 this.readSign(ent);
                             } else {
-                                this.liftItem(ent);
+                                this.liftItem(<Entities.Items.WorldItem>ent);
                             }
                             break;
 
                         case Data.ENTITY_TYPE.ROCK:
                             if(this.inventory.gloves) {
-                                this.liftItem(ent);
+                                this.liftItem(<Entities.Items.WorldItem>ent);
                             }
                             break;
 
                         case Data.ENTITY_TYPE.GRASS:
                         case Data.ENTITY_TYPE.POT:
-                            this.liftItem(ent);
+                            this.liftItem(<Entities.Items.WorldItem>ent);
                             break;
                     }
 
@@ -472,7 +474,7 @@ module Lttp.Entities {
 
             // create the item particle
             particle = this.particlePool.alloc();
-            particle.boot(this.equipted, this._phys.system);
+            particle.boot(this.equipted);
             this.parent.addChild(particle);
 
             // this.emit('updateHud');
