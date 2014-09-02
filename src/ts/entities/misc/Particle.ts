@@ -10,7 +10,7 @@ module Lttp.Entities.Misc {
 
             this.anchor.set(0, 1);
 
-            this.events.onAnimationComplete(this.expire, this);
+            this.events.onAnimationComplete.add(this.expire, this);
         }
 
         boot(item: Data.ItemDescriptor, phys: boolean) {

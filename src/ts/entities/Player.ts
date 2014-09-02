@@ -15,14 +15,14 @@ module Lttp.Entities {
         inAttackRange: Entities.Entity[];
         colliding: Entities.Entity[];
 
-        // //a pool of sprite to do smashing animations
-        // smashpool = new gf.ObjectPool(Smash);
+        //a pool of sprite to do smashing animations
+        smashPool;
 
-        // //a pool of world items to be dropped
-        // itempool = new gf.ObjectPool(WorldItem);
+        //a pool of world items to be dropped
+        itemPool;
 
-        // //a pool of particles to throw around
-        // particlepool = new gf.ObjectPool(Particle);
+        //a pool of particles to throw around
+        particlePool;
 
         liftSound: Phaser.Sound;
         throwSound: Phaser.Sound;
@@ -48,6 +48,7 @@ module Lttp.Entities {
             super(game, 0, 0, 'sprite_link');
 
             this.name = 'link';
+            this.moveSpeed = 87;
 
             this.maxMagic = 10;
             this.magic = 0;
@@ -55,7 +56,9 @@ module Lttp.Entities {
             this.inAttackRange = [];
             this.colliding = [];
 
-            this.moveSpeed = 87;
+            this.smashPool = new Utility.Pool<Entities.Misc.Smash>(game, Entities.Misc.Smash);
+            this.itemPool = new Utility.Pool<Entities.Items.WorldItem>(game, Entities.Items.WorldItem);
+            this.particlePool = new Utility.Pool<Entities.Misc.Particle>(game, Entities.Misc.Particle);
 
             this.liftSound = game.add.sound('effect_lift', Data.Constants.AUDIO_EFFECT_VOLUME);
             this.throwSound = game.add.sound('effect_throw', Data.Constants.AUDIO_EFFECT_VOLUME);
@@ -468,7 +471,7 @@ module Lttp.Entities {
             this.magic -= this.equipted.cost;
 
             // create the item particle
-            particle = this.particlepool.create();
+            particle = this.particlePool.alloc();
             particle.boot(this.equipted, this._phys.system);
             this.parent.addChild(particle);
 
@@ -476,7 +479,7 @@ module Lttp.Entities {
         }
 
         private _destroyObject(obj: any) {
-            var spr = this.smashpool.create();
+            var spr = this.smashPool.alloc();
 
             spr.animations.play(obj.properties.type);
             spr.anchor.copyFrom(obj.anchor);
@@ -510,7 +513,7 @@ module Lttp.Entities {
             this._setMoveAnimation();
         }
 
-        openChest(chest: Data.ItemDescriptor) {
+        openChest(chest: Entities.Entity) {
             // if(!chest.properties.loot)
             //     return;
 
