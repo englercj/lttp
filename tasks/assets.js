@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
-    jsonmin = require('gulp-jsonmin');
+    jsonmin = require('gulp-jsonmin'),
+    cached = require('gulp-cached');
 
 /*****
  * Assets Phaser packs task, creates phaser asset loader packs for tilemaps
@@ -16,6 +17,7 @@ gulp.task('assets:tilemap-pack', function () {
  *****/
 gulp.task('assets:imagemin', function () {
     return gulp.src('./src/assets/**/*.png')
+        .pipe(cached('imagemin'))
         .pipe(imagemin())
         .on('error', console.error)
         .pipe(gulp.dest('./public/assets'));
@@ -26,6 +28,7 @@ gulp.task('assets:imagemin', function () {
  *****/
 gulp.task('assets:jsonmin', function () {
     return gulp.src('./src/assets/**/*.json')
+        .pipe(cached('jsonmin'))
         .pipe(jsonmin())
         .pipe(gulp.dest('./public/assets'));
 });

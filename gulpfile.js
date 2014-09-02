@@ -16,9 +16,11 @@ files.forEach(function (file) {
  * Dev task, incrementally rebuilds less and scripts for development
  *****/
 gulp.task('dev', ['build', 'serve'], function () {
+    gulp.watch('./index.html', ['copy:index']);
     gulp.watch('./src/ts/**/*.ts', ['scripts']);
     gulp.watch('./src/less/**/*.less', ['less']);
-    gulp.watch('./index.html', ['copy:index']);
+    gulp.watch('./src/assets/**/*.png', ['assets:imagemin']);
+    gulp.watch('./src/assets/**/*.json', ['assets:tilemap-pack']);
     gulp.watch(config.vendorFiles, ['copy:vendor']);
 });
 
