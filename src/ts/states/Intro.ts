@@ -232,8 +232,6 @@ module Lttp.States {
         }
 
         skip() {
-            //TODO: Cleanup, cancel tweens, hide sprites, etc
-
             this.game.state.start('MainMenu', true, false);
         }
 

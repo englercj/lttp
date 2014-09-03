@@ -159,15 +159,9 @@ module Lttp.Entities {
 
             this._setMoveAnimation();
 
-            (<Lttp.Game>this.game).onInputDown.add(this._onInputDown, this);
-            (<Lttp.Game>this.game).onInputUp.add(this._onInputUp, this);
-        }
-
-        destroy(destroyChildren?: boolean) {
-            (<Lttp.Game>this.game).onInputDown.removeAll(this);
-            (<Lttp.Game>this.game).onInputUp.removeAll(this);
-
-            super.destroy(destroyChildren);
+            // TODO: This doesn't work when switching states, states need to forward input here...
+            (<Lttp.States.State>this.game.state.getCurrentState()).onInputDown.add(this._onInputDown, this);
+            (<Lttp.States.State>this.game.state.getCurrentState()).onInputUp.add(this._onInputUp, this);
         }
 
         unlock(): Player {
@@ -283,13 +277,13 @@ module Lttp.Entities {
 
             // movement is done with boolean states that are then checked ensures that pressing
             // multiple keys at once and releasing only one of them works properly.
-            if(this.moveState.left && this.moveState.right) {
+            if (this.moveState.left && this.moveState.right) {
                 this.movement.x = 0;
             }
-            else if(this.moveState.left) {
+            else if (this.moveState.left) {
                 this.movement.x = -this.moveSpeed;
             }
-            else if(this.moveState.right) {
+            else if (this.moveState.right) {
                 this.movement.x = this.moveSpeed;
             }
             else {
@@ -297,13 +291,13 @@ module Lttp.Entities {
             }
 
             // do the same checks as above but for the Y axis
-            if(this.moveState.up && this.moveState.down) {
+            if (this.moveState.up && this.moveState.down) {
                 this.movement.y = 0;
             }
-            else if(this.moveState.up) {
+            else if (this.moveState.up) {
                 this.movement.y = -this.moveSpeed;
             }
-            else if(this.moveState.down) {
+            else if (this.moveState.down) {
                 this.movement.y = this.moveSpeed;
             }
             else {
@@ -311,7 +305,7 @@ module Lttp.Entities {
             }
 
             // if the entity is locked, then just return
-            if(this.locked) return;
+            if (this.locked) return;
 
             this._setMoveAnimation();
             this.body.velocity.x = this.movement.x;

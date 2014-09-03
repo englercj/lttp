@@ -44,22 +44,18 @@ module Lttp.Gui {
 
             this._setup();
 
-            this._bindInput();
+            (<Lttp.States.State>this.game.state.getCurrentState()).onInputDown.add(this._onInputDown, this);
+            (<Lttp.States.State>this.game.state.getCurrentState()).onInputUp.add(this._onInputUp, this);
         }
 
         destroy(destroyChildren?: boolean) {
             super.destroy(destroyChildren);
 
-            (<Lttp.Game>this.game).onInputDown.removeAll(this);
-            (<Lttp.Game>this.game).onInputUp.removeAll(this);
+            (<Lttp.States.State>this.game.state.getCurrentState()).onInputDown.removeAll(this);
+            (<Lttp.States.State>this.game.state.getCurrentState()).onInputUp.removeAll(this);
         }
 
-        private _bindInput() {
-            (<Lttp.Game>this.game).onInputDown.add(this._onInputDown, this);
-            (<Lttp.Game>this.game).onInputUp.add(this._onInputUp, this);
-        }
-
-        private _onInputDown(key: number, value: number) {
+        private _onInputDown(key: number, value: number, event: any) {
             switch(key) {
                 // UP
                 case Phaser.Keyboard.UP:
@@ -101,7 +97,7 @@ module Lttp.Gui {
             }
         }
 
-        private _onInputUp() {
+        private _onInputUp(key: number, value: number, event: any) {
         }
 
         updateValues() {

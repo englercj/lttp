@@ -9,17 +9,17 @@ module Lttp.Utility {
 
     export class PlayerSave extends Utility.Save {
 
-        constructor(public slot: number, public name: string) {
+        constructor(public slot: number, public name?: string) {
             super('link_' + slot);
 
             this.data.name = name;
             this.data.slot = slot;
         }
 
-        save(data: PlayerSaveData) {
-            this.data.player = data.player;
-            this.data.map = data.map;
-            this.data.position = data.position;
+        save(data?: PlayerSaveData) {
+            this.data.player = data ? data.player : null;
+            this.data.map = data ? data.map : null;
+            this.data.position = data ? data.position : null;
 
             super.save();
         }

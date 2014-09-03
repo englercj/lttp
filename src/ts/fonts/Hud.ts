@@ -1,7 +1,9 @@
+/// <reference path="Font.ts" />
+
 module Lttp.Fonts {
     export class Hud extends Fonts.Font {
 
-        constructor(game: Phaser.Game, x: number, y: number, text: string = '', size: number = 16, monospace: number = 0) {
+        constructor(game: Phaser.Game, x: number, y: number, text: string = '', monospace: number = 0, size: number = 16) {
             super(game, this.prepareFontData(game, monospace), x, y, text, size, monospace);
         }
 

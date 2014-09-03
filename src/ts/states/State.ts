@@ -1,5 +1,66 @@
 module Lttp.States {
+    export interface GamepadAxisState {
+        axis: number; //the axis index
+        value: number; //the value of the axis
+    }
+
     export class State extends Phaser.State {
+
+        onInputDown: Phaser.Signal;
+        onInputUp: Phaser.Signal;
+
+        constructor() {
+            super();
+
+            // create signals
+            this.onInputDown = new Phaser.Signal();
+            this.onInputUp = new Phaser.Signal();
+        }
+
+        create() {
+            // add callbacks for keyboard/gamepad data
+            this.input.keyboard.addCallbacks(this, this.onKeyboardDown, this.onKeyboardUp);
+            this.input.gamepad.addCallbacks(this, {
+                onDown: this.onGamepadDown,
+                onUp: this.onGamepadUp,
+                onAxis: this.onGamepadAxis
+            });
+        }
+
+        shutdown() {
+            this.onInputDown.removeAll();
+            this.onInputUp.removeAll();
+            this.sound.stopAll();
+        }
+
+        onKeyboardDown(event) {
+            this.onInputDown.dispatch(event.keyCode, 1, event);
+        }
+
+        onKeyboardUp(event) {
+            this.onInputUp.dispatch(event.keyCode, 1, event);
+        }
+
+        onGamepadDown(button: number, value: number, padIndex: number) {
+            this.onInputDown.dispatch(button, value, event);
+        }
+
+        onGamepadUp(button: number, value: number, padIndex: number) {
+            this.onInputUp.dispatch(button, value, event);
+        }
+
+        onGamepadAxis(axisState: GamepadAxisState, padIndex: number) {
+            // if we pass the threshold send a "down" signal
+            if (axisState.value > Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD ||
+                axisState.value < -Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
+            ) {
+                this.onInputDown.dispatch(axisState.axis, axisState.value, null);
+            }
+            // otherwise send an "up" signal
+            else {
+                this.onInputUp.dispatch(axisState.axis, axisState.value, null);
+            }
+        }
 
         addTilemap(key: string, scale: number = 1, group?: Phaser.Group) {
             var levelData: TiledMapData = <TiledMapData>(this.cache.getTilemapData('tilemap_' + key).data),

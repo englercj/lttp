@@ -18,7 +18,7 @@ module Lttp.Fonts {
 
         static cachedFonts: { [key: string]: Fonts.FontData } = {};
 
-        constructor(game: Phaser.Game, font: string, x: number = 0, y: number = 0, text: string = '', size: number = 32, public monospace: number = 0) {
+        constructor(game: Phaser.Game, font: string, x: number = 0, y: number = 0, text: string = '', public monospace: number = 0, size: number = 32) {
             super(game, x, y, font, text, size);
         }
 

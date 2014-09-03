@@ -3,9 +3,6 @@ module Lttp {
 
         player: Entities.Player = null;
 
-        onInputDown: Phaser.Signal = null;
-        onInputUp: Phaser.Signal = null;
-
         static timer: Phaser.Timer = null;
 
         constructor() {
@@ -55,12 +52,6 @@ module Lttp {
             this.world.scale.set(Data.Constants.GAME_SCALE);
             //////////////////////////////////////////////////////
 
-            this.onInputDown = new Phaser.Signal();
-            this.onInputUp = new Phaser.Signal();
-            Game.timer = this.time.create(false);
-        }
-
-        create() {
             //  Enable p2 physics
             this.physics.startSystem(Phaser.Physics.P2JS);
 
@@ -77,15 +68,8 @@ module Lttp {
             // start polling for gamepad input
             this.input.gamepad.start();
 
-            // add callbacks for keyboard/gamepad data
-            this.input.keyboard.addCallbacks(this, this.onKeyboardDown, this.onKeyboardUp);
-            this.input.gamepad.addCallbacks(this, {
-                onDown: this.onGamepadDown,
-                onUp: this.onGamepadUp,
-                onAxis: this.onGamepadAxis
-            });
-
             // start the static game timer
+            Game.timer = this.time.create(false);
             Game.timer.start();
         }
 
@@ -101,39 +85,5 @@ module Lttp {
             this.sound.resumeAll();
         }
 
-        onKeyboardDown(event) {
-            this.onInputDown.dispatch(event.keyCode, 1, event);
-        }
-
-        onKeyboardUp(event) {
-            this.onInputUp.dispatch(event.keyCode, 1, event);
-        }
-
-        onGamepadDown(button: number, value: number, padIndex: number) {
-            this.onInputDown.dispatch(button, value, event);
-        }
-
-        onGamepadUp(button: number, value: number, padIndex: number) {
-            this.onInputUp.dispatch(button, value, event);
-        }
-
-        onGamepadAxis(axisState: GamepadAxisState, padIndex: number) {
-            // if we pass the threshold send a "down" signal
-            if (axisState.value > Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD ||
-                axisState.value < -Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
-            ) {
-                this.onInputDown.dispatch(axisState.axis, axisState.value, null);
-            }
-            // otherwise send an "up" signal
-            else {
-                this.onInputUp.dispatch(axisState.axis, axisState.value, null);
-            }
-        }
-
-    }
-
-    export interface GamepadAxisState {
-        axis: number; //the axis index
-        value: number; //the value of the axis
     }
 }

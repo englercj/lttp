@@ -7,7 +7,7 @@ module Lttp.Utility {
         }
 
         // main methods
-        alloc(forceNew: boolean = false): T {
+        alloc(forceNew: boolean = false, ...args: any[]): T {
             var obj;
 
             if (!forceNew) {
@@ -15,7 +15,8 @@ module Lttp.Utility {
             }
 
             if (!obj) {
-                obj = new this._ctor(this.game);
+                args.unshift(this.game);
+                obj = this._construct(this._ctor, args);
 
                 if (this.group) {
                     this.group.add(obj);
@@ -53,6 +54,16 @@ module Lttp.Utility {
             }
 
             return obj;
+        }
+
+        private _construct(ctor, args) {
+            function PoolObjectCtor(): void {
+                return ctor.apply(this, args);
+            }
+            PoolObjectCtor.prototype = ctor.prototype;
+            PoolObjectCtor.name = ctor.name;
+
+            return new PoolObjectCtor();
         }
 
     }
