@@ -2,8 +2,11 @@
 
 module Lttp.Fonts {
     export class ReturnOfGanon extends Fonts.Font {
-        constructor(game: Phaser.Game, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 32) {
-            super(game, this.prepareFontData(game, monospace), x, y, text, size, monospace);
+
+        // You may notice that the "size" param default is 16, not 32 like when we create the font in "prepareFontData"
+        // this is because we actually want the font to be half-size when used.
+        constructor(game: Phaser.Game, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 16) {
+            super(game, this.prepareFontData(game, monospace), x, y, text, monospace, size);
         }
 
         prepareFontData(game: Phaser.Game, monospace: number = 0): string {

@@ -4,7 +4,7 @@ module Lttp.Fonts {
     export class Hud extends Fonts.Font {
 
         constructor(game: Phaser.Game, x: number, y: number, text: string = '', monospace: number = 0, size: number = 16) {
-            super(game, this.prepareFontData(game, monospace), x, y, text, size, monospace);
+            super(game, this.prepareFontData(game, monospace), x, y, text, monospace, size);
         }
 
         prepareFontData(game: Phaser.Game, monospace: number = 0): string {

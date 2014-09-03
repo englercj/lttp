@@ -67,7 +67,7 @@ module Lttp.States {
             this.active = MainMenuActiveMenu.SELECT;
             this.selected = 0;
             this.selectedChar = new Phaser.Point(6, 0);
-            this.delta = new Phaser.Point(32, 35);
+            this.delta = new Phaser.Point(16, 16);
 
             this.saves = null;
 
@@ -112,19 +112,19 @@ module Lttp.States {
 
                 switch(this.selected) {
                     case 0: //slot 1
-                        this.fairySprite.position.y = 72; // * C.SCALE; //215;
+                        this.fairySprite.position.y = 72;
                         break;
                     case 1: //slot 2
-                        this.fairySprite.position.y = 103; // * C.SCALE; //310;
+                        this.fairySprite.position.y = 103;
                         break;
                     case 2: //slot 3
-                        this.fairySprite.position.y = 132; // * C.SCALE; //395;
+                        this.fairySprite.position.y = 132;
                         break;
                     case 3: //copy
-                        this.fairySprite.position.y = 177; // * C.SCALE; //530;
+                        this.fairySprite.position.y = 177;
                         break;
                     case 4: //erase
-                        this.fairySprite.position.y = 192; // * C.SCALE; //575;
+                        this.fairySprite.position.y = 192;
                         break;
                 }
 
@@ -153,7 +153,7 @@ module Lttp.States {
                 this.selectedChar.clampY(0, 3);
                 this.selectedChar.clampX(0, 28);
 
-                this.line.position.y = (261/* * C.TEXT_SCALE*/) /*392*/ + (this.selectedChar.y * (this.delta.y/* * C.TEXT_SCALE*/));
+                this.line.position.y = 130 + (this.selectedChar.y * this.delta.y);
                 this.charactersGroup.position.x = -((this.selectedChar.x - 6) * this.delta.x);
             }
             else if(this.active === MainMenuActiveMenu.ERASE) {
@@ -212,12 +212,12 @@ module Lttp.States {
                 }
                 else if (ch.name === 'left') {
                     this.pnameI = Math.max(0, this.pnameI - 1);
-                    this.pointerSprite.position.x = (60/* * C.TEXT_SCALE*/) + (this.pnameI * 2 * this.pname.monospace/* * C.TEXT_SCALE*/);
+                    this.pointerSprite.position.x = 30 + (this.pnameI * 2 * this.pname.monospace);
                     return;
                 }
                 else if (ch.name === 'right') {
                     this.pnameI = Math.min((n.length / 2), this.pnameI + 1);
-                    this.pointerSprite.position.x = (60/* * C.TEXT_SCALE*/) + (this.pnameI * 2 * this.pname.monospace/* * C.TEXT_SCALE*/);
+                    this.pointerSprite.position.x = 30 + (this.pnameI * 2 * this.pname.monospace);
                     return;
                 }
 
@@ -240,7 +240,7 @@ module Lttp.States {
 
                 this.pname.text = n;
 
-                this.pointerSprite.position.x = (60/* * C.TEXT_SCALE*/) + (this.pnameI * 2 * this.pname.monospace/* * C.TEXT_SCALE*/);
+                this.pointerSprite.position.x = 30 + (this.pnameI * 2 * this.pname.monospace);
 
                 this.lowhpSound.play();
             }
@@ -269,7 +269,7 @@ module Lttp.States {
             if (menu === MainMenuActiveMenu.REGISTER) {
                 this.pname.text = '';
                 this.pnameI = 0;
-                this.pointerSprite.x = (60/* * C.TEXT_SCALE*/);
+                this.pointerSprite.x = 30;
                 this.line.visible = true;
             }
 
@@ -375,32 +375,28 @@ module Lttp.States {
 
             this.heartsGroup1 = this.add.group(this.selectGroup);
             this.heartsGroup1.position.set(142, 63);
-            // this.heartsGroup1.scale.set(Data.Constants.GAME_TEXT_SCALE);
 
             this.heartsGroup2 = this.add.group(this.selectGroup);
             this.heartsGroup2.position.set(142, 93);
-            // this.heartsGroup2.scale.set(Data.Constants.GAME_TEXT_SCALE);
 
             this.heartsGroup3 = this.add.group(this.selectGroup);
             this.heartsGroup3.position.set(142, 142);
-            // this.heartsGroup3.scale.set(Data.Constants.GAME_TEXT_SCALE);
 
             var textGroup = this.add.group(this.selectGroup);
-            // textGroup.scale.set(Data.Constants.GAME_TEXT_SCALE);
 
-            textGroup.add(this.fontpool.alloc(false, 80, 49, 'PLAYER SELECT', 15));
-            textGroup.add(this.fontpool.alloc(false, 100, 355, 'COPY  PLAYER', 15));
-            textGroup.add(this.fontpool.alloc(false, 100, 385, 'ERASE PLAYER', 15));
+            textGroup.add(this.fontpool.alloc(false, 40, 25, 'PLAYER SELECT', 16));
+            textGroup.add(this.fontpool.alloc(false, 50, 178, 'COPY  PLAYER', 16));
+            textGroup.add(this.fontpool.alloc(false, 50, 193, 'ERASE PLAYER', 16));
 
-            this.slotText1 = textGroup.add(this.fontpool.alloc(false, 145, 145, '1.', 15));
-            this.slotText2 = textGroup.add(this.fontpool.alloc(false, 145, 205, '2.', 15));
-            this.slotText3 = textGroup.add(this.fontpool.alloc(false, 145, 265, '3.', 15));
+            this.slotText1 = textGroup.add(this.fontpool.alloc(false, 72, 72, '1.', 16));
+            this.slotText2 = textGroup.add(this.fontpool.alloc(false, 72, 102, '2.', 16));
+            this.slotText3 = textGroup.add(this.fontpool.alloc(false, 72, 132, '3.', 16));
         }
 
         private _setupRegister() {
             this.registerGroup = this.add.group();
 
-            this.pointerSprite = this.add.sprite(60, 176, 'sprite_select', 'pointer.png', this.registerGroup);
+            this.pointerSprite = this.add.sprite(30, 88, 'sprite_select', 'pointer.png', this.registerGroup);
 
             var textGroup = this.add.group(this.registerGroup),
                 lines = [
@@ -410,18 +406,16 @@ module Lttp.States {
                     '     <> =+       <> =+  <> =+'
                 ];
 
-            // textGroup.scale.set(Data.Constants.GAME_TEXT_SCALE);
+            textGroup.add(this.fontpool.alloc(false, 40, 40, 'REGISTER  YOUR  NAME', 16));
 
-            textGroup.add(this.fontpool.alloc(false, 80, 80, 'REGISTER  YOUR  NAME'));
-
-            this.pname = textGroup.add(this.fontpool.alloc(false, 62, 192, '', 15));
+            this.pname = textGroup.add(this.fontpool.alloc(false, 30, 96, '', 16));
 
             //create all the characters
             this.charactersGroup = this.add.group(textGroup);
             this.characters = [];
 
-            var sx = 65,
-                sy = 250,
+            var sx = 32,
+                sy = 125,
                 cx = sx,
                 cy = sy;
 
@@ -457,10 +451,10 @@ module Lttp.States {
                 cx = sx;
             }
 
-            this.line = this.add.graphics(72, 392, this.registerGroup);
+            this.line = this.add.graphics(36, 196, this.registerGroup);
             this.line.lineStyle(2, 0xffffff, 1);
-            this.line.moveTo(0,0);
-            this.line.lineTo(624, 0);
+            this.line.moveTo(0, 0);
+            this.line.lineTo(312, 0);
             this.line.visible = false;
 
             this.registerSprite = this.add.sprite(0, 0, 'sprite_select', 'register.png', this.registerGroup);
