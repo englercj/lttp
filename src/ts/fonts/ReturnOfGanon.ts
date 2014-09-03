@@ -1,20 +1,20 @@
-var fontData = {
-    name: 'ReturnOfGanon',
-    size: 32,
-    lineHeight: 32,
-    chars: null
-};
-
 module Lttp.Fonts {
-    export class ReturnOfGanon extends Phaser.BitmapText {
-        constructor(game: Phaser.Game, x: number = 0, y: number = 0, text: string = '', size: number = 32) {
-            super(game, x, y, this.prepareFontData(game), text, size);
+    export class ReturnOfGanon extends Fonts.Font {
+        constructor(game: Phaser.Game, x: number = 0, y: number = 0, text: string = '', size: number = 32, monospace: number = 0) {
+            super(game, this.prepareFontData(game, monospace), x, y, text, size, monospace);
         }
 
-        prepareFontData(game: Phaser.Game) {
-            if (fontData.chars) return fontData.name;
+        prepareFontData(game: Phaser.Game, monospace: number = 0): string {
+            var key = 'ReturnOfGanon' + (monospace ? 'Mono' + monospace.toString() : '');
 
-            fontData.chars = {};
+            if (Fonts.Font.cachedFonts[key]) return key;
+
+            var fontData = {
+                name: key,
+                size: 32,
+                lineHeight: 32,
+                chars: {}
+            };
 
             var frames = game.cache.getFrameData('sprite_rog_font'),
                 letters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;\',-!.?<>() ',
@@ -96,13 +96,13 @@ module Lttp.Fonts {
                 fontData.chars[code] = {
                     kerning: {},
                     texture: new PIXI.Texture(PIXI.BaseTextureCache['sprite_rog_font'], frame.getRect()),
-                    xAdvance: val.xAdvance || frame.width,
+                    xAdvance: monospace || val.xAdvance || frame.width,
                     xOffset: val.xOffset || 0,
                     yOffset: val.yOffset || 0
                 };
             }
 
-            PIXI.BitmapText.fonts[fontData.name] = fontData;
+            PIXI.BitmapText.fonts[key] = Fonts.Font.cachedFonts[key] = <Lttp.Fonts.FontData>fontData;
 
             return fontData.name;
         }

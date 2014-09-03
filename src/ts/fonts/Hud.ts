@@ -1,20 +1,21 @@
-var fontData = {
-    name: 'HudFont',
-    size: 16,
-    lineHeight: 16,
-    chars: null
-};
-
 module Lttp.Fonts {
-    export class Hud extends Phaser.BitmapText {
-        constructor(game: Phaser.Game, x: number, y: number, text: string = '', size: number = 16) {
-            super(game, x, y, this.prepareFontData(game), text, size);
+    export class Hud extends Fonts.Font {
+
+        constructor(game: Phaser.Game, x: number, y: number, text: string = '', size: number = 16, monospace: number = 0) {
+            super(game, this.prepareFontData(game, monospace), x, y, text, size, monospace);
         }
 
-        prepareFontData(game: Phaser.Game) {
-            if (fontData.chars) return fontData.name;
+        prepareFontData(game: Phaser.Game, monospace: number = 0): string {
+            var key = 'HudFont' + (monospace ? 'Mono' + monospace.toString() : '');
 
-            fontData.chars = {};
+            if (Fonts.Font.cachedFonts[key]) return key;
+
+            var fontData = {
+                name: key,
+                size: 16,
+                lineHeight: 16,
+                chars: {}
+            };
 
             var frames = game.cache.getFrameData('sprite_hud_font'),
                 letters = '0123456789',
@@ -30,13 +31,13 @@ module Lttp.Fonts {
                 fontData.chars[code] = {
                     kerning: {},
                     texture: new PIXI.Texture(PIXI.BaseTextureCache['sprite_hud_font'], frame.getRect()),
-                    xAdvance: frame.width,
+                    xAdvance: monospace || frame.width,
                     xOffset: 0,
                     yOffset: 0
                 };
             }
 
-            PIXI.BitmapText.fonts[fontData.name] = fontData;
+            PIXI.BitmapText.fonts[key] = Fonts.Font.cachedFonts[key] = <Lttp.Fonts.FontData>fontData;
 
             return fontData.name;
         }
