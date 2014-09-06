@@ -28,8 +28,6 @@ module Lttp.Gui {
 
         onTypingComplete: Phaser.Signal;
 
-        timer: Phaser.Timer;
-
         constructor(game: Phaser.Game, parent?: any, showFrame: boolean = true) {
             super(game, parent);
 
@@ -46,7 +44,7 @@ module Lttp.Gui {
             this.frameSprite.visible = showFrame;
 
             // add font
-            this.font = new Fonts.ReturnOfGanon(game, 8, 8);
+            this.font = new Fonts.ReturnOfGanon(game, 8, 8, '', 0, 32);
             this.font.scale.set(0.5, 0.5);
             this.add(this.font);
 
@@ -58,9 +56,6 @@ module Lttp.Gui {
             this.bufferSprite.position.set(this.font.position.x, this.font.position.y);
 
             this.onTypingComplete = new Phaser.Signal();
-
-            this.timer = game.time.create(false);
-            this.timer.start();
         }
 
         show(text: string, speed?: number, insertNewlines: boolean = true, playSound: boolean = true, cb?: () => void) {
@@ -109,7 +104,7 @@ module Lttp.Gui {
         speedUp() {
             this.speed = this.fastSpeed;
 
-            this.timer.add(this.speedCooldown, () => { this.speed = this.typeSpeed }, this);
+            Game.timer.add(this.speedCooldown, () => { this.speed = this.typeSpeed }, this);
 
             return this;
         }
@@ -139,7 +134,7 @@ module Lttp.Gui {
                 this.bufferScroll.y -= 2;
 
                 if (this.bufferScroll.y > -32) {
-                    this.timer.add(this.fastSpeed, this._type, this);
+                    Game.timer.add(this.fastSpeed, this._type, this);
                 } else {
                     var newStart = this.text.indexOf('\n', this.range[0]);
 
@@ -150,7 +145,7 @@ module Lttp.Gui {
 
                     this.bufferScroll.y = 0;
 
-                    this.timer.add(this.speed, this._type, this);
+                    Game.timer.add(this.speed, this._type, this);
                 }
             }
             else {
@@ -163,7 +158,7 @@ module Lttp.Gui {
 
                 this.range[1]++;
 
-                this.timer.add(this.speed, this._type, this);
+                Game.timer.add(this.speed, this._type, this);
             }
         }
 

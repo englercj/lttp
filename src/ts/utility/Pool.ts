@@ -61,7 +61,6 @@ module Lttp.Utility {
                 return ctor.apply(this, args);
             }
             PoolObjectCtor.prototype = ctor.prototype;
-            PoolObjectCtor.name = ctor.name;
 
             return new PoolObjectCtor();
         }

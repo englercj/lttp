@@ -6,7 +6,16 @@ module Lttp {
         static timer: Phaser.Timer = null;
 
         constructor() {
-            // super(Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, Phaser.AUTO, 'game');
+            // super(
+            //     Data.Constants.GAME_WIDTH,
+            //     Data.Constants.GAME_HEIGHT,
+            //     Phaser.AUTO,// renderer
+            //     'game',     // DOM parent ID
+            //     null,       // default state obj
+            //     false,      // transparent
+            //     false,      // antialias
+            //     { p2: true }// physics config
+            // );
 
             //////////////////////////////////////////////////////
             //issue: https://code.google.com/p/chromium/issues/detail?id=134040
@@ -15,20 +24,27 @@ module Lttp {
             super(
                 Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE,
                 Data.Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE,
-                Phaser.AUTO,
-                'game'
+                Phaser.AUTO,// renderer
+                'game',     // DOM parent ID
+                null,       // default state obj
+                false,      // transparent
+                false,      // antialias
+                { p2: true }// physics config
             );
-
-            PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
             //////////////////////////////////////////////////////
 
-            this.state.add('Boot', States.Boot, false);
-            this.state.add('Preloader', States.Preloader, false);
-            this.state.add('Intro', States.Intro, false);
-            this.state.add('MainMenu', States.MainMenu, false);
-            this.state.add('Lightworld', Levels.Lightworld, false);
+            this.addStates(States, 'state', ['State', 'MainMenuActiveMenu']);
+            this.addStates(Levels, 'level', ['Level']);
 
-            this.state.start('Boot');
+            this.state.start('state_boot');
+        }
+
+        addStates(mod: any, type: string, blacklist: Array<string>) {
+            for(var name in mod) {
+                if (blacklist.indexOf(name) !== -1) continue;
+
+                this.state.add(type + '_' + name.toLowerCase(), mod[name], false);
+            }
         }
 
         boot() {
@@ -53,7 +69,7 @@ module Lttp {
             //////////////////////////////////////////////////////
 
             //  Enable p2 physics
-            this.physics.startSystem(Phaser.Physics.P2JS);
+            // this.physics.startSystem(Phaser.Physics.P2JS);
 
             // capture keyboard keys
             this.input.keyboard.addKeyCapture([
@@ -67,10 +83,6 @@ module Lttp {
 
             // start polling for gamepad input
             this.input.gamepad.start();
-
-            // start the static game timer
-            Game.timer = this.time.create(false);
-            Game.timer.start();
         }
 
         gamePaused(event: Object) {

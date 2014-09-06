@@ -25,6 +25,10 @@ module Lttp.States {
                 onUp: this.onGamepadUp,
                 onAxis: this.onGamepadAxis
             });
+
+            // start the static game timer
+            Game.timer = this.time.create(false);
+            Game.timer.start();
         }
 
         shutdown() {
@@ -77,14 +81,18 @@ module Lttp.States {
                 level.addTilesetImage(tilesetData.name, tilesetData.name, tilesetData.tilewidth, tilesetData.tileheight, tilesetData.margin, tilesetData.spacing, tilesetData.firstgid);
             }
 
-            // create each of the level's layers
+            // create each of the level's tilemap layers
             for (i = 0, il = levelData.layers.length; i < il; ++i) {
                 layerData = levelData.layers[i];
 
+                if (layerData.type !== 'tilelayer') {
+                    continue;
+                }
+
                 layer = level.createLayer(
                     layerData.name,
-                    layerData.width * levelData.tilewidth * (1 / scale),
-                    layerData.height * levelData.tileheight * (1 / scale),
+                    Phaser.Math.clamp(layerData.width * levelData.tilewidth * (1 / scale), 0, Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE),
+                    Phaser.Math.clamp(layerData.height * levelData.tileheight * (1 / scale), 0, Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE),
                     group
                 );
                 layer.visible = layerData.visible;

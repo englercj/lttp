@@ -17,6 +17,28 @@ module Lttp.Levels {
             super.create();
 
             this.addTilemap(this.levelKey);
+
+            var player = (<Lttp.Game>this.game).player;
+
+            this.game.physics.p2.world.gravity[0] = 0;
+            this.game.physics.p2.world.gravity[1] = 0;
+
+            // this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+            // // Enable physics for the player
+            // this.game.physics.p2.enable(player, true);
+
+            // // Modify a few body properties
+            // player.body.setZeroDamping();
+            // player.body.fixedRotation = true;
+
+            this.game.physics.p2.addBody(player.body);
+
+            this.game.add.existing(player);
+            this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
+
+            this.onInputDown.add(player.onInputDown, player);
+            this.onInputUp.add(player.onInputUp, player);
         }
 
     }

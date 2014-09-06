@@ -93,7 +93,6 @@ module Lttp.States {
             this._setupRegister();
 
             this.activate(MainMenuActiveMenu.SELECT);
-
         }
 
         move(direction: number) {
@@ -114,15 +113,19 @@ module Lttp.States {
                     case 0: //slot 1
                         this.fairySprite.position.y = 72;
                         break;
+
                     case 1: //slot 2
                         this.fairySprite.position.y = 103;
                         break;
+
                     case 2: //slot 3
                         this.fairySprite.position.y = 132;
                         break;
+
                     case 3: //copy
                         this.fairySprite.position.y = 177;
                         break;
+
                     case 4: //erase
                         this.fairySprite.position.y = 192;
                         break;
@@ -153,7 +156,7 @@ module Lttp.States {
                 this.selectedChar.clampY(0, 3);
                 this.selectedChar.clampX(0, 28);
 
-                this.line.position.y = 130 + (this.selectedChar.y * this.delta.y);
+                this.line.position.y = 132 + (this.selectedChar.y * this.delta.y);
                 this.charactersGroup.position.x = -((this.selectedChar.x - 6) * this.delta.x);
             }
             else if(this.active === MainMenuActiveMenu.ERASE) {
@@ -166,7 +169,7 @@ module Lttp.States {
 
         complete() {
             var data = this.saves[this.selected];
-            this.game.state.start('lightworld', true);
+            this.game.state.start('level_lightworld', true);
         }
 
         select() {
@@ -240,7 +243,7 @@ module Lttp.States {
 
                 this.pname.text = n;
 
-                this.pointerSprite.position.x = 30 + (this.pnameI * 2 * this.pname.monospace);
+                this.pointerSprite.position.x = 30 + (this.pnameI * this.pname.monospace);
 
                 this.lowhpSound.play();
             }
@@ -255,25 +258,19 @@ module Lttp.States {
         activate(menu: MainMenuActiveMenu) {
             this.selectGroup.visible = false;
             this.registerGroup.visible = false;
-            //this.eraseGroup.visible = false;
-            //this.copyGroup.visible = false;
-            this.line.visible = false;
 
-            switch(menu) {
-                case MainMenuActiveMenu.SELECT: this.selectGroup.visible = true; break;
-                case MainMenuActiveMenu.REGISTER: this.registerGroup.visible = true; break;
-                // case MainMenuActiveMenu.ERASE: this.eraseGroup.visible = true; break;
-                // case MainMenuActiveMenu.COPY: this.copyGroup.visible = true; break;
-            }
+            this.active = menu;
 
             if (menu === MainMenuActiveMenu.REGISTER) {
+                this.registerGroup.visible = true;
+
                 this.pname.text = '';
                 this.pnameI = 0;
                 this.pointerSprite.x = 30;
-                this.line.visible = true;
             }
+            else if (menu === MainMenuActiveMenu.SELECT) {
+                this.selectGroup.visible = true;
 
-            if (menu === MainMenuActiveMenu.SELECT) {
                 var s = this.saves = [
                     new Utility.PlayerSave(0),
                     new Utility.PlayerSave(1),
@@ -308,8 +305,6 @@ module Lttp.States {
                     }
                 }
             }
-
-            this.active = menu;
         }
 
         private _renderHearts(group: Phaser.Group, value: number, max: number) {
@@ -451,11 +446,11 @@ module Lttp.States {
                 cx = sx;
             }
 
-            this.line = this.add.graphics(36, 196, this.registerGroup);
+            this.line = this.add.graphics(24, 132, this.registerGroup);
             this.line.lineStyle(2, 0xffffff, 1);
             this.line.moveTo(0, 0);
-            this.line.lineTo(312, 0);
-            this.line.visible = false;
+            this.line.lineTo(624, 0);
+            this.line.scale.set(1 / Data.Constants.GAME_SCALE, 1 / Data.Constants.GAME_SCALE);
 
             this.registerSprite = this.add.sprite(0, 0, 'sprite_select', 'register.png', this.registerGroup);
 

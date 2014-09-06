@@ -48,7 +48,7 @@ module Lttp.Entities {
             super(game, 'sprite_link');
 
             this.name = 'link';
-            this.moveSpeed = 87;
+            this.moveSpeed = 44;
 
             this.maxMagic = 10;
             this.magic = 0;
@@ -158,10 +158,6 @@ module Lttp.Entities {
             this.lastDirection = 'down';
 
             this._setMoveAnimation();
-
-            // TODO: This doesn't work when switching states, states need to forward input here...
-            (<Lttp.States.State>this.game.state.getCurrentState()).onInputDown.add(this._onInputDown, this);
-            (<Lttp.States.State>this.game.state.getCurrentState()).onInputUp.add(this._onInputUp, this);
         }
 
         unlock(): Player {
@@ -175,10 +171,10 @@ module Lttp.Entities {
         }
 
         /*******************************
-         * Input private methods
+         * Input methods
          *******************************/
 
-        private _onInputDown(key: number, value: number) {
+        onInputDown(key: number, value: number) {
             switch(key) {
                 case Phaser.Keyboard.E:
                 case Phaser.Gamepad.XBOX360_A:
@@ -201,7 +197,7 @@ module Lttp.Entities {
             }
         }
 
-        private _onInputUp(key: number) {
+        onInputUp(key: number) {
             switch(key) {
                 case Phaser.Keyboard.E:
                 case Phaser.Gamepad.XBOX360_A:

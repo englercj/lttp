@@ -232,7 +232,7 @@ module Lttp.States {
         }
 
         skip() {
-            this.game.state.start('MainMenu', true, false);
+            this.game.state.start('state_mainmenu', true, false);
         }
 
         showSparkle(p?: number) {
