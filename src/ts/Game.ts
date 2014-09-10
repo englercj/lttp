@@ -83,6 +83,8 @@ module Lttp {
 
             // start polling for gamepad input
             this.input.gamepad.start();
+
+            this.add.plugin(Phaser.Plugin.Debug);
         }
 
         gamePaused(event: Object) {

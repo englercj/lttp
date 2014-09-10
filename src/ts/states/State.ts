@@ -100,6 +100,10 @@ module Lttp.States {
                 layer.position.set(layerData.x, layerData.y);
                 layer.scale.set(scale);
                 layer.resizeWorld();
+
+                if (layerData.name === 'collisions') {
+                    level.setCollisionByExclusion([], true, layer, true);
+                }
             }
 
             return level;
