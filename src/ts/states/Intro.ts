@@ -209,8 +209,6 @@ module Lttp.States {
         startMinimapFlythrough() {
             this.mapGroup.visible = true;
 
-            console.log(this.minimapLayer);
-
             this.game.add.tween(this.mapGroup)
                 .to({ alpha: 1 }, 500)
                 .start()
@@ -360,12 +358,15 @@ module Lttp.States {
         }
 
         private _createIntroGroup() {
-            this.introGroup = this.add.group();
+            this.introGroup = this.add.group(undefined, 'intro');
             this.introGroup.visible = false;
 
             this.background = this.add.sprite(0, 0, 'sprite_intro', 'background.png', this.introGroup);
+            this.background.name = 'background';
 
             this.intro = this.add.sprite(0, 0, 'sprite_intro', null, this.introGroup);
+            this.intro.name = 'intro';
+
             var frames = [];
 
             for(var i = 3; i < 278; ++i) {
@@ -377,9 +378,11 @@ module Lttp.States {
             this.intro.animations.add('intro', frames, 30, false, false);
 
             this.title = this.add.sprite(0, 0, 'sprite_intro', 'logo.png', this.introGroup);
+            this.title.name = 'title';
             this.title.alpha = 0;
 
             this.sparkle = this.add.sprite(0, 0, 'sprite_particles', null, this.introGroup);
+            this.sparkle.name = 'sparkle';
             this.sparkle.visible = false;
             this.sparkle.anchor.set(0.5, 0.5);
             this.sparkle.animations.add('sparkle', [
@@ -392,27 +395,39 @@ module Lttp.States {
             ], 17, false, false);
 
             this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png', this.introGroup);
+            this.sword.name = 'sword';
 
             this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png', this.introGroup);
+            this.shine.name = 'shine';
             this.shine.visible = false;
 
             this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png', this.introGroup);
+            this.zpart.name = 'zpart';
             this.zpart.visible = false;
 
             this.flashes[0] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'red')));
+            this.flashes[0].name = 'flashes[0]';
+
             this.flashes[1] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'green')));
+            this.flashes[1].name = 'flashes[1]';
+
             this.flashes[2] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue')));
+            this.flashes[2].name = 'flashes[2]';
         }
 
         private _createLoreGroup() {
-            this.loreGroup = this.add.group();
+            this.loreGroup = this.add.group(undefined, 'lore');
             this.loreGroup.visible = false;
             this.loreGroup.alpha = 0;
 
             this.loreBg1 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg1', null, this.loreGroup);
+            this.loreBg1.name = 'background1';
+
             this.loreBg2 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg2', null, this.loreGroup);
+            this.loreBg2.name = 'background2';
 
             this.loreHighlight = this.add.graphics(0, 0, this.loreGroup);
+            this.loreHighlight.name = 'highlight';
             this.loreHighlight.beginFill(0xFFFF00, 0.12);
 
             //top
@@ -430,28 +445,34 @@ module Lttp.States {
             this.loreHighlight.endFill();
 
             this.loreImg1 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img1.png', this.loreGroup);
+            this.loreImg1.name = 'image1';
             this.loreImg1.alpha = 0;
 
             this.loreImg2 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img2.png', this.loreGroup);
+            this.loreImg2.name = 'image2';
             this.loreImg2.alpha = 0;
 
             this.loreImg3 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img3.png', this.loreGroup);
+            this.loreImg3.name = 'image3';
             this.loreImg3.alpha = 0;
 
             this.loreImg4 = this.add.sprite(42, 66, 'sprite_intro', 'lore_img4.png', this.loreGroup);
+            this.loreImg4.name = 'image4';
             this.loreImg4.alpha = 0;
 
             this.loreDialog = new Gui.Dialog(game, this.loreGroup, false);
+            this.loreDialog.name = 'dialog';
             this.loreDialog.position.set(34, 124);
         }
 
         private _createMapGroup() {
-            this.mapGroup = this.add.group();
+            this.mapGroup = this.add.group(undefined, 'map');
             this.mapGroup.visible = false;
             this.mapGroup.alpha = 0;
 
             this.minimap = this.addTilemap('lw_minimap', 0.75, this.mapGroup);
             this.minimapLayer = <Phaser.TilemapLayer>this.mapGroup.children[0];
+            this.minimapLayer.name = 'minimap';
             this.minimapLayer.fixedToCamera = false;
             this.minimapLayer.anchor.set(0.375, 0.350);
             this.minimapLayer.position.set(128, 100);

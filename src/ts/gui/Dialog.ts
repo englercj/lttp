@@ -41,10 +41,12 @@ module Lttp.Gui {
 
             // add background
             this.frameSprite = this.game.add.sprite(0, 0, 'sprite_gui', 'dialog.png', this);
+            this.frameSprite.name = 'frame';
             this.frameSprite.visible = showFrame;
 
             // add font
             this.font = new Fonts.ReturnOfGanon(game, 8, 8, '', 0, 32);
+            this.font.name = 'text';
             this.font.scale.set(0.5, 0.5);
             this.add(this.font);
 
@@ -52,6 +54,7 @@ module Lttp.Gui {
             this.buffer = game.add.renderTexture(348, 92); // 174, 46
             this.bufferScroll = new Phaser.Point(0, 0);
             this.bufferSprite = game.add.sprite(0, 0, this.buffer, null, this);
+            this.bufferSprite.name = 'buffer';
             this.bufferSprite.scale.set(0.5, 0.5);
             this.bufferSprite.position.set(this.font.position.x, this.font.position.y);
 

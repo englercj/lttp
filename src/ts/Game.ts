@@ -85,6 +85,8 @@ module Lttp {
             this.input.gamepad.start();
 
             this.add.plugin(Phaser.Plugin.Debug);
+
+            this.sound.mute = true;
         }
 
         gamePaused(event: Object) {
