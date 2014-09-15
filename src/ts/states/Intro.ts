@@ -128,6 +128,8 @@ module Lttp.States {
 
         startIntroAnimation() {
             this.introGroup.visible = true;
+            this.loreGroup.visible = false;
+            this.mapGroup.visible = false;
 
             this.intro.animations.play('intro');
 
@@ -186,7 +188,9 @@ module Lttp.States {
         }
 
         startLoreAnimation() {
+            this.introGroup.visible = false;
             this.loreGroup.visible = true;
+            this.mapGroup.visible = false;
 
             this.loreMusic.play();
 
@@ -207,6 +211,8 @@ module Lttp.States {
         }
 
         startMinimapFlythrough() {
+            this.introGroup.visible = false;
+            this.loreGroup.visible = false;
             this.mapGroup.visible = true;
 
             this.game.add.tween(this.mapGroup)
@@ -223,7 +229,7 @@ module Lttp.States {
                         .start()
                         .onComplete.addOnce(function () {
                             Game.timer.add(1000, function () {
-
+                                this.startIntroAnimation();
                             }, this);
                         }, this);
                 }, this);
