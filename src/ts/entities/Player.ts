@@ -48,7 +48,7 @@ module Lttp.Entities {
             super(game, 'sprite_link');
 
             this.name = 'link';
-            this.moveSpeed = 44;
+            this.moveSpeed = 90;
 
             this.maxMagic = 10;
             this.magic = 0;

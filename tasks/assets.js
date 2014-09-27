@@ -18,8 +18,7 @@ gulp.task('assets:tilemap-pack', function () {
 gulp.task('assets:imagemin', function () {
     return gulp.src('./src/assets/**/*.png')
         .pipe(cached('imagemin'))
-        .pipe(imagemin())
-        .on('error', console.error)
+        .pipe(imagemin()).on('error', console.error)
         .pipe(gulp.dest('./public/assets'));
 });
 
@@ -58,9 +57,9 @@ function tilemapPack(options) {
     var result = {
         meta: {
             generated: Date.now().toString(),
-            version: "1.0",
-            app: "gulp-tilemap-pack",
-            url: "https://github.com/englercj/gulp-tilemap-pack"
+            version: '1.0',
+            app: 'gulp-tilemap-pack',
+            url: 'https://github.com/englercj/gulp-tilemap-pack'
         }
     };
 
@@ -92,7 +91,8 @@ function tilemapPack(options) {
                     assets.push({
                         type: 'image',
                         subtype: 'tileset',
-                        key: fdata.tilesets[i].name,
+                        key: key + '_tileset_' + fdata.tilesets[i].name,
+                        name: fdata.tilesets[i].name,
                         url: path.join(options.baseUrl, relDir, fdata.tilesets[i].image).replace(/\\/g, '/'),
                         overwrite: false
                     });

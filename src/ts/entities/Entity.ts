@@ -11,7 +11,7 @@ module Lttp.Entities {
         health: number = 3;
 
         // moveSpeed the entity moves at
-        moveSpeed: number = 38;
+        moveSpeed: number = 80;
 
         // current direction of movement
         movement: Phaser.Point = new Phaser.Point();

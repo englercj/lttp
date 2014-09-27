@@ -480,7 +480,7 @@ module Lttp.States {
             this.minimapLayer = <Phaser.TilemapLayer>this.mapGroup.children[0];
             this.minimapLayer.name = 'minimap';
             this.minimapLayer.fixedToCamera = false;
-            this.minimapLayer.anchor.set(0.375, 0.350);
+            this.minimapLayer.pivot.set(0.375, 0.350);
             this.minimapLayer.position.set(128, 100);
         }
 

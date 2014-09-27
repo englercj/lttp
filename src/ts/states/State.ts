@@ -67,46 +67,20 @@ module Lttp.States {
         }
 
         addTilemap(key: string, scale: number = 1, group?: Phaser.Group) {
-            var levelData: TiledMapData = <TiledMapData>(this.cache.getTilemapData('tilemap_' + key).data),
-                level: Phaser.Tilemap = this.add.tilemap('tilemap_' + key, levelData.tilewidth, levelData.tileheight, levelData.width, levelData.height),
-                layer: Phaser.TilemapLayer = null,
-                tilesetData = null,
-                layerData = null,
-                i = 0, il = 0;
+            var pack = this.cache.getJSON(Data.Constants.ASSET_TILEMAP_PACKS_KEY)[key],
+                tilesetPackData = [],
+                levelPackData;
 
-            // add each fo the tileset images
-            for (i = 0, il = levelData.tilesets.length; i < il; ++i) {
-                tilesetData = levelData.tilesets[i];
-
-                level.addTilesetImage(tilesetData.name, tilesetData.name, tilesetData.tilewidth, tilesetData.tileheight, tilesetData.margin, tilesetData.spacing, tilesetData.firstgid);
-            }
-
-            // create each of the level's tilemap layers
-            for (i = 0, il = levelData.layers.length; i < il; ++i) {
-                layerData = levelData.layers[i];
-
-                if (layerData.type !== 'tilelayer') {
-                    continue;
+            for (var i = 0; i < pack.length; ++i) {
+                if (pack[i].type === 'image' && pack[i].subtype === 'tileset') {
+                    tilesetPackData[pack[i].name] = pack[i].key;
                 }
-
-                layer = level.createLayer(
-                    layerData.name,
-                    Phaser.Math.clamp(layerData.width * levelData.tilewidth * (1 / scale), 0, Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE),
-                    Phaser.Math.clamp(layerData.height * levelData.tileheight * (1 / scale), 0, Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE),
-                    group
-                );
-                layer.visible = layerData.visible;
-                layer.alpha = layerData.opacity;
-                layer.position.set(layerData.x, layerData.y);
-                layer.scale.set(scale);
-                layer.resizeWorld();
-
-                // if (layerData.name === 'collisions') {
-                //     level.setCollisionByExclusion([], true, layer, true);
-                // }
+                else if (pack[i].type === 'tilemap') {
+                    levelPackData = pack[i];
+                }
             }
 
-            return level;
+            return this.add.tiledmap(levelPackData.key, tilesetPackData, group);
         }
 
     }
