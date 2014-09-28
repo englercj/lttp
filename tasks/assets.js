@@ -36,10 +36,9 @@ gulp.task('assets:jsonmin', function () {
  * Assets copy task, copies any assets that we don't modify first
  *****/
 gulp.task('assets:copy', function () {
-    return gulp.src('./src/assets/**/*.{ogg}')
+    return gulp.src('./src/assets/**/*.{ogg,jpg}')
         .pipe(gulp.dest('./public/assets'));
 });
-
 
 gulp.task('assets', ['assets:tilemap-pack', 'assets:imagemin', 'assets:jsonmin', 'assets:copy']);
 
