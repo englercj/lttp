@@ -66,23 +66,6 @@ module Lttp.States {
             }
         }
 
-        addTilemap(key: string, scale: number = 1, group?: Phaser.Group) {
-            var pack = this.cache.getJSON(Data.Constants.ASSET_TILEMAP_PACKS_KEY)[key],
-                tilesetPackData = [],
-                levelPackData;
-
-            for (var i = 0; i < pack.length; ++i) {
-                if (pack[i].type === 'image' && pack[i].subtype === 'tileset') {
-                    tilesetPackData[pack[i].name] = pack[i].key;
-                }
-                else if (pack[i].type === 'tilemap') {
-                    levelPackData = pack[i];
-                }
-            }
-
-            return this.add.tiledmap(levelPackData.key, tilesetPackData, group);
-        }
-
     }
 
     class TiledMapData {

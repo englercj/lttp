@@ -7,6 +7,8 @@ module Lttp.Levels {
         private packData: any;
 
         preload() {
+            super.preload();
+
             // should be loaded by the preloader state
             this.packData = this.cache.getJSON(Data.Constants.ASSET_TILEMAP_PACKS_KEY);
 
@@ -16,7 +18,9 @@ module Lttp.Levels {
         create() {
             super.create();
 
-            this.addTilemap(this.levelKey);
+            this.tiledmap = this.add.tiledmap(this.levelKey);
+
+            // this.physics.p2.convertTiledmap(this.tiledmap, 'collisions');
 
             var player = (<Lttp.Game>this.game).player;
 

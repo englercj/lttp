@@ -476,12 +476,12 @@ module Lttp.States {
             this.mapGroup.visible = false;
             this.mapGroup.alpha = 0;
 
-            this.minimap = this.addTilemap('lw_minimap', 0.75, this.mapGroup);
-            this.minimapLayer = <Phaser.TilemapLayer>this.mapGroup.children[0];
-            this.minimapLayer.name = 'minimap';
-            this.minimapLayer.fixedToCamera = false;
-            this.minimapLayer.pivot.set(0.375, 0.350);
-            this.minimapLayer.position.set(128, 100);
+            // this.minimap = this.addTilemap('lw_minimap', 0.75, this.mapGroup);
+            // this.minimapLayer = <Phaser.TilemapLayer>this.mapGroup.children[0];
+            // this.minimapLayer.name = 'minimap';
+            // this.minimapLayer.fixedToCamera = false;
+            // this.minimapLayer.pivot.set(0.375, 0.350);
+            // this.minimapLayer.position.set(128, 100);
         }
 
     }

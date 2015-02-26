@@ -36,8 +36,8 @@ module Lttp.States {
             this.load.json(Data.Constants.ASSET_TILEMAP_PACKS_KEY, Data.Constants.ASSET_TILEMAP_PACKS_URL);
 
             // Minimaps
-            // this.load.tilemap('map_minimap_lightworld', 'assets/levels/minimaps/lw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
-            // this.load.tilemap('map_minimap_darkworld', 'assets/levels/minimaps/dw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
+            this.load.tilemap('map_minimap_lightworld', 'assets/levels/minimaps/lw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
+            this.load.tilemap('map_minimap_darkworld', 'assets/levels/minimaps/dw_minimap.json', null, Phaser.Tilemap.TILED_JSON);
 
             // Music
             this.load.audio('music_title', [
