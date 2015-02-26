@@ -1,4 +1,4 @@
-/// <reference path="../../node_modules/phaser/build/phaser.d.ts" />
+/// <reference path="../../node_modules/phaser/typescript/phaser.d.ts" />
 
 var game;
 window.onload = () => {
