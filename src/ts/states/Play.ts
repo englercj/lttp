@@ -1,7 +1,7 @@
 /// <reference path="State.ts" />
 
 module Lttp.States {
-    export class Boot extends State {
+    export class Play extends State {
 
         preload() {
             super.preload();
@@ -13,10 +13,10 @@ module Lttp.States {
         create() {
             super.create();
 
-            // don't specifically need multitouch, so turn it off.
-            this.input.maxPointers = 1;
+            this.game.player = new Entities.Player(this.game);
 
-            this.game.state.start('state_preloader');
+            // todo load active level from save file
+            this.game.state.start('level_lightworld');
         }
 
     }

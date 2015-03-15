@@ -1,10 +1,12 @@
 module Lttp.Effects {
     export class ScreenFlash extends Phaser.Sprite {
 
+        key: Phaser.BitmapData;
+
         onComplete: Phaser.Signal;
 
         constructor(game: Phaser.Game, color?: String) {
-            super(game, 0, 0, game.add.bitmapData(game.width, game.height));
+            super(game, 0, 0, game.add.bitmapData(game.width, game.height, '', true));
 
             color = color || 'white';
             this.key.ctx.fillStyle = color;

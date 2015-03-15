@@ -4,7 +4,7 @@ module Lttp.Entities.Misc {
         light: number = 0.25;
         fuelTime: number = 5000;
 
-        constructor(game: Phaser.Game) {
+        constructor(game: Game) {
             super(game, 'sprite_misc', false);
 
             this.animations.add('torch', [

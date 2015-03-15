@@ -9,20 +9,20 @@ module Lttp.Entities {
         maxMagic: number;
 
         //current magic of this entity
-        magic: number
+        magic: number;
 
         //objects currently within attack range
         inAttackRange: Entities.Entity[];
         colliding: Entities.Entity[];
 
         //a pool of sprite to do smashing animations
-        smashPool;
+        smashPool: Utility.Pool<Entities.Misc.Smash>;
 
         //a pool of world items to be dropped
-        itemPool;
+        itemPool: Utility.Pool<Entities.Items.WorldItem>;
 
         //a pool of particles to throw around
-        particlePool;
+        particlePool: Utility.Pool<Entities.Misc.Particle>;
 
         liftSound: Phaser.Sound;
         throwSound: Phaser.Sound;
@@ -33,18 +33,14 @@ module Lttp.Entities {
 
         equipted: Data.ItemDescriptor;
 
-        lastDirection: string;
-
-        inventory: PlayerInventory;
+        inventory: Data.PlayerInventory;
 
         carrying: Phaser.Sprite;
 
         attacking: boolean;
         chargingAttack: boolean;
 
-        private _coneVec: Phaser.Point;
-
-        constructor(game: Phaser.Game) {
+        constructor(game: Game) {
             super(game, 'sprite_link');
 
             this.name = 'link';
@@ -69,16 +65,12 @@ module Lttp.Entities {
 
             this.equipted = null;
 
-            this.lastDirection = 'down';
-
-            this.inventory = new PlayerInventory();
+            this.inventory = new Data.PlayerInventory();
 
             this.carrying = null;
 
             this.attacking = false;
             this.chargingAttack = false;
-
-            this._coneVec = new Phaser.Point();
 
             this.anchor.set(0.5);
 
@@ -154,197 +146,87 @@ module Lttp.Entities {
             //add walking with shield animations
             this._addDirectionalPrefixedFrames('walk_shield', 8, 24, true);
 
-            //set active
-            this.lastDirection = 'down';
-
-            this._setMoveAnimation();
-        }
-
-        unlock(): Player {
-            this._setMoveAnimation();
-
-            return <Player>super.unlock();
+            this.textureDirty = true;
         }
 
         private _addDirectionalPrefixedFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
             this._addDirectionalFrames(type + '_%s/' + type + '_%s', num, frameRate, loop);
         }
 
-        /*******************************
-         * Input methods
-         *******************************/
-
-        onInputDown(key: number, value: number) {
-            switch(key) {
-                case Phaser.Keyboard.E:
-                case Phaser.Gamepad.XBOX360_A:
-                    this._checkUse(key, true, value);
-                    break;
-
-                case Phaser.Keyboard.V:
-                case Phaser.Gamepad.XBOX360_Y:
-                    this._checkUseItem(key, true, value);
-                    break;
-
-                case Phaser.Keyboard.SPACEBAR:
-                case Phaser.Gamepad.XBOX360_A:
-                    this._checkAttack(key, true, value);
-                    break;
-
-                default:
-                    this._checkMovement(key, true, value);
-                    break;
-            }
-        }
-
-        onInputUp(key: number) {
-            switch(key) {
-                case Phaser.Keyboard.E:
-                case Phaser.Gamepad.XBOX360_A:
-                    this._checkUse(key, false, 0);
-                    break;
-
-                case Phaser.Keyboard.V:
-                case Phaser.Gamepad.XBOX360_Y:
-                    this._checkUseItem(key, false, 0);
-                    break;
-
-                case Phaser.Keyboard.SPACEBAR:
-                case Phaser.Gamepad.XBOX360_B:
-                    this._checkAttack(key, false, 0);
-                    break;
-
-                default:
-                    this._checkMovement(key, false, 0);
-                    break;
-            }
-        }
-
-        /*******************************
-         * Move private methods
-         *******************************/
-
-        private _checkMovement(key: number, active: boolean, value: number) {
-            switch(key) {
-                // UP
-                case Phaser.Keyboard.UP:
-                case Phaser.Keyboard.W:
-                case Phaser.Gamepad.XBOX360_DPAD_UP:
-                    this.moveState.up = active;
-                    break;
-
-                // DOWN
-                case Phaser.Keyboard.DOWN:
-                case Phaser.Keyboard.S:
-                case Phaser.Gamepad.XBOX360_DPAD_DOWN:
-                    this.moveState.down = active;
-                    break;
-
-                // LEFT
-                case Phaser.Keyboard.LEFT:
-                case Phaser.Keyboard.A:
-                case Phaser.Gamepad.XBOX360_DPAD_LEFT:
-                    this.moveState.left = active;
-                    break;
-
-                // RIGHT
-                case Phaser.Keyboard.RIGHT:
-                case Phaser.Keyboard.D:
-                case Phaser.Gamepad.XBOX360_DPAD_RIGHT:
-                    this.moveState.right = active;
-                    break;
-
-                // AXIS UP/DOWN
-                case Phaser.Gamepad.XBOX360_STICK_LEFT_Y:
-                    this.moveState.up = (value > 0) ? active : false;
-                    this.moveState.down = (value < 0) ? active : false;
-                    break;
-
-                // AXIS LEFT/RIGHT
-                case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
-                    this.moveState.left = (value < 0) ? active : false;
-                    this.moveState.right = (value > 0) ? active : false;
-                    break;
-
-                // Non-movement input, ignore
-                default:
-                    return;
+        private _updateAnimation() {
+            // update attack animation
+            if (this.attacking) {
+                this.animations.play('attack_' + this.facing);
+                return;
             }
 
-            // movement is done with boolean states that are then checked ensures that pressing
-            // multiple keys at once and releasing only one of them works properly.
-            if (this.moveState.left && this.moveState.right) {
-                this.movement.x = 0;
-            }
-            else if (this.moveState.left) {
-                this.movement.x = -this.moveSpeed;
-            }
-            else if (this.moveState.right) {
-                this.movement.x = this.moveSpeed;
-            }
-            else {
-                this.movement.x = 0;
-            }
+            // update movement animation
+            var moving = this.moving[Phaser.UP] || this.moving[Phaser.DOWN] || this.moving[Phaser.LEFT] || this.moving[Phaser.RIGHT];
 
-            // do the same checks as above but for the Y axis
-            if (this.moveState.up && this.moveState.down) {
-                this.movement.y = 0;
-            }
-            else if (this.moveState.up) {
-                this.movement.y = -this.moveSpeed;
-            }
-            else if (this.moveState.down) {
-                this.movement.y = this.moveSpeed;
-            }
-            else {
-                this.movement.y = 0;
-            }
-
-            // if the entity is locked, then just return
-            if (this.locked) return;
-
-            this._setMoveAnimation();
-            this.body.velocity.x = this.movement.x;
-            this.body.velocity.y = this.movement.y;
-        }
-
-        private _setMoveAnimation(force: boolean = false) {
-            var anim = force || ((this.movement.x || this.movement.y) ? 'walk' : 'idle');
-            //clearTimeout(this._toBlockedAnim);
+            var anim = (moving ? 'walk' : 'idle');
 
             if (this.carrying) {
-                this._setMoveDirAnimation('lift_' + anim)
+                anim = 'lift_' + anim;
             }
             else if (this.inventory.shield) {
-                this._setMoveDirAnimation(anim + '_shield');
+                anim += '_shield'
             }
-            else {
-                this._setMoveDirAnimation(anim);
+
+            this.animations.play(anim + '_' + this._getFacingString());
+        }
+
+        setup(level: Levels.Level): Player {
+            super.setup(level);
+
+            // TODO: add atack sensor shapes
+
+            return this;
+        }
+
+        update() {
+            super.update();
+
+            if (this.textureDirty) {
+                this.textureDirty = false;
+
+                this._updateAnimation();
+            }
+
+            if (!this.locked && this.moveDirty) {
+                // Update X movement
+                if (this.moving[Phaser.LEFT]) {
+                    this.body.velocity.x = -this.moving[Phaser.LEFT] * this.moveSpeed;
+                }
+                else if (this.moving[Phaser.RIGHT]) {
+                    this.body.velocity.x = this.moving[Phaser.RIGHT] * this.moveSpeed;
+                }
+                else {
+                    this.body.velocity.x = 0;
+                }
+
+                // Update Y movement
+                if (this.moving[Phaser.UP]) {
+                    this.body.velocity.y = -this.moving[Phaser.UP] * this.moveSpeed;
+                }
+                else if (this.moving[Phaser.DOWN]) {
+                    this.body.velocity.y = this.moving[Phaser.DOWN] * this.moveSpeed;
+                }
+                else {
+                    this.body.velocity.y = 0;
+                }
             }
         }
 
-        private _setMoveDirAnimation(anim) {
-            if (this.movement.isZero()) {
-                this.animations.stop(anim + '_' + this.lastDirection, true);
-            }
-            else {
-                if (this.movement.x) {
-                    this.lastDirection = this.movement.x > 0 ? 'right' : 'left';
-                }
+        move(direction: number, value: number, active: boolean) {
+            this.moving[direction] = active ? value : 0;
 
-                if (this.movement.y) {
-                    this.lastDirection = this.movement.y > 0 ? 'down' : 'up';
-                }
+            this.facing = direction;
 
-                this.animations.play(anim + '_' + this.lastDirection);
-            }
+            this.moveDirty = true;
+            this.textureDirty = true;
         }
 
-        /*******************************
-         * Attack private methods
-         *******************************/
-
-        private _checkAttack(key: number, active: boolean, value: number) {
+        attack(active: boolean) {
             if (!this.inventory.sword || this.carrying) {
                 return;
             }
@@ -359,45 +241,24 @@ module Lttp.Entities {
             }
 
             this.lock();
+
             this.attacking = true;
+
             this.chargingAttack = true;
 
-            this.animations.play('attack_' + this.lastDirection);
+            this.textureDirty = true;
 
             for(var i = this.inAttackRange.length - 1; i > -1; --i) {
                 var ent = this.inAttackRange[i];
 
-                if(this._inCone(ent, Data.Constants.PLAYER_ATTACK_CONE)) {
+                if(math.isInViewCone(this, ent, Data.Constants.PLAYER_ATTACK_CONE)) {
                     ent.damage(this.attackDamage);
-                    // if(ent.damage(this.attackDamage)) {
-                    //     e.takeDamage(this.damage)
-                    // } else if(t.match(/grass|grass_brown/) === null) {
-                    //     this._destroyObject(e);
-                    // }
                 }
             }
         }
 
-        private _getDirVector(): Phaser.Point {
-            //check if 'e' is withing a conic area in the direction we face
-            switch(this.lastDirection) {
-                case 'left':
-                    return Data.Constants.VECTOR_LEFT;
-                case 'right':
-                    return Data.Constants.VECTOR_RIGHT;
-                case 'up':
-                    return Data.Constants.VECTOR_UP;
-                case 'down':
-                    return Data.Constants.VECTOR_DOWN;
-            }
-        }
-
-        /*******************************
-         * Use action private methods
-         *******************************/
-
         //Talk, run, Lift/Throw/Push/Pull
-        private _checkUse(key: number, active: boolean, value: number) {
+        use(active: boolean) {
             if (!active || this.locked) {
                 return;
             }
@@ -411,24 +272,26 @@ module Lttp.Entities {
             for(var i = 0; i < this.colliding.length; ++i) {
                 var ent = this.colliding[i];
 
-                if(this._inCone(ent, Data.Constants.PLAYER_USE_CONE)) {
+                if(math.isInViewCone(this, ent, Data.Constants.PLAYER_USE_CONE)) {
                     switch(ent.entityType) {
+                        // TODO: Make the item decide this stuff? They all implement a `use` method instead?
                         case Data.ENTITY_TYPE.CHEST:
-                            if(this.lastDirection === 'up') {
+                            if (this.facing === Phaser.UP) {
                                 this.openChest(ent);
                             }
                             break;
 
                         case Data.ENTITY_TYPE.SIGN:
-                            if(this.lastDirection === 'up') {
+                            if (this.facing === Phaser.UP) {
                                 this.readSign(ent);
-                            } else {
+                            }
+                            else {
                                 this.liftItem(<Entities.Items.WorldItem>ent);
                             }
                             break;
 
                         case Data.ENTITY_TYPE.ROCK:
-                            if(this.inventory.gloves) {
+                            if (this.inventory.gloves) {
                                 this.liftItem(<Entities.Items.WorldItem>ent);
                             }
                             break;
@@ -439,35 +302,31 @@ module Lttp.Entities {
                             break;
                     }
 
-                    //break loop
+                    // only act on a single object in the cone
                     break;
                 }
             }
         }
 
-        /*******************************
-         * Use item private methods
-         *******************************/
-         private _checkUseItem(key: number, active: boolean, value: number) {
+        useItem(active: boolean) {
             if(active) return;
 
             var particle;
 
             // if there is no item equipted or the item costs more magic than the player has currently
-            if(!this.equipted || this.magic < this.equipted.cost) {
+            if (!this.equipted || this.magic < this.equipted.cost) {
                 this.errorSound.play();
                 return;
             }
 
-            //take out magic cost
+            // take out magic cost
             this.magic -= this.equipted.cost;
 
             // create the item particle
             particle = this.particlePool.alloc();
             particle.boot(this.equipted);
-            this.parent.addChild(particle);
 
-            // this.emit('updateHud');
+            this.parent.addChild(particle);
         }
 
         private _destroyObject(obj: any) {
@@ -486,7 +345,7 @@ module Lttp.Entities {
         }
 
         throwItem() {
-            var v = this._getDirVector(),
+            var v = this._getFacingVector(),
                 yf = v.y === -1 ? 0 : 1;
 
             this.carrying = null;
@@ -502,7 +361,7 @@ module Lttp.Entities {
                     this._destroyObject(this.carrying);
                 }, this);
 
-            this._setMoveAnimation();
+            this.textureDirty = true;
         }
 
         // TODO: Move this into a new Chest class
@@ -601,7 +460,7 @@ module Lttp.Entities {
             item.setFrame(item.frames.getFrameByName('dungeon/' + item.itemType + (item.properties.heavy ? '_heavy' : '') + '.png'));
 
             //lift the item
-            this.animations.play('lift_' + this.lastDirection);
+            this.animations.play('lift_' + this._getFacingString());
             this.liftSound.play();
 
             this.game.add.tween(item)
@@ -634,145 +493,11 @@ module Lttp.Entities {
 
             item.pickup();
             this.itemPool.free(item);
-            //TODO: hud updates
-            // this.emit('updateHud');
         }
-
-        /*******************************
-         * Utility private methods
-         *******************************/
-
-        private _inCone(obj: Entities.Entity, cone: number) {
-            this._coneVec.set(
-                obj.x - this.x,
-                obj.y - this.y
-            );
-
-            this._coneVec.normalize();
-
-            //check if 'e' is withing a conic area in the direction we face
-            switch(this.lastDirection) {
-                case 'left':
-                    return (this._coneVec.x < 0 && this._coneVec.y > -cone && this._coneVec.y < cone);
-                case 'right':
-                    return (this._coneVec.x > 0 && this._coneVec.y > -cone && this._coneVec.y < cone);
-                case 'up':
-                    return (this._coneVec.y < 0 && this._coneVec.x > -cone && this._coneVec.x < cone);
-                case 'down':
-                    return (this._coneVec.y > 0 && this._coneVec.x > -cone && this._coneVec.x < cone);
-            }
-        }
-
-        // private _setAttackAnimation() {
-        //     if(!this._attackAnchorMap) {
-        //         this._attackAnchorMap = {
-        //             up: {
-        //                 0: [0, 1],
-        //                 1: [-0.05, 1],
-        //                 2: [0.05, 1],
-        //                 3: [0, 1],
-        //                 6: [0.2, 1],
-        //                 7: [0.3, 1],
-        //                 8: [0.4, 1]
-        //             },
-        //             down: {
-        //                 0: [0.2, 1],
-        //                 2: [0.2, 0.95],
-        //                 3: [0.2, 0.79],
-        //                 4: [0.1, 0.75],
-        //                 5: [0.1, 0.75],
-        //                 6: [0.1, 0.75],
-        //                 7: [0.1, 0.75],
-        //                 8: [0.1, 0.8],
-        //                 9: [0.1, 0.75]
-        //             },
-        //             right: {
-        //                 0: [0, 1],
-        //                 7: [0, 0.75],
-        //                 8: [0, 0.7]
-        //             },
-        //             left: {
-        //                 0: [0.5, 1],
-        //                 7: [0.5, 0.8]
-        //             }
-        //         }
-        //     }
-
-        //     var ax = this.anchor.x,
-        //         ay = this.anchor.y,
-        //         dir = this.lastDir,
-        //         mp = this._attackAnchorMap[dir],
-        //         self = this,
-        //         frame = function(anim, fr) {
-        //             if(mp && mp[fr]) {
-        //                 self.anchor.x = mp[fr][0];
-        //                 self.anchor.y = mp[fr][1];
-        //             }
-        //         };
-
-        //     this.on('frame', frame);
-        //     this.once('complete', function() {
-        //         self.anchor.x = ax;
-        //         self.anchor.y = ay;
-        //         self.actions.attack = false;
-        //         self.off('frame', frame);
-        //         self.unlock();
-        //     });
-        //     this.goto(0, 'attack_' + dir).play();
-        // },
 
     }
 
-    export class PlayerInventory {
-        // upgradable items
-        armor:          number = 0;
-        sword:          number = 0;
-        shield:         number = 0;
-        gloves:         number = 0;
 
-        // normal inventory items
-        boomerang:      number = 0;
-        bow:            number = 0;
-        byrna:          number = 0;
-        somaria:        number = 0;
-        mushroom:       number = 0;
-        firerod:        number = 0;
-        flute:          number = 0;
-        hammer:         number = 0;
-        hookshot:       number = 0;
-        icerod:         number = 0;
-        lantern:        number = 0;
-        cape:           number = 0;
-        mirror:         number = 0;
-        powder:         number = 0;
-        net:            number = 0;
-        shovel:         number = 0;
-
-        // keys
-        big_key:        number = 0;
-        keys:           number = 0;
-
-        // medallions
-        bombos:         number = 0;
-        ether:          number = 0;
-        quake:          number = 0;
-
-        // expendibles
-        arrows:         number = 0;
-        bombs:          number = 0;
-        rupees:         number = 0;
-
-        // passives
-        flippers:       number = 0;
-        boot:           number = 0;
-        mudora:         number = 0;
-        pearl:          number = 0;
-        heartPieces:    number = 0;
-
-        // victory tokens
-        crystals:       number = 0;
-        pendants:       number = 0;
-    }
 }
 
 //         addAttackSensor: function(phys) {

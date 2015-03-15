@@ -3,7 +3,7 @@ module Lttp.Entities.Misc {
 
         particleType: string;
 
-        constructor(game: Phaser.Game) {
+        constructor(game: Game) {
             super(game, 'sprite_particles');
 
             this.body.data.shapes[0].sensor = true;
@@ -43,23 +43,23 @@ module Lttp.Entities.Misc {
             var player = (<Lttp.Game>this.game).player,
                 space = cfg.spacing;
 
-            switch(player.lastDirection) {
-                case 'up':
+            switch(player.facing) {
+                case Phaser.UP:
                     this.x = player.x + (player.width / 2) - (this.width / 2);
                     this.y = player.y - space - player.height;
                     break;
 
-                case 'down':
+                case Phaser.DOWN:
                     this.x = player.x + (player.width / 2) - (this.width / 2);
                     this.y = player.y + space + this.height;
                     break;
 
-                case 'left':
+                case Phaser.LEFT:
                     this.x = player.x - space - this.width;
                     this.y = player.y - 3;
                     break;
 
-                case 'right':
+                case Phaser.RIGHT:
                     this.x = player.x + space + player.width;
                     this.y = player.y - 3;
                     break;

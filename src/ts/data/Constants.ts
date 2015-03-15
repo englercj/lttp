@@ -55,10 +55,27 @@ module Lttp.Data {
         public static INPUT_GAMEPAD_AXIS_THRESHOLD: number = 0.25;
 
         // direction vectors
+        public static VECTOR_ZERO: Phaser.Point = new Phaser.Point(0, -1);
         public static VECTOR_UP: Phaser.Point = new Phaser.Point(0, -1);
         public static VECTOR_DOWN: Phaser.Point = new Phaser.Point(0, 1);
         public static VECTOR_LEFT: Phaser.Point = new Phaser.Point(-1, 0);
         public static VECTOR_RIGHT: Phaser.Point = new Phaser.Point(1, 0);
+
+        public static DIRECTION_STRING_MAP: string[] = [
+            'none',
+            'left',
+            'right',
+            'up',
+            'down'
+        ];
+
+        public static DIRECTION_VECTOR_MAP: Phaser.Point[] = [
+            Constants.VECTOR_ZERO,
+            Constants.VECTOR_LEFT,
+            Constants.VECTOR_RIGHT,
+            Constants.VECTOR_UP,
+            Constants.VECTOR_DOWN
+        ];
 
     }
 }

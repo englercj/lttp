@@ -1,7 +1,7 @@
 module Lttp.Entities.Misc {
     export class Flower extends Entities.Entity {
 
-        constructor(game: Phaser.Game) {
+        constructor(game: Game) {
             super(game, 'sprite_misc', false);
 
             this.animations.add('flower_1', [

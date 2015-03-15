@@ -10,8 +10,10 @@ module Lttp.Entities.Items {
 
         value: number;
 
-        constructor(game: Phaser.Game) {
+        constructor(game: Game) {
             super(game, 'sprite_worlditems');
+
+            this.frames = game.cache.getFrameData('sprite_worlditems');
 
             this.body.data.shapes[0].sensor = true;
 

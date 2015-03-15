@@ -6,6 +6,8 @@ module Lttp.States {
 
     export class State extends Phaser.State {
 
+        game: Game;
+
         onInputDown: Phaser.Signal;
         onInputUp: Phaser.Signal;
 
@@ -26,6 +28,11 @@ module Lttp.States {
                 onAxis: this.onGamepadAxis
             });
 
+            // destroy old timer
+            if (Game.timer) {
+                Game.timer.destroy();
+            }
+
             // start the static game timer
             Game.timer = this.time.create(false);
             Game.timer.start();
@@ -45,80 +52,26 @@ module Lttp.States {
             this.onInputUp.dispatch(event.keyCode, 1, event);
         }
 
-        onGamepadDown(button: number, value: number, padIndex: number) {
+        onGamepadDown(button: number, value: number) {
             this.onInputDown.dispatch(button, value, event);
         }
 
-        onGamepadUp(button: number, value: number, padIndex: number) {
+        onGamepadUp(button: number, value: number) {
             this.onInputUp.dispatch(button, value, event);
         }
 
-        onGamepadAxis(axisState: GamepadAxisState, padIndex: number) {
+        onGamepadAxis(pad: Phaser.SinglePad, index: number, value: number) {
             // if we pass the threshold send a "down" signal
-            if (axisState.value > Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD ||
-                axisState.value < -Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
+            if (value > Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD ||
+                value < -Data.Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
             ) {
-                this.onInputDown.dispatch(axisState.axis, axisState.value, null);
+                this.onInputDown.dispatch(index, value, null);
             }
             // otherwise send an "up" signal
             else {
-                this.onInputUp.dispatch(axisState.axis, axisState.value, null);
+                this.onInputUp.dispatch(index, value, null);
             }
         }
 
-    }
-
-    class TiledMapData {
-        width: number;
-        height: number;
-
-        tilewidth: number;
-        tileheight: number;
-
-        version: number;
-
-        orientation: string; //TODO: make enum
-
-        layers: TiledLayerData[];
-        tilesets: TiledTilesetData[];
-
-        properties: { [key: string]: string }
-    }
-
-    class TiledLayerData {
-        data: number[];
-
-        width: number;
-        height: number;
-
-        x: number;
-        y: number;
-
-        name: string;
-
-        type: string; //TODO: make enum
-
-        opacity: number;
-        visible: boolean;
-
-        properties: { [key: string]: string }
-    }
-
-    class TiledTilesetData {
-        firstgid: number;
-
-        name: string;
-
-        image: string;
-        imagewidth: number;
-        imageheight: number;
-
-        margin: number;
-        spacing: number;
-
-        tilewidth: number;
-        tileheight: number;
-
-        properties: { [key: string]: string }
     }
 }

@@ -4,7 +4,7 @@ module Lttp.Entities.Misc {
         grassSound: Phaser.Sound;
         smashSound: Phaser.Sound;
 
-        constructor(game: Phaser.Game) {
+        constructor(game: Game) {
             super(game, 'sprite_particles', false);
 
             this.grassSound = game.add.sound('effect_grass_cut', Data.Constants.AUDIO_EFFECT_VOLUME);

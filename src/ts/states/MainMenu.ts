@@ -169,7 +169,7 @@ module Lttp.States {
 
         complete() {
             var data = this.saves[this.selected];
-            this.game.state.start('level_lightworld', true);
+            this.game.state.start('state_play', true);
         }
 
         select() {

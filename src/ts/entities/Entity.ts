@@ -1,6 +1,8 @@
 module Lttp.Entities {
     export class Entity extends Phaser.Sprite {
 
+        game: Game;
+
         // is this sprite able to move?
         locked: boolean = false;
 
@@ -20,12 +22,14 @@ module Lttp.Entities {
         attackDamage: number = 1;
 
         // state of movement of this entity
-        moveState: any = {
-            up: false,
-            down: false,
-            left: false,
-            right: false
-        };
+        moving: number[] = [0, 0, 0, 0];
+
+        // the direction the entity is facing
+        facing: number = Phaser.DOWN;
+
+        // a few dirty flags
+        moveDirty: boolean = false;
+        textureDirty: boolean = false;
 
         // type of this entity
         entityType: Data.ENTITY_TYPE = Data.ENTITY_TYPE.NEUTRAL;
@@ -34,19 +38,13 @@ module Lttp.Entities {
 
         properties: any;
 
-        constructor(game: Phaser.Game, key: any, physical: boolean = true, frame?: any) {
+        constructor(game: Game, key: any, frame?: any) {
             super(game, 0, 0, key, frame);
 
-            this.frames = typeof key === 'string' ? game.cache.getFrameData(key) : null;
-
-            if (physical) {
-                // Enable physics for this entity
-                game.physics.p2.enable(this);
-
-                // Modify a few body properties
-                this.body.setZeroDamping();
-                this.body.fixedRotation = true;
-            }
+            // TODO: collision groups
+            // if (this.body) {
+            //     this.body.collides(game.collisionGroups.ground);
+            // }
         }
 
         heal(amount: number) {
@@ -54,11 +52,14 @@ module Lttp.Entities {
                 this.health += amount;
             }
 
+            this.health = this.health > this.maxHealth ? this.maxHealth : this.health;
+
             return this;
         }
 
         lock(): Entity {
             this.body.setZeroVelocity();
+
             this.locked = true;
 
             return this;
@@ -67,9 +68,31 @@ module Lttp.Entities {
         unlock(): Entity {
             this.body.velocity.x = this.movement.x;
             this.body.velocity.y = this.movement.y;
+
             this.locked = false;
+            this.textureDirty = true;
 
             return this;
+        }
+
+        setup(level: Levels.Level): Entity {
+            level.physics.enable(this, Phaser.Physics.P2JS);
+
+            this.body.setZeroDamping();
+            this.body.fixedRotation = true;
+            // this.body.debug = true;
+
+            level.physics.p2.addBody(this.body);
+
+            return this;
+        }
+
+        _getFacingString(): string {
+            return Data.Constants.DIRECTION_STRING_MAP[this.facing];
+        }
+
+        _getFacingVector(): Phaser.Point {
+            return Data.Constants.DIRECTION_VECTOR_MAP[this.facing];
         }
 
         _addDirectionalFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
