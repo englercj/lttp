@@ -80,7 +80,7 @@ module Lttp.Entities {
 
             this.body.setZeroDamping();
             this.body.fixedRotation = true;
-            // this.body.debug = true;
+            this.body.debug = true;
 
             level.physics.p2.addBody(this.body);
 

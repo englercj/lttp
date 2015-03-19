@@ -47,7 +47,8 @@ module Lttp.Gui.Items {
                 if (hp < 1) { //partial
                     frame = this.frames.getFrameByName('hud/heart-half.png');
                     off = 2;
-                } else {
+                }
+                else {
                     frame = this.frames.getFrameByName('hud/heart-full.png');
                 }
 
@@ -56,7 +57,8 @@ module Lttp.Gui.Items {
                 if((x / size) >= (perRow - 1)) {
                     x = 0;
                     y += size;
-                } else {
+                }
+                else {
                     x += size;
                 }
 
@@ -69,7 +71,8 @@ module Lttp.Gui.Items {
                 if((x / size) >= (perRow - 1)) {
                     x = 0;
                     y += size;
-                } else {
+                }
+                else {
                     x += size;
                 }
             }

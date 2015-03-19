@@ -55,6 +55,7 @@ module Lttp.Levels {
         create() {
             super.create();
 
+            // create tiled map and setup physics for it
             this.tiledmap = this.add.tiledmap(this.levelKey);
 
             this.physics.p2.convertTiledmap(this.tiledmap, 'collisions');
@@ -62,23 +63,81 @@ module Lttp.Levels {
             var self = this;
             this.tiledmap.getTilelayer('collisions').bodies.forEach(function (body) {
                 body.debug = true;
-                body.debugBody.draw();
+                console.log(body);
 
                 // body.setCollisionGroup(self.game.collisionGroups.ground);
                 // body.collides(self.game.collisionGroups.all);
             });
 
+            // setup the player for a new level
             var player = this.game.player;
 
+            this.game.player.reset(2240, 2864);
+            this.game.player.setup(this);
+
+            this.tiledmap.getObjectlayer('player').add(player);
+
+            // ensure gravity is off
             this.game.physics.p2.world.gravity[0] = 0;
             this.game.physics.p2.world.gravity[1] = 0;
 
-            this.game.player.reset(0, 0);
-            this.game.player.setup(this);
-
+            // setup camera to follow the player
             this.game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON);
 
-            this.game.add.existing(player);
+            // setup handlers for player sensor collisions
+            this.game.physics.p2.onBeginContact.add(this.onBeginContact, this);
+            this.game.physics.p2.onEndContact.add(this.onEndContact, this);
+
+            //spawn exits & zones
+            this.tiledmap.getObjectlayer('exits').spawn();
+            this.tiledmap.getObjectlayer('zones').spawn();
+
+            // this.firstZone = true;
+
+            // this.lastExit = exit;
+
+            // set link position
+            // this.game.player.position.set(
+            //     exit.properties.loc[0],
+            //     exit.properties.loc[1]
+            // );
+        }
+
+        onBeginContact(bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations) {
+            this._checkContact('onBeginContact', bodyA, bodyB, shapeA, shapeB, contactEquations);
+        }
+
+        onEndContact(bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations) {
+            this._checkContact('onEndContact', bodyA, bodyB, shapeA, shapeB, contactEquations);
+        }
+
+        private _checkContact(method: string, bodyA: Phaser.Physics.P2.Body, bodyB: Phaser.Physics.P2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations) {
+            if (bodyA.sprite !== this.game.player && bodyB.sprite !== this.game.player) {
+                return;
+            }
+
+            var playerIsA = bodyA.sprite === this.game.player,
+                playerBody = playerIsA ? bodyA : bodyB,
+                playerShape = playerIsA ? shapeA : shapeB,
+                objBody = playerIsA ? bodyB : bodyA,
+                objShape = playerIsA ? shapeB : shapeA,
+                obj = objBody.sprite;
+
+            console.log(contactEquations);
+
+            // colliding with a new zone
+            if(obj.objectType === 'zone') {
+                // this.emit('zone', obj, vec);
+                console.log(obj);
+            }
+            // collide with an exit
+            else if(obj.objectType === 'exit') {
+                // this.emit('exit', obj, vec);
+                console.log(obj);
+            }
+            else {
+                this.game.player[method](obj, objShape, playerShape);
+            }
         }
 
         /**

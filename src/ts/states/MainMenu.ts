@@ -18,7 +18,7 @@ module Lttp.States {
 
         private line: Phaser.Graphics;
 
-        private saves: Utility.PlayerSave[];
+        private saves: Utility.Save[];
 
         private characters: Fonts.ReturnOfGanon[][];
 
@@ -168,7 +168,6 @@ module Lttp.States {
         }
 
         complete() {
-            var data = this.saves[this.selected];
             this.game.state.start('state_play', true);
         }
 
@@ -176,7 +175,7 @@ module Lttp.States {
             if (this.active === MainMenuActiveMenu.SELECT) {
                 // select a save to play
                 if (this.selected <= 2) {
-                    if (!this.saves[this.selected].data) {
+                    if (!this.saves[this.selected].hasData) {
                         this.activate(MainMenuActiveMenu.REGISTER);
                     }
                     else {
@@ -206,7 +205,7 @@ module Lttp.States {
                         return this.activate(MainMenuActiveMenu.SELECT);
                     }
                     else {
-                        var ls = new Utility.PlayerSave(this.selected, n.split('').filter(function(ch, i) { return (i % 2 === 0); }).join(''));
+                        var ls = new Utility.Save(this.selected, n.split('').filter(function(ch, i) { return (i % 2 === 0); }).join(''));
                         ls.save();
 
                         this.selectSound.play();
@@ -272,9 +271,9 @@ module Lttp.States {
                 this.selectGroup.visible = true;
 
                 var s = this.saves = [
-                    new Utility.PlayerSave(0),
-                    new Utility.PlayerSave(1),
-                    new Utility.PlayerSave(2)
+                    new Utility.Save(0),
+                    new Utility.Save(1),
+                    new Utility.Save(2)
                 ];
 
                 for(var i = 0; i < s.length; ++i) {
@@ -283,7 +282,7 @@ module Lttp.States {
                         inv = sv ? sv.inventory : null,
                         spr: Phaser.Sprite = this['linkSprite' + n];
 
-                    this['slotText' + n].text = n + '.' + (sv ? sv.name : '');
+                    this['slotText' + n].text = n + '.' + (sv.hasData ? sv.name : '');
 
                     if(inv) {
                         spr.visible = true;
@@ -301,7 +300,7 @@ module Lttp.States {
                             spr.setFrame(this.frames.getFrameByName('link1.png'));
                         }
 
-                        this._renderHearts(this['hearts' + n], sv.health, sv.maxHealth);
+                        this._renderHearts(this['heartsGroup' + n], sv.health, sv.maxHealth);
                     }
                 }
             }
@@ -359,13 +358,13 @@ module Lttp.States {
             this.fairySprite = this.add.sprite(27, 72, 'sprite_select', null, this.selectGroup);
             this.fairySprite.animations.add('flap', ['fairy1.png', 'fairy2.png'], 6, true).play();
 
-            this.linkSprite1 = this.add.sprite(52, 68, 'sprite_select', null, this.selectGroup);
+            this.linkSprite1 = this.add.sprite(52, 64, 'sprite_select', null, this.selectGroup);
             this.linkSprite1.visible = false;
 
-            this.linkSprite2 = this.add.sprite(52, 100, 'sprite_select', null, this.selectGroup);
+            this.linkSprite2 = this.add.sprite(52, 96, 'sprite_select', null, this.selectGroup);
             this.linkSprite2.visible = false;
 
-            this.linkSprite3 = this.add.sprite(52, 128, 'sprite_select', null, this.selectGroup);
+            this.linkSprite3 = this.add.sprite(52, 124, 'sprite_select', null, this.selectGroup);
             this.linkSprite3.visible = false;
 
             this.heartsGroup1 = this.add.group(this.selectGroup);

@@ -3,6 +3,8 @@ module Lttp {
 
         player: Entities.Player = null;
 
+        loadedSave: Utility.Save = null;
+
         static timer: Phaser.Timer = null;
 
         constructor() {

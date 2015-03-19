@@ -179,6 +179,7 @@
     {
      "music":"music_village"
     },
+ "renderorder":"right-down",
  "tileheight":16,
  "tilesets":[
         {
@@ -241,8 +242,7 @@
             {
              "0":
                 {
-                 "body":"static",
-                 "type":"solid"
+                 "collides":"true"
                 },
              "1":
                 {

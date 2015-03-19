@@ -20,7 +20,7 @@ gulp.task('dev', ['build', 'serve'], function () {
     gulp.watch('./src/ts/**/*.ts', ['scripts']);
     gulp.watch('./src/less/**/*.less', ['less']);
     gulp.watch('./src/assets/**/*.png', ['assets:imagemin']);
-    gulp.watch('./src/assets/**/*.json', ['assets:tilemap-pack', 'assets:jsonmin']);
+    gulp.watch('./src/assets/**/*.{json,tmx}', ['assets:tilemap-pack', 'assets:jsonmin', 'assets:copy']);
     gulp.watch(config.vendorFiles, ['copy:vendor']);
 });
 

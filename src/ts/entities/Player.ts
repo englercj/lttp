@@ -40,6 +40,11 @@ module Lttp.Entities {
         attacking: boolean;
         chargingAttack: boolean;
 
+        bodyShape: p2.Shape;
+        attackSensor: p2.Shape;
+
+        saveData: Utility.Save;
+
         constructor(game: Game) {
             super(game, 'sprite_link');
 
@@ -73,6 +78,9 @@ module Lttp.Entities {
             this.chargingAttack = false;
 
             this.anchor.set(0.5);
+
+            this.bodyShape = null;
+            this.attackSensor = null;
 
             // TODO: carry follow
             // this.on('physUpdate', this._physUpdate.bind(this));
@@ -178,7 +186,22 @@ module Lttp.Entities {
         setup(level: Levels.Level): Player {
             super.setup(level);
 
-            // TODO: add atack sensor shapes
+            this.body.clearShapes();
+
+            if (!this.bodyShape) {
+                this.bodyShape = this.body.addRectangle(this.width, this.height);
+            }
+            else {
+                this.body.addShape(this.bodyShape);
+            }
+
+            if (!this.attackSensor) {
+                this.attackSensor = this.body.addCircle(Data.Constants.PLAYER_ATTACK_SENSOR_RADIUS);
+                this.attackSensor.sensor = true;
+            }
+            else {
+                this.body.addShape(this.attackSensor);
+            }
 
             return this;
         }
@@ -248,6 +271,10 @@ module Lttp.Entities {
 
             this.textureDirty = true;
 
+            this._checkAttack();
+        }
+
+        private _checkAttack() {
             for(var i = this.inAttackRange.length - 1; i > -1; --i) {
                 var ent = this.inAttackRange[i];
 
@@ -495,21 +522,66 @@ module Lttp.Entities {
             this.itemPool.free(item);
         }
 
+        postUpdate() {
+            super.postUpdate();
+
+            if (this.carrying) {
+                this.carrying.position.x = this.position.x;
+                this.carrying.position.y = this.position.y - this.height + 5;
+            }
+        }
+
+        onBeginContact(obj, objShape: p2.Shape, myShape: p2.Shape) {
+            // we got into range of something to attack
+            if (myShape === this.attackSensor) {
+                if (obj.type) {
+                    this.inAttackRange.push(obj);
+
+                    //something new walked in while we were attacking
+                    if (this.attacking) {
+                        this._checkAttack();
+                    }
+                }
+            }
+            // colliding with a blocking object
+            else if (!objShape.sensor) {
+                this.colliding.push(obj);
+                // this._isBlocked();
+            }
+            // colliding with a sensor object, see if we can collect it
+            else if (obj.itemType) {
+                this.collectLoot(obj);
+            }
+        }
+
+        onEndContact(obj, objShape: p2.Shape, myShape: p2.Shape) {
+            // remove from attack range
+            if (myShape === this.attackSensor) {
+                var i = this.inAttackRange.indexOf(obj);
+
+                if (i >= 0) {
+                    this.inAttackRange.splice(i, 1);
+                }
+            }
+            // remove from collision list
+            else if (!obj.sensor) {
+                var i = this.colliding.indexOf(obj);
+
+                if(i >= 0) {
+                    this.colliding.splice(i, 1);
+                }
+
+                // if(!this.colliding.length) {
+                //     this._notBlocked();
+                // }
+            }
+        }
+
     }
 
 
 }
 
-//         addAttackSensor: function(phys) {
-//             if(this.atkSensor) return;
-
-//             this.atkSensor = phys.addCustomShape(this, new gf.Circle(0, 0, C.ATTACK_SENSOR_RADIUS), true);
-//             /*this.atkSensor = new gf.Body(this);
-//             this.atkSensor.shape = new gf.Circle(0, 0, C.ATTACK_SENSOR_RADIUS);
-//             this.atkSensor.sensor = true;
-
-//             phys.addBody(this.atkSensor);*/
-//         },
 
 //         ,
 //         ,
@@ -522,14 +594,6 @@ module Lttp.Entities {
 //             item.properties.loot = null;
 //         },
 
-//         _physUpdate: function() {
-//             if(this.carrying) {
-//                 this.carrying.setPosition(
-//                     this.position.x,
-//                     this.position.y - this.height + 5
-//                 );
-//             }
-//         },
 //         jumpDown: function(vec) {
 //             //TODO: Play sound
 
@@ -587,60 +651,7 @@ module Lttp.Entities {
 
 //             TweenLite.to(this.position, (C.JUMP_TIME / 4) * 3, opts);
 //         },
-//         //on collision
-//         _collide: function(obj, vec, colShape, myShape) {
-//             //we got into range of something to attack
-//             if(myShape === this.atkSensor) {
-//                 if(obj.type) {
-//                     this.inAttackRange.push(obj);
-
-//                     //something new walked in while we were attacking
-//                     if(this.actions.attack)
-//                         this._checkAttack();
-//                 }
-//             }
-//             //colliding with a new zone
-//             else if(obj.type === 'zone') {
-//                 this.emit('zone', obj, vec);
-//             }
-//             //collide with an exit
-//             else if(obj.type === 'exit') {
-//                 this.emit('exit', obj, vec);
-//             }
-//             //colliding with a blocking object
-//             else if(!obj.sensor) {
-//                 obj.__colVec = new gf.Vector(vec.x, vec.y);
-//                 this.colliding.push(obj);
-//                 //this._isBlocked();
-//             }
-//             //colliding with a sensor object
-//             else {
-//                 //pickup some loot
-//                 if(obj.loot)
-//                     this.collectLoot(obj);
-//             }
-//         },
-//         _separate: function(obj, colShape, myShape) {
-//             //remove from attack range
-//             if(myShape === this.atkSensor) {
-//                 var i = this.inAttackRange.indexOf(obj);
-
-//                 if(i >= 0) {
-//                     this.inAttackRange.splice(i, 1);
-//                 }
-//             }
-//             //remove from collision list
-//             else if(!obj.sensor) {
-//                 var i = this.colliding.indexOf(obj);
-
-//                 if(i >= 0) {
-//                     this.colliding.splice(i, 1);
-//                 }
-
-//                 /*if(!this.colliding.length)
-//                     this._notBlocked();*/
-//             }
-//         }
+//
 //     });
 
 //     return Link;

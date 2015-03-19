@@ -8,7 +8,7 @@ var gulp = require('gulp'),
  * Assets Phaser packs task, creates phaser asset loader packs for tilemaps
  *****/
 gulp.task('assets:tilemap-pack', function () {
-    return gulp.src('./src/assets/levels/**/*.json')
+    return gulp.src('./src/assets/levels/**/*.{json,tmx}')
         .pipe(tiledPack({ baseUrl: 'assets/levels' }))
         .pipe(gulp.dest('./public/assets'));
 });
@@ -37,7 +37,7 @@ gulp.task('assets:jsonmin', function () {
  * Assets copy task, copies any assets that we don't modify first
  *****/
 gulp.task('assets:copy', function () {
-    return gulp.src('./src/assets/**/*.{ogg,jpg}')
+    return gulp.src('./src/assets/**/*.{ogg,jpg,tmx}')
         .pipe(gulp.dest('./public/assets'));
 });
 

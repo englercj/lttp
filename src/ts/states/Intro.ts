@@ -427,9 +427,11 @@ module Lttp.States {
             this.loreGroup.alpha = 0;
 
             this.loreBg1 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg1', null, this.loreGroup);
+            this.loreBg1.generateTilingTexture(); // works around a bug in pixi v2.2.7
             this.loreBg1.name = 'background1';
 
             this.loreBg2 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg2', null, this.loreGroup);
+            this.loreBg2.generateTilingTexture(); // works around a bug in pixi v2.2.7
             this.loreBg2.name = 'background2';
 
             this.loreHighlight = this.add.graphics(0, 0, this.loreGroup);
