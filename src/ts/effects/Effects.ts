@@ -114,11 +114,13 @@ module Lttp.Effects {
 
             this.game.add.tween(object.scale)
                 .to({ x: initialScale.x + (initialScale.x * strength) }, 50, Phaser.Easing.Quadratic.InOut, true, delay)
-                .to({ x: initialScale.x }, 600, Phaser.Easing.Elastic.Out, true);
+                .to({ x: initialScale.x }, 600, Phaser.Easing.Elastic.Out, true)
+                .start();
 
             this.game.add.tween(object.scale)
                 .to({ y: initialScale.y + (initialScale.y * strength)}, 50, Phaser.Easing.Quadratic.InOut, true, delay + 50)
-                .to({ y: initialScale.y }, 600, Phaser.Easing.Elastic.Out, true);
+                .to({ y: initialScale.y }, 600, Phaser.Easing.Elastic.Out, true)
+                .start();
         }
 
         /**

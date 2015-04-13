@@ -15495,6 +15495,7 @@
                  "name":"Lost Woods",
                  "properties":
                     {
+                     "sensor":"true",
                      "transition":"fade"
                     },
                  "rotation":0,
@@ -15509,7 +15510,7 @@
                  "name":"Link's House",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15523,7 +15524,7 @@
                  "name":"Lake Hylia",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15537,7 +15538,7 @@
                  "name":"Lake Hylia - Corner",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15551,7 +15552,7 @@
                  "name":"Lake Hylia - Cave",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15565,7 +15566,7 @@
                  "name":"Eastern Palace - Fairy Pond",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15579,7 +15580,7 @@
                  "name":"Eastern Palace - Entrance",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15593,7 +15594,7 @@
                  "name":"Eastern Palace",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15607,7 +15608,7 @@
                  "name":"Bridge",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15621,7 +15622,7 @@
                  "name":"Stones",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15635,7 +15636,7 @@
                  "name":"Wood Bridge",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15649,7 +15650,7 @@
                  "name":"Magic Shop - West",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15663,7 +15664,7 @@
                  "name":"Magic Shop",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15677,7 +15678,7 @@
                  "name":"Zora Falls - South",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15691,7 +15692,7 @@
                  "name":"Zora Falls",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15705,7 +15706,7 @@
                  "name":"Cemetery",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15719,7 +15720,7 @@
                  "name":"Sanctuary",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15733,7 +15734,7 @@
                  "name":"Hyrule Castle",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15747,7 +15748,7 @@
                  "name":"Hyrule Grove",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15761,7 +15762,7 @@
                  "name":"Forge House",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15775,7 +15776,7 @@
                  "name":"Haunted Grove",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15789,7 +15790,7 @@
                  "name":"Kakariko Path",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15803,7 +15804,7 @@
                  "name":"Great Swamp",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15817,7 +15818,7 @@
                  "name":"Desert Path",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15833,7 +15834,8 @@
                     {
                      "body":"static",
                      "large":"true",
-                     "rock":"true"
+                     "rock":"true",
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15847,7 +15849,7 @@
                  "name":"Kakariko Contest",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15861,7 +15863,7 @@
                  "name":"Kakariko South",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15875,7 +15877,7 @@
                  "name":"Kakariko Village",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15889,7 +15891,7 @@
                  "name":"Lost Woods - South Entrance",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15903,7 +15905,7 @@
                  "name":"Fortune Teller",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15917,7 +15919,7 @@
                  "name":"Hyrule Pond",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15931,7 +15933,7 @@
                  "name":"Lumber Jack - Entrance",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15945,7 +15947,7 @@
                  "name":"Lumber Jack",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15959,7 +15961,7 @@
                  "name":"Death Mountain",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15973,7 +15975,7 @@
                  "name":"Death Mountain - East",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -15987,7 +15989,7 @@
                  "name":"Death Mountain - Platform",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -16001,7 +16003,7 @@
                  "name":"Link's House - West",
                  "properties":
                     {
-
+                     "sensor":"true"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -16027,7 +16029,7 @@
                  "name":"linkshouse",
                  "properties":
                     {
-                     "loc":"[120,209]",
+                     "loc":"[125,140]",
                      "transition":"fade"
                     },
                  "rotation":0,
@@ -16078,7 +16080,7 @@
          "name":"top",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":256,
          "x":0,
          "y":0

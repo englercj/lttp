@@ -11,11 +11,15 @@ module Lttp.Utility {
         magic: number = 0;
         maxMagic: number = 10;
 
-        position: number[] = [125, 140];
-
         // other save data
-        mapName: string = 'linkshouse';
         mapData: any = {};
+
+        lastUsedExit: any = {
+            name: 'linkshouse',
+            properties: {
+                loc: [125, 140]
+            }
+        };
 
         saveFileExists: boolean = false;
 
@@ -25,9 +29,9 @@ module Lttp.Utility {
             this.key = 'player:' + slot;
         }
 
-        save(player?: Entities.Player, map: string = 'linkshouse', position?: Phaser.Point): Save {
+        save(player?: Entities.Player, map: string = 'linkshouse'): Save {
             // load the player data into this save object
-            this.loadFrom(player, map, position);
+            this.loadFrom(player, map);
 
             this.saveFileExists = true;
 
@@ -82,12 +86,9 @@ module Lttp.Utility {
 
             player.magic = this.magic;
             player.maxMagic = this.maxMagic;
-
-            player.position.x = this.position[0];
-            player.position.y = this.position[1];
         }
 
-        private loadFrom(data: (Entities.Player|Save), map?: string, position?: (Phaser.Point|number[])) {
+        private loadFrom(data: (Entities.Player|Save), map?: string) {
             if (!data) {
                 return;
             }
@@ -103,17 +104,10 @@ module Lttp.Utility {
             this.magic = data.magic;
             this.maxMagic = data.maxMagic;
 
-            this.mapName = map || (<Save>data).mapName;
+            if (data instanceof Save) {
+                this.mapData = data.mapData;
 
-            position = position || data.position;
-
-            if (Array.isArray(position)) {
-                this.position[0] = (<number[]>position)[0];
-                this.position[1] = (<number[]>position)[1];
-            }
-            else {
-                this.position[0] = (<Phaser.Point>position).x;
-                this.position[1] = (<Phaser.Point>position).y;
+                this.lastUsedExit = data.lastUsedExit;
             }
         }
 

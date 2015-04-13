@@ -90,7 +90,8 @@ module Lttp.Levels {
             // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
 
             // setup the player for a new level
-            this.game.player.reset(this.game.player.x, this.game.player.y);
+            var exit = this.game.loadedSave.lastUsedExit;
+            this.game.player.reset(exit.properties.loc[0], exit.properties.loc[1]);
             this.game.player.setup(this);
 
             this.tiledmap.getObjectlayer('player').add(this.game.player);
@@ -129,6 +130,15 @@ module Lttp.Levels {
             // remove the listeners or they will keep firing
             this.game.physics.p2.onBeginContact.removeAll();
             this.game.physics.p2.onEndContact.removeAll();
+
+            this.activeZone = null;
+            this.oldZone = null;
+
+            this.oldLayer = null;
+            this.oldLayerOverlay = null;
+
+            this.activeLayer = null;
+            this.activeLayerOverlay = null;
         }
 
         onBeginContact(bodyA: p2.Body, bodyB: p2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations) {
@@ -171,11 +181,15 @@ module Lttp.Levels {
 
             // colliding with a new zone
             if(obj.type === 'zone') {
-                this._zone(obj, playerBody.velocity);
+                if (playerShape === this.game.player.bodyShape) {
+                    this._zone(obj, playerBody.velocity);
+                }
             }
             // collide with an exit
             else if(obj.type === 'exit') {
-                this._exit(obj, playerBody.velocity);
+                if (playerShape === this.game.player.bodyShape) {
+                    this._exit(obj, playerBody.velocity);
+                }
             }
             else {
                 this.game.player[method](obj, objShape, playerShape);
@@ -221,8 +235,7 @@ module Lttp.Levels {
         }
 
         private _gotoLevel(exit: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
-            this.game.player.x = exit.properties.loc[0];
-            this.game.player.y = exit.properties.loc[1];
+            this.game.loadedSave.lastUsedExit = exit;
 
             this.game.state.start('level_' + exit.name);
         }
@@ -292,7 +305,7 @@ module Lttp.Levels {
 
             this.game.player.lock();
 
-            switch (this.activeZone.properties.transition || this.oldZone.properties.transition) {
+            switch (this.activeZone.properties.transition) {
                 case 'fade':
                     this.game.effects.fadeScreen('black', Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
                         .onComplete.addOnce(function () {
@@ -326,10 +339,12 @@ module Lttp.Levels {
                     playerEnd[p] = Data.Constants.EFFECT_ZONE_TRANSITION_SPACE * vec[p];
 
                     this.game.add.tween(this.camera)
-                        .to(cameraEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME);
+                        .to(cameraEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
+                        .start();
 
                     this.game.add.tween(this.game.player)
                         .to(playerEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
+                        .start()
                         .onComplete.addOnce(this._zoneReady, this);
                     break;
             }

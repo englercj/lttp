@@ -184,24 +184,16 @@ module Lttp.Entities {
         setup(level: Levels.Level): Player {
             super.setup(level);
 
+            this.unlock();
+
             this.body.clearShapes();
 
-            if (!this.bodyShape) {
-                // this.bodyShape = this.body.addRectangle(16, 22, 0, 4);
-                // this.bodyShape = this.body.addCapsule(2, 6, 0, 7, Math.PI / 2);
-                this.bodyShape = this.body.addCircle(7, 0, 7);
-            }
-            else {
-                this.body.addShape(this.bodyShape);
-            }
+            // this.bodyShape = this.body.addRectangle(16, 22, 0, 4);
+            // this.bodyShape = this.body.addCapsule(2, 6, 0, 7, Math.PI / 2);
+            this.bodyShape = this.body.addCircle(7, 0, 7);
 
-            if (!this.attackSensor) {
-                this.attackSensor = this.body.addCircle(Data.Constants.PLAYER_ATTACK_SENSOR_RADIUS, 0, 4);
-                this.attackSensor.sensor = true;
-            }
-            else {
-                this.body.addShape(this.attackSensor);
-            }
+            this.attackSensor = this.body.addCircle(Data.Constants.PLAYER_ATTACK_SENSOR_RADIUS, 0, 4);
+            this.attackSensor.sensor = true;
 
             return this;
         }

@@ -19,7 +19,7 @@ module Lttp.States {
             this.game.loadedSave.copyTo(this.game.player);
 
             // todo load active level from save file
-            this.game.state.start('level_' + this.game.loadedSave.mapName);
+            this.game.state.start('level_' + this.game.loadedSave.lastUsedExit.name);
         }
 
     }
