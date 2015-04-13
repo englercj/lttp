@@ -54,6 +54,15 @@ module Lttp.Data {
         //input data
         public static INPUT_GAMEPAD_AXIS_THRESHOLD: number = 0.25;
 
+        // some effect constants
+        public static EFFECT_INTRO_FLASH_ALPHA: number = 0.9;
+        public static EFFECT_INTRO_FLASH_LENGTH: number = 60;
+
+        public static EFFECT_ZONE_TRANSITION_TIME: number = 500;
+        public static EFFECT_ZONE_TRANSITION_SPACE: number = 20;
+
+        public static EFFECT_MAP_TRANSITION_TIME: number = 500;
+
         // direction vectors
         public static VECTOR_ZERO: Phaser.Point = new Phaser.Point(0, -1);
         public static VECTOR_UP: Phaser.Point = new Phaser.Point(0, -1);

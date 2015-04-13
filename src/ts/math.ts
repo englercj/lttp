@@ -4,8 +4,8 @@ module Lttp.math {
 
     export function isInViewCone(viewer: Entities.Entity, obj: Entities.Entity, coneSize: number) {
         coneVec.set(
-            obj.position.x - viewer.position.x,
-            obj.position.y - viewer.position.y
+            obj.x - viewer.x,
+            obj.y - viewer.y
         );
 
         coneVec.normalize();

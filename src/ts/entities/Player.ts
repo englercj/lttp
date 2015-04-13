@@ -43,8 +43,6 @@ module Lttp.Entities {
         bodyShape: p2.Shape;
         attackSensor: p2.Shape;
 
-        saveData: Utility.Save;
-
         constructor(game: Game) {
             super(game, 'sprite_link');
 
@@ -189,14 +187,16 @@ module Lttp.Entities {
             this.body.clearShapes();
 
             if (!this.bodyShape) {
-                this.bodyShape = this.body.addRectangle(this.width, this.height);
+                // this.bodyShape = this.body.addRectangle(16, 22, 0, 4);
+                // this.bodyShape = this.body.addCapsule(2, 6, 0, 7, Math.PI / 2);
+                this.bodyShape = this.body.addCircle(7, 0, 7);
             }
             else {
                 this.body.addShape(this.bodyShape);
             }
 
             if (!this.attackSensor) {
-                this.attackSensor = this.body.addCircle(Data.Constants.PLAYER_ATTACK_SENSOR_RADIUS);
+                this.attackSensor = this.body.addCircle(Data.Constants.PLAYER_ATTACK_SENSOR_RADIUS, 0, 4);
                 this.attackSensor.sensor = true;
             }
             else {
@@ -369,6 +369,10 @@ module Lttp.Entities {
 
             //TODO: drops?
             obj.destroy();
+        }
+
+        destroy() {
+            debugger;
         }
 
         throwItem() {

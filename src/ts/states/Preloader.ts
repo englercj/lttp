@@ -26,7 +26,8 @@ module Lttp.States {
             this.load.atlas('sprite_link',      'assets/sprites/entities/link.png',         'assets/sprites/entities/link.json',        null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
             this.load.atlas('sprite_misc',      'assets/sprites/entities/misc.png',         'assets/sprites/entities/misc.json',        null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
             this.load.atlas('sprite_enemies',   'assets/sprites/entities/enemies.png',      'assets/sprites/entities/enemies.json',     null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
-            this.load.atlas('sprite_worlditems', 'assets/sprites/misc/overworlditems.png',  'assets/sprites/misc/overworlditems.json',  null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+            this.load.atlas('sprite_worlditems','assets/sprites/misc/overworlditems.png',   'assets/sprites/misc/overworlditems.json',  null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+            this.load.atlas('sprite_overlays',  'assets/sprites/overlays/overlays.png',     'assets/sprites/overlays/overlays.json',    null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
             // HUD Sprite Atlases
             this.load.atlas('sprite_gui',       'assets/sprites/ui/gui.png',                'assets/sprites/ui/gui.json',               null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);

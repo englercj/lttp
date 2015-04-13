@@ -1,9 +1,13 @@
 module Lttp {
+    export type IPoint = (Phaser.Point|Phaser.Physics.P2.InversePointProxy);
+
     export class Game extends Phaser.Game {
 
         player: Entities.Player = null;
 
         loadedSave: Utility.Save = null;
+
+        effects: Effects.Effects = null;
 
         static timer: Phaser.Timer = null;
 
@@ -86,8 +90,10 @@ module Lttp {
             // start polling for gamepad input
             this.input.gamepad.start();
 
-            this.add.plugin(Phaser.Plugin.Debug);
-            this.add.plugin(Phaser.Plugin.Tiled);
+            this.add.plugin(new Phaser.Plugin.Debug(this));
+            this.add.plugin(new Phaser.Plugin.Tiled(this));
+
+            this.effects = <Effects.Effects>this.add.plugin(new Effects.Effects(this));
 
             this.sound.mute = true;
         }

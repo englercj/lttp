@@ -19,7 +19,7 @@ gulp.task('assets:tilemap-pack', function () {
 gulp.task('assets:imagemin', function () {
     return gulp.src('./src/assets/**/*.png')
         .pipe(cached('imagemin'))
-        .pipe(imagemin()).on('error', console.error)
+        // .pipe(imagemin()).on('error', console.error) //TODO: Uncomment when ready for minified images
         .pipe(gulp.dest('./public/assets'));
 });
 

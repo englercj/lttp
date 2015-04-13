@@ -15,13 +15,11 @@ module Lttp.States {
 
             this.game.player = new Entities.Player(this.game);
 
-            var menu = this.game.state.states.state_mainmenu;
-
             // load the save data into the player
-            menu.saves[menu.selected].copyTo(this.game.player);
+            this.game.loadedSave.copyTo(this.game.player);
 
             // todo load active level from save file
-            this.game.state.start('level_' + this.game.player.saveData.map);
+            this.game.state.start('level_' + this.game.loadedSave.mapName);
         }
 
     }

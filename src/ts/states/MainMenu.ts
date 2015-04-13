@@ -168,6 +168,8 @@ module Lttp.States {
         }
 
         complete() {
+            this.game.loadedSave = this.saves[this.selected];
+
             this.game.state.start('state_play', true);
         }
 
@@ -175,7 +177,7 @@ module Lttp.States {
             if (this.active === MainMenuActiveMenu.SELECT) {
                 // select a save to play
                 if (this.selected <= 2) {
-                    if (!this.saves[this.selected].hasData) {
+                    if (!this.saves[this.selected].saveFileExists) {
                         this.activate(MainMenuActiveMenu.REGISTER);
                     }
                     else {
@@ -279,21 +281,20 @@ module Lttp.States {
                 for(var i = 0; i < s.length; ++i) {
                     var n = i + 1,
                         sv = s[i].load(),
-                        inv = sv ? sv.inventory : null,
                         spr: Phaser.Sprite = this['linkSprite' + n];
 
-                    this['slotText' + n].text = n + '.' + (sv.hasData ? sv.name : '');
+                    this['slotText' + n].text = n + '.' + (sv.saveFileExists ? sv.name : '');
 
-                    if(inv) {
+                    if (sv.saveFileExists) {
                         spr.visible = true;
 
-                        if (inv.sword === 1 && inv.shield === 1) {
+                        if (sv.inventory.sword === 1 && sv.inventory.shield === 1) {
                             spr.setFrame(this.frames.getFrameByName('link4.png'));
                         }
-                        else if (inv.shield === 1) {
+                        else if (sv.inventory.shield === 1) {
                             spr.setFrame(this.frames.getFrameByName('link3.png'));
                         }
-                        else if (inv.sword === 1) {
+                        else if (sv.inventory.sword === 1) {
                             spr.setFrame(this.frames.getFrameByName('link2.png'));
                         }
                         else {

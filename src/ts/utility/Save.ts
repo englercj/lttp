@@ -2,21 +2,22 @@ module Lttp.Utility {
     export class Save {
 
         // player data
-        inventory: Data.PlayerInventory;
-        equipted: Data.ItemDescriptor;
+        inventory: Data.PlayerInventory = new Data.PlayerInventory();
+        equipted: Data.ItemDescriptor = null;
 
-        health: number;
-        maxHealth: number;
+        health: number = 3;
+        maxHealth: number = 3;
 
-        magic: number;
-        maxMagic: number;
+        magic: number = 0;
+        maxMagic: number = 10;
 
-        position: number[] = [0, 0];
+        position: number[] = [125, 140];
 
         // other save data
-        map: string = '';
+        mapName: string = 'linkshouse';
+        mapData: any = {};
 
-        hasData: boolean = false;
+        saveFileExists: boolean = false;
 
         private key: string;
 
@@ -24,9 +25,11 @@ module Lttp.Utility {
             this.key = 'player:' + slot;
         }
 
-        save(player?: Entities.Player, map?: string, position?: Phaser.Point): Save {
+        save(player?: Entities.Player, map: string = 'linkshouse', position?: Phaser.Point): Save {
             // load the player data into this save object
             this.loadFrom(player, map, position);
+
+            this.saveFileExists = true;
 
             Storage.save(this.key, this);
 
@@ -38,6 +41,7 @@ module Lttp.Utility {
 
             if (data) {
                 this.loadFrom(data);
+                this.saveFileExists = true;
             }
 
             return this;
@@ -46,55 +50,71 @@ module Lttp.Utility {
         remove() {
             Storage.remove(this.key);
 
-            this.hasData = false;
+            this.saveFileExists = false;
+        }
+
+        updateZoneData(layer: Phaser.Plugin.Tiled.Objectlayer) {
+            var mapData = this.mapData[layer.map.name] || { zones: {} },
+                zoneData = mapData.zones[layer.name] || { objects: [] };
+
+            zoneData.objects.length = 0;
+
+            for (var i = 0, il = layer.objects.length; i < il; ++i) {
+                zoneData.objects.push({
+                    properties: {
+                        loot: layer.objects[i].properties.loot
+                    }
+                });
+            }
+
+            mapData.zones[layer.name] = zoneData;
+            this.mapData[layer.map.name] = mapData;
+
+            this.save();
         }
 
         copyTo(player: Entities.Player) {
-            player.inventory = this.inventory || new Data.PlayerInventory();
-            player.equipted = this.equipted || null;
+            player.inventory = this.inventory;
+            player.equipted = this.equipted;
 
-            player.health = this.health || 3;
-            player.maxHealth = this.maxHealth || 3;
+            player.health = this.health;
+            player.maxHealth = this.maxHealth;
 
-            player.magic = this.magic || 0;
-            player.maxMagic = this.maxMagic || 10;
+            player.magic = this.magic;
+            player.maxMagic = this.maxMagic;
 
-            player.position.x = this.position[0] || 0;
-            player.position.y = this.position[1] || 0;
-
-            player.saveData = this;
+            player.position.x = this.position[0];
+            player.position.y = this.position[1];
         }
 
-        private loadFrom(data, map?: string, position?: Phaser.Point) {
+        private loadFrom(data: (Entities.Player|Save), map?: string, position?: (Phaser.Point|number[])) {
             if (!data) {
                 return;
             }
 
-            this.name = data.name || '';
+            this.name = data.name;
 
-            this.inventory = data.inventory || new Data.PlayerInventory();
-            this.equipted = data.equipted || null;
+            this.inventory = data.inventory;
+            this.equipted = data.equipted;
 
-            this.health = data.health || 3;
-            this.maxHealth = data.maxHealth || 3;
+            this.health = data.health;
+            this.maxHealth = data.maxHealth;
 
-            this.magic = data.magic || 0;
-            this.maxMagic = data.maxMagic || 10;
+            this.magic = data.magic;
+            this.maxMagic = data.maxMagic;
 
-            this.map = map || data.map || 'linkshouse';
+            this.mapName = map || (<Save>data).mapName;
 
-            position = position || data.position || [120, 209];
+            position = position || data.position;
 
             if (Array.isArray(position)) {
-                this.position[0] = position[0] || 120;
-                this.position[1] = position[1] || 209;
+                this.position[0] = (<number[]>position)[0];
+                this.position[1] = (<number[]>position)[1];
             }
             else {
-                this.position[0] = position.x || 120;
-                this.position[1] = position.y || 209;
+                this.position[0] = (<Phaser.Point>position).x;
+                this.position[1] = (<Phaser.Point>position).y;
             }
-
-            this.hasData = true;
         }
 
     }

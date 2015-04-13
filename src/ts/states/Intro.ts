@@ -80,8 +80,6 @@ module Lttp.States {
         thronemap: Phaser.Tilemap;
         thronemapLayer: Phaser.TilemapLayer;
 
-        flashes: Effects.ScreenFlash[] = [];
-
         count: number = 0;
 
         preload() {
@@ -276,22 +274,22 @@ module Lttp.States {
         }
 
         blink(num: number, cb?: Function) {
-            if(num === 0) {
+            if (num === 0) {
                 return cb && cb.call(this);
             }
 
             num--;
 
-            var len = 60,
-                alpha = 0.9;
+            var self = this,
+                effects = this.game.effects;
 
-            this.flashes[0].flash(alpha, len).onComplete.addOnce(function () {
-                this.flashes[1].flash(alpha, len).onComplete.addOnce(function () {
-                    this.flashes[2].flash(alpha, len).onComplete.addOnce(function () {
-                        this.blink(num, cb);
-                    }, this);
-                }, this);
-            }, this);
+            effects.flashScreen('red', Data.Constants.EFFECT_INTRO_FLASH_LENGTH, Data.Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
+                effects.flashScreen('green', Data.Constants.EFFECT_INTRO_FLASH_LENGTH, Data.Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
+                    effects.flashScreen('blue', Data.Constants.EFFECT_INTRO_FLASH_LENGTH, Data.Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
+                        self.blink(num, cb);
+                    });
+                });
+            });
         }
 
         private _showLoreSequence(seq, cb) {
@@ -411,14 +409,14 @@ module Lttp.States {
             this.zpart.name = 'zpart';
             this.zpart.visible = false;
 
-            this.flashes[0] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'red')));
-            this.flashes[0].name = 'flashes[0]';
-
-            this.flashes[1] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'green')));
-            this.flashes[1].name = 'flashes[1]';
-
-            this.flashes[2] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue')));
-            this.flashes[2].name = 'flashes[2]';
+            // this.flashes[0] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'red')));
+            // this.flashes[0].name = 'flashes[0]';
+            //
+            // this.flashes[1] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'green')));
+            // this.flashes[1].name = 'flashes[1]';
+            //
+            // this.flashes[2] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue')));
+            // this.flashes[2].name = 'flashes[2]';
         }
 
         private _createLoreGroup() {
@@ -488,4 +486,3 @@ module Lttp.States {
 
     }
 }
-
