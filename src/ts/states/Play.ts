@@ -18,6 +18,9 @@ module Lttp.States {
             // load the save data into the player
             this.game.loadedSave.copyTo(this.game.player);
 
+            // startup the autosave interval
+            this.game.startAutosave();
+
             // todo load active level from save file
             this.game.state.start('level_' + this.game.loadedSave.lastUsedExit.name);
         }

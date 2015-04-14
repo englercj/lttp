@@ -123,7 +123,7 @@
                  "name":"lightworld",
                  "properties":
                     {
-                     "loc":"[2232,2837]",
+                     "loc":"[2240,2817]",
                      "sensor":"true",
                      "transition":"fade"
                     },

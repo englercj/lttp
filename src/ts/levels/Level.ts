@@ -235,7 +235,7 @@ module Lttp.Levels {
         }
 
         private _gotoLevel(exit: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
-            this.game.loadedSave.lastUsedExit = exit;
+            this.game.save(exit);
 
             this.game.state.start('level_' + exit.name);
         }
@@ -352,7 +352,7 @@ module Lttp.Levels {
 
         private _zoneReady() {
             if (this.oldLayer) {
-                this.game.loadedSave.updateZoneData(this.oldLayer);
+                this.game.save(null, this.oldLayer);
 
                 this.oldLayer.despawn();
             }

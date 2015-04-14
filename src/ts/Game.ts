@@ -11,6 +11,8 @@ module Lttp {
 
         static timer: Phaser.Timer = null;
 
+        private _autosaveInterval: number;
+
         constructor() {
             // super(
             //     Data.Constants.GAME_WIDTH,
@@ -108,6 +110,24 @@ module Lttp {
             super.gameResumed(event);
 
             this.sound.resumeAll();
+        }
+
+        startAutosave() {
+            clearInterval(this._autosaveInterval);
+
+            this._autosaveInterval = setInterval(this.save.bind(this), Data.Constants.GAME_SAVE_INTERVAL);
+        }
+
+        save(exit?: Phaser.Plugin.Tiled.TiledObject, previousLayer?: Phaser.Plugin.Tiled.Objectlayer) {
+            if (exit) {
+                this.loadedSave.updateExit(exit);
+            }
+
+            if (previousLayer) {
+                this.loadedSave.updateZoneData(previousLayer);
+            }
+
+            this.loadedSave.save(this.player);
         }
 
     }

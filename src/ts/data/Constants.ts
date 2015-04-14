@@ -21,6 +21,7 @@ module Lttp.Data {
         public static GAME_HEIGHT:          number = 224;
         public static GAME_SCALE:           number = 3;
         public static GAME_TEXT_SCALE:      number = 1.5;
+        public static GAME_SAVE_INTERVAL:   number = 1000;
 
         //cone within hit detector to check for interactions
         public static PLAYER_ATTACK_CONE:   number = 0.5;
