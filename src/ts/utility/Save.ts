@@ -114,10 +114,9 @@ module Lttp.Utility {
             this.magic = data.magic;
             this.maxMagic = data.maxMagic;
 
-            if (data instanceof Save) {
-                this.mapData = data.mapData;
-
-                this.lastUsedExit = data.lastUsedExit;
+            if (!(data instanceof Entities.Player)) {
+                this.mapData = (<Save>data).mapData;
+                this.lastUsedExit = (<Save>data).lastUsedExit;
             }
         }
 

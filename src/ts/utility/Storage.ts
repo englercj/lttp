@@ -2,15 +2,16 @@ module Lttp.Utility {
     export class Storage {
 
         public static save(key: string, value: any) {
-            localStorage.setItem(key, JSON.stringify(value));
+            localStorage.setItem(key, LZString.compressToUTF16(JSON.stringify(value)));
         }
 
         public static load(key: string) {
             var val = localStorage.getItem(key);
 
             try {
-                return JSON.parse(val);
-            } catch(e) {
+                return JSON.parse(LZString.decompressFromUTF16(val));
+            }
+            catch(e) {
                 return val;
             }
         }

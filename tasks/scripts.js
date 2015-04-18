@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
+    addSrc = require('gulp-add-src'),
     ts     = require('gulp-typescript'),
     uglify = require('gulp-uglify'),
     size   = require('gulp-size'),
@@ -31,6 +32,9 @@ gulp.task('scripts', function () {
             .pipe(ts(tsProject));
 
     return tsResult.js
+        .pipe(addSrc.prepend([
+            './node_modules/lz-string/libs/lz-string.js'
+        ]))
         // output normal bundle
         .pipe(concat(fname))
         .pipe(header(banner, { pkg: pkg }))
