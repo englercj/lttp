@@ -75,10 +75,14 @@ module Lttp.States {
 
         // minimap sprites
         mapGroup: Phaser.Group;
-        minimap: Phaser.Tilemap;
-        minimapLayer: Phaser.TilemapLayer;
-        thronemap: Phaser.Tilemap;
-        thronemapLayer: Phaser.TilemapLayer;
+
+        minimap: Phaser.Plugin.Tiled.Tilemap;
+        minimapLayer: Phaser.Plugin.Tiled.Tilelayer;
+
+        thronemap: Phaser.Plugin.Tiled.Tilemap;
+        thronemapLayer: Phaser.Plugin.Tiled.Tilelayer;
+
+        sparkling: boolean;
 
         count: number = 0;
 
@@ -126,8 +130,21 @@ module Lttp.States {
 
         startIntroAnimation() {
             this.introGroup.visible = true;
+            this.introGroup.alpha = 1;
             this.loreGroup.visible = false;
             this.mapGroup.visible = false;
+
+            this.title.alpha = 0;
+            this.sparkle.visible = false;
+            this.shine.visible = false;
+            this.zpart.visible = false;
+
+            this.sword.y = -130;
+            this.shine.y = 85;
+
+            this.camera.x = this.camera.y = 0;
+
+            this.intro.alpha = 1;
 
             this.intro.animations.play('intro');
 
@@ -137,20 +154,21 @@ module Lttp.States {
                     .to({ alpha: 0 }, 500)
                     .start()
                     .onComplete.addOnce(function () {
-                        this.introGroup.visible = false;
+                        this.sparkling = false;
                         this.startLoreAnimation();
                     }, this);
             }, this);
 
             // When the intro completes
-            this.intro.events.onAnimationComplete.add(function () {
+            this.intro.events.onAnimationComplete.addOnce(function () {
+                this.sparkling = true;
                 Game.timer.add(500, this.showSparkle, this);
 
                 //Fade in the title
                 this.game.add.tween(this.title)
                     .to({ alpha: 1 }, 2500)
                     .start()
-                    .onComplete.add(function () {
+                    .onComplete.addOnce(function () {
                         this.zpart.visible = true;
 
                         this.dingSound.play();
@@ -159,25 +177,22 @@ module Lttp.States {
                         this.game.add.tween(this.sword)
                             .to({ y: 38 }, 200)
                             .start()
-                            .onComplete.add(function () {
+                            .onComplete.addOnce(function () {
                                 // blink the screen
                                 this.blink(3, function () {
                                     //Fade out the intro
                                     this.game.add.tween(this.intro)
                                         .to({ alpha: 0 }, 500)
                                         .start()
-                                        .onComplete.add(function () {
+                                        .onComplete.addOnce(function () {
                                             // show the sword shine
                                             this.shine.visible = true;
                                             this.game.add.tween(this.shine)
                                                 .to({ y: 150 }, 250)
                                                 .start()
-                                                .onComplete.add(function () {
+                                                .onComplete.addOnce(function () {
                                                     this.shine.visible = false;
                                                 }, this);
-
-                                            // hide the intro
-                                            this.intro.visible = false;
                                         }, this);
                                 });
                             }, this);
@@ -190,6 +205,15 @@ module Lttp.States {
             this.loreGroup.visible = true;
             this.mapGroup.visible = false;
 
+            this.camera.x = this.camera.y = 0;
+
+            this.loreDialog.font.text = '';
+
+            this.loreImg1.alpha = 0;
+            this.loreImg2.alpha = 0;
+            this.loreImg3.alpha = 0;
+            this.loreImg4.alpha = 0;
+
             this.loreMusic.play();
 
             this.game.add.tween(this.loreGroup)
@@ -201,7 +225,6 @@ module Lttp.States {
                             .to({ alpha: 0 }, 500)
                             .start()
                             .onComplete.addOnce(function () {
-                                this.loreGroup.visible = false;
                                 this.startMinimapFlythrough();
                             }, this);
                     });
@@ -212,18 +235,31 @@ module Lttp.States {
             this.introGroup.visible = false;
             this.loreGroup.visible = false;
             this.mapGroup.visible = true;
+            this.mapGroup.alpha = 1;
+
+            var diff = 128 * Data.Constants.GAME_SCALE,
+                maxScale = 65;
+
+            this.mapGroup.scale.set(1, 1);
+            this.mapGroup.position.set(0, 0);
+
+            this.camera.x = this.camera.y = diff;
 
             this.game.add.tween(this.mapGroup)
                 .to({ alpha: 1 }, 500)
                 .start()
                 .onComplete.addOnce(function () {
-                    this.game.add.tween(this.minimapLayer.scale)
-                        .to({ x: 65, y: 65 }, 5000, Phaser.Easing.Exponential.In)
+                    this.game.add.tween(this.mapGroup.scale)
+                        .to({ x: maxScale, y: maxScale }, 5000, Phaser.Easing.Exponential.In)
+                        .start();
+
+                    this.game.add.tween(this.mapGroup.position)
+                        .to({ x: -252 * maxScale, y: -234 * maxScale }, 5000, Phaser.Easing.Exponential.In)
                         .start();
 
                     this.game.add.tween(this.mapGroup)
-                        .delay(4000)
                         .to({ alpha: 0 }, 1000)
+                        .delay(4000)
                         .start()
                         .onComplete.addOnce(function () {
                             Game.timer.add(1000, function () {
@@ -239,6 +275,10 @@ module Lttp.States {
 
         showSparkle(p?: number) {
             p = (p || 0) % 4;
+
+            if (!this.sparkling) {
+                return;
+            }
 
             var sp = this.sparkle;
 
@@ -299,7 +339,7 @@ module Lttp.States {
                         this.game.add.tween(this.loreImg1)
                             .to({ alpha: 1 }, 500)
                             .start()
-                            .onComplete.add(function () {
+                            .onComplete.addOnce(function () {
                                 this._showLoreSequence(seq, cb);
                             }, this);
 
@@ -334,7 +374,8 @@ module Lttp.States {
                 this.loreDialog.show(loreText[seq], null, false, false).onTypingComplete.addOnce(function () {
                     Game.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
                 }, this);
-            } else {
+            }
+            else {
                 this.loreDialog.append(loreText[seq], false).onTypingComplete.addOnce(function () {
                     Game.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
                 }, this);
@@ -346,11 +387,11 @@ module Lttp.States {
                 this.game.add.tween(fromImg)
                     .to({ alpha: 0 }, 500)
                     .start()
-                    .onComplete.add(function () {
+                    .onComplete.addOnce(function () {
                         this.game.add.tween(toImg)
                             .to({ alpha: 1 }, 500)
                             .start()
-                            .onComplete.add(function () {
+                            .onComplete.addOnce(function () {
                                 this._showLoreSequence(seq, cb);
                             }, this);
                     }, this);
@@ -383,11 +424,18 @@ module Lttp.States {
 
             this.title = this.add.sprite(0, 0, 'sprite_intro', 'logo.png', this.introGroup);
             this.title.name = 'title';
-            this.title.alpha = 0;
+
+            this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png', this.introGroup);
+            this.sword.name = 'sword';
+
+            this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png', this.introGroup);
+            this.shine.name = 'shine';
+
+            this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png', this.introGroup);
+            this.zpart.name = 'zpart';
 
             this.sparkle = this.add.sprite(0, 0, 'sprite_particles', null, this.introGroup);
             this.sparkle.name = 'sparkle';
-            this.sparkle.visible = false;
             this.sparkle.anchor.set(0.5, 0.5);
             this.sparkle.animations.add('sparkle', [
                 'sparkle/0.png',
@@ -397,26 +445,6 @@ module Lttp.States {
                 'sparkle/4.png',
                 'sparkle/5.png'
             ], 17, false, false);
-
-            this.sword = this.add.sprite(56, -130, 'sprite_intro', 'sword.png', this.introGroup);
-            this.sword.name = 'sword';
-
-            this.shine = this.add.sprite(68, 85, 'sprite_particles', 'swordshine/shine.png', this.introGroup);
-            this.shine.name = 'shine';
-            this.shine.visible = false;
-
-            this.zpart = this.add.sprite(53, 86, 'sprite_intro', 'zpart.png', this.introGroup);
-            this.zpart.name = 'zpart';
-            this.zpart.visible = false;
-
-            // this.flashes[0] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'red')));
-            // this.flashes[0].name = 'flashes[0]';
-            //
-            // this.flashes[1] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'green')));
-            // this.flashes[1].name = 'flashes[1]';
-            //
-            // this.flashes[2] = this.introGroup.add(this.game.add.existing(new Effects.ScreenFlash(this.game, 'blue')));
-            // this.flashes[2].name = 'flashes[2]';
         }
 
         private _createLoreGroup() {
@@ -476,12 +504,8 @@ module Lttp.States {
             this.mapGroup.visible = false;
             this.mapGroup.alpha = 0;
 
-            // this.minimap = this.addTilemap('lw_minimap', 0.75, this.mapGroup);
-            // this.minimapLayer = <Phaser.TilemapLayer>this.mapGroup.children[0];
-            // this.minimapLayer.name = 'minimap';
-            // this.minimapLayer.fixedToCamera = false;
-            // this.minimapLayer.pivot.set(0.375, 0.350);
-            // this.minimapLayer.position.set(128, 100);
+            this.minimap = this.add.tiledmap('lw_minimap');
+            this.mapGroup.add(this.minimap);
         }
 
     }
