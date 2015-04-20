@@ -22,7 +22,7 @@ module Lttp.Entities {
         attackDamage: number = 1;
 
         // state of movement of this entity
-        moving: number[] = [0, 0, 0, 0];
+        moving: number[] = [0, 0, 0, 0, 0];
 
         // the direction the entity is facing
         facing: number = Phaser.DOWN;

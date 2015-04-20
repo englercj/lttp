@@ -85,8 +85,8 @@ module Lttp.Levels {
             this.physics.p2.convertTiledCollisionObjects(this.tiledmap, 'exits');
             this.physics.p2.convertTiledCollisionObjects(this.tiledmap, 'zones');
 
-            this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
-            this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
+            // this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
+            // this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
             // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
 
             // setup the player for a new level
@@ -179,21 +179,18 @@ module Lttp.Levels {
                 return;
             }
 
-            // colliding with a new zone
-            if(obj.type === 'zone') {
-                if (playerShape === this.game.player.bodyShape) {
-                    this._zone(obj, playerBody.velocity);
+            if (method === 'onBeginContact' && playerShape === this.game.player.bodyShape) {
+                // colliding with a new zone
+                if (obj.type === 'zone') {
+                    return this._zone(obj, this.game.player._getFacingVector());
+                }
+                // collide with an exit
+                else if (obj.type === 'exit') {
+                    return this._exit(obj, this.game.player._getFacingVector());
                 }
             }
-            // collide with an exit
-            else if(obj.type === 'exit') {
-                if (playerShape === this.game.player.bodyShape) {
-                    this._exit(obj, playerBody.velocity);
-                }
-            }
-            else {
-                this.game.player[method](obj, objShape, playerShape);
-            }
+
+            this.game.player[method](obj, objShape, playerShape);
         }
 
         private _exit(exit: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
@@ -340,12 +337,13 @@ module Lttp.Levels {
 
                     this.game.add.tween(this.camera)
                         .to(cameraEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
-                        .start();
-
-                    this.game.add.tween(this.game.player)
-                        .to(playerEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
                         .start()
                         .onComplete.addOnce(this._zoneReady, this);
+
+                    // this.game.add.tween(this.game.player.body)
+                    //     .to(playerEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
+                    //     .start()
+                    this.game.player.body[p] += Data.Constants.EFFECT_ZONE_TRANSITION_SPACE * vec[p];
                     break;
             }
         }
