@@ -175,7 +175,7 @@ module Lttp.Entities {
                 anim = 'lift_' + anim;
             }
             else if (this.inventory.shield) {
-                anim += '_shield'
+                anim += '_shield';
             }
 
             this.animations.play(anim + '_' + this._getFacingString());
@@ -292,32 +292,32 @@ module Lttp.Entities {
                 var ent = this.colliding[i];
 
                 if(math.isInViewCone(this, ent, Data.Constants.PLAYER_USE_CONE)) {
-                    switch(ent.entityType) {
+                    switch(ent.properties.type) {
                         // TODO: Make the item decide this stuff? They all implement a `use` method instead?
-                        case Data.ENTITY_TYPE.CHEST:
+                        case Data.MAP_OBJECTS.CHEST:
                             if (this.facing === Phaser.UP) {
                                 this.openChest(ent);
                             }
                             break;
 
-                        case Data.ENTITY_TYPE.SIGN:
+                        case Data.MAP_OBJECTS.SIGN:
                             if (this.facing === Phaser.UP) {
                                 this.readSign(ent);
                             }
                             else {
-                                this.liftItem(<Entities.Items.WorldItem>ent);
+                                this.liftItem(ent);
                             }
                             break;
 
-                        case Data.ENTITY_TYPE.ROCK:
+                        case Data.MAP_OBJECTS.ROCK:
                             if (this.inventory.gloves) {
-                                this.liftItem(<Entities.Items.WorldItem>ent);
+                                this.liftItem(ent);
                             }
                             break;
 
-                        case Data.ENTITY_TYPE.GRASS:
-                        case Data.ENTITY_TYPE.POT:
-                            this.liftItem(<Entities.Items.WorldItem>ent);
+                        case Data.MAP_OBJECTS.GRASS:
+                        case Data.MAP_OBJECTS.POT:
+                            this.liftItem(ent);
                             break;
                     }
 
@@ -454,7 +454,7 @@ module Lttp.Entities {
             // this.emit('readSign', sign);
         }
 
-        liftItem(item: Entities.Items.WorldItem) {
+        liftItem(item: Entities.Entity) {
             // lock player movement
             this.lock();
 
@@ -472,21 +472,29 @@ module Lttp.Entities {
 
             // drop the loot
             if (item.properties.loot) {
-                item.dropLoot();
+                var obj = this.itemPool.alloc();
+
+                obj.boot(item);
+                this.game.add.existing(obj);
+
+                this._markEmpty(item);
             }
 
             // make it just below loot in the draw array (so you can see loot on top)
-            item.parent.removeChild(item);
-            this.parent.addChild(item);
+            // item.parent.removeChild(item);
+            // this.parent.addChild(item);
 
             // set the correct texture
+            // TODO: Looks like the old code expected WorldItems to be spawned for map objects
+            // now they are just sprites, and they share a texture! Need to create a new texture and
+            // set the proper frame for it when lifting.
             item.setFrame(item.frames.getFrameByName('dungeon/' + item.itemType + (item.properties.heavy ? '_heavy' : '') + '.png'));
 
             //lift the item
             this.animations.play('lift_' + this._getFacingString());
             this.liftSound.play();
 
-            this.game.add.tween(item)
+            this.game.add.tween(item.body)
                 .to({ x: this.x, y: this.y - this.height + 5 }, 150)
                 .start()
                 .onComplete.addOnce(function () {
@@ -496,20 +504,20 @@ module Lttp.Entities {
 
         collectLoot(item: Entities.Items.WorldItem) {
             switch(item.itemType) {
-                case 'heart':
+                case Data.WORLD_ITEMS.HEART:
                     this.heal(1);
                     break;
 
-                case 'magic':
+                case Data.WORLD_ITEMS.MAGIC:
                     this.magic += item.value;
                     if(this.magic > this.maxMagic) {
                         this.magic = this.maxMagic;
                     }
                     break;
 
-                case 'arrows':
-                case 'bombs':
-                case 'rupees':
+                case Data.WORLD_ITEMS.ARROWS:
+                case Data.WORLD_ITEMS.BOMBS:
+                case Data.WORLD_ITEMS.RUPEES:
                     this.inventory[item.type] += item.value;
                     break;
             }
@@ -573,82 +581,16 @@ module Lttp.Entities {
             }
         }
 
+        private _markEmpty(item: Entities.Entity) {
+            item.properties.loot = null;
+
+            if (item.parent) {
+                var layer = <Phaser.Plugin.Tiled.Objectlayer>item.parent;
+
+                layer.objects[(<any>item)._objIndex].properties.loot = null;
+
+                this.game.loadedSave.updateZoneData(layer);
+            }
+        }
     }
-
-
 }
-
-
-//         ,
-//         ,
-
-//         _markEmpty: function(item) {
-//             //mark as empty
-//             if(item.parent)
-//                 item.parent.objects[item._objIndex].properties.loot = null;
-
-//             item.properties.loot = null;
-//         },
-
-//         jumpDown: function(vec) {
-//             //TODO: Play sound
-
-//             this.lock();
-//             this.stop();
-//             this._phys.system.pause();
-
-//             vec.normalize();
-
-//             var jump = 2,
-//                 p = vec.x ? 'x' : 'y',
-//                 amount = (C.JUMP_DISTANCE + jump) * (-vec[p]),
-//                 self = this;
-
-//             setTimeout(function() {
-//                 self.sounds.fall.play();
-//             }, C.JUMP_TIME / 4);
-
-//             //do a small jump up if we are pointing down
-//             if(vec.y < 0) {
-//                 var opts = {
-//                     ease: Linear.easeNone,
-//                     onUpdate: function() {
-//                         self.setPosition(
-//                             self.position.x,
-//                             self.position.y
-//                         );
-//                     },
-//                     onComplete: this._doJumpDown.bind(this, p, amount)
-//                 };
-//                 opts[p] = this.position[p] - jump;
-
-//                 TweenLite.to(this.position, C.JUMP_TIME / 4, opts);
-//             } else {
-//                 this._doJumpDown(p, amount);
-//             }
-//         },
-//         _doJumpDown: function(p, amount) {
-//             var self = this,
-//                 opts = {
-//                     ease: Linear.easeNone,
-//                     onUpdate: function() {
-//                         self.setPosition(
-//                             self.position.x,
-//                             self.position.y
-//                         );
-//                     },
-//                     onComplete: function() {
-//                         self.unlock();
-//                         self._phys.system.resume();
-//                     }
-//                 };
-
-//             opts[p] = amount;
-
-//             TweenLite.to(this.position, (C.JUMP_TIME / 4) * 3, opts);
-//         },
-//
-//     });
-
-//     return Link;
-// });

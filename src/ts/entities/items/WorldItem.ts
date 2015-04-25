@@ -1,4 +1,6 @@
 module Lttp.Entities.Items {
+
+
     export class WorldItem extends Entities.Entity {
         itemSound: Phaser.Sound;
         rupeesSound1: Phaser.Sound;
@@ -89,18 +91,6 @@ module Lttp.Entities.Items {
             } else {
                 this.itemSound.play();
             }
-        }
-
-        dropLoot() {
-            if (!this.properties.loot) return;
-
-            var obj = this.game.player.itemPool.alloc();
-
-            obj.boot(this);
-            this.game.player.parent.addChild(obj);
-
-            // TODO: remove loot from level for next time
-            // this._markEmpty(this);
         }
 
     }
