@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "lz-string": "^1.4.1",
-    "phaser": "^2.3.0",
+    "phaser": "^2.4.0",
     "phaser-debug": "^1.1.6",
-    "phaser-tiled": "^1.4.1"
+    "phaser-tiled": "^2.0.0"
   },
   "devDependencies": {
     "del": "^1.1.1",
