@@ -488,6 +488,8 @@ module Lttp.Entities {
             // TODO: Looks like the old code expected WorldItems to be spawned for map objects
             // now they are just sprites, and they share a texture! Need to create a new texture and
             // set the proper frame for it when lifting.
+            console.log(item.objectType, item.itemType);
+            item.setTexture(new PIXI.Texture(item.texture.baseTexture));
             item.setFrame(item.frames.getFrameByName('dungeon/' + item.itemType + (item.properties.heavy ? '_heavy' : '') + '.png'));
 
             //lift the item

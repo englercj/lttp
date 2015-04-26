@@ -18,6 +18,7 @@ module Lttp.States {
             this.load.image('image_life', 'assets/ui/life.png');
             this.load.image('image_lore_bg1', 'assets/ui/lore_bg1.png');
             this.load.image('image_lore_bg2', 'assets/ui/lore_bg2.png');
+            this.load.image('image_black', 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=');
 
             // Misc Sprites Atlases
             this.load.atlas('sprite_intro',     'assets/sprites/misc/intro.png',            'assets/sprites/misc/intro.json',           null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);

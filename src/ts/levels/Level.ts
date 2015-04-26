@@ -23,7 +23,7 @@ module Lttp.Levels {
         music: Phaser.Sound = null;
 
         // misc sprites used for map effects
-        overlay: Phaser.Sprite = null;
+        overlay: Effects.MapOverlay = null;
 
         // flag whether the zone load
         private firstZone = true;
@@ -116,6 +116,8 @@ module Lttp.Levels {
             //     exit.properties.loc[0],
             //     exit.properties.loc[1]
             // );
+
+            this.world.bringToTop(this.overlay);
         }
 
         shutdown() {
@@ -139,6 +141,9 @@ module Lttp.Levels {
 
             this.activeLayer = null;
             this.activeLayerOverlay = null;
+
+            this.overlay.destroy(true);
+            this.overlay = null;
         }
 
         onBeginContact(bodyA: p2.Body, bodyB: p2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations) {
@@ -262,8 +267,7 @@ module Lttp.Levels {
         }
 
         private _setupOverlay() {
-            this.overlay.animations.stop();
-            this.overlay.visible = false;
+            this.overlay.deactivate();
 
             if (this.oldLayerOverlay) {
                 this.oldLayerOverlay.despawn();
@@ -274,8 +278,7 @@ module Lttp.Levels {
                 this.activeLayerOverlay.spawn(Phaser.Physics.P2JS);
             }
             else if (this.tiledmap.properties.overlay) {
-                this.overlay.visible = true;
-                this.overlay.animations.play(this.tiledmap.properties.overlay);
+                this.overlay.activate(this.tiledmap.properties.overlay);
             }
         }
 

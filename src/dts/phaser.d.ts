@@ -1450,7 +1450,7 @@ declare module Phaser {
         addAll(property: string, amount: number, checkAlive: boolean, checkVisible: boolean): void;
         addAt(child: any, index: number, silent?: boolean): any;
         addMultiple(children: any[], silent?: boolean): any[];
-        bringToTop(): PIXI.DisplayObject;
+        bringToTop(child: PIXI.DisplayObject): PIXI.DisplayObject;
         callAll(method: string, context: any, ...parameters: any[]): void;
         callAllExists(callback: Function, existsValue: boolean, ...parameters: any[]): void;
         callbackFromArray(child: any, callback: Function, length: number): void;
@@ -4267,7 +4267,7 @@ declare module Phaser {
         scaleSprite(sprite: Image, width?: number, height?: number, letterBox?: boolean): Sprite;
         startFullScreen(antialias?: boolean, allowTrampoline?: boolean): boolean;
         stopFullScreen(): boolean;
-
+        setScreenSize(): void;
     }
 
     class DOM {

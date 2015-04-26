@@ -1,46 +1,27 @@
-@assets: "../assets";
-
-/*@font-face {
-    font-family: ReturnOfGanon;
-    src: url("@{assets}/fonts/retganon.ttf");
-    font-weight: 400;
-}*/
-
-body {
-    background:left top url("@{assets}/ui/bg.jpg") repeat #EBEBEB;
-    color: black;
-    font-family: Verdana,sans-serif;
-    margin: 0;
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
-#game-container {
-    display: block;
-    position: absolute;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+body {
+    margin: 0;
+    padding: 0;
 
-    left: 50%;
-    top: 50%;
-    margin-left: -384px;
-    margin-top: -336px;
+    background: #222 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAFVBMVEUqKiopKSkoKCgjIyMuLi4kJCQtLS0dJckpAAAAO0lEQVR42iXLAQoAUQhCQSvr/kfe910jHIikElsl5qVFa1iE5f0Pom/CNZdbNM6756lQ41NInMfuFPgAHVEAlGk4lvIAAAAASUVORK5CYII=");
+    color: black;
+
+    font-family: Verdana,sans-serif;
 }
 
 #game {
-    height: 100%;
     width: 100%;
+    height: 100%;
+
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
 
     canvas {
-        left: 0;
-        margin: 0;
-        position: absolute;
-        top: 0;
-
-        background-color: #000;
-
         image-rendering:optimizeSpeed;             /* Legal fallback */
         image-rendering:-moz-crisp-edges;          /* Firefox        */
         image-rendering:-o-crisp-edges;            /* Opera          */

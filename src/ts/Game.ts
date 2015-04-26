@@ -14,24 +14,9 @@ module Lttp {
         private _autosaveInterval: number;
 
         constructor() {
-            // super(
-            //     Data.Constants.GAME_WIDTH,
-            //     Data.Constants.GAME_HEIGHT,
-            //     Phaser.AUTO,// renderer
-            //     'game',     // DOM parent ID
-            //     null,       // default state obj
-            //     false,      // transparent
-            //     false,      // antialias
-            //     { p2: true }// physics config
-            // );
-
-            //////////////////////////////////////////////////////
-            //issue: https://code.google.com/p/chromium/issues/detail?id=134040
-            // When that chrome bug that prevents CSS scaling from being NEAREST filtered is fixed, remove this
-            // and uncomment above.
             super(
-                Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE,
-                Data.Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE,
+                Data.Constants.GAME_WIDTH,
+                Data.Constants.GAME_HEIGHT,
                 Phaser.AUTO,// renderer
                 'game',     // DOM parent ID
                 null,       // default state obj
@@ -39,7 +24,6 @@ module Lttp {
                 false,      // antialias
                 { p2: true }// physics config
             );
-            //////////////////////////////////////////////////////
 
             this.addStates(States, 'state', ['State', 'MainMenuActiveMenu']);
             this.addStates(Levels, 'level', ['Level']);
@@ -58,26 +42,19 @@ module Lttp {
         boot() {
             super.boot();
 
-            // // This sets the limits for Phaser's auto scaling
-            // this.scale.minWidth = Data.Constants.GAME_WIDTH;
-            // this.scale.minHeight = Data.Constants.GAME_HEIGHT;
+            // This sets the limits for Phaser's auto scaling
+            this.scale.minWidth = Data.Constants.GAME_WIDTH;
+            this.scale.minHeight = Data.Constants.GAME_HEIGHT;
 
             // this.scale.maxWidth = Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE;
             // this.scale.maxHeight = Data.Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE;
 
-            // // Then we tell Phaser that we want it to scale between those values, the largest the browser can fit
-            // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            // this.scale.setScreenSize();
+            this.scale.pageAlignHorizontally = true;
+            this.scale.pageAlignVertically = true;
 
-            //////////////////////////////////////////////////////
-            //issue: https://code.google.com/p/chromium/issues/detail?id=134040
-            // When that chrome bug that prevents CSS scaling from being NEAREST filtered is fixed, remove this
-            // and uncomment above.
-            this.world.scale.set(Data.Constants.GAME_SCALE);
-            //////////////////////////////////////////////////////
-
-            //  Enable p2 physics
-            // this.physics.startSystem(Phaser.Physics.P2JS);
+            // Then we tell Phaser that we want it to scale between those values, the largest the browser can fit
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.scale.setScreenSize();
 
             // capture keyboard keys
             this.input.keyboard.addKeyCapture([
