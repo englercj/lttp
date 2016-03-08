@@ -18,7 +18,5 @@ npm-debug.log
 # project ignores
 !.gitkeep
 *__temp
-node_modules/*
-bower_components/*
-public/*
-src/ts/**/*.js
+node_modules/
+public/

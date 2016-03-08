@@ -1,31 +1,18 @@
-var gulp = require('gulp'),
-    fs = require('fs'),
-    config = require('./tasks/config.js');;
+'use strict';
 
-var files = fs.readdirSync('./tasks');
+const fs        = require('fs');
+const path      = require('path');
+const gulp      = require('gulp');
+const runSequence = require('run-sequence');
 
-files.forEach(function (file) {
-    try {
-        require('./tasks/' + file);
-    } catch(e) {
-        console.error('Unable to require file "' + file + '":', e);
-    }
+// Load tasks
+const taskBase  = path.join(__dirname, 'gulp', 'tasks');
+fs.readdirSync(taskBase).forEach(function (file) {
+    try { require(path.join(taskBase, file)); }
+    catch (e) { console.error('Unable to require file "' + file + '":', e); }
 });
 
-/*****
- * Dev task, incrementally rebuilds less and scripts for development
- *****/
-gulp.task('dev', ['build', 'serve'], function () {
-    gulp.watch('./index.html', ['copy:index']);
-    gulp.watch('./src/ts/**/*.ts', ['scripts']);
-    gulp.watch('./src/less/**/*.less', ['less']);
-    gulp.watch('./src/assets/**/*.png', ['assets:imagemin']);
-    gulp.watch('./src/assets/**/*.{json,tmx}', ['assets:tilemap-pack', 'assets:jsonmin', 'assets:copy']);
-    gulp.watch(config.vendorFiles, ['copy:vendor']);
+// default task
+gulp.task('default', function (done) {
+    runSequence('clean', ['lint', 'build'], done);
 });
-
-/*****
- * Base tasks
- *****/
-gulp.task('build', ['less', 'scripts', 'copy', 'assets']);
-gulp.task('default', ['build']);

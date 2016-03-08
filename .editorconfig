@@ -1,4 +1,7 @@
-# Unix-style newlines with a newline ending every file
+# This file is for unifying the coding style for different editors and IDEs.
+# More information at http://EditorConfig.org
+root = true
+
 [*]
 end_of_line = lf
 insert_final_newline = true
@@ -9,5 +12,5 @@ indent_size = 4
 [*.md]
 trim_trailing_whitespace = false
 
-[{package.json,bower.json,.travis.yml}]
+[{package.json,bower.json,*.yml}]
 indent_size = 2
