@@ -46,7 +46,7 @@ export default class Effects extends Phaser.Plugin {
      * @param maxAlpha - The max alpha to flash to.
      * @param duration - The duration of the flash.
      */
-    flashScreen(color: string = 'white', duration?: number, maxAlpha: number = 0, easing?) {
+    flashScreen(color: string = 'white', duration?: number, maxAlpha: number = 0, easing?: any) {
         var obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
 
         obj.color = color;
@@ -63,7 +63,7 @@ export default class Effects extends Phaser.Plugin {
      * @param maxAlpha - The max alpha to flash to.
      * @param duration - The duration of the flash.
      */
-    fadeScreen(color: string = 'white', duration?: number, maxAlpha: number = 1, easing?) {
+    fadeScreen(color: string = 'white', duration?: number, maxAlpha: number = 1, easing?: any) {
         var obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
 
         obj.color = color;
@@ -144,7 +144,7 @@ export default class Effects extends Phaser.Plugin {
      * if they are queued to do so.
      */
     update() {
-        var scaleObj;
+        var scaleObj: any;
 
         // screen shake
         if (this._shakeWorldTime > 0) {

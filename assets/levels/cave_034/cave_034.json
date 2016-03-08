@@ -19,6 +19,7 @@
                 {
                  "gid":619,
                  "height":0,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
@@ -34,6 +35,7 @@
                 {
                  "gid":582,
                  "height":0,
+                 "id":2,
                  "name":"",
                  "properties":
                     {
@@ -49,6 +51,7 @@
                 {
                  "gid":582,
                  "height":0,
+                 "id":3,
                  "name":"",
                  "properties":
                     {
@@ -64,6 +67,7 @@
                 {
                  "gid":675,
                  "height":0,
+                 "id":4,
                  "name":"",
                  "properties":
                     {
@@ -79,6 +83,7 @@
                 {
                  "gid":675,
                  "height":0,
+                 "id":5,
                  "name":"",
                  "properties":
                     {
@@ -94,6 +99,7 @@
                 {
                  "gid":675,
                  "height":0,
+                 "id":6,
                  "name":"",
                  "properties":
                     {
@@ -109,6 +115,7 @@
                 {
                  "gid":393,
                  "height":0,
+                 "id":7,
                  "name":"",
                  "properties":
                     {
@@ -139,6 +146,7 @@
                 {
                  "gid":1073742499,
                  "height":0,
+                 "id":8,
                  "name":"",
                  "properties":
                     {
@@ -154,6 +162,7 @@
                 {
                  "gid":1073742499,
                  "height":0,
+                 "id":9,
                  "name":"",
                  "properties":
                     {
@@ -169,6 +178,7 @@
                 {
                  "gid":675,
                  "height":0,
+                 "id":10,
                  "name":"",
                  "properties":
                     {
@@ -184,6 +194,7 @@
                 {
                  "gid":675,
                  "height":0,
+                 "id":11,
                  "name":"",
                  "properties":
                     {
@@ -199,6 +210,7 @@
                 {
                  "gid":1073742499,
                  "height":0,
+                 "id":12,
                  "name":"",
                  "properties":
                     {
@@ -214,6 +226,7 @@
                 {
                  "gid":1073742499,
                  "height":0,
+                 "id":13,
                  "name":"",
                  "properties":
                     {
@@ -240,6 +253,7 @@
          "objects":[
                 {
                  "height":240,
+                 "id":14,
                  "name":"Entrance",
                  "properties":
                     {
@@ -254,6 +268,7 @@
                 }, 
                 {
                  "height":272,
+                 "id":15,
                  "name":"Exit",
                  "properties":
                     {
@@ -326,6 +341,7 @@
          "objects":[
                 {
                  "height":48,
+                 "id":16,
                  "name":"",
                  "properties":
                     {
@@ -340,6 +356,7 @@
                 }, 
                 {
                  "height":192,
+                 "id":17,
                  "name":"",
                  "properties":
                     {
@@ -354,6 +371,7 @@
                 }, 
                 {
                  "height":224,
+                 "id":18,
                  "name":"",
                  "properties":
                     {
@@ -368,6 +386,7 @@
                 }, 
                 {
                  "height":108,
+                 "id":19,
                  "name":"",
                  "properties":
                     {
@@ -382,6 +401,7 @@
                 }, 
                 {
                  "height":224,
+                 "id":20,
                  "name":"",
                  "properties":
                     {
@@ -396,6 +416,7 @@
                 }, 
                 {
                  "height":144,
+                 "id":21,
                  "name":"",
                  "properties":
                     {
@@ -410,6 +431,7 @@
                 }, 
                 {
                  "height":144,
+                 "id":22,
                  "name":"",
                  "properties":
                     {
@@ -424,6 +446,7 @@
                 }, 
                 {
                  "height":80,
+                 "id":23,
                  "name":"",
                  "properties":
                     {
@@ -438,6 +461,7 @@
                 }, 
                 {
                  "height":48,
+                 "id":24,
                  "name":"",
                  "properties":
                     {
@@ -452,6 +476,7 @@
                 }, 
                 {
                  "height":120,
+                 "id":25,
                  "name":"",
                  "properties":
                     {
@@ -466,6 +491,7 @@
                 }, 
                 {
                  "height":24,
+                 "id":26,
                  "name":"",
                  "properties":
                     {
@@ -480,6 +506,7 @@
                 }, 
                 {
                  "height":24,
+                 "id":27,
                  "name":"",
                  "properties":
                     {
@@ -494,6 +521,7 @@
                 }, 
                 {
                  "height":8,
+                 "id":28,
                  "name":"",
                  "properties":
                     {
@@ -508,6 +536,7 @@
                 }, 
                 {
                  "height":8,
+                 "id":29,
                  "name":"",
                  "properties":
                     {
@@ -522,6 +551,7 @@
                 }, 
                 {
                  "height":40,
+                 "id":30,
                  "name":"",
                  "properties":
                     {
@@ -536,6 +566,7 @@
                 }, 
                 {
                  "height":40,
+                 "id":31,
                  "name":"",
                  "properties":
                     {
@@ -550,6 +581,7 @@
                 }, 
                 {
                  "height":24,
+                 "id":32,
                  "name":"",
                  "properties":
                     {
@@ -564,6 +596,7 @@
                 }, 
                 {
                  "height":24,
+                 "id":33,
                  "name":"",
                  "properties":
                     {
@@ -578,6 +611,7 @@
                 }, 
                 {
                  "height":0,
+                 "id":34,
                  "name":"",
                  "polygon":[
                         {
@@ -625,6 +659,7 @@
                 }, 
                 {
                  "height":0,
+                 "id":35,
                  "name":"",
                  "polygon":[
                         {
@@ -677,6 +712,7 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "properties":
     {
@@ -686,6 +722,7 @@
  "tileheight":16,
  "tilesets":[
         {
+         "columns":22,
          "firstgid":1,
          "image":"cave_034-tileset.png",
          "imageheight":304,
@@ -697,10 +734,12 @@
 
             },
          "spacing":0,
+         "tilecount":418,
          "tileheight":16,
          "tilewidth":16
         }, 
         {
+         "columns":16,
          "firstgid":419,
          "image":"..\/shared_tiles\/colliders.png",
          "imageheight":128,
@@ -712,6 +751,7 @@
 
             },
          "spacing":0,
+         "tilecount":128,
          "tileheight":16,
          "tileproperties":
             {
@@ -873,6 +913,7 @@
          "tilewidth":16
         }, 
         {
+         "columns":8,
          "firstgid":547,
          "image":"..\/shared_tiles\/overworlditems.png",
          "imageheight":256,
@@ -884,6 +925,7 @@
 
             },
          "spacing":0,
+         "tilecount":128,
          "tileheight":16,
          "tileproperties":
             {
@@ -901,6 +943,7 @@
          "tilewidth":16
         }, 
         {
+         "columns":1,
          "firstgid":675,
          "image":"..\/shared_tiles\/wall_torch1.png",
          "imageheight":16,
@@ -912,6 +955,7 @@
 
             },
          "spacing":0,
+         "tilecount":1,
          "tileheight":16,
          "tileproperties":
             {

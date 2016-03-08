@@ -1,5 +1,6 @@
 import Game from '../../Game';
 import Entity from '../Entity';
+import { IItemDescriptor } from '../../data/ItemDescriptors';
 
 export default class Particle extends Entity {
     particleType: string;
@@ -16,14 +17,14 @@ export default class Particle extends Entity {
         this.events.onAnimationComplete.add(this.expire, this);
     }
 
-    boot(item: Data.ItemDescriptor, phys: boolean) {
+    boot(item: IItemDescriptor, phys: boolean = false) {
         var cfg = item.particle;
 
         this.visible = true;
         // this.hitArea = cfg.hitArea || new Rectangle(0, 8, 8, 8);
 
         if (!this.animations.getAnimation(item.name)) {
-            var frames = [];
+            var frames: string[] = [];
 
             for(var i = 0; i < cfg.num; ++i) {
                 frames.push(cfg.path + (i+1) + cfg.ext);
@@ -41,7 +42,7 @@ export default class Particle extends Entity {
         // this.enablePhysics(phys);
 
         //set position
-        var player = (<Lttp.Game>this.game).player,
+        var player = this.game.player,
             space = cfg.spacing;
 
         switch(player.facing) {

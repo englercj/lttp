@@ -19,9 +19,11 @@ function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
         chars: {}
     };
 
-    var frames = game.cache.getFrameData('sprite_hud_font'),
-        letters = '0123456789',
-        letter, code, frame;
+    var frames = game.cache.getFrameData('sprite_hud_font');
+    const letters = '0123456789';
+    let letter: string;
+    let code: number;
+    let frame: Phaser.Frame;
 
     for(var i = 0; i < letters.length; ++i) {
         letter = letters.charAt(i);
@@ -32,14 +34,14 @@ function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
 
         fontData.chars[code] = {
             kerning: {},
-            texture: new PIXI.Texture(PIXI.BaseTextureCache['sprite_hud_font'], frame.getRect()),
+            texture: new PIXI.Texture(PIXI.utils.BaseTextureCache['sprite_hud_font'], frame.getRect()),
             xAdvance: monospace || frame.width,
             xOffset: 0,
             yOffset: 0
         };
     }
 
-    PIXI.BitmapText.fonts[key] = Font.cachedFonts[key] = fontData;
+    PIXI.extras.BitmapText.fonts[key] = Font.cachedFonts[key] = fontData;
 
     return fontData.name;
 }

@@ -23,6 +23,7 @@
                 {
                  "gid":269,
                  "height":0,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
@@ -38,6 +39,7 @@
                 {
                  "gid":232,
                  "height":0,
+                 "id":2,
                  "name":"",
                  "properties":
                     {
@@ -53,6 +55,7 @@
                 {
                  "gid":232,
                  "height":0,
+                 "id":3,
                  "name":"",
                  "properties":
                     {
@@ -68,6 +71,7 @@
                 {
                  "gid":232,
                  "height":0,
+                 "id":4,
                  "name":"",
                  "properties":
                     {
@@ -94,6 +98,7 @@
          "objects":[
                 {
                  "height":256,
+                 "id":5,
                  "name":"Inside",
                  "properties":
                     {
@@ -120,6 +125,7 @@
          "objects":[
                 {
                  "height":12,
+                 "id":6,
                  "name":"lightworld",
                  "properties":
                     {
@@ -171,6 +177,7 @@
          "objects":[
                 {
                  "height":24,
+                 "id":7,
                  "name":"",
                  "properties":
                     {
@@ -185,6 +192,7 @@
                 }, 
                 {
                  "height":152,
+                 "id":8,
                  "name":"",
                  "properties":
                     {
@@ -199,6 +207,7 @@
                 }, 
                 {
                  "height":152,
+                 "id":9,
                  "name":"",
                  "properties":
                     {
@@ -213,6 +222,7 @@
                 }, 
                 {
                  "height":24,
+                 "id":10,
                  "name":"",
                  "properties":
                     {
@@ -227,6 +237,7 @@
                 }, 
                 {
                  "height":24,
+                 "id":11,
                  "name":"",
                  "properties":
                     {
@@ -241,6 +252,7 @@
                 }, 
                 {
                  "height":32,
+                 "id":12,
                  "name":"",
                  "properties":
                     {
@@ -255,6 +267,7 @@
                 }, 
                 {
                  "height":20,
+                 "id":13,
                  "name":"",
                  "properties":
                     {
@@ -269,6 +282,7 @@
                 }, 
                 {
                  "height":40,
+                 "id":14,
                  "name":"",
                  "properties":
                     {
@@ -283,6 +297,7 @@
                 }, 
                 {
                  "height":16,
+                 "id":15,
                  "name":"",
                  "properties":
                     {
@@ -297,6 +312,7 @@
                 }, 
                 {
                  "height":16,
+                 "id":16,
                  "name":"",
                  "properties":
                     {
@@ -311,6 +327,7 @@
                 }, 
                 {
                  "height":32,
+                 "id":17,
                  "name":"",
                  "properties":
                     {
@@ -325,6 +342,7 @@
                 }, 
                 {
                  "height":32,
+                 "id":18,
                  "name":"",
                  "properties":
                     {
@@ -339,6 +357,7 @@
                 }, 
                 {
                  "height":16,
+                 "id":19,
                  "name":"",
                  "properties":
                     {
@@ -358,6 +377,7 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "properties":
     {
@@ -367,6 +387,7 @@
  "tileheight":16,
  "tilesets":[
         {
+         "columns":14,
          "firstgid":1,
          "image":"tiles\/linkshouse-tileset.png",
          "imageheight":224,
@@ -378,10 +399,12 @@
 
             },
          "spacing":0,
+         "tilecount":196,
          "tileheight":16,
          "tilewidth":16
         }, 
         {
+         "columns":8,
          "firstgid":197,
          "image":"..\/shared_tiles\/overworlditems.png",
          "imageheight":256,
@@ -393,6 +416,7 @@
 
             },
          "spacing":0,
+         "tilecount":128,
          "tileheight":16,
          "tileproperties":
             {
@@ -410,6 +434,7 @@
          "tilewidth":16
         }, 
         {
+         "columns":16,
          "firstgid":325,
          "image":"..\/shared_tiles\/colliders.png",
          "imageheight":128,
@@ -421,6 +446,7 @@
 
             },
          "spacing":0,
+         "tilecount":128,
          "tileheight":16,
          "tileproperties":
             {

@@ -1,4 +1,8 @@
+import * as Phaser from 'phaser';
+import Game from '../Game';
 import GameState from './GameState';
+import Constants from '../data/Constants';
+import Dialog from '../gui/Dialog';
 
 var loreText = [
     // Image #1
@@ -69,7 +73,7 @@ export default class Intro extends GameState {
     loreImg3: Phaser.Sprite;
     loreImg4: Phaser.Sprite;
     loreHighlight: Phaser.Graphics;
-    loreDialog: Gui.Dialog;
+    loreDialog: Dialog;
 
     // minimap sprites
     mapGroup: Phaser.Group;
@@ -87,15 +91,15 @@ export default class Intro extends GameState {
     preload() {
         super.preload();
 
-        this.load.pack('lw_minimap', Data.Constants.ASSET_TILEMAP_PACKS_URL);
+        this.load.pack('lw_minimap', Constants.ASSET_TILEMAP_PACKS_URL);
     }
 
     create() {
         super.create();
 
-        this.introMusic = this.add.audio('music_title', Data.Constants.AUDIO_MUSIC_VOLUME);
-        this.loreMusic = this.add.audio('music_lore', Data.Constants.AUDIO_MUSIC_VOLUME);
-        this.dingSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
+        this.introMusic = this.add.audio('music_title', Constants.AUDIO_MUSIC_VOLUME);
+        this.loreMusic = this.add.audio('music_lore', Constants.AUDIO_MUSIC_VOLUME);
+        this.dingSound = this.add.audio('effect_menu_select', Constants.AUDIO_EFFECT_VOLUME);
 
         this._createIntroGroup();
         this._createLoreGroup();
@@ -235,7 +239,7 @@ export default class Intro extends GameState {
         this.mapGroup.visible = true;
         this.mapGroup.alpha = 1;
 
-        var diff = 128 * Data.Constants.GAME_SCALE,
+        var diff = 128 * Constants.GAME_SCALE,
             maxScale = 65;
 
         this.mapGroup.scale.set(1, 1);
@@ -321,16 +325,16 @@ export default class Intro extends GameState {
         var self = this,
             effects = this.game.effects;
 
-        effects.flashScreen('red', Data.Constants.EFFECT_INTRO_FLASH_LENGTH, Data.Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
-            effects.flashScreen('green', Data.Constants.EFFECT_INTRO_FLASH_LENGTH, Data.Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
-                effects.flashScreen('blue', Data.Constants.EFFECT_INTRO_FLASH_LENGTH, Data.Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
+        effects.flashScreen('red', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
+            effects.flashScreen('green', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
+                effects.flashScreen('blue', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
                     self.blink(num, cb);
                 });
             });
         });
     }
 
-    private _showLoreSequence(seq, cb) {
+    private _showLoreSequence(seq: number, cb: () => void) {
         switch(seq) {
             case 0:
                 if (this.loreImg1.alpha !== 1) {
@@ -380,7 +384,7 @@ export default class Intro extends GameState {
         }
     }
 
-    private _switchLoreImages(fromImg, toImg, seq, cb) {
+    private _switchLoreImages(fromImg: Phaser.Sprite, toImg: Phaser.Sprite, seq: number, cb: () => void) {
         if (toImg.alpha !== 1) {
             this.game.add.tween(fromImg)
                 .to({ alpha: 0 }, 500)
@@ -410,7 +414,7 @@ export default class Intro extends GameState {
         this.intro = this.add.sprite(0, 0, 'sprite_intro', null, this.introGroup);
         this.intro.name = 'intro';
 
-        var frames = [];
+        var frames: string[] = [];
 
         for(var i = 3; i < 278; ++i) {
             var s = i.toString();
@@ -450,12 +454,12 @@ export default class Intro extends GameState {
         this.loreGroup.visible = false;
         this.loreGroup.alpha = 0;
 
-        this.loreBg1 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg1', null, this.loreGroup);
-        this.loreBg1.generateTilingTexture(); // works around a bug in pixi v2.2.7
+        this.loreBg1 = this.add.tileSprite(0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT, 'image_lore_bg1', null, this.loreGroup);
+        // this.loreBg1.generateTilingTexture(); // works around a bug in pixi v2.2.7
         this.loreBg1.name = 'background1';
 
-        this.loreBg2 = this.add.tileSprite(0, 0, Data.Constants.GAME_WIDTH, Data.Constants.GAME_HEIGHT, 'image_lore_bg2', null, this.loreGroup);
-        this.loreBg2.generateTilingTexture(); // works around a bug in pixi v2.2.7
+        this.loreBg2 = this.add.tileSprite(0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT, 'image_lore_bg2', null, this.loreGroup);
+        // this.loreBg2.generateTilingTexture(); // works around a bug in pixi v2.2.7
         this.loreBg2.name = 'background2';
 
         this.loreHighlight = this.add.graphics(0, 0, this.loreGroup);
@@ -492,7 +496,7 @@ export default class Intro extends GameState {
         this.loreImg4.name = 'image4';
         this.loreImg4.alpha = 0;
 
-        this.loreDialog = new Gui.Dialog(game, this.loreGroup, false);
+        this.loreDialog = new Dialog(this.game, this.loreGroup, false);
         this.loreDialog.name = 'dialog';
         this.loreDialog.position.set(34, 124);
     }

@@ -28,8 +28,8 @@ export default class Smash extends Entity {
         this._addSlices('grass_dark', 4, 8, 5, 6);
     }
 
-    private _addSlices(name, sx, sy, tx, ty) {
-        var frames = [];
+    private _addSlices(name: string, sx: number, sy: number, tx: number, ty: number) {
+        var frames: string[] = [];
 
         while(sx !== tx || sy !== ty) {
             frames.push('slice_' + sx + '_' + sy + '.png');

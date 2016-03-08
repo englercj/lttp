@@ -17,7 +17,7 @@ module.exports = {
     recordsPath: path.join(__dirname, '.records'),
     entry: {
         app: './src/app.ts',
-        vendor: ['phaser', 'phaser-tiled', 'phaser-debug']
+        vendor: ['phaser', 'phaser-tiled']
     },
     output: {
         path: path.join(__dirname, 'public'),

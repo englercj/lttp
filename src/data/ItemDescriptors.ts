@@ -1,3 +1,7 @@
+import Game from '../Game';
+
+type iconCallback = (game: Game) => string;
+
 export interface IParticleDescriptor {
     path: string;
     ext: string;
@@ -11,7 +15,7 @@ export interface IParticleDescriptor {
 
 export interface IItemDescriptor {
     name: string;
-    icon: any;
+    icon: (string | iconCallback);
     position: number[];
     grid?: number[];
     cost?: number;
@@ -56,10 +60,10 @@ export default class ItemDescriptors {
 
     public static bow: IItemDescriptor = {
         name: 'bow',
-        icon: function(game) {
-            if(game.player.inventory.silver_arrows && game.player.inventory.arrows)
+        icon: function (game) {
+            if (game.player.inventory.silver_arrows && game.player.inventory.arrows)
                 return 'items/bow_and_silver_arrow.png';
-            else if(game.player.inventory.arrows)
+            else if (game.player.inventory.arrows)
                 return 'items/bow_and_arrow.png'
             else
                 return 'items/bow.png';

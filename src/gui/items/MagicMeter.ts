@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import Game from '../../Game';
 import GuiItem from './GuiItem';
+import Hud from '../Hud';
 
 export default class MagicMeter extends GuiItem {
     background: Phaser.Sprite;
@@ -8,7 +9,7 @@ export default class MagicMeter extends GuiItem {
 
     maxHeight: number;
 
-    constructor(game: Game, parent: Lttp.Gui.Hud, x: number, y: number, value: number = 0) {
+    constructor(game: Game, parent: Hud, x: number, y: number, value: number = 0) {
         super(game, parent, x, y, 'magic', value);
 
         this.background = game.add.sprite(0, 0, 'sprite_gui', 'hud/magic_meter.png', this);

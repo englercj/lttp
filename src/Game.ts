@@ -1,12 +1,30 @@
 import * as Phaser from 'phaser';
+import Player from './entities/Player';
+import Save from './utility/Save';
+import Effects from './effects/Effects';
+import Constants from './data/Constants';
+
+// states
+import BootState from './states/Boot';
+import IntroState from './states/Intro';
+import MainMenuState from './states/MainMenu';
+import PlayState from './states/Play';
+import PreloaderState from './states/Preloader';
+
+// levels, todo: remove the need for a class per level
+// use a single class for Level and unload them as we go along.
+import Cave034 from './levels/Cave034';
+import Darkworld from './levels/Darkworld';
+import Lightworld from './levels/Lightworld';
+import LinksHouse from './levels/LinksHouse';
 
 export default class Game extends Phaser.Game {
 
-    player: Entities.Player = null;
+    player: Player = null;
 
-    loadedSave: Utility.Save = null;
+    loadedSave: Save = null;
 
-    effects: Effects.Effects = null;
+    effects: Effects = null;
 
     static timer: Phaser.Timer = null;
 
@@ -14,8 +32,8 @@ export default class Game extends Phaser.Game {
 
     constructor() {
         super(
-            Data.Constants.GAME_WIDTH,
-            Data.Constants.GAME_HEIGHT,
+            Constants.GAME_WIDTH,
+            Constants.GAME_HEIGHT,
             Phaser.AUTO,// renderer
             'game',     // DOM parent ID
             null,       // default state obj
@@ -24,29 +42,29 @@ export default class Game extends Phaser.Game {
             { p2: true }// physics config
         );
 
-        this.addStates(States, 'state', ['State', 'MainMenuActiveMenu']);
-        this.addStates(Levels, 'level', ['Level']);
+        this.state.add(Constants.STATES.BOOT, BootState, false);
+        this.state.add(Constants.STATES.PRELOADER, PreloaderState, false);
+        this.state.add(Constants.STATES.INTRO, IntroState, false);
+        this.state.add(Constants.STATES.MAIN_MENU, MainMenuState, false);
+        this.state.add(Constants.STATES.PLAY, PlayState, false);
+
+        this.state.add(Constants.LEVELS.CAVE034, Cave034, false);
+        this.state.add(Constants.LEVELS.DARKWORLD, Darkworld, false);
+        this.state.add(Constants.LEVELS.LIGHTWORLD, Lightworld, false);
+        this.state.add(Constants.LEVELS.LINKSHOUSE, LinksHouse, false);
 
         this.state.start('state_boot');
-    }
-
-    addStates(mod: any, type: string, blacklist: Array<string>) {
-        for(var name in mod) {
-            if (blacklist.indexOf(name) !== -1) continue;
-
-            this.state.add(type + '_' + name.toLowerCase(), mod[name], false);
-        }
     }
 
     boot() {
         super.boot();
 
         // This sets the limits for Phaser's auto scaling
-        this.scale.minWidth = Data.Constants.GAME_WIDTH;
-        this.scale.minHeight = Data.Constants.GAME_HEIGHT;
+        this.scale.minWidth = Constants.GAME_WIDTH;
+        this.scale.minHeight = Constants.GAME_HEIGHT;
 
-        // this.scale.maxWidth = Data.Constants.GAME_WIDTH * Data.Constants.GAME_SCALE;
-        // this.scale.maxHeight = Data.Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE;
+        // this.scale.maxWidth = Constants.GAME_WIDTH * Data.Constants.GAME_SCALE;
+        // this.scale.maxHeight = Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE;
 
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
@@ -68,10 +86,10 @@ export default class Game extends Phaser.Game {
         // start polling for gamepad input
         this.input.gamepad.start();
 
-        this.add.plugin(new Phaser.Plugin.Debug(this));
-        this.add.plugin(new Phaser.Plugin.Tiled(this));
+        // this.add.plugin(new Phaser.Plugin.Debug(this));
+        this.add.plugin(new Phaser.Plugin.Tiled(this, this.stage));
 
-        this.effects = <Effects.Effects>this.add.plugin(new Effects.Effects(this));
+        this.effects = <Effects>this.add.plugin(new Effects(this));
 
         this.sound.mute = true;
     }
@@ -91,7 +109,7 @@ export default class Game extends Phaser.Game {
     startAutosave() {
         clearInterval(this._autosaveInterval);
 
-        this._autosaveInterval = setInterval(this.save.bind(this), Data.Constants.GAME_SAVE_INTERVAL);
+        this._autosaveInterval = setInterval(this.save.bind(this), Constants.GAME_SAVE_INTERVAL);
     }
 
     save(exit?: Phaser.Plugin.Tiled.TiledObject, previousLayer?: Phaser.Plugin.Tiled.Objectlayer) {

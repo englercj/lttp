@@ -1,4 +1,4 @@
-import * as Phaser from 'Phaser';
+import * as Phaser from 'phaser';
 import Game from '../Game';
 import ReturnOfGanon from '../fonts/ReturnOfGanon';
 import { default as ItemDescriptors, IItemDescriptor } from '../data/ItemDescriptors';
@@ -108,17 +108,17 @@ export default class Inventory extends Phaser.Group {
     }
 
     updateValues() {
-        var wasEmpty = this.empty;
+        const wasEmpty = this.empty;
 
-        for(var i in this.items) {
-            var sprite = <InventoryItemSprite>(this.items[i]),
-                item = sprite.item,
-                name, val, ico;
+        for(let i in this.items) {
+            const sprite = <InventoryItemSprite>(this.items[i]);
+            const item = sprite.item;
 
             if (!item) continue;
 
-            name = item.name;
-            val = this.game.player.inventory[name];
+            const name: string = item.name;
+            const val: number = this.game.player.inventory[name];
+            let ico: string;
 
             // set the texture and visibility
             if (val || (val === 0 && (name === 'armor' || name === 'crystal'))) {
@@ -133,7 +133,8 @@ export default class Inventory extends Phaser.Group {
                 //run icon function if there is one
                 if (typeof item.icon === 'function') {
                     ico = item.icon(this.game);
-                } else {
+                }
+                else {
                     ico = item.icon.replace('%d', val);
                 }
 
@@ -144,7 +145,8 @@ export default class Inventory extends Phaser.Group {
                 if (item.grid) {
                     this.empty = false;
                 }
-            } else {
+            }
+            else {
                 sprite.visible = false;
             }
         }
@@ -180,7 +182,7 @@ export default class Inventory extends Phaser.Group {
         this.openSound.play();
 
         this.game.add.tween(this)
-            .to({ y: 0 }, Data.Constants.PLAYER_INVENTORY_DROP_TIME)
+            .to({ y: 0 }, Constants.PLAYER_INVENTORY_DROP_TIME)
             .start()
             .onComplete.addOnce(function () {
                 this.isSliding = false;
@@ -194,7 +196,7 @@ export default class Inventory extends Phaser.Group {
         this.isSliding = true;
 
         this.game.add.tween(this)
-            .to({ y: -Data.Constants.GAME_HEIGHT }, Data.Constants.PLAYER_INVENTORY_DROP_TIME)
+            .to({ y: -Constants.GAME_HEIGHT }, Constants.PLAYER_INVENTORY_DROP_TIME)
             .start()
             .onComplete.addOnce(function () {
                 this.visible = false;
@@ -206,9 +208,9 @@ export default class Inventory extends Phaser.Group {
     move(dir: number) {
         if(this.empty) return;
 
-        var next;
+        var next: Phaser.Point;
 
-        switch(dir) {
+        switch (dir) {
             case Phaser.UP:
                 next = this._findNext(0, -1); break;
             case Phaser.DOWN:
@@ -219,7 +221,7 @@ export default class Inventory extends Phaser.Group {
                 next = this._findNext(1, 0); break;
         }
 
-        if(next) {
+        if (next) {
             this.selected = this.grid[next.x][next.y][0];
 
             this._moveSelector();
@@ -227,13 +229,13 @@ export default class Inventory extends Phaser.Group {
     }
 
     private _setup() {
-        //add background
+        // add background
         this.game.add.sprite(0, 0, 'sprite_gui', 'inventory.png', this);
 
-        //add item sprites
+        // add item sprites
         for(var i in ItemDescriptors) {
-            var item = ItemDescriptors[i],
-                sprite = <InventoryItemSprite>(this.game.add.sprite(item.position[0], item.position[1], 'sprite_gui', item.icon.replace('%d', 1), this));
+            var item: IItemDescriptor = ItemDescriptors[i];
+            var sprite = <InventoryItemSprite>(this.game.add.sprite(item.position[0], item.position[1], 'sprite_gui', item.icon.replace('%d', 1), this));
 
             sprite.item = item;
 
@@ -250,7 +252,7 @@ export default class Inventory extends Phaser.Group {
         this.activeItem = this.game.add.sprite(200, 25, 'sprite_gui', 'items/lantern.png', this);
         this.activeItem.visible = false;
 
-        this.activeText = new Fonts.ReturnOfGanon(game, 175, 55);
+        this.activeText = new ReturnOfGanon(this.game, 175, 55);
         // this.activeText.scale.x = this.activeText.scale.y = 0.3;
         this.activeText.visible = false;
         this.add(this.activeText);
@@ -288,17 +290,18 @@ export default class Inventory extends Phaser.Group {
         var pos = this._temp.set(this.selected.item.grid[0], this.selected.item.grid[1]),
             found = false,
             maxX = this.grid.length - 1,
-            maxY = this.grid[0].length - 1,
-            val, i;
+            maxY = this.grid[0].length - 1;
+        var val: InventoryItemSprite[];
+        var i: number;
 
-        while(!found) {
+        while (!found) {
             pos.x += stepX;
             pos.y += stepY;
 
             this._wrapGrid(pos, maxX, maxY);
 
             val = this.grid[pos.x][pos.y];
-            for(i = val.length - 1; i > -1; --i) {
+            for (i = val.length - 1; i > -1; --i) {
                 found = found || val[i].visible;
             }
         }
@@ -308,35 +311,37 @@ export default class Inventory extends Phaser.Group {
 
     private _wrapGrid(pos: Phaser.Point, maxX: number, maxY: number) {
         //wrap X
-        if(pos.x < 0) {
+        if (pos.x < 0) {
             pos.y--;
             pos.x = maxX;
             //left of first slot, goto last
-            if(pos.y < 0) {
+            if (pos.y < 0) {
                 pos.y = maxY;
             }
-        } else if(pos.x > maxX) {
+        }
+        else if (pos.x > maxX) {
             pos.y++;
             pos.x = 0;
             //right of last slot, goto first
-            if(pos.y > maxY) {
+            if (pos.y > maxY) {
                 pos.y = 0;
             }
         }
 
         //wrap Y
-        if(pos.y < 0) {
+        if (pos.y < 0) {
             pos.x--;
             pos.y = maxY;
             //up off first slot, goto last
-            if(pos.x < 0) {
+            if (pos.x < 0) {
                 pos.x = maxX;
             }
-        } else if(pos.y > maxY) {
+        }
+        else if (pos.y > maxY) {
             pos.x++;
             pos.y = 0;
             //down off last slot, goto first
-            if(pos.x > maxX) {
+            if (pos.x > maxX) {
                 pos.x = 0;
             }
         }

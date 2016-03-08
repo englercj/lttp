@@ -1,4 +1,10 @@
+import * as Phaser from 'phaser';
+import Game from '../Game';
 import GameState from './GameState';
+import Constants from '../data/Constants';
+import Pool from '../utility/Pool';
+import Save from '../utility/Save';
+import ReturnOfGanon from '../fonts/ReturnOfGanon';
 
 enum MainMenuActiveMenu {
     SELECT,
@@ -7,7 +13,7 @@ enum MainMenuActiveMenu {
     COPY
 };
 
-export default class MainMenu extends State {
+export default class MainMenu extends GameState {
 
     private active: MainMenuActiveMenu;
     private pnameI: number;
@@ -17,9 +23,9 @@ export default class MainMenu extends State {
 
     private line: Phaser.Graphics;
 
-    private saves: Utility.Save[];
+    private saves: Save[];
 
-    private characters: Fonts.ReturnOfGanon[][];
+    private characters: ReturnOfGanon[][];
 
     music: Phaser.Sound;
 
@@ -39,22 +45,17 @@ export default class MainMenu extends State {
     registerSprite: Phaser.Sprite;
     pointerSprite: Phaser.Sprite;
     fairySprite: Phaser.Sprite;
-    linkSprite1: Phaser.Sprite;
-    linkSprite2: Phaser.Sprite;
-    linkSprite3: Phaser.Sprite;
 
-    heartsGroup1: Phaser.Group;
-    heartsGroup2: Phaser.Group;
-    heartsGroup3: Phaser.Group;
+    linkSprites: Phaser.Sprite[];
 
-    slotText1: Fonts.ReturnOfGanon;
-    slotText2: Fonts.ReturnOfGanon;
-    slotText3: Fonts.ReturnOfGanon;
+    heartsGroups: Phaser.Group[];
 
-    pname: Fonts.ReturnOfGanon;
+    slotTexts: ReturnOfGanon[];
 
-    fontpool: Utility.Pool<Fonts.ReturnOfGanon>;
-    heartpool: Utility.Pool<Phaser.Sprite>;
+    pname: ReturnOfGanon;
+
+    fontpool: Pool<ReturnOfGanon>;
+    heartpool: Pool<Phaser.Sprite>;
 
     preload() {
         super.preload();
@@ -70,18 +71,18 @@ export default class MainMenu extends State {
 
         this.saves = null;
 
-        this.music = this.add.audio('music_select', Data.Constants.AUDIO_MUSIC_VOLUME, true);
+        this.music = this.add.audio('music_select', Constants.AUDIO_MUSIC_VOLUME, true);
 
         this.frames = this.cache.getFrameData('sprite_select');
 
-        this.selectSound = this.add.audio('effect_menu_select', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.cursorSound = this.add.audio('effect_menu_select_cursor', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.eraseSound = this.add.audio('effect_menu_select_erase', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.errorSound = this.add.audio('effect_error', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.lowhpSound = this.add.audio('effect_lowhp', Data.Constants.AUDIO_EFFECT_VOLUME);
+        this.selectSound = this.add.audio('effect_menu_select', Constants.AUDIO_EFFECT_VOLUME);
+        this.cursorSound = this.add.audio('effect_menu_select_cursor', Constants.AUDIO_EFFECT_VOLUME);
+        this.eraseSound = this.add.audio('effect_menu_select_erase', Constants.AUDIO_EFFECT_VOLUME);
+        this.errorSound = this.add.audio('effect_error', Constants.AUDIO_EFFECT_VOLUME);
+        this.lowhpSound = this.add.audio('effect_lowhp', Constants.AUDIO_EFFECT_VOLUME);
 
-        this.fontpool = new Utility.Pool<Fonts.ReturnOfGanon>(this.game, Fonts.ReturnOfGanon);
-        this.heartpool = new Utility.Pool<Phaser.Sprite>(this.game, Phaser.Sprite);
+        this.fontpool = new Pool<ReturnOfGanon>(this.game, ReturnOfGanon);
+        this.heartpool = new Pool<Phaser.Sprite>(this.game, Phaser.Sprite);
 
         this.pnameI = 0;
 
@@ -206,7 +207,7 @@ export default class MainMenu extends State {
                     return this.activate(MainMenuActiveMenu.SELECT);
                 }
                 else {
-                    var ls = new Utility.Save(this.selected, n.split('').filter(function(ch, i) { return (i % 2 === 0); }).join(''));
+                    var ls = new Save(this.selected, n.split('').filter((ch, i) => (i % 2 === 0)).join(''));
                     ls.save();
 
                     this.selectSound.play();
@@ -272,17 +273,17 @@ export default class MainMenu extends State {
             this.selectGroup.visible = true;
 
             var s = this.saves = [
-                new Utility.Save(0),
-                new Utility.Save(1),
-                new Utility.Save(2)
+                new Save(0),
+                new Save(1),
+                new Save(2)
             ];
 
             for(var i = 0; i < s.length; ++i) {
-                var n = i + 1,
-                    sv = s[i].load(),
-                    spr: Phaser.Sprite = this['linkSprite' + n];
+                var sv = s[i].load();
+                var spr = this.linkSprites[i];
+                var txt = this.slotTexts[i];
 
-                this['slotText' + n].text = n + '.' + (sv.saveFileExists ? sv.name : '');
+                txt.text = (i + 1) + '.' + (sv.saveFileExists ? sv.name : '');
 
                 if (sv.saveFileExists) {
                     spr.visible = true;
@@ -300,7 +301,7 @@ export default class MainMenu extends State {
                         spr.setFrame(this.frames.getFrameByName('link1.png'));
                     }
 
-                    this._renderHearts(this['heartsGroup' + n], sv.health, sv.maxHealth);
+                    this._renderHearts(this.heartsGroups[i], sv.health, sv.maxHealth);
                 }
             }
         }
@@ -358,23 +359,23 @@ export default class MainMenu extends State {
         this.fairySprite = this.add.sprite(27, 72, 'sprite_select', null, this.selectGroup);
         this.fairySprite.animations.add('flap', ['fairy1.png', 'fairy2.png'], 6, true).play();
 
-        this.linkSprite1 = this.add.sprite(52, 64, 'sprite_select', null, this.selectGroup);
-        this.linkSprite1.visible = false;
+        this.linkSprites[0] = this.add.sprite(52, 64, 'sprite_select', null, this.selectGroup);
+        this.linkSprites[0].visible = false;
 
-        this.linkSprite2 = this.add.sprite(52, 96, 'sprite_select', null, this.selectGroup);
-        this.linkSprite2.visible = false;
+        this.linkSprites[1] = this.add.sprite(52, 96, 'sprite_select', null, this.selectGroup);
+        this.linkSprites[1].visible = false;
 
-        this.linkSprite3 = this.add.sprite(52, 124, 'sprite_select', null, this.selectGroup);
-        this.linkSprite3.visible = false;
+        this.linkSprites[2] = this.add.sprite(52, 124, 'sprite_select', null, this.selectGroup);
+        this.linkSprites[2].visible = false;
 
-        this.heartsGroup1 = this.add.group(this.selectGroup);
-        this.heartsGroup1.position.set(142, 63);
+        this.heartsGroups[0] = this.add.group(this.selectGroup);
+        this.heartsGroups[0].position.set(142, 63);
 
-        this.heartsGroup2 = this.add.group(this.selectGroup);
-        this.heartsGroup2.position.set(142, 93);
+        this.heartsGroups[1] = this.add.group(this.selectGroup);
+        this.heartsGroups[1].position.set(142, 93);
 
-        this.heartsGroup3 = this.add.group(this.selectGroup);
-        this.heartsGroup3.position.set(142, 142);
+        this.heartsGroups[2] = this.add.group(this.selectGroup);
+        this.heartsGroups[2].position.set(142, 142);
 
         var textGroup = this.add.group(this.selectGroup);
 
@@ -382,9 +383,9 @@ export default class MainMenu extends State {
         textGroup.add(this.fontpool.alloc(false, 50, 178, 'COPY  PLAYER', 16));
         textGroup.add(this.fontpool.alloc(false, 50, 193, 'ERASE PLAYER', 16));
 
-        this.slotText1 = textGroup.add(this.fontpool.alloc(false, 72, 72, '1.', 16));
-        this.slotText2 = textGroup.add(this.fontpool.alloc(false, 72, 102, '2.', 16));
-        this.slotText3 = textGroup.add(this.fontpool.alloc(false, 72, 132, '3.', 16));
+        this.slotTexts[0] = textGroup.add(this.fontpool.alloc(false, 72, 72, '1.', 16));
+        this.slotTexts[1] = textGroup.add(this.fontpool.alloc(false, 72, 102, '2.', 16));
+        this.slotTexts[2] = textGroup.add(this.fontpool.alloc(false, 72, 132, '3.', 16));
     }
 
     private _setupRegister() {
@@ -449,7 +450,7 @@ export default class MainMenu extends State {
         this.line.lineStyle(2, 0xffffff, 1);
         this.line.moveTo(0, 0);
         this.line.lineTo(624, 0);
-        this.line.scale.set(1 / Data.Constants.GAME_SCALE, 1 / Data.Constants.GAME_SCALE);
+        this.line.scale.set(1 / Constants.GAME_SCALE, 1 / Constants.GAME_SCALE);
 
         this.registerSprite = this.add.sprite(0, 0, 'sprite_select', 'register.png', this.registerGroup);
 

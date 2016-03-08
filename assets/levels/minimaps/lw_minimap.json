@@ -11,14 +11,17 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":1,
  "orientation":"orthogonal",
  "properties":
     {
 
     },
+ "renderorder":"right-down",
  "tileheight":8,
  "tilesets":[
         {
+         "columns":16,
          "firstgid":1,
          "image":"lw_minimap_tileset.png",
          "imageheight":128,
@@ -30,6 +33,7 @@
 
             },
          "spacing":0,
+         "tilecount":256,
          "tileheight":8,
          "tilewidth":8
         }],

@@ -21,13 +21,9 @@ function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
         chars: {}
     };
 
-    var frames = game.cache.getFrameData('sprite_rog_font'),
-        letters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;\',-!.?<>() ',
-        spaceFrameRect = new Phaser.Rectangle(0, 0, 0, 0),
-        spaceFrame = {
-            getRect: function () { return spaceFrameRect; }
-        },
-        letter, code, val, frame;
+    var frames = game.cache.getFrameData('sprite_rog_font');
+    const letters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;\',-!.?<>() ';
+    const spaceFrame = new Phaser.Frame(0, 0, 0, 0, 0, 'spacer');
 
     // special characters use names in the file names
     var map: any = {
@@ -87,27 +83,27 @@ function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
 
     //add characters
     for(var i = 0; i < letters.length; ++i) {
-        letter = letters.charAt(i);
-        code = letter.charCodeAt(0);
-        val = map[letter] || letter;
-        frame = frames.getFrameByName((val.name || val) + '.png');
+        let letter = letters.charAt(i);
+        let code = letter.charCodeAt(0);
+        let val = map[letter] || letter;
+        let frame = frames.getFrameByName((val.name || val) + '.png');
 
-        if(code === 32) {
+        if (code === 32) {
             frame = spaceFrame;
         }
 
-        if(!frame) continue;
+        if (!frame) continue;
 
         fontData.chars[code] = {
             kerning: {},
-            texture: new PIXI.Texture(PIXI.BaseTextureCache['sprite_rog_font'], frame.getRect()),
+            texture: new PIXI.Texture(PIXI.utils.BaseTextureCache['sprite_rog_font'], frame.getRect()),
             xAdvance: monospace || val.xAdvance || frame.width,
             xOffset: val.xOffset || 0,
             yOffset: val.yOffset || 0
         };
     }
 
-    PIXI.BitmapText.fonts[key] = Font.cachedFonts[key] = fontData;
+    PIXI.extras.BitmapText.fonts[key] = Font.cachedFonts[key] = fontData;
 
     return fontData.name;
 }

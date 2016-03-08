@@ -1,7 +1,15 @@
 import Game from '../Game';
+import Level from '../levels/Level';
+import Pool from '../utility/Pool';
+import math from '../math';
+import { default as Constants, ENTITY_TYPE } from '../data/Constants';
+import { IItemDescriptor } from '../data/ItemDescriptors';
+import { ITiledLayerData } from '../data/TiledMapData';
+import PlayerInventory from '../data/PlayerInventory';
 import Entity from './Entity';
-import Constants from '../data/Constants';
-import ENTITY_TYPE from '../data/EntityType';
+import ParticleEntity from './misc/Particle';
+import SmashEntity from './misc/Smash';
+import WorldItem from './items/WorldItem';
 
 export default class Player extends Entity {
     //player type
@@ -14,17 +22,17 @@ export default class Player extends Entity {
     magic: number;
 
     //objects currently within attack range
-    inAttackRange: Entities.Entity[];
-    colliding: Entities.Entity[];
+    inAttackRange: Entity[];
+    colliding: Entity[];
 
     //a pool of sprite to do smashing animations
-    smashPool: Utility.Pool<Entities.Misc.Smash>;
+    smashPool: Pool<SmashEntity>;
 
     //a pool of world items to be dropped
-    itemPool: Utility.Pool<Entities.Items.WorldItem>;
+    itemPool: Pool<WorldItem>;
 
     //a pool of particles to throw around
-    particlePool: Utility.Pool<Entities.Misc.Particle>;
+    particlePool: Pool<ParticleEntity>;
 
     liftSound: Phaser.Sound;
     throwSound: Phaser.Sound;
@@ -33,9 +41,9 @@ export default class Player extends Entity {
     errorSound: Phaser.Sound;
     fallSound: Phaser.Sound;
 
-    equipted: Data.ItemDescriptor;
+    equipted: IItemDescriptor;
 
-    inventory: Data.PlayerInventory;
+    inventory: PlayerInventory;
 
     carrying: Phaser.Sprite;
 
@@ -57,20 +65,20 @@ export default class Player extends Entity {
         this.inAttackRange = [];
         this.colliding = [];
 
-        this.smashPool = new Utility.Pool<Entities.Misc.Smash>(game, Entities.Misc.Smash);
-        this.itemPool = new Utility.Pool<Entities.Items.WorldItem>(game, Entities.Items.WorldItem);
-        this.particlePool = new Utility.Pool<Entities.Misc.Particle>(game, Entities.Misc.Particle);
+        this.smashPool = new Pool<SmashEntity>(game, SmashEntity);
+        this.itemPool = new Pool<WorldItem>(game, WorldItem);
+        this.particlePool = new Pool<ParticleEntity>(game, ParticleEntity);
 
-        this.liftSound = game.add.sound('effect_lift', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.throwSound = game.add.sound('effect_throw', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.openChestSound = game.add.sound('effect_chest', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.itemFanfaireSound = game.add.sound('effect_item_fanfaire', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.errorSound = game.add.sound('effect_error', Data.Constants.AUDIO_EFFECT_VOLUME);
-        this.fallSound = game.add.sound('effect_fall', Data.Constants.AUDIO_EFFECT_VOLUME);
+        this.liftSound = game.add.sound('effect_lift', Constants.AUDIO_EFFECT_VOLUME);
+        this.throwSound = game.add.sound('effect_throw', Constants.AUDIO_EFFECT_VOLUME);
+        this.openChestSound = game.add.sound('effect_chest', Constants.AUDIO_EFFECT_VOLUME);
+        this.itemFanfaireSound = game.add.sound('effect_item_fanfaire', Constants.AUDIO_EFFECT_VOLUME);
+        this.errorSound = game.add.sound('effect_error', Constants.AUDIO_EFFECT_VOLUME);
+        this.fallSound = game.add.sound('effect_fall', Constants.AUDIO_EFFECT_VOLUME);
 
         this.equipted = null;
 
-        this.inventory = new Data.PlayerInventory();
+        this.inventory = new PlayerInventory();
 
         this.carrying = null;
 
@@ -183,7 +191,7 @@ export default class Player extends Entity {
         this.animations.play(anim + '_' + this._getFacingString());
     }
 
-    setup(level: Levels.Level): Player {
+    setup(level: Level): Player {
         super.setup(level);
 
         this.unlock();
@@ -194,7 +202,7 @@ export default class Player extends Entity {
         // this.bodyShape = this.body.addCapsule(2, 6, 0, 7, Math.PI / 2);
         this.bodyShape = this.body.addCircle(7, 0, 7);
 
-        this.attackSensor = this.body.addCircle(Data.Constants.PLAYER_ATTACK_SENSOR_RADIUS, 0, 4);
+        this.attackSensor = this.body.addCircle(Constants.PLAYER_ATTACK_SENSOR_RADIUS, 0, 4);
         this.attackSensor.sensor = true;
 
         return this;
@@ -272,7 +280,7 @@ export default class Player extends Entity {
         for(var i = this.inAttackRange.length - 1; i > -1; --i) {
             var ent = this.inAttackRange[i];
 
-            if(math.isInViewCone(this, ent, Data.Constants.PLAYER_ATTACK_CONE)) {
+            if(math.isInViewCone(this, ent, Constants.PLAYER_ATTACK_CONE)) {
                 ent.damage(this.attackDamage);
             }
         }
@@ -293,16 +301,16 @@ export default class Player extends Entity {
         for(var i = 0; i < this.colliding.length; ++i) {
             var ent = this.colliding[i];
 
-            if(math.isInViewCone(this, ent, Data.Constants.PLAYER_USE_CONE)) {
+            if(math.isInViewCone(this, ent, Constants.PLAYER_USE_CONE)) {
                 switch(ent.properties.type) {
                     // TODO: Make the item decide this stuff? They all implement a `use` method instead?
-                    case Data.MAP_OBJECTS.CHEST:
+                    case Constants.MAP_OBJECTS.CHEST:
                         if (this.facing === Phaser.UP) {
                             this.openChest(ent);
                         }
                         break;
 
-                    case Data.MAP_OBJECTS.SIGN:
+                    case Constants.MAP_OBJECTS.SIGN:
                         if (this.facing === Phaser.UP) {
                             this.readSign(ent);
                         }
@@ -311,14 +319,14 @@ export default class Player extends Entity {
                         }
                         break;
 
-                    case Data.MAP_OBJECTS.ROCK:
+                    case Constants.MAP_OBJECTS.ROCK:
                         if (this.inventory.gloves) {
                             this.liftItem(ent);
                         }
                         break;
 
-                    case Data.MAP_OBJECTS.GRASS:
-                    case Data.MAP_OBJECTS.POT:
+                    case Constants.MAP_OBJECTS.GRASS:
+                    case Constants.MAP_OBJECTS.POT:
                         this.liftItem(ent);
                         break;
                 }
@@ -332,7 +340,7 @@ export default class Player extends Entity {
     useItem(active: boolean) {
         if(active) return;
 
-        var particle;
+        var particle: ParticleEntity;
 
         // if there is no item equipted or the item costs more magic than the player has currently
         if (!this.equipted || this.magic < this.equipted.cost) {
@@ -378,8 +386,8 @@ export default class Player extends Entity {
 
         this.game.add.tween(this.carrying)
             .to({
-                x: this.carrying.x + (Data.Constants.PLAYER_THROW_DISTANCE_X * v.x),
-                y: this.carrying.y + (Data.Constants.PLAYER_THROW_DISTANCE_Y * v.y) + (yf * this.height)
+                x: this.carrying.x + (Constants.PLAYER_THROW_DISTANCE_X * v.x),
+                y: this.carrying.y + (Constants.PLAYER_THROW_DISTANCE_Y * v.y) + (yf * this.height)
             }, 250)
             .start()
             .onComplete.addOnce(function () {
@@ -390,7 +398,7 @@ export default class Player extends Entity {
     }
 
     // TODO: Move this into a new Chest class
-    openChest(chest: Entities.Entity) {
+    openChest(chest: Entity) {
         if (!chest.properties.loot) {
             return;
         }
@@ -451,12 +459,12 @@ export default class Player extends Entity {
         // this._markEmpty(chest);
     }
 
-    readSign(sign) {
+    readSign(sign: any) {
         // TODO: Signage
         // this.emit('readSign', sign);
     }
 
-    liftItem(item: Entities.Entity) {
+    liftItem(item: Entity) {
         // lock player movement
         this.lock();
 
@@ -506,22 +514,22 @@ export default class Player extends Entity {
             }, this);
     }
 
-    collectLoot(item: Entities.Items.WorldItem) {
+    collectLoot(item: WorldItem) {
         switch(item.itemType) {
-            case Data.WORLD_ITEMS.HEART:
+            case Constants.WORLD_ITEMS.HEART:
                 this.heal(1);
                 break;
 
-            case Data.WORLD_ITEMS.MAGIC:
+            case Constants.WORLD_ITEMS.MAGIC:
                 this.magic += item.value;
                 if(this.magic > this.maxMagic) {
                     this.magic = this.maxMagic;
                 }
                 break;
 
-            case Data.WORLD_ITEMS.ARROWS:
-            case Data.WORLD_ITEMS.BOMBS:
-            case Data.WORLD_ITEMS.RUPEES:
+            case Constants.WORLD_ITEMS.ARROWS:
+            case Constants.WORLD_ITEMS.BOMBS:
+            case Constants.WORLD_ITEMS.RUPEES:
                 this.inventory[item.type] += item.value;
                 break;
         }
@@ -539,7 +547,7 @@ export default class Player extends Entity {
         }
     }
 
-    onBeginContact(obj, objShape: p2.Shape, myShape: p2.Shape) {
+    onBeginContact(obj: Entity | WorldItem, objShape: p2.Shape, myShape: p2.Shape) {
         // we got into range of something to attack
         if (myShape === this.attackSensor) {
             if (obj.type) {
@@ -557,12 +565,12 @@ export default class Player extends Entity {
             // this._isBlocked();
         }
         // colliding with a sensor object, see if we can collect it
-        else if (obj.itemType) {
-            this.collectLoot(obj);
+        else if ((<WorldItem>obj).itemType) {
+            this.collectLoot((<WorldItem>obj));
         }
     }
 
-    onEndContact(obj, objShape: p2.Shape, myShape: p2.Shape) {
+    onEndContact(obj: Entity | WorldItem, objShape: p2.Shape, myShape: p2.Shape) {
         // remove from attack range
         if (myShape === this.attackSensor) {
             var i = this.inAttackRange.indexOf(obj);
@@ -572,7 +580,7 @@ export default class Player extends Entity {
             }
         }
         // remove from collision list
-        else if (!obj.sensor) {
+        else if (!obj.body.data.shapes[0].sensor) {
             var i = this.colliding.indexOf(obj);
 
             if(i >= 0) {
@@ -585,13 +593,13 @@ export default class Player extends Entity {
         }
     }
 
-    private _markEmpty(item: Entities.Entity) {
+    private _markEmpty(item: Entity) {
         item.properties.loot = null;
 
         if (item.parent) {
             var layer = <Phaser.Plugin.Tiled.Objectlayer>item.parent;
 
-            layer.objects[(<any>item)._objIndex].properties.loot = null;
+            (<ITiledLayerData>layer.objects[(<any>item)._objIndex]).properties.loot = null;
 
             this.game.loadedSave.updateZoneData(layer);
         }

@@ -1,4 +1,14 @@
+export enum ENTITY_TYPE {
+    // player/npc entities
+    PLAYER,
+    ENEMY,
+    FRIENDLY,
+    NEUTRAL
+}
+
 export default class Constants {
+    static ENTITY_TYPE = ENTITY_TYPE;
+
     static WORLD_ITEMS = {
         HEART:   'heart',
         MAGIC:   'magic',
@@ -16,12 +26,27 @@ export default class Constants {
         MINE:    'mine'
     }
 
+    static STATES = {
+        BOOT:       'state_boot',
+        PRELOADER:  'state_preloader',
+        INTRO:      'state_intro',
+        MAIN_MENU:  'state_mainmenu',
+        PLAY:       'state_play'
+    }
+
+    static LEVELS = {
+        CAVE034:    'level_case034',
+        DARKWORLD:  'level_darkworld',
+        LIGHTWORLD: 'level_lightworld',
+        LINKSHOUSE: 'level_linkshouse'
+    }
+
     // deminsions of the screen
     static GAME_WIDTH:           number = 256;
     static GAME_HEIGHT:          number = 224;
     static GAME_SCALE:           number = 3;
     static GAME_TEXT_SCALE:      number = 1.5;
-    static GAME_SAVE_INTERVAL:   number = 1000;
+    static GAME_SAVE_INTERVAL:   number = 10000;
 
     //cone within hit detector to check for interactions
     static PLAYER_ATTACK_CONE:   number = 0.5;

@@ -1,9 +1,10 @@
-export class IPlayerInventory {
+export default class PlayerInventory {
     // upgradable items
     armor:          number = 0;
     sword:          number = 0;
     shield:         number = 0;
     gloves:         number = 0;
+    silver_arrows:  number = 0;
 
     // normal inventory items
     boomerang:      number = 0;

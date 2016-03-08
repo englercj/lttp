@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import Game from '../../Game';
 import GuiItem from './GuiItem';
+import Hud from '../Hud';
 
 export default class LifeMeter extends GuiItem {
     max: number;
@@ -13,7 +14,7 @@ export default class LifeMeter extends GuiItem {
 
     frames: Phaser.FrameData;
 
-    constructor(game: Game, parent: Lttp.Gui.Hud, x: number, y: number, value: number = 0) {
+    constructor(game: Game, parent: Hud, x: number, y: number, value: number = 0) {
         super(game, parent, x, y, 'life', value);
 
         this.dash1 = game.add.sprite(35, 0, 'sprite_gui', 'hud/life-dash.png', this);
@@ -41,9 +42,8 @@ export default class LifeMeter extends GuiItem {
             done = 0;
 
         for(var hp = val; hp > 0; --hp) {
-            var off = 0,
-                spr,
-                frame;
+            var off = 0;
+            let frame: Phaser.Frame;
 
             if (hp < 1) { //partial
                 frame = this.frames.getFrameByName('hud/heart-half.png');
@@ -81,7 +81,7 @@ export default class LifeMeter extends GuiItem {
         return this;
     }
 
-    enableHeartSprite(idx, frame, x, y) {
+    enableHeartSprite(idx: number, frame: Phaser.Frame, x: number, y: number) {
         var spr = this.hearts[idx] || (this.hearts[idx] = this.game.add.sprite(0, 0, 'sprite_gui', null, this));
 
         spr.setFrame(frame);

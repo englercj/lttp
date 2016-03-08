@@ -35,7 +35,7 @@ export default class WorldItem extends Entity {
         this.itemType = null;
         this.value = 0;
 
-        for(var i = 0, a = [1,5,20], n; n = a[i]; ++i) {
+        for(var i = 0, a = [1,5,20], n = 0; n = a[i]; ++i) {
             this.animations.add('rupees_' + n, [
                 'inventory/rupees_' + n + '_1.png',
                 'inventory/rupees_' + n + '_2.png',

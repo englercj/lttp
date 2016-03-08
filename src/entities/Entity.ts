@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import Game from '../Game';
-import Constants from '../data/Constants';
-import ENTITY_TYPE from '../data/EntityType';
+import Level from '../levels/Level';
+import { default as Constants, ENTITY_TYPE } from '../data/Constants';
 
 export default class Entity extends Phaser.Sprite {
     game: Game;
@@ -78,7 +78,7 @@ export default class Entity extends Phaser.Sprite {
         return this;
     }
 
-    setup(level: Levels.Level): Entity {
+    setup(level: Level): Entity {
         level.physics.enable(this, Phaser.Physics.P2JS);
 
         this.body.setZeroDamping();
@@ -115,7 +115,7 @@ export default class Entity extends Phaser.Sprite {
 
     _addFrames(types: string[], num: number, frameRate: number = 60, loop: boolean = false) {
         for(var t = 0, tl = types.length; t < tl; ++t) {
-            var frames = [],
+            var frames: string[] = [],
                 type = types[t],
                 name = type.replace(/.+\/|\.png|_%./g, '');
 

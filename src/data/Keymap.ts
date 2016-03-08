@@ -1,6 +1,6 @@
 export interface IKeymap {
-    keyboard: Keys;
-    gamepad: Keys;
+    keyboard: IKeys;
+    gamepad: IKeys;
 }
 
 export interface IKeys {
