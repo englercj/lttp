@@ -1,57 +1,53 @@
-module Lttp.Data {
+export interface ITiledMapData {
+    width: number;
+    height: number;
 
-    export interface TiledMapData {
-        width: number;
-        height: number;
+    tilewidth: number;
+    tileheight: number;
 
-        tilewidth: number;
-        tileheight: number;
+    version: number;
 
-        version: number;
+    orientation: string; //TODO: make enum
 
-        orientation: string; //TODO: make enum
+    layers: ITiledLayerData[];
+    tilesets: ITiledTilesetData[];
 
-        layers: TiledLayerData[];
-        tilesets: TiledTilesetData[];
+    properties: { [key: string]: string };
+}
 
-        properties: { [key: string]: string };
-    }
+export interface ITiledLayerData {
+    data: number[];
 
-    export interface TiledLayerData {
-        data: number[];
+    width: number;
+    height: number;
 
-        width: number;
-        height: number;
+    x: number;
+    y: number;
 
-        x: number;
-        y: number;
+    name: string;
 
-        name: string;
+    type: string; //TODO: make enum
 
-        type: string; //TODO: make enum
+    opacity: number;
+    visible: boolean;
 
-        opacity: number;
-        visible: boolean;
+    properties: { [key: string]: string };
+}
 
-        properties: { [key: string]: string };
-    }
+export interface ITiledTilesetData {
+    firstgid: number;
 
-    export interface TiledTilesetData {
-        firstgid: number;
+    name: string;
 
-        name: string;
+    image: string;
+    imagewidth: number;
+    imageheight: number;
 
-        image: string;
-        imagewidth: number;
-        imageheight: number;
+    margin: number;
+    spacing: number;
 
-        margin: number;
-        spacing: number;
+    tilewidth: number;
+    tileheight: number;
 
-        tilewidth: number;
-        tileheight: number;
-
-        properties: { [key: string]: string };
-    }
-
+    properties: { [key: string]: string };
 }

@@ -1,7 +1,7 @@
-/// <reference path="../dts/phaser.d.ts" />
-/// <reference path="../dts/lz-string.d.ts" />
+import Game from './Game';
 
-var game;
 window.onload = () => {
-    game = new Lttp.Game();
+    window['game'] = new Game();
 };
+
+// export type IPoint = (Phaser.Point|Phaser.Physics.P2.InversePointProxy);

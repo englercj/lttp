@@ -1,9 +1,6 @@
-/// <reference path="Entity.ts" />
+import Entity from './Entity';
+import Constants from '../data/Constants';
 
-module Lttp.Entities.Enemies {
-    export class Enemy extends Entities.Entity {
-
-        entityType = Data.ENTITY_TYPE.ENEMY;
-
-    }
+export default class Enemy extends Entity {
+    entityType = Constants.ENTITY_TYPE.ENEMY;
 }

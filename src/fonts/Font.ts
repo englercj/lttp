@@ -1,26 +1,27 @@
-module Lttp.Fonts {
-    export interface FontData {
-        name: string;
-        size: number;
-        lineHeight: number;
-        chars: { [character: string]: FontCharacterData };
-    }
+import * as Phaser from 'phaser';
 
-    export interface FontCharacterData {
-        kerning: Object;
-        texture: PIXI.Texture;
-        xAdvance: number;
-        xOffset: number;
-        yOffset: number;
-    }
+export interface IFontData {
+    name: string;
+    size: number;
+    lineHeight: number;
+    chars: { [character: string]: IFontCharacterData };
+}
 
-    export class Font extends Phaser.BitmapText {
+export interface IFontCharacterData {
+    kerning: Object;
+    texture: PIXI.Texture;
+    xAdvance: number;
+    xOffset: number;
+    yOffset: number;
+}
 
-        static cachedFonts: { [key: string]: Fonts.FontData } = {};
+export default class Font extends Phaser.BitmapText {
+    static cachedFonts: { [key: string]: IFontData } = {};
 
-        constructor(game: Phaser.Game, font: string, x: number = 0, y: number = 0, text: string = '', public monospace: number = 0, size: number = 32) {
-            super(game, x, y, font, text, size);
-        }
+    public monospace: number;
 
+    constructor(game: Phaser.Game, font: string, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 32) {
+        super(game, x, y, font, text, size);
+        this.monospace = monospace;
     }
 }

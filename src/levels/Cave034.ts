@@ -1,9 +1,5 @@
-﻿/// <reference path="Level.ts" />
+﻿import Level from './Level';
 
-module Lttp.Levels {
-    export class Cave034 extends Levels.Level {
-
-        levelKey: string = 'cave_034';
-
-    }
+export default class Cave034 extends Level {
+    levelKey: string = 'cave_034';
 }

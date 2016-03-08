@@ -1,27 +1,19 @@
-module Lttp.Data {
+export interface IKeymap {
+    keyboard: Keys;
+    gamepad: Keys;
+}
 
-    export interface Keymap {
+export interface IKeys {
+    up: number;
+    down: number;
+    left: number;
+    right: number;
 
-        keyboard: Keys;
-        gamepad: Keys;
+    use: number;
+    useItem: number;
+    attack: number;
 
-    }
-
-    export interface Keys {
-
-        up: number;
-        down: number;
-        left: number;
-        right: number;
-
-        use: number;
-        useItem: number;
-        attack: number;
-
-        menuSave: number;
-        menuMap: number;
-        menuInv: number;
-
-    }
-
+    menuSave: number;
+    menuMap: number;
+    menuInv: number;
 }

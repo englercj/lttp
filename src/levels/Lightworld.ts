@@ -1,22 +1,18 @@
-﻿/// <reference path="Level.ts" />
+﻿import Level from './Level';
 
-module Lttp.Levels {
-    export class Lightworld extends Levels.Level {
+export default class Lightworld extends Level {
+    levelKey: string = 'lightworld';
 
-        levelKey: string = 'lightworld';
+    preload() {
+        super.preload();
 
-        preload() {
-            super.preload();
+        // Music
+        this.load.audio('music_lightworld', [
+            'assets/audio/music/overworld.lite.ogg'
+        ]);
 
-            // Music
-            this.load.audio('music_lightworld', [
-                'assets/audio/music/overworld.lite.ogg'
-            ]);
-
-            this.load.audio('music_village', [
-                'assets/audio/music/kakariko_village.lite.ogg'
-            ]);
-        }
-
+        this.load.audio('music_village', [
+            'assets/audio/music/kakariko_village.lite.ogg'
+        ]);
     }
 }

@@ -1,17 +1,13 @@
-﻿/// <reference path="Level.ts" />
+﻿import Level from './Level';
 
-module Lttp.Levels {
-    export class LinksHouse extends Levels.Level {
+export default class LinksHouse extends Level {
+    levelKey: string = 'linkshouse';
 
-        levelKey: string = 'linkshouse';
+    preload() {
+        super.preload();
 
-        preload() {
-            super.preload();
-
-            this.load.audio('music_village', [
-                'assets/audio/music/kakariko_village.lite.ogg'
-            ]);
-        }
-
+        this.load.audio('music_village', [
+            'assets/audio/music/kakariko_village.lite.ogg'
+        ]);
     }
 }

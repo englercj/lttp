@@ -1,42 +1,43 @@
-/// <reference path="Item.ts" />
+import * as Phaser from 'phaser';
+import Game from '../../Game';
+import HudFont from '../../fonts/Hud';
+import GuiItem from './GuiItem';
 
-module Lttp.Gui.Items {
-    export class InventoryCounter extends Gui.Items.Item {
-        icon: Phaser.Sprite;
+export default class InventoryCounter extends GuiItem {
+    icon: Phaser.Sprite;
 
-        font: Fonts.Hud;
+    font: HudFont;
 
-        constructor(game: Phaser.Game, parent: Lttp.Gui.Hud, x: number, y: number, name: string, value: number = 0) {
-            super(game, parent, x, y, name, value);
+    constructor(game: Game, parent: Lttp.Gui.Hud, x: number, y: number, name: string, value: number = 0) {
+        super(game, parent, x, y, name, value);
 
-            this.icon = game.add.sprite(0, 0, 'sprite_gui', 'hud/indicator-' + this.name + '.png', this);
+        this.icon = game.add.sprite(0, 0, 'sprite_gui', 'hud/indicator-' + this.name + '.png', this);
 
-            if(name === 'rupees') {
-                this.icon.position.x += 13;
-            }
-            else if(name === 'bombs') {
-                this.icon.position.x += 5;
-            }
-
-            this.font = new Fonts.Hud(game, 0, 30);
-            this.add(this.font);
-
-            this.setValue(value);
+        if(name === 'rupees') {
+            this.icon.position.x += 13;
+        }
+        else if(name === 'bombs') {
+            this.icon.position.x += 5;
         }
 
-        setValue(val: any) {
-            var l = this.name === 'rupees' ? 3 : 2;
-            val = val.toString();
+        this.font = new HudFont(game, 0, 30);
+        this.add(this.font);
 
-            while(val.length < l) {
-                val = '0' + val;
-            }
+        this.setValue(value);
+    }
 
-            super.setValue(val);
+    setValue(val: any) {
+        var l = this.name === 'rupees' ? 3 : 2;
+        val = val.toString();
 
-            this.font.text = val;
-
-            return this;
+        while(val.length < l) {
+            val = '0' + val;
         }
+
+        super.setValue(val);
+
+        this.font.text = val;
+
+        return this;
     }
 }

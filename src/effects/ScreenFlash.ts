@@ -1,39 +1,38 @@
-module Lttp.Effects {
-    export class ScreenFlash extends Phaser.Sprite {
+import * as Phaser from 'phaser';
 
-        key: Phaser.BitmapData;
+export default class ScreenFlash extends Phaser.Sprite {
 
-        onComplete: Phaser.Signal;
+    key: Phaser.BitmapData;
 
-        constructor(game: Phaser.Game) {
-            super(game, 0, 0, game.add.bitmapData(game.width, game.height, '', true));
+    onComplete: Phaser.Signal;
 
-            this.color = 'white';
+    constructor(game: Phaser.Game) {
+        super(game, 0, 0, game.add.bitmapData(game.width, game.height, '', true));
 
-            this.alpha = 0;
+        this.color = 'white';
 
-            this.onComplete = new Phaser.Signal();
-        }
+        this.alpha = 0;
 
-        flash(maxAlpha: number = 1, duration: number = 100, easing: any = Phaser.Easing.Linear.None): ScreenFlash {
-            this.game.add.tween(this)
-                .to({ alpha: maxAlpha }, duration, easing)
-                .start()
-                .onComplete.addOnce(function() {
-                    this.alpha = 0;
-                    this.onComplete.dispatch(this);
-                }, this);
+        this.onComplete = new Phaser.Signal();
+    }
 
-            return this;
-        }
+    flash(maxAlpha: number = 1, duration: number = 100, easing: any = Phaser.Easing.Linear.None): ScreenFlash {
+        this.game.add.tween(this)
+            .to({ alpha: maxAlpha }, duration, easing)
+            .start()
+            .onComplete.addOnce(function() {
+                this.alpha = 0;
+                this.onComplete.dispatch(this);
+            }, this);
 
-        get color(): string {
-            return this.key.ctx.fillStyle;
-        }
-        set color(theColor: string) {
-            this.key.ctx.fillStyle = theColor || 'white';
-            this.key.ctx.fillRect(0, 0, this.game.width, this.game.height);
-        }
+        return this;
+    }
 
+    get color(): string {
+        return <string>(this.key.ctx.fillStyle);
+    }
+    set color(theColor: string) {
+        this.key.ctx.fillStyle = theColor || 'white';
+        this.key.ctx.fillRect(0, 0, this.game.width, this.game.height);
     }
 }

@@ -1,18 +1,14 @@
-﻿/// <reference path="Level.ts" />
+﻿import Level from './Level';
 
-module Lttp.Levels {
-    export class Darkworld extends Levels.Level {
+export default class Darkworld extends Level {
+    levelKey: string = 'darkworld';
 
-        levelKey: string = 'darkworld';
+    preload() {
+        super.preload();
 
-        preload() {
-            super.preload();
-
-            // Music
-            this.load.audio('music_darkworld', [
-                'assets/audio/music/dark_world.lite.ogg'
-            ]);
-        }
-
+        // Music
+        this.load.audio('music_darkworld', [
+            'assets/audio/music/dark_world.lite.ogg'
+        ]);
     }
 }
