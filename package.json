@@ -26,20 +26,19 @@
     "phaser-tiled": "git+https://github.com/englercj/phaser-tiled.git#thin-tiles"
   },
   "devDependencies": {
-    "eslint": "^2.3.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.9.0",
     "image-webpack-loader": "^1.6.3",
-    "jscs": "^2.11.0",
     "less": "^2.6.1",
     "less-loader": "^2.2.2",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
     "ts-loader": "^0.8.1",
+    "tslint": "^3.5.0",
     "typescript": "^1.8.7",
-    "typescript-eslint-parser": "0.1.0-alpha-1",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   },
   "private": true
 }
