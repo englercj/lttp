@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Player from './entities/Player';
 import Save from './utility/Save';
 import Effects from './effects/Effects';

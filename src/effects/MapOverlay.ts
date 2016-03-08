@@ -1,7 +1,9 @@
-import * as Phaser from 'phaser';
+import Game from '../Game';
 import Constants from '../data/Constants';
 
 export default class MapOverlay extends Phaser.Group {
+    game: Game;
+
     key: Phaser.BitmapData;
 
     onComplete: Phaser.Signal;
@@ -11,7 +13,7 @@ export default class MapOverlay extends Phaser.Group {
 
     private _activeEffect: string;
 
-    constructor(game: Phaser.Game) {
+    constructor(game: Game) {
         super(game);
 
         this.fixedToCamera = true;

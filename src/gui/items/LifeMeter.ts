@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Game from '../../Game';
 import GuiItem from './GuiItem';
 import Hud from '../Hud';

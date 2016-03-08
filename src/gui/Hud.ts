@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Game from '../Game';
 import Player from '../entities/Player';
 
@@ -9,6 +8,7 @@ import LifeMeter from './items/LifeMeter';
 
 export default class Hud extends Phaser.Group {
     game: Game;
+
     items: any;
 
     constructor(game: Game, parent?: any) {

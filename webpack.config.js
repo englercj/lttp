@@ -8,6 +8,11 @@ const CommonsChunkPlugin    = require('webpack/lib/optimize/CommonsChunkPlugin')
 const NoErrorsPlugin        = require('webpack/lib/NoErrorsPlugin');
 
 const ASSET_PATH = 'assets';
+const VENDOR_PATH = path.join(__dirname, '/vendor');
+
+const phaser = path.join(VENDOR_PATH, 'phaser.js');
+const pixi = path.join(VENDOR_PATH, 'pixi.js');
+const p2 = path.join(VENDOR_PATH, 'p2.js');
 
 module.exports = {
     devtool: 'source-map',
@@ -17,7 +22,7 @@ module.exports = {
     recordsPath: path.join(__dirname, '.records'),
     entry: {
         app: './src/app.ts',
-        vendor: ['phaser', 'phaser-tiled']
+        vendor: ['pixi.js', 'p2', 'phaser', 'phaser-tiled']
     },
     output: {
         path: path.join(__dirname, 'public'),
@@ -26,13 +31,22 @@ module.exports = {
         chunkFilename: `${ASSET_PATH}/[id].[chunkhash].js`
     },
     resolve: {
-        extensions: ['', '.ts', '.js']
+        extensions: ['', '.ts', '.js'],
+        alias: {
+            'pixi.js': pixi,
+            'p2': p2,
+            'phaser': phaser,
+        }
     },
     module: {
         loaders: [
             {
                 test: /\.ts$/,
                 loader: 'ts-loader'
+            },
+            {
+                test: /(pixi|phaser|p2).js/,
+                loader: 'script'
             },
             {
                 test: /\.(png|jpe?g|svg|gif|ttf|woff2?|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/i,
@@ -53,7 +67,7 @@ module.exports = {
     },
     plugins: [
         // don't emit output when there are errors
-        new NoErrorsPlugin(),
+        // new NoErrorsPlugin(),
 
         // extract inline css into separate 'styles.css'
         new ExtractTextPlugin(`${ASSET_PATH}/[hash].css`),

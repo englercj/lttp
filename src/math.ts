@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Entity from './entities/Entity';
 
 const coneVec = new Phaser.Point(0, 0);

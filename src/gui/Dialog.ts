@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Game from '../Game';
 import Constants from '../data/Constants';
 import ReturnOfGanon from '../fonts/ReturnOfGanon';
@@ -6,6 +5,8 @@ import ReturnOfGanon from '../fonts/ReturnOfGanon';
 const rgxNewlines = /\n/g;
 
 export default class Dialog extends Phaser.Group {
+    game: Game;
+
     openSound: Phaser.Sound;
     letterSound: Phaser.Sound;
 
@@ -32,7 +33,7 @@ export default class Dialog extends Phaser.Group {
 
     onTypingComplete: Phaser.Signal;
 
-    constructor(game: Phaser.Game, parent?: any, showFrame: boolean = true) {
+    constructor(game: Game, parent?: any, showFrame: boolean = true) {
         super(game, parent);
 
         // load sound

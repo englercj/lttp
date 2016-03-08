@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import { default as Font, IFontData } from './Font';
 
 export default class Hud extends Font {

@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Game from '../Game';
 import ReturnOfGanon from '../fonts/ReturnOfGanon';
 import { default as ItemDescriptors, IItemDescriptor } from '../data/ItemDescriptors';
@@ -6,11 +5,14 @@ import Constants from '../data/Constants';
 import GameState from '../states/GameState';
 
 class InventoryItemSprite extends Phaser.Sprite {
+    game: Game;
     item: IItemDescriptor;
     _frame: Phaser.Frame;
 }
 
 export default class Inventory extends Phaser.Group {
+    game: Game;
+
     private openSound: Phaser.Sound;
 
     private empty: boolean;
@@ -30,8 +32,6 @@ export default class Inventory extends Phaser.Group {
     private isSliding: boolean;
 
     private _temp: Phaser.Point;
-
-    public game: Game;
 
     constructor(game: Game, parent?: any) {
         super(game, parent, 'inventory');
@@ -154,7 +154,7 @@ export default class Inventory extends Phaser.Group {
         // always show lift power
         this.items['txtLiftNum'].visible = true;
         this.items['txtLiftNum'].setFrame(this.frames.getFrameByName(
-            this.items['txtLiftNum'].item.icon.replace('%d', (<Lttp.Game>this.game).player.inventory.gloves + 1)
+            this.items['txtLiftNum'].item.icon.replace('%d', this.game.player.inventory.gloves + 1)
         ));
 
         // first item added

@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser';
+import Game from '../Game';
 
 export interface IFontData {
     name: string;
@@ -18,9 +18,11 @@ export interface IFontCharacterData {
 export default class Font extends Phaser.BitmapText {
     static cachedFonts: { [key: string]: IFontData } = {};
 
-    public monospace: number;
+    game: Game;
 
-    constructor(game: Phaser.Game, font: string, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 32) {
+    monospace: number;
+
+    constructor(game: Game, font: string, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 32) {
         super(game, x, y, font, text, size);
         this.monospace = monospace;
     }

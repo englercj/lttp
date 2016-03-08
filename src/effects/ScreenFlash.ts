@@ -1,12 +1,13 @@
-import * as Phaser from 'phaser';
+import Game from '../Game';
 
 export default class ScreenFlash extends Phaser.Sprite {
+    game: Game;
 
     key: Phaser.BitmapData;
 
     onComplete: Phaser.Signal;
 
-    constructor(game: Phaser.Game) {
+    constructor(game: Game) {
         super(game, 0, 0, game.add.bitmapData(game.width, game.height, '', true));
 
         this.color = 'white';

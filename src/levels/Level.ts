@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import MapOverlay from '../effects/MapOverlay';
 import GameState from '../states/GameState';
 import { IKeymap } from '../data/Keymap';

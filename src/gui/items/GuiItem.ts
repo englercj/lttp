@@ -1,8 +1,9 @@
-import * as Phaser from 'phaser';
 import Game from '../../Game';
 import Hud from '../Hud';
 
 export default class GuiItem extends Phaser.Group {
+    game: Game;
+
     value: any;
 
     constructor(game: Game, parent: Hud, x: number, y: number, name: string, value: any = 0) {

@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Game from '../Game';
 import GameState from './GameState';
 import Constants from '../data/Constants';

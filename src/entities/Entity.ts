@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import Game from '../Game';
 import Level from '../levels/Level';
 import { default as Constants, ENTITY_TYPE } from '../data/Constants';

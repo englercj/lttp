@@ -1,14 +1,14 @@
-import * as Phaser from 'phaser';
 import Game from '../../Game';
 import HudFont from '../../fonts/Hud';
 import GuiItem from './GuiItem';
+import Hud from '../Hud';
 
 export default class InventoryCounter extends GuiItem {
     icon: Phaser.Sprite;
 
     font: HudFont;
 
-    constructor(game: Game, parent: Lttp.Gui.Hud, x: number, y: number, name: string, value: number = 0) {
+    constructor(game: Game, parent: Hud, x: number, y: number, name: string, value: number = 0) {
         super(game, parent, x, y, name, value);
 
         this.icon = game.add.sprite(0, 0, 'sprite_gui', 'hud/indicator-' + this.name + '.png', this);
