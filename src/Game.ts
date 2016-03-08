@@ -18,14 +18,13 @@ import Lightworld from './levels/Lightworld';
 import LinksHouse from './levels/LinksHouse';
 
 export default class Game extends Phaser.Game {
+    static timer: Phaser.Timer = null;
 
     player: Player = null;
 
     loadedSave: Save = null;
 
     effects: Effects = null;
-
-    static timer: Phaser.Timer = null;
 
     private _autosaveInterval: number;
 
@@ -58,19 +57,16 @@ export default class Game extends Phaser.Game {
     boot() {
         super.boot();
 
-        // This sets the limits for Phaser's auto scaling
-        this.scale.minWidth = Constants.GAME_WIDTH;
-        this.scale.minHeight = Constants.GAME_HEIGHT;
-
-        // this.scale.maxWidth = Constants.GAME_WIDTH * Data.Constants.GAME_SCALE;
-        // this.scale.maxHeight = Constants.GAME_HEIGHT * Data.Constants.GAME_SCALE;
+        // Setup our scaling parameters, we want the largest the browser can fit, minimum of our size.
+        this.scale.setMinMax(
+            Constants.GAME_WIDTH,
+            Constants.GAME_HEIGHT
+        );
 
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
 
-        // Then we tell Phaser that we want it to scale between those values, the largest the browser can fit
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.setScreenSize();
 
         // capture keyboard keys
         this.input.keyboard.addKeyCapture([
@@ -122,5 +118,4 @@ export default class Game extends Phaser.Game {
 
         this.loadedSave.save(this.player);
     }
-
 }

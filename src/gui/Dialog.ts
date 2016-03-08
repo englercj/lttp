@@ -29,7 +29,7 @@ export default class Dialog extends Phaser.Group {
 
     buffer: Phaser.RenderTexture;
     bufferSprite: Phaser.Sprite;
-    bufferScroll: Phaser.Matrix;
+    bufferScroll: Phaser.Point;
 
     onTypingComplete: Phaser.Signal;
 
@@ -57,7 +57,7 @@ export default class Dialog extends Phaser.Group {
 
         // initialize the render buffer
         this.buffer = game.add.renderTexture(348, 92); // 174, 46
-        this.bufferScroll = new Phaser.Matrix();
+        this.bufferScroll = new Phaser.Point();
         this.bufferSprite = game.add.sprite(0, 0, this.buffer, null, this);
         this.bufferSprite.name = 'buffer';
         this.bufferSprite.scale.set(0.5, 0.5);
@@ -125,7 +125,7 @@ export default class Dialog extends Phaser.Group {
             this.typing = false;
 
             this.font.visible = true;
-            this.buffer.render(this.font, this.bufferScroll, true);
+            this.buffer.renderXY(this.font, this.bufferScroll.x, this.bufferScroll.y, true);
             this.bufferSprite.visible = true;
             this.font.visible = false;
 
@@ -135,13 +135,13 @@ export default class Dialog extends Phaser.Group {
             this.typing = true;
 
             this.font.visible = true;
-            this.buffer.render(this.font, this.bufferScroll, true);
+            this.buffer.renderXY(this.font, this.bufferScroll.x, this.bufferScroll.y, true);
             this.bufferSprite.visible = true;
             this.font.visible = false;
 
-            this.bufferScroll.ty -= 2;
+            this.bufferScroll.y -= 2;
 
-            if (this.bufferScroll.ty > -32) {
+            if (this.bufferScroll.y > -32) {
                 Game.timer.add(this.fastSpeed, this._type, this);
             } else {
                 var newStart = this.text.indexOf('\n', this.range[0]);
@@ -151,7 +151,7 @@ export default class Dialog extends Phaser.Group {
 
                 this.font.text = this.text.substr(this.range[0], this.range[1] - 1);
 
-                this.bufferScroll.ty = 0;
+                this.bufferScroll.y = 0;
 
                 Game.timer.add(this.speed, this._type, this);
             }
