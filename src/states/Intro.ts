@@ -505,7 +505,7 @@ export default class Intro extends GameState {
         this.mapGroup.visible = false;
         this.mapGroup.alpha = 0;
 
-        this.minimap = this.add.tiledmap('lw_minimap');
+        this.minimap = (<any>this.add).tiledmap('lw_minimap');
         this.mapGroup.add(this.minimap);
     }
 }

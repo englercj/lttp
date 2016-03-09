@@ -92,7 +92,7 @@ export default class Pool<T> {
                 }
                 PoolObjectCtor.prototype = ctor.prototype;
 
-                return new PoolObjectCtor();
+                return new (<any>PoolObjectCtor)();
         }
     }
 }

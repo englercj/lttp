@@ -1,6 +1,6 @@
 import Game from '../Game';
 import ReturnOfGanon from '../fonts/ReturnOfGanon';
-import { default as ItemDescriptors, IItemDescriptor, IconCallback } from '../data/ItemDescriptors';
+import { ItemDescriptors, IItemDescriptor, IconCallback } from '../data/ItemDescriptors';
 import Constants from '../data/Constants';
 import GameState from '../states/GameState';
 
@@ -111,7 +111,7 @@ export default class Inventory extends Phaser.Group {
         const wasEmpty = this.empty;
 
         for(let i in this.items) {
-            const sprite = <InventoryItemSprite>(this.items[i]);
+            const sprite = this.items[i];
             const item = sprite.item;
 
             if (!item) continue;
@@ -233,13 +233,18 @@ export default class Inventory extends Phaser.Group {
         this.game.add.sprite(0, 0, 'sprite_gui', 'inventory.png', this);
 
         // add item sprites
-        for(var i in ItemDescriptors) {
-            var item = ItemDescriptors[i];
-            var sprite = <InventoryItemSprite>(this.game.add.sprite(item.position[0], item.position[1], 'sprite_gui', item.icon.replace('%d', 1), this));
+        for (var i in ItemDescriptors) {
+            const item = ItemDescriptors[i];
+            const ico = typeof item.icon === 'function' ? (<IconCallback>item.icon)(this.game) : (<string>item.icon);
 
+            ico.replace('%d', '1');
+
+            let sprite = new InventoryItemSprite(this.game, item.position[0], item.position[1], 'sprite_gui', ico);
             sprite.item = item;
 
-            if(item.grid) {
+            this.add(sprite);
+
+            if (item.grid) {
                 this._addToGrid(sprite, item.grid);
             }
 
