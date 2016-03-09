@@ -50,17 +50,15 @@ export default class Dialog extends Phaser.Group {
         this.frameSprite.visible = showFrame;
 
         // add font
-        this.font = new ReturnOfGanon(game, 8, 8, '', 0, 32);
+        this.font = new ReturnOfGanon(game, 8, 8);
         this.font.name = 'text';
-        this.font.scale.set(0.5, 0.5);
         this.add(this.font);
 
         // initialize the render buffer
-        this.buffer = game.add.renderTexture(348, 92); // 174, 46
+        this.buffer = game.add.renderTexture(game.width, game.height);
         this.bufferScroll = new Phaser.Point();
         this.bufferSprite = game.add.sprite(0, 0, this.buffer, null, this);
         this.bufferSprite.name = 'buffer';
-        this.bufferSprite.scale.set(0.5, 0.5);
         this.bufferSprite.position.set(this.font.position.x, this.font.position.y);
 
         this.onTypingComplete = new Phaser.Signal();
@@ -139,11 +137,12 @@ export default class Dialog extends Phaser.Group {
             this.bufferSprite.visible = true;
             this.font.visible = false;
 
-            this.bufferScroll.y -= 2;
+            this.bufferScroll.y--;
 
-            if (this.bufferScroll.y > -32) {
+            if (this.bufferScroll.y > -this.font.fontSize) {
                 Game.timer.add(this.fastSpeed, this._type, this);
-            } else {
+            }
+            else {
                 const newStart = this.text.indexOf('\n', this.range[0]);
 
                 this.range[1] = this.range[1] - (newStart - this.range[0]) - 1;
