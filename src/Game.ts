@@ -17,6 +17,8 @@ import Darkworld from './levels/Darkworld';
 import Lightworld from './levels/Lightworld';
 import LinksHouse from './levels/LinksHouse';
 
+import Tiled = require('phaser-tiled');
+
 export default class Game extends Phaser.Game {
     static timer: Phaser.Timer = null;
 
@@ -82,7 +84,7 @@ export default class Game extends Phaser.Game {
         this.input.gamepad.start();
 
         // this.add.plugin(new Phaser.Plugin.Debug(this));
-        this.add.plugin(new Phaser.Plugin.Tiled(this, this.stage));
+        this.add.plugin(new Tiled(this, this.stage));
 
         this.effects = <Effects>this.add.plugin(new Effects(this));
 

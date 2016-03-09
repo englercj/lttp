@@ -49,7 +49,7 @@ module.exports = {
                 loader: 'script'
             },
             {
-                test: /\.(png|jpe?g|svg|gif|ttf|woff2?|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/i,
+                test: /\.(png|jpe?g|svg|gif|ttf|woff2?|eot|ogg|mp3|wav|json)(\?v=[0-9]\.[0-9]\.[0-9])?$/i,
                 loaders: [
                     `file?name=${ASSET_PATH}/[hash].[ext]`,
                     'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'

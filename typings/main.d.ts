@@ -11,3 +11,5 @@ declare module p2 {
         parent: Phaser.Physics.P2.Spring;
     }
 }
+
+declare var require: (file: string) => any;
