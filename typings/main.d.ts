@@ -21,6 +21,11 @@ declare module 'phaser-debug' {
     }
 }
 
+// declare lz-string
+declare module 'lz-string' {
+    export = LZString;
+}
+
 // stub require so TS will shut up
 declare var require: (file: string) => any;
 

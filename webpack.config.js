@@ -20,7 +20,7 @@ module.exports = {
     recordsPath: path.join(__dirname, '.records'),
     entry: {
         app: './src/app.ts',
-        vendor: ['pixi.js', 'p2', 'phaser', 'phaser-tiled', 'phaser-debug']
+        vendor: ['pixi.js', 'p2', 'phaser', 'phaser-tiled', 'phaser-debug', 'lz-string']
     },
     output: {
         path: path.join(__dirname, 'public'),

@@ -1,13 +1,15 @@
+import lzstring = require('lz-string');
+
 export default class Storage {
     static save(key: string, value: any) {
-        localStorage.setItem(key, LZString.compressToUTF16(JSON.stringify(value)));
+        localStorage.setItem(key, lzstring.compressToUTF16(JSON.stringify(value)));
     }
 
     static load(key: string) {
         const val: string = localStorage.getItem(key);
 
         try {
-            return JSON.parse(LZString.decompressFromUTF16(val));
+            return JSON.parse(lzstring.decompressFromUTF16(val));
         }
         catch (e) {
             return val;

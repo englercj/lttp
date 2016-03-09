@@ -462,7 +462,7 @@ export default class MainMenu extends GameState {
 
         this.line = this.add.graphics(24, 132, this.registerGroup);
         this.line.name = 'line';
-        this.line.lineStyle(1, 0xffffff, 0.5);
+        this.line.lineStyle(1, 0xffffff, 1);
         this.line.moveTo(0, 0);
         this.line.lineTo(624, 0);
 
