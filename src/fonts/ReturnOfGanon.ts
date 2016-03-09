@@ -96,14 +96,14 @@ function prepareFontData(game: Game, monospace: number = 0): string {
         let code = letter.charCodeAt(0);
         let val = map[letter] || letter;
         let frame = frames.getFrameByName((val.name || val) + '.png');
-        let rect = frame.getRect();
 
         if (code === 32) {
             frame = spaceFrame;
-            rect = frame.getRect();
         }
 
         if (!frame) continue;
+
+        let rect = frame.getRect();
 
         fontData.font.chars.char.push({
             _id: code,

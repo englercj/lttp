@@ -35,9 +35,10 @@ function prepareFontData(game: Game, monospace: number = 0): string {
         let letter = letters.charAt(i);
         let code = letter.charCodeAt(0);
         let frame = frames.getFrameByName(letter + '.png');
-        let rect = frame.getRect();
 
         if (!frame) continue;
+
+        let rect = frame.getRect();
 
         fontData.font.chars.char.push({
             _id: code,

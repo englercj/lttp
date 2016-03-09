@@ -34,7 +34,7 @@ export default class Preloader extends GameState {
         this.load.atlas('sprite_hud_font',  require('../../assets/sprites/fonts/hud.png'),             require('../../assets/sprites/fonts/hud.json'),            null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
         // Asset packs for tilemaps
-        // this.load.json(Constants.ASSET_TILEMAP_PACKS_KEY, Constants.ASSET_TILEMAP_PACKS_URL);
+        this.load.json(Constants.ASSET_TILEMAP_PACKS_KEY, Constants.ASSET_TILEMAP_PACKS_URL);
 
         // Minimaps
         this.load.tilemap('map_minimap_lightworld', require('../../assets/levels/minimaps/lw_minimap.json'), null, Phaser.Tilemap.TILED_JSON);

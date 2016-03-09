@@ -1,4 +1,3 @@
-/*eslint-env node*/
 'use strict';
 
 const path                  = require('path');
@@ -15,10 +14,8 @@ const pixi = path.join(VENDOR_PATH, 'pixi.js');
 const p2 = path.join(VENDOR_PATH, 'p2.js');
 
 module.exports = {
-    devtool: 'source-map',
-    devServer: {
-        port: 8000
-    },
+    cache: true,
+    progress: true,
     recordsPath: path.join(__dirname, '.records'),
     entry: {
         app: './src/app.ts',
@@ -27,6 +24,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'public'),
         publicPath: '/',
+        assetPath: ASSET_PATH,
         filename: `${ASSET_PATH}/[chunkhash].js`,
         chunkFilename: `${ASSET_PATH}/[id].[chunkhash].js`
     },
