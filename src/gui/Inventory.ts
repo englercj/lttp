@@ -135,7 +135,7 @@ export default class Inventory extends Phaser.Group {
                     ico = (<IconCallback>item.icon)(this.game);
                 }
                 else {
-                    ico = (<string>item.icon).replace('%d', val);
+                    ico = (<string>item.icon).replace('%d', val.toString());
                 }
 
                 //enable item and set texture
@@ -154,7 +154,7 @@ export default class Inventory extends Phaser.Group {
         // always show lift power
         this.items['txtLiftNum'].visible = true;
         this.items['txtLiftNum'].setFrame(this.frames.getFrameByName(
-            (<string>this.items['txtLiftNum'].item.icon).replace('%d', this.game.player.inventory.gloves + 1)
+            (<string>this.items['txtLiftNum'].item.icon).replace('%d', (this.game.player.inventory.gloves + 1).toString())
         ));
 
         // first item added

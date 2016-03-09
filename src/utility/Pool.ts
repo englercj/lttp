@@ -1,13 +1,18 @@
 import Game from '../Game';
 
+interface IConstructable<T> {
+    new(...args: any[]): T;
+    prototype: T;
+}
+
 export default class Pool<T> {
     game: Game;
     group: Phaser.Group;
 
-    private _ctor: { new(...args: any[]): T };
+    private _ctor: IConstructable<T>;
     private _pool: T[] = [];
 
-    constructor(game: Game, ctor: { new(...args: any[]): T }, group: Phaser.Group = null) {
+    constructor(game: Game, ctor: IConstructable<T>, group: Phaser.Group = null) {
         this.game = game;
         this.group = group;
 

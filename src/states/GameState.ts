@@ -45,11 +45,11 @@ export default class GameState extends Phaser.State {
         this.sound.stopAll();
     }
 
-    onKeyboardDown(event) {
+    onKeyboardDown(event: KeyboardEvent) {
         this.onInputDown.dispatch(event.keyCode, 1, event);
     }
 
-    onKeyboardUp(event) {
+    onKeyboardUp(event: KeyboardEvent) {
         this.onInputUp.dispatch(event.keyCode, 1, event);
     }
 

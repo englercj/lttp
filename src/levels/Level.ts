@@ -82,12 +82,17 @@ export default class Level extends GameState {
 
         // this.game.physics.startSystem(Phaser.Physics.P2JS);
 
-        // create tiled map and setup physics for it
-        this.tiledmap = this.add.tiledmap(this.levelKey);
+        // These <any> casts are because typescript doesn't have a method for extending existing classes
+        // defined in external .d.ts files. This means phaser-tiled can't properly extend the type defs
+        // for the classes it added methods to. I promise these exist :)
+        // More info:
+        // https://github.com/Microsoft/TypeScript/issues/9
+        // https://github.com/Microsoft/TypeScript/issues/819
+        this.tiledmap = (<any>this.add).tiledmap(this.levelKey);
 
-        this.physics.p2.convertTiledCollisionObjects(this.tiledmap, 'collisions');
-        this.physics.p2.convertTiledCollisionObjects(this.tiledmap, 'exits');
-        this.physics.p2.convertTiledCollisionObjects(this.tiledmap, 'zones');
+        (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'collisions');
+        (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'exits');
+        (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'zones');
 
         // this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
         // this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
@@ -305,10 +310,10 @@ export default class Level extends GameState {
     }
 
     private _zoneTransition(vec: IPoint) {
-        var p = vec.x ? 'x' : 'y',
+        var vel = vec.x ? vec.x : vec.y,
             obj = { v: 0 },
-            cameraEnd = {},
-            playerEnd = {};
+            cameraEnd: { [key: string]: number } = {},
+            playerEnd: { [key: string]: number } = {};
 
         this.game.player.lock();
 
@@ -321,7 +326,10 @@ export default class Level extends GameState {
                         this.camera.y += this.camera.height * vec.y;
 
                         //set link position
-                        this.game.player.body[p] += Constants.EFFECT_ZONE_TRANSITION_SPACE * vec[p];
+                        if (vec.x)
+                            this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                        else
+                            this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
 
                         //zone ready
                         this._zoneReady();
@@ -334,7 +342,10 @@ export default class Level extends GameState {
                 this.camera.y += this.camera.height * vec.y;
 
                 //set link position
-                this.game.player.body[p] += Constants.EFFECT_ZONE_TRANSITION_SPACE * vec[p];
+                if (vec.x)
+                    this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                else
+                    this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
 
                 //zone ready
                 this._zoneReady();
@@ -342,8 +353,14 @@ export default class Level extends GameState {
 
             case 'slide':
             default:
-                cameraEnd[p] = this.camera[p] + this.camera[p === 'x' ? 'width' : 'height'] * vec[p];
-                playerEnd[p] = Constants.EFFECT_ZONE_TRANSITION_SPACE * vec[p];
+                if (vec.x) {
+                    cameraEnd['x'] = this.camera.x + this.camera.width * vel;
+                    playerEnd['x'] = Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                }
+                else {
+                    cameraEnd['y'] = this.camera.y + this.camera.height * vel;
+                    playerEnd['y'] = Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                }
 
                 this.game.add.tween(this.camera)
                     .to(cameraEnd, Constants.EFFECT_ZONE_TRANSITION_TIME)
@@ -353,7 +370,10 @@ export default class Level extends GameState {
                 // this.game.add.tween(this.game.player.body)
                 //     .to(playerEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
                 //     .start()
-                this.game.player.body[p] += Constants.EFFECT_ZONE_TRANSITION_SPACE * vec[p];
+                if (vec.x)
+                    this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                else
+                    this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
                 break;
         }
     }
