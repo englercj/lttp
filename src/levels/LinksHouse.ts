@@ -7,7 +7,7 @@ export default class LinksHouse extends Level {
         super.preload();
 
         this.load.audio('music_village', [
-            'assets/audio/music/kakariko_village.lite.ogg'
+            'assets/audio/music/kakariko_village.lite.ogg',
         ]);
     }
 }

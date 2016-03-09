@@ -30,21 +30,22 @@ export default class LifeMeter extends GuiItem {
     setValue(val: any) {
         super.setValue(val);
 
-        for(var i = 0, il = this.hearts.length; i < il; ++i) {
+        for (let i = 0, il = this.hearts.length; i < il; ++i) {
             this.hearts[i].visible = false;
         }
 
-        var x = 0,
-            y = 20,
-            size = 16,
-            perRow = 10,
-            done = 0;
+        let x = 0;
+        let y = 20;
+        const size = 16;
+        const perRow = 10;
+        let done = 0;
 
-        for(var hp = val; hp > 0; --hp) {
-            var off = 0;
+        for (let hp = val; hp > 0; --hp) {
+            let off = 0;
             let frame: Phaser.Frame;
 
-            if (hp < 1) { //partial
+            // handle partial heart
+            if (hp < 1) {
                 frame = this.frames.getFrameByName('hud/heart-half.png');
                 off = 2;
             }
@@ -54,7 +55,7 @@ export default class LifeMeter extends GuiItem {
 
             this.enableHeartSprite(done, frame, x, y + off);
 
-            if((x / size) >= (perRow - 1)) {
+            if ((x / size) >= (perRow - 1)) {
                 x = 0;
                 y += size;
             }
@@ -65,10 +66,10 @@ export default class LifeMeter extends GuiItem {
             done++;
         }
 
-        for(done; done < this.max; ++done) {
+        for (done; done < this.max; ++done) {
             this.enableHeartSprite(done, this.frames.getFrameByName('hud/heart-empty.png'), x, y);
 
-            if((x / size) >= (perRow - 1)) {
+            if ((x / size) >= (perRow - 1)) {
                 x = 0;
                 y += size;
             }
@@ -81,7 +82,7 @@ export default class LifeMeter extends GuiItem {
     }
 
     enableHeartSprite(idx: number, frame: Phaser.Frame, x: number, y: number) {
-        var spr = this.hearts[idx] || (this.hearts[idx] = this.game.add.sprite(0, 0, 'sprite_gui', null, this));
+        const spr = this.hearts[idx] || (this.hearts[idx] = this.game.add.sprite(0, 0, 'sprite_gui', null, this));
 
         spr.setFrame(frame);
         spr.position.set(x, y);

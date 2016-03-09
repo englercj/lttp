@@ -18,34 +18,34 @@ export default class Particle extends Entity {
     }
 
     boot(item: IItemDescriptor, phys: boolean = false) {
-        var cfg = item.particle;
+        const cfg = item.particle;
 
         this.visible = true;
         // this.hitArea = cfg.hitArea || new Rectangle(0, 8, 8, 8);
 
         if (!this.animations.getAnimation(item.name)) {
-            var frames: string[] = [];
+            const frames: string[] = [];
 
-            for(var i = 0; i < cfg.num; ++i) {
-                frames.push(cfg.path + (i+1) + cfg.ext);
+            for (let i = 0; i < cfg.num; ++i) {
+                frames.push(cfg.path + (i + 1) + cfg.ext);
             }
 
             this.animations.add(item.name, frames, cfg.framerate, cfg.loop);
         }
 
-        //set type
+        // set type
         this.name = item.name;
         this.particleType = cfg.type;
 
-        //play animation for this item
+        // play animation for this item
         this.animations.play(item.name);
         // this.enablePhysics(phys);
 
-        //set position
-        var player = this.game.player,
-            space = cfg.spacing;
+        // set position
+        const player = this.game.player;
+        const space = cfg.spacing;
 
-        switch(player.facing) {
+        switch (player.facing) {
             case Phaser.UP:
                 this.x = player.x + (player.width / 2) - (this.width / 2);
                 this.y = player.y - space - player.height;
@@ -68,7 +68,7 @@ export default class Particle extends Entity {
 
         }
 
-        //if there is a velocity set it
+        // if there is a velocity set it
         // if (cfg.velocity) {
         //     this.velocity = cfg.velocity.clone();
         //     this.setVelocity(this.velocity);

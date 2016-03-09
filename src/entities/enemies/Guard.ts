@@ -2,7 +2,7 @@
 import Enemy from '../Enemy';
 
 export default class Guard extends Enemy {
-    /**********
+    /*
     var Guard = function(type) {
         Enemy.call(this, lttp.game.cache.getTextures('sprite_enemies'), 0.2);
 
@@ -34,5 +34,5 @@ export default class Guard extends Enemy {
             }
         }
     });
-    **********/
+    */
 }

@@ -13,10 +13,10 @@ export default class InventoryCounter extends GuiItem {
 
         this.icon = game.add.sprite(0, 0, 'sprite_gui', 'hud/indicator-' + this.name + '.png', this);
 
-        if(name === 'rupees') {
+        if (name === 'rupees') {
             this.icon.position.x += 13;
         }
-        else if(name === 'bombs') {
+        else if (name === 'bombs') {
             this.icon.position.x += 5;
         }
 
@@ -27,10 +27,10 @@ export default class InventoryCounter extends GuiItem {
     }
 
     setValue(val: any) {
-        var l = this.name === 'rupees' ? 3 : 2;
+        const l = this.name === 'rupees' ? 3 : 2;
         val = val.toString();
 
-        while(val.length < l) {
+        while (val.length < l) {
             val = '0' + val;
         }
 

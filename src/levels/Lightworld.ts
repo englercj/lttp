@@ -8,11 +8,11 @@ export default class Lightworld extends Level {
 
         // Music
         this.load.audio('music_lightworld', [
-            'assets/audio/music/overworld.lite.ogg'
+            'assets/audio/music/overworld.lite.ogg',
         ]);
 
         this.load.audio('music_village', [
-            'assets/audio/music/kakariko_village.lite.ogg'
+            'assets/audio/music/kakariko_village.lite.ogg',
         ]);
     }
 }

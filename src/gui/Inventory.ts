@@ -1,6 +1,6 @@
 import Game from '../Game';
 import ReturnOfGanon from '../fonts/ReturnOfGanon';
-import { ItemDescriptors, IItemDescriptor, IconCallback } from '../data/ItemDescriptors';
+import { itemDescriptors, IItemDescriptor, IconCallback } from '../data/ItemDescriptors';
 import Constants from '../data/Constants';
 import GameState from '../states/GameState';
 
@@ -62,59 +62,16 @@ export default class Inventory extends Phaser.Group {
         (<GameState>this.game.state.getCurrentState()).onInputUp.removeAll(this);
     }
 
-    private _onInputDown(key: number, value: number, event: any) {
-        switch(key) {
-            // UP
-            case Phaser.Keyboard.UP:
-            case Phaser.Keyboard.W:
-            case Phaser.Gamepad.XBOX360_DPAD_UP:
-                this.move(Phaser.UP);
-                break;
-
-            // DOWN
-            case Phaser.Keyboard.DOWN:
-            case Phaser.Keyboard.S:
-            case Phaser.Gamepad.XBOX360_DPAD_DOWN:
-                this.move(Phaser.DOWN);
-                break;
-
-            // LEFT
-            case Phaser.Keyboard.LEFT:
-            case Phaser.Keyboard.A:
-            case Phaser.Gamepad.XBOX360_DPAD_LEFT:
-                this.move(Phaser.LEFT);
-                break;
-
-            // RIGHT
-            case Phaser.Keyboard.RIGHT:
-            case Phaser.Keyboard.D:
-            case Phaser.Gamepad.XBOX360_DPAD_RIGHT:
-                this.move(Phaser.RIGHT);
-                break;
-
-            // AXIS UP/DOWN
-            case Phaser.Gamepad.XBOX360_STICK_LEFT_Y:
-                this.move(value > 0 ? Phaser.DOWN : Phaser.UP);
-                break;
-
-            // AXIS LEFT/RIGHT
-            case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
-                this.move(value > 0 ? Phaser.RIGHT : Phaser.LEFT);
-                break;
-        }
-    }
-
-    private _onInputUp(key: number, value: number, event: any) {
-    }
-
     updateValues() {
         const wasEmpty = this.empty;
 
-        for(let i in this.items) {
+        for (let i in this.items) {
+            if (!this.items.hasOwnProperty(i)) { continue; }
+
             const sprite = this.items[i];
             const item = sprite.item;
 
-            if (!item) continue;
+            if (!item) { continue; }
 
             const name: string = item.name;
             const val: number = this.game.player.inventory[name];
@@ -122,7 +79,7 @@ export default class Inventory extends Phaser.Group {
 
             // set the texture and visibility
             if (val || (val === 0 && (name === 'armor' || name === 'crystal'))) {
-                //some items have other sprites that should be enabled as well
+                // some items have other sprites that should be enabled as well
                 if (name === 'flippers') {
                     this.items['txtSwim'].visible = true;
                 }
@@ -130,7 +87,7 @@ export default class Inventory extends Phaser.Group {
                     this.items['txtRun'].visible = true;
                 }
 
-                //run icon function if there is one
+                // run icon function if there is one
                 if (typeof item.icon === 'function') {
                     ico = (<IconCallback>item.icon)(this.game);
                 }
@@ -138,7 +95,7 @@ export default class Inventory extends Phaser.Group {
                     ico = (<string>item.icon).replace('%d', val.toString());
                 }
 
-                //enable item and set texture
+                // enable item and set texture
                 sprite.setFrame(this.frames.getFrameByName(ico));
                 sprite.visible = true;
 
@@ -158,15 +115,15 @@ export default class Inventory extends Phaser.Group {
         ));
 
         // first item added
-        if(wasEmpty && !this.empty) {
-            //setup to scan right to the first item and select it
+        if (wasEmpty && !this.empty) {
+            // setup to scan right to the first item and select it
             // this.selected.x = -1;
             // this.selected.y = 0;
             // this.onMove('right', { down: true });
             // this.onMove('right', { down: false });
 
-            //make sure it is equipted
-            //TODO: hud updates??
+            // make sure it is equipted
+            // TODO: hud updates??
             // this.game.player.equipted = this.grid[this.selected.x][this.selected.y][0].item.name;
             // lttp.play.hud.updateValues(link);
         }
@@ -175,7 +132,7 @@ export default class Inventory extends Phaser.Group {
     }
 
     open(cb?: Function) {
-        if (this.isSliding) return;
+        if (this.isSliding) { return; }
 
         this.isSliding = true;
         this.visible = true;
@@ -186,12 +143,12 @@ export default class Inventory extends Phaser.Group {
             .start()
             .onComplete.addOnce(function () {
                 this.isSliding = false;
-                if (cb) cb();
+                if (cb) { cb(); }
             }, this);
     }
 
     close(cb: Function) {
-        if(this.isSliding) return;
+        if (this.isSliding) { return; }
 
         this.isSliding = true;
 
@@ -201,14 +158,14 @@ export default class Inventory extends Phaser.Group {
             .onComplete.addOnce(function () {
                 this.visible = false;
                 this.isSliding = false;
-                if (cb) cb();
+                if (cb) { cb(); }
             }, this);
     }
 
     move(dir: number) {
-        if(this.empty) return;
+        if (this.empty) { return; }
 
-        var next: Phaser.Point;
+        let next: Phaser.Point;
 
         switch (dir) {
             case Phaser.UP:
@@ -233,8 +190,10 @@ export default class Inventory extends Phaser.Group {
         this.game.add.sprite(0, 0, 'sprite_gui', 'inventory.png', this);
 
         // add item sprites
-        for (var i in ItemDescriptors) {
-            const item = ItemDescriptors[i];
+        for (let i in itemDescriptors) {
+            if (!itemDescriptors.hasOwnProperty(i)) { continue; }
+
+            const item = itemDescriptors[i];
             const ico = typeof item.icon === 'function' ? (<IconCallback>item.icon)(this.game) : (<string>item.icon);
 
             ico.replace('%d', '1');
@@ -276,7 +235,7 @@ export default class Inventory extends Phaser.Group {
     }
 
     private _moveSelector() {
-        var sprite = this.selected;
+        const sprite = this.selected;
 
         this.selector.position.x = sprite.position.x - 5;
         this.selector.position.y = sprite.position.y - 5;
@@ -284,7 +243,7 @@ export default class Inventory extends Phaser.Group {
         this.activeItem.setFrame(sprite._frame);
         this.activeText.text = sprite.item.name;
 
-        if(sprite.visible) {
+        if (sprite.visible) {
             this.selector.visible = true;
             this.activeItem.visible = true;
             this.activeText.visible = true;
@@ -292,12 +251,10 @@ export default class Inventory extends Phaser.Group {
     }
 
     private _findNext(stepX: number, stepY: number) {
-        var pos = this._temp.set(this.selected.item.grid[0], this.selected.item.grid[1]),
-            found = false,
-            maxX = this.grid.length - 1,
-            maxY = this.grid[0].length - 1;
-        var val: InventoryItemSprite[];
-        var i: number;
+        const pos = this._temp.set(this.selected.item.grid[0], this.selected.item.grid[1]);
+        const maxX = this.grid.length - 1;
+        const maxY = this.grid[0].length - 1;
+        let found = false;
 
         while (!found) {
             pos.x += stepX;
@@ -305,8 +262,8 @@ export default class Inventory extends Phaser.Group {
 
             this._wrapGrid(pos, maxX, maxY);
 
-            val = this.grid[pos.x][pos.y];
-            for (i = val.length - 1; i > -1; --i) {
+            const val = this.grid[pos.x][pos.y];
+            for (let i = val.length - 1; i > -1; --i) {
                 found = found || val[i].visible;
             }
         }
@@ -315,11 +272,11 @@ export default class Inventory extends Phaser.Group {
     }
 
     private _wrapGrid(pos: Phaser.Point, maxX: number, maxY: number) {
-        //wrap X
+        // wrap X
         if (pos.x < 0) {
             pos.y--;
             pos.x = maxX;
-            //left of first slot, goto last
+            // left of first slot, goto last
             if (pos.y < 0) {
                 pos.y = maxY;
             }
@@ -327,17 +284,17 @@ export default class Inventory extends Phaser.Group {
         else if (pos.x > maxX) {
             pos.y++;
             pos.x = 0;
-            //right of last slot, goto first
+            // right of last slot, goto first
             if (pos.y > maxY) {
                 pos.y = 0;
             }
         }
 
-        //wrap Y
+        // wrap Y
         if (pos.y < 0) {
             pos.x--;
             pos.y = maxY;
-            //up off first slot, goto last
+            // up off first slot, goto last
             if (pos.x < 0) {
                 pos.x = maxX;
             }
@@ -345,11 +302,56 @@ export default class Inventory extends Phaser.Group {
         else if (pos.y > maxY) {
             pos.x++;
             pos.y = 0;
-            //down off last slot, goto first
+            // down off last slot, goto first
             if (pos.x > maxX) {
                 pos.x = 0;
             }
         }
     }
 
+    private _onInputDown(key: number, value: number, event: any) {
+        switch (key) {
+            // UP
+            case Phaser.Keyboard.UP:
+            case Phaser.Keyboard.W:
+            case Phaser.Gamepad.XBOX360_DPAD_UP:
+                this.move(Phaser.UP);
+                break;
+
+            // DOWN
+            case Phaser.Keyboard.DOWN:
+            case Phaser.Keyboard.S:
+            case Phaser.Gamepad.XBOX360_DPAD_DOWN:
+                this.move(Phaser.DOWN);
+                break;
+
+            // LEFT
+            case Phaser.Keyboard.LEFT:
+            case Phaser.Keyboard.A:
+            case Phaser.Gamepad.XBOX360_DPAD_LEFT:
+                this.move(Phaser.LEFT);
+                break;
+
+            // RIGHT
+            case Phaser.Keyboard.RIGHT:
+            case Phaser.Keyboard.D:
+            case Phaser.Gamepad.XBOX360_DPAD_RIGHT:
+                this.move(Phaser.RIGHT);
+                break;
+
+            // AXIS UP/DOWN
+            case Phaser.Gamepad.XBOX360_STICK_LEFT_Y:
+                this.move(value > 0 ? Phaser.DOWN : Phaser.UP);
+                break;
+
+            // AXIS LEFT/RIGHT
+            case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
+                this.move(value > 0 ? Phaser.RIGHT : Phaser.LEFT);
+                break;
+        }
+    }
+
+    private _onInputUp(key: number, value: number, event: any) {
+        // TODO: Implementation needed?
+    }
 }

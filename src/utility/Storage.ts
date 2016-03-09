@@ -4,12 +4,12 @@ export default class Storage {
     }
 
     static load(key: string) {
-        var val = localStorage.getItem(key);
+        const val: string = localStorage.getItem(key);
 
         try {
             return JSON.parse(LZString.decompressFromUTF16(val));
         }
-        catch(e) {
+        catch (e) {
             return val;
         }
     }

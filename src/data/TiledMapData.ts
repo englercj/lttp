@@ -7,12 +7,12 @@ export interface ITiledMapData {
 
     version: number;
 
-    orientation: string; //TODO: make enum
+    orientation: string; // TODO: make enum
 
     layers: ITiledLayerData[];
     tilesets: ITiledTilesetData[];
 
-    properties: { [key: string]: string };
+    properties: TTable<string>;
 }
 
 export interface ITiledLayerData {
@@ -26,12 +26,12 @@ export interface ITiledLayerData {
 
     name: string;
 
-    type: string; //TODO: make enum
+    type: string; // TODO: make enum
 
     opacity: number;
     visible: boolean;
 
-    properties: { [key: string]: string };
+    properties: TTable<string>;
 }
 
 export interface ITiledTilesetData {
@@ -49,5 +49,5 @@ export interface ITiledTilesetData {
     tilewidth: number;
     tileheight: number;
 
-    properties: { [key: string]: string };
+    properties: TTable<string>;
 }

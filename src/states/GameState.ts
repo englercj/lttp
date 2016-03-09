@@ -2,8 +2,8 @@ import Game from '../Game';
 import Constants from '../data/Constants';
 
 interface IGamepadAxisState {
-    axis: number; //the axis index
-    value: number; //the value of the axis
+    axis: number; // the axis index
+    value: number; // the value of the axis
 }
 
 export default class GameState extends Phaser.State {
@@ -26,7 +26,7 @@ export default class GameState extends Phaser.State {
         this.input.gamepad.addCallbacks(this, {
             onDown: this.onGamepadDown,
             onUp: this.onGamepadUp,
-            onAxis: this.onGamepadAxis
+            onAxis: this.onGamepadAxis,
         });
 
         // destroy old timer
@@ -63,8 +63,8 @@ export default class GameState extends Phaser.State {
 
     onGamepadAxis(pad: Phaser.SinglePad, index: number, value: number) {
         // if we pass the threshold send a "down" signal
-        if (value > Constants.INPUT_GAMEPAD_AXIS_THRESHOLD ||
-            value < -Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
+        if (value > Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
+            || value < -Constants.INPUT_GAMEPAD_AXIS_THRESHOLD
         ) {
             this.onInputDown.dispatch(index, value, null);
         }

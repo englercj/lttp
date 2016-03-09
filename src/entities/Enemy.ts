@@ -1,6 +1,6 @@
 import Entity from './Entity';
-import Constants from '../data/Constants';
+import { ENTITY_TYPE } from '../data/Constants';
 
 export default class Enemy extends Entity {
-    entityType = Constants.ENTITY_TYPE.ENEMY;
+    entityType: ENTITY_TYPE = ENTITY_TYPE.ENEMY;
 }

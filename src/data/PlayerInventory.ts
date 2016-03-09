@@ -6,7 +6,7 @@ export default class PlayerInventory {
     sword:          number = 0;
     shield:         number = 0;
     gloves:         number = 0;
-    silver_arrows:  number = 0;
+    silverArrows:   number = 0;
 
     // normal inventory items
     boomerang:      number = 0;
@@ -27,7 +27,7 @@ export default class PlayerInventory {
     shovel:         number = 0;
 
     // keys
-    big_key:        number = 0;
+    bigKey:         number = 0;
     keys:           number = 0;
 
     // medallions

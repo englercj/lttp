@@ -1,10 +1,7 @@
 import MapOverlay from '../effects/MapOverlay';
 import GameState from '../states/GameState';
 import { IKeymap } from '../data/Keymap';
-import { ITiledLayerData } from '../data/TiledMapData';
 import Constants from '../data/Constants';
-
-type IPoint = (Phaser.Point|Phaser.Physics.P2.InversePointProxy);
 
 export default class Level extends GameState {
     // key for the level data
@@ -29,12 +26,6 @@ export default class Level extends GameState {
     // misc sprites used for map effects
     overlay: MapOverlay = null;
 
-    // flag whether the zone load
-    private firstZone = true;
-
-    // the data loaded for this level in its pack
-    private packData: any;
-
     keymap: IKeymap = {
         keyboard: {
             up:         Phaser.Keyboard.W,
@@ -48,7 +39,7 @@ export default class Level extends GameState {
 
             menuSave:   Phaser.Keyboard.B,
             menuMap:    Phaser.Keyboard.M,
-            menuInv:    Phaser.Keyboard.I
+            menuInv:    Phaser.Keyboard.I,
         },
         gamepad: {
             up:         Phaser.Gamepad.XBOX360_DPAD_UP,
@@ -62,9 +53,15 @@ export default class Level extends GameState {
 
             menuSave:   Phaser.Gamepad.XBOX360_BACK,
             menuMap:    Phaser.Gamepad.XBOX360_X,
-            menuInv:    Phaser.Gamepad.XBOX360_START
-        }
+            menuInv:    Phaser.Gamepad.XBOX360_START,
+        },
     };
+
+    // flag whether the zone load
+    private firstZone: boolean = true;
+
+    // the data loaded for this level in its pack
+    private packData: any;
 
     preload() {
         super.preload();
@@ -99,7 +96,7 @@ export default class Level extends GameState {
         // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
 
         // setup the player for a new level
-        var exit = this.game.loadedSave.lastUsedExit;
+        const exit = this.game.loadedSave.lastUsedExit;
         this.game.player.reset(exit.properties.loc[0], exit.properties.loc[1]);
         this.game.player.setup(this);
 
@@ -155,25 +152,142 @@ export default class Level extends GameState {
         this.overlay = null;
     }
 
-    onBeginContact(bodyA: p2.BodyEx, bodyB: p2.BodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
+    onBeginContact(bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
         this._checkContact(true, bodyA, bodyB, shapeA, shapeB, contactEquations);
     }
 
-    onEndContact(bodyA: p2.BodyEx, bodyB: p2.BodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
+    onEndContact(bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
         this._checkContact(false, bodyA, bodyB, shapeA, shapeB, contactEquations);
     }
 
-    private _enableDebugBodies(layer: Phaser.Plugin.Tiled.Objectlayer) {
-        if (!layer) {
-            return;
-        }
+    /**
+     * Input Handling
+     */
+    onKeyboardDown(event: KeyboardEvent) {
+        super.onKeyboardDown(event);
 
-        for (var i = 0; i < layer.bodies.length; ++i) {
-            layer.bodies[i].debug = true;
+        this.handleKeyboard(event.keyCode, true);
+    }
+
+    onKeyboardUp(event: KeyboardEvent) {
+        super.onKeyboardUp(event);
+
+        this.handleKeyboard(event.keyCode, false);
+    }
+
+    onGamepadDown(button: number, value: number) {
+        super.onGamepadDown(button, value);
+
+        this.handleGamepadButton(button, value, true);
+    }
+
+    onGamepadUp(button: number, value: number) {
+        super.onGamepadUp(button, value);
+
+        this.handleGamepadButton(button, value, false);
+    }
+
+    onGamepadAxis(pad: Phaser.SinglePad, index: number, value: number) {
+        super.onGamepadAxis(pad, index, value);
+
+        this.handleGamepadAxis(index, value, true);
+    }
+
+    handleGamepadAxis(index: number, value: number, active: boolean) {
+        // TODO: stick handling
+        // switch(index) {
+        //     // AXIS UP/DOWN
+        //     case Phaser.Gamepad.XBOX360_STICK_LEFT_Y:
+        //         this.game.player.lookUp(value > 0 ? active : false);
+        //         this.game.player.duck(value < 0 ? active : false);
+        //         GarageServerIO.addInput({ name: 'lookUp', active: value > 0 ? active : false, value: value });
+        //         GarageServerIO.addInput({ name: 'duck', active: value < 0 ? active : false, value: value });
+        //         break;
+
+        //     // AXIS LEFT/RIGHT
+        //     case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
+        //         this.game.player.move(Phaser.RIGHT, value, value > 0 ? active : false);
+        //         this.game.player.move(Phaser.LEFT, -value, value < 0 ? active : false);
+        //         GarageServerIO.addInput({ name: 'forward', active: value > 0 ? active : false, value: value });
+        //         GarageServerIO.addInput({ name: 'backward', active: value < 0 ? active : false, value: -value });
+        //         break;
+        // }
+    }
+
+    handleKeyboard(key: number, active: boolean) {
+        switch (key) {
+            // use
+            case this.keymap.keyboard.use:
+                this.game.player.use(active);
+                break;
+
+            // use item
+            case this.keymap.keyboard.useItem:
+                this.game.player.useItem(active);
+                break;
+
+            // attack
+            case this.keymap.keyboard.attack:
+                this.game.player.attack(active);
+                break;
+
+            // UP
+            case this.keymap.keyboard.up:
+                this.game.player.move(Phaser.UP, 1, active);
+                break;
+
+            // DOWN
+            case this.keymap.keyboard.down:
+                this.game.player.move(Phaser.DOWN, 1, active);
+                break;
+
+            // LEFT
+            case this.keymap.keyboard.left:
+                this.game.player.move(Phaser.LEFT, 1, active);
+                break;
+
+            // RIGHT
+            case this.keymap.keyboard.right:
+                this.game.player.move(Phaser.RIGHT, 1, active);
+                break;
         }
     }
 
-    private _checkContact(begin: boolean, bodyA: p2.BodyEx, bodyB: p2.BodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
+    handleGamepadButton(button: number, value: number, active: boolean) {
+        switch (button) {
+            // UP
+            case this.keymap.gamepad.up:
+                this.game.player.move(Phaser.UP, value, active);
+                break;
+
+            // DOWN
+            case this.keymap.gamepad.down:
+                this.game.player.move(Phaser.DOWN, value, active);
+                break;
+
+            // LEFT
+            case this.keymap.gamepad.left:
+                this.game.player.move(Phaser.LEFT, value, active);
+                break;
+
+            // RIGHT
+            case this.keymap.gamepad.right:
+                this.game.player.move(Phaser.RIGHT, value, active);
+                break;
+        }
+    }
+
+    // private _enableDebugBodies(layer: Phaser.Plugin.Tiled.Objectlayer) {
+    //     if (!layer) {
+    //         return;
+    //     }
+
+    //     for (let i = 0; i < layer.bodies.length; ++i) {
+    //         layer.bodies[i].debug = true;
+    //     }
+    // }
+
+    private _checkContact(begin: boolean, bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
         if (!bodyA.parent || !bodyB.parent) {
             return;
         }
@@ -182,12 +296,12 @@ export default class Level extends GameState {
             return;
         }
 
-        var playerIsA = bodyA.parent.sprite === this.game.player,
-            playerBody = playerIsA ? bodyA.parent : bodyB.parent,
-            playerShape = playerIsA ? shapeA : shapeB,
-            objBody = playerIsA ? bodyB.parent : bodyA.parent,
-            objShape = playerIsA ? shapeB : shapeA,
-            obj = objBody.sprite || (<any>objBody).tiledObject; // the tiledObject property is added by phaser-tiled
+        const playerIsA = bodyA.parent.sprite === this.game.player;
+        // const playerBody = playerIsA ? bodyA.parent : bodyB.parent;
+        const playerShape = playerIsA ? shapeA : shapeB;
+        const objBody = playerIsA ? bodyB.parent : bodyA.parent;
+        const objShape = playerIsA ? shapeB : shapeA;
+        const obj = objBody.sprite || (<any>objBody).tiledObject; // the tiledObject property is added by phaser-tiled
 
         if (!obj) {
             return;
@@ -204,13 +318,15 @@ export default class Level extends GameState {
             }
         }
 
-        if (begin)
+        if (begin) {
             this.game.player.onBeginContact(obj, objShape, playerShape);
-        else
+        }
+        else {
             this.game.player.onEndContact(obj, objShape, playerShape);
+        }
     }
 
-    private _exit(exit: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
+    private _exit(exit: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
         if (!exit.properties.animation) {
             this._mapTransition(exit, vec);
         }
@@ -227,18 +343,21 @@ export default class Level extends GameState {
         }
     }
 
-    private _mapTransition(exit: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
+    private _mapTransition(exit: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
         switch (exit.properties.transition) {
             case 'none':
                 this._gotoLevel(exit, vec);
                 break;
 
             case 'close':
+                // make this work again...
                 // this.camera.close('ellipse', animTime, this.link.position, function() {
                 //     self._dogotoMap(exit, vec);
                 // });
+                /* falls through, for now */
 
             case 'fade':
+                /* falls through */
             default:
                 this.game.effects.fadeScreen('black', Constants.EFFECT_MAP_TRANSITION_TIME)
                     .onComplete.addOnce(function () {
@@ -248,13 +367,13 @@ export default class Level extends GameState {
         }
     }
 
-    private _gotoLevel(exit: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
+    private _gotoLevel(exit: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
         this.game.save(exit);
 
         this.game.state.start('level_' + exit.name);
     }
 
-    private _zone(zone: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
+    private _zone(zone: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
         // done repeat zoning
         if (zone === this.activeZone) {
             return;
@@ -294,9 +413,9 @@ export default class Level extends GameState {
         }
     }
 
-    private _setupZone(vec: IPoint) {
-        var mapData = this.game.loadedSave.mapData[this.tiledmap.name],
-            zoneData = mapData ? mapData[this.activeLayer.name] : null;
+    private _setupZone(vec: TPoint) {
+        // const mapData = this.game.loadedSave.mapData[this.tiledmap.name];
+        // const zoneData = mapData ? mapData[this.activeLayer.name] : null;
 
         this.camera.unfollow();
         this.camera.setBoundsToWorld();
@@ -309,11 +428,10 @@ export default class Level extends GameState {
         }
     }
 
-    private _zoneTransition(vec: IPoint) {
-        var vel = vec.x ? vec.x : vec.y,
-            obj = { v: 0 },
-            cameraEnd: { [key: string]: number } = {},
-            playerEnd: { [key: string]: number } = {};
+    private _zoneTransition(vec: TPoint) {
+        const vel = vec.x ? vec.x : vec.y;
+        const cameraEnd: TTable<number> = {};
+        const playerEnd: TTable<number> = {};
 
         this.game.player.lock();
 
@@ -325,13 +443,15 @@ export default class Level extends GameState {
                         this.camera.x += this.camera.width * vec.x;
                         this.camera.y += this.camera.height * vec.y;
 
-                        //set link position
-                        if (vec.x)
+                        // set link position
+                        if (vec.x) {
                             this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                        else
+                        }
+                        else {
                             this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                        }
 
-                        //zone ready
+                        // zone ready
                         this._zoneReady();
                     }, this);
                 break;
@@ -341,17 +461,20 @@ export default class Level extends GameState {
                 this.camera.x += this.camera.width * vec.x;
                 this.camera.y += this.camera.height * vec.y;
 
-                //set link position
-                if (vec.x)
+                // set link position
+                if (vec.x) {
                     this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                else
+                }
+                else {
                     this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                }
 
-                //zone ready
+                // zone ready
                 this._zoneReady();
                 break;
 
             case 'slide':
+                /* falls through */
             default:
                 if (vec.x) {
                     cameraEnd['x'] = this.camera.x + this.camera.width * vel;
@@ -370,10 +493,12 @@ export default class Level extends GameState {
                 // this.game.add.tween(this.game.player.body)
                 //     .to(playerEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
                 //     .start()
-                if (vec.x)
+                if (vec.x) {
                     this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                else
+                }
+                else {
                     this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
+                }
                 break;
         }
     }
@@ -385,22 +510,21 @@ export default class Level extends GameState {
             this.oldLayer.despawn();
         }
 
-        var zone = this.activeZone,
-            scale = Constants.GAME_SCALE;
+        const zone = this.activeZone;
 
         this.firstZone = false;
 
         this.camera.bounds.setTo(
-            zone.x * scale,
-            zone.y * scale,
-            zone.width * scale,
-            zone.height * scale
+            zone.x * Constants.GAME_SCALE,
+            zone.y * Constants.GAME_SCALE,
+            zone.width * Constants.GAME_SCALE,
+            zone.height * Constants.GAME_SCALE
         );
 
         this.camera.follow(this.game.player, Phaser.Camera.FOLLOW_LOCKON);
         // this.camera.pan(1, 1);
 
-        //play zone music, or the map music if there is no zone music
+        // play zone music, or the map music if there is no zone music
         this._setupMusic(zone.properties.music || this.tiledmap.properties.music);
 
         this.game.player.unlock();
@@ -420,122 +544,5 @@ export default class Level extends GameState {
         this.music = this.add.audio(key, Constants.AUDIO_MUSIC_VOLUME, true);
 
         this.music.play();
-    }
-
-    /**
-     * Input Handling
-     */
-    onKeyboardDown(event: KeyboardEvent) {
-        super.onKeyboardDown(event);
-
-        this.handleKeyboard(event.keyCode, true);
-    }
-
-    onKeyboardUp(event: KeyboardEvent) {
-        super.onKeyboardUp(event);
-
-        this.handleKeyboard(event.keyCode, false);
-    }
-
-    onGamepadDown(button: number, value: number) {
-        super.onGamepadDown(button, value);
-
-        this.handleGamepadButton(button, value, true);
-    }
-
-    onGamepadUp(button: number, value: number) {
-        super.onGamepadUp(button, value);
-
-        this.handleGamepadButton(button, value, false);
-    }
-
-    onGamepadAxis(pad: Phaser.SinglePad, index: number, value: number) {
-        super.onGamepadAxis(pad, index, value);
-
-        this.handleGamepadAxis(index, value, true);
-    }
-
-    handleGamepadAxis(index: number, value: number, active: boolean) {
-        //TODO: stick handling
-        // switch(index) {
-        //     // AXIS UP/DOWN
-        //     case Phaser.Gamepad.XBOX360_STICK_LEFT_Y:
-        //         this.game.player.lookUp(value > 0 ? active : false);
-        //         this.game.player.duck(value < 0 ? active : false);
-        //         GarageServerIO.addInput({ name: 'lookUp', active: value > 0 ? active : false, value: value });
-        //         GarageServerIO.addInput({ name: 'duck', active: value < 0 ? active : false, value: value });
-        //         break;
-
-        //     // AXIS LEFT/RIGHT
-        //     case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
-        //         this.game.player.move(Phaser.RIGHT, value, value > 0 ? active : false);
-        //         this.game.player.move(Phaser.LEFT, -value, value < 0 ? active : false);
-        //         GarageServerIO.addInput({ name: 'forward', active: value > 0 ? active : false, value: value });
-        //         GarageServerIO.addInput({ name: 'backward', active: value < 0 ? active : false, value: -value });
-        //         break;
-        // }
-    }
-
-    handleKeyboard(key: number, active: boolean) {
-        switch(key) {
-            // use
-            case this.keymap.keyboard.use:
-                this.game.player.use(active);
-                break;
-
-            // use item
-            case this.keymap.keyboard.useItem:
-                this.game.player.useItem(active);
-                break;
-
-            // attack
-            case this.keymap.keyboard.attack:
-                this.game.player.attack(active);
-                break;
-
-            // UP
-            case this.keymap.keyboard.up:
-                this.game.player.move(Phaser.UP, 1, active);
-                break;
-
-            // DOWN
-            case this.keymap.keyboard.down:
-                this.game.player.move(Phaser.DOWN, 1, active);
-                break;
-
-            // LEFT
-            case this.keymap.keyboard.left:
-                this.game.player.move(Phaser.LEFT, 1, active);
-                break;
-
-            // RIGHT
-            case this.keymap.keyboard.right:
-                this.game.player.move(Phaser.RIGHT, 1, active);
-                break;
-        }
-    }
-
-    handleGamepadButton(button: number, value: number, active: boolean) {
-        switch(button) {
-            // UP
-            case this.keymap.gamepad.up:
-                this.game.player.move(Phaser.UP, value, active);
-                break;
-
-            // DOWN
-            case this.keymap.gamepad.down:
-                this.game.player.move(Phaser.DOWN, value, active);
-                break;
-
-            // LEFT
-            case this.keymap.gamepad.left:
-                this.game.player.move(Phaser.LEFT, value, active);
-                break;
-
-            // RIGHT
-            case this.keymap.gamepad.right:
-                this.game.player.move(Phaser.RIGHT, value, active);
-                break;
-        }
     }
 }

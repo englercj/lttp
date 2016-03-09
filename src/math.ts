@@ -2,8 +2,8 @@ import Entity from './entities/Entity';
 
 const coneVec = new Phaser.Point(0, 0);
 
-export default class math {
-    static isInViewCone(viewer: Entity, obj: Entity, coneSize: number) {
+export default {
+    isInViewCone(viewer: Entity, obj: Entity, coneSize: number) {
         coneVec.set(
             obj.x - viewer.x,
             obj.y - viewer.y
@@ -11,7 +11,7 @@ export default class math {
 
         coneVec.normalize();
 
-        //check if 'e' is withing a conic area in the direction we face
+        // check if 'e' is withing a conic area in the direction we face
         switch (viewer.facing) {
             case Phaser.UP:
                 return (coneVec.y < 0 && coneVec.x > -coneSize && coneVec.x < coneSize);
@@ -22,5 +22,5 @@ export default class math {
             case Phaser.RIGHT:
                 return (coneVec.x > 0 && coneVec.y > -coneSize && coneVec.y < coneSize);
         }
-    }
+    },
 }

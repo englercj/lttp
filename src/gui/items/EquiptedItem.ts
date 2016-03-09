@@ -25,11 +25,12 @@ export default class EquiptedItem extends GuiItem {
     setValue(val: any) {
         super.setValue(val);
 
-        var tx = this.frames.getFrameByName('items/' + val + '.png');
+        const tx = this.frames.getFrameByName('items/' + val + '.png');
 
         if (!tx) {
             this.itemSprite.visible = false;
-        } else {
+        }
+        else {
             this.itemSprite.visible = true;
             this.itemSprite.setFrame(tx);
         }

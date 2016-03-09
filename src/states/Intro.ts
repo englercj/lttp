@@ -3,49 +3,49 @@ import GameState from './GameState';
 import Constants from '../data/Constants';
 import Dialog from '../gui/Dialog';
 
-var loreText = [
+const loreText = [
     // Image #1
     [
         'Long ago, in the beautiful',
         'kingdom of Hyrule surrounded',
-        'by mountains and forests...'
+        'by mountains and forests...',
     ].join('\n'),
-    //pause
+    // pause
     [
         'legends told of an omnipotent',
         'and omniscient Golden Power',
-        'that resided in a hidden land.'
+        'that resided in a hidden land.',
     ].join('\n'),
     // pause, Image #2
     [
         'Many people aggressively',
         'sought to enter the hidden',
-        'Golden Land...'
+        'Golden Land...',
     ].join('\n'),
-    //pause
+    // pause
     [
         'But no one ever returned.',
         'One day evil power began to',
-        'flow from the Golden Land...'
+        'flow from the Golden Land...',
     ].join('\n'),
-    //pause
+    // pause
     [
         'So the King commanded seven',
         'wise men to seal the gate to',
-        'the Land of the Golden Power.'
+        'the Land of the Golden Power.',
     ].join('\n'),
     // pause, Image #3
     [
         'That seal should have remained',
         'for all time...',
-        ' '
+        ' ',
     ].join('\n'),
     // pause, Image #4
     [
         '... ...But, when these events',
         'were obscured by the mists of',
-        'time and became legend...'
-    ].join('\n')
+        'time and became legend...',
+    ].join('\n'),
 ];
 
 export default class Intro extends GameState {
@@ -149,49 +149,52 @@ export default class Intro extends GameState {
 
         this.intro.animations.play('intro');
 
-        this.introMusic.play().onStop.addOnce(function () {
+        this.introMusic.play().onStop.addOnce(() => {
             // after music stops playing (there is silence padding on either side) fade to lore screen
             this.game.add.tween(this.introGroup)
                 .to({ alpha: 0 }, 500)
                 .start()
-                .onComplete.addOnce(function () {
+                .onComplete.addOnce(() => {
                     this.sparkling = false;
                     this.startLoreAnimation();
                 }, this);
         }, this);
 
         // When the intro completes
-        this.intro.events.onAnimationComplete.addOnce(function () {
+        this.intro.events.onAnimationComplete.addOnce(() => {
             this.sparkling = true;
             Game.timer.add(500, this.showSparkle, this);
 
-            //Fade in the title
+            // Fade in the title
             this.game.add.tween(this.title)
                 .to({ alpha: 1 }, 2500)
                 .start()
-                .onComplete.addOnce(function () {
+                .onComplete.addOnce(() => {
                     this.zpart.visible = true;
 
                     this.dingSound.play();
 
-                    //drop the sword animation
+                    // drop the sword animation
                     this.game.add.tween(this.sword)
                         .to({ y: 38 }, 200)
                         .start()
-                        .onComplete.addOnce(function () {
+                        .onComplete
+                        .addOnce(() => {
                             // blink the screen
-                            this.blink(3, function () {
-                                //Fade out the intro
+                            this.blink(3, () => {
+                                // Fade out the intro
                                 this.game.add.tween(this.intro)
                                     .to({ alpha: 0 }, 500)
                                     .start()
-                                    .onComplete.addOnce(function () {
+                                    .onComplete
+                                    .addOnce(() => {
                                         // show the sword shine
                                         this.shine.visible = true;
                                         this.game.add.tween(this.shine)
                                             .to({ y: 150 }, 250)
                                             .start()
-                                            .onComplete.addOnce(function () {
+                                            .onComplete
+                                            .addOnce(() => {
                                                 this.shine.visible = false;
                                             }, this);
                                     }, this);
@@ -220,12 +223,12 @@ export default class Intro extends GameState {
         this.game.add.tween(this.loreGroup)
             .to({ alpha: 1 }, 500)
             .start()
-            .onComplete.addOnce(function () {
-                this._showLoreSequence(0, function () {
+            .onComplete.addOnce(() => {
+                this._showLoreSequence(0, () => {
                     this.game.add.tween(this.loreGroup)
                         .to({ alpha: 0 }, 500)
                         .start()
-                        .onComplete.addOnce(function () {
+                        .onComplete.addOnce(() => {
                             this.startMinimapFlythrough();
                         }, this);
                 });
@@ -238,8 +241,8 @@ export default class Intro extends GameState {
         this.mapGroup.visible = true;
         this.mapGroup.alpha = 1;
 
-        var diff = 128 * Constants.GAME_SCALE,
-            maxScale = 65;
+        const diff = 128 * Constants.GAME_SCALE;
+        const maxScale = 65;
 
         this.mapGroup.scale.set(1, 1);
         this.mapGroup.position.set(0, 0);
@@ -249,7 +252,7 @@ export default class Intro extends GameState {
         this.game.add.tween(this.mapGroup)
             .to({ alpha: 1 }, 500)
             .start()
-            .onComplete.addOnce(function () {
+            .onComplete.addOnce(() => {
                 this.game.add.tween(this.mapGroup.scale)
                     .to({ x: maxScale, y: maxScale }, 5000, Phaser.Easing.Exponential.In)
                     .start();
@@ -262,8 +265,8 @@ export default class Intro extends GameState {
                     .to({ alpha: 0 }, 1000)
                     .delay(4000)
                     .start()
-                    .onComplete.addOnce(function () {
-                        Game.timer.add(1000, function () {
+                    .onComplete.addOnce(() => {
+                        Game.timer.add(1000, () => {
                             this.startIntroAnimation();
                         }, this);
                     }, this);
@@ -281,33 +284,33 @@ export default class Intro extends GameState {
             return;
         }
 
-        var sp = this.sparkle;
+        const sp = this.sparkle;
 
         sp.visible = true;
 
-        switch(p) {
-            case 0: //Z sparkle
+        switch (p) {
+            case 0: // Z sparkle
                 sp.x = 55;
                 sp.y = 93;
                 break;
 
-            case 1: //A sparkle
+            case 1: // A sparkle
                 sp.x = 197;
                 sp.y = 128;
                 break;
 
-            case 2: //D sparkle
+            case 2: // D sparkle
                 sp.x = 154;
                 sp.y = 88;
                 break;
 
-            case 3: //E sparkle
+            case 3: // E sparkle
                 sp.x = 113;
                 sp.y = 128;
                 break;
         }
 
-        sp.play('sparkle').onComplete.addOnce(function() {
+        sp.play('sparkle').onComplete.addOnce(() => {
             sp.visible = false;
 
             Game.timer.add(180, this.showSparkle, this, ++p);
@@ -321,26 +324,31 @@ export default class Intro extends GameState {
 
         num--;
 
-        var self = this,
-            effects = this.game.effects;
+        const effects = this.game.effects;
 
-        effects.flashScreen('red', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
-            effects.flashScreen('green', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
-                effects.flashScreen('blue', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA).onComplete.addOnce(function () {
-                    self.blink(num, cb);
-                });
+        effects.flashScreen('red', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
+            .onComplete
+            .addOnce(() => {
+                effects.flashScreen('green', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
+                    .onComplete
+                    .addOnce(() => {
+                        effects.flashScreen('blue', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
+                            .onComplete
+                            .addOnce(() => {
+                                this.blink(num, cb);
+                            });
+                    });
             });
-        });
     }
 
-    private _showLoreSequence(seq: number, cb: () => void) {
-        switch(seq) {
+    private _showLoreSequence(seq: number, cb: TCallback<void>) {
+        switch (seq) {
             case 0:
                 if (this.loreImg1.alpha !== 1) {
                     this.game.add.tween(this.loreImg1)
                         .to({ alpha: 1 }, 500)
                         .start()
-                        .onComplete.addOnce(function () {
+                        .onComplete.addOnce(() => {
                             this._showLoreSequence(seq, cb);
                         }, this);
 
@@ -367,32 +375,32 @@ export default class Intro extends GameState {
                 break;
 
             case 7:
-                if(cb) cb.call(this);
+                if (cb) { cb.call(this); }
                 return;
         }
 
         if (seq === 0) {
-            this.loreDialog.show(loreText[seq], null, false, false).onTypingComplete.addOnce(function () {
+            this.loreDialog.show(loreText[seq], null, false, false).onTypingComplete.addOnce(() => {
                 Game.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
             }, this);
         }
         else {
-            this.loreDialog.append(loreText[seq], false).onTypingComplete.addOnce(function () {
+            this.loreDialog.append(loreText[seq], false).onTypingComplete.addOnce(() => {
                 Game.timer.add(4000, this._showLoreSequence, this, ++seq, cb);
             }, this);
         }
     }
 
-    private _switchLoreImages(fromImg: Phaser.Sprite, toImg: Phaser.Sprite, seq: number, cb: () => void) {
+    private _switchLoreImages(fromImg: Phaser.Sprite, toImg: Phaser.Sprite, seq: number, cb: () => void): boolean {
         if (toImg.alpha !== 1) {
             this.game.add.tween(fromImg)
                 .to({ alpha: 0 }, 500)
                 .start()
-                .onComplete.addOnce(function () {
+                .onComplete.addOnce(() => {
                     this.game.add.tween(toImg)
                         .to({ alpha: 1 }, 500)
                         .start()
-                        .onComplete.addOnce(function () {
+                        .onComplete.addOnce(() => {
                             this._showLoreSequence(seq, cb);
                         }, this);
                 }, this);
@@ -403,7 +411,7 @@ export default class Intro extends GameState {
         return false;
     }
 
-    private _createIntroGroup() {
+    private _createIntroGroup(): void {
         this.introGroup = this.add.group(undefined, 'intro');
         this.introGroup.visible = false;
 
@@ -413,13 +421,13 @@ export default class Intro extends GameState {
         this.intro = this.add.sprite(0, 0, 'sprite_intro', null, this.introGroup);
         this.intro.name = 'intro';
 
-        var frames: string[] = [];
+        let frames: string[] = [];
 
-        for(var i = 3; i < 278; ++i) {
-            var s = i.toString();
-            while(s.length < 5) { s = '0' + s; }
+        for (let i = 3; i < 278; ++i) {
+            let s = i.toString();
+            while (s.length < 5) { s = '0' + s; }
 
-            frames.push('Zelda - A Link to the Past_' + s + '.png');
+            frames.push(`Zelda - A Link to the Past_${s}.png`);
         }
         this.intro.animations.add('intro', frames, 30, false, false);
 
@@ -444,11 +452,11 @@ export default class Intro extends GameState {
             'sparkle/2.png',
             'sparkle/3.png',
             'sparkle/4.png',
-            'sparkle/5.png'
+            'sparkle/5.png',
         ], 17, false, false);
     }
 
-    private _createLoreGroup() {
+    private _createLoreGroup(): void {
         this.loreGroup = this.add.group(undefined, 'lore');
         this.loreGroup.visible = false;
         this.loreGroup.alpha = 0;
@@ -465,16 +473,16 @@ export default class Intro extends GameState {
         this.loreHighlight.name = 'highlight';
         this.loreHighlight.beginFill(0xFFFF00, 0.12);
 
-        //top
+        // top
         this.loreHighlight.drawRect(24, 32, 200, 40);
 
-        //right
+        // right
         this.loreHighlight.drawRect(214, 72, 10, 48);
 
-        //bottom
+        // bottom
         this.loreHighlight.drawRect(24, 120, 200, 72);
 
-        //left
+        // left
         this.loreHighlight.drawRect(24, 72, 26, 48);
 
         this.loreHighlight.endFill();
@@ -500,7 +508,7 @@ export default class Intro extends GameState {
         this.loreDialog.position.set(34, 124);
     }
 
-    private _createMapGroup() {
+    private _createMapGroup(): void {
         this.mapGroup = this.add.group(undefined, 'map');
         this.mapGroup.visible = false;
         this.mapGroup.alpha = 0;

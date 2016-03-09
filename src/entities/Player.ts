@@ -4,7 +4,6 @@ import Pool from '../utility/Pool';
 import math from '../math';
 import { default as Constants, ENTITY_TYPE } from '../data/Constants';
 import { IItemDescriptor } from '../data/ItemDescriptors';
-import { ITiledLayerData } from '../data/TiledMapData';
 import PlayerInventory from '../data/PlayerInventory';
 import Entity from './Entity';
 import ParticleEntity from './misc/Particle';
@@ -12,26 +11,26 @@ import SmashEntity from './misc/Smash';
 import WorldItem from './items/WorldItem';
 
 export default class Player extends Entity {
-    //player type
-    entityType = ENTITY_TYPE.PLAYER;
+    // player type
+    entityType: ENTITY_TYPE = ENTITY_TYPE.PLAYER;
 
-    //maximum maxMagic of this entity
+    // maximum maxMagic of this entity
     maxMagic: number;
 
-    //current magic of this entity
+    // current magic of this entity
     magic: number;
 
-    //objects currently within attack range
+    // objects currently within attack range
     inAttackRange: Entity[];
     colliding: Entity[];
 
-    //a pool of sprite to do smashing animations
+    // a pool of sprite to do smashing animations
     smashPool: Pool<SmashEntity>;
 
-    //a pool of world items to be dropped
+    // a pool of world items to be dropped
     itemPool: Pool<WorldItem>;
 
-    //a pool of particles to throw around
+    // a pool of particles to throw around
     particlePool: Pool<ParticleEntity>;
 
     liftSound: Phaser.Sound;
@@ -97,10 +96,10 @@ export default class Player extends Entity {
     }
 
     addAnimations() {
-        //add walking animations
+        // add walking animations
         this._addDirectionalPrefixedFrames('walk', 8, 24, true);
 
-        //add idle shield animations
+        // add idle shield animations
         this.animations.add('idle_shield_left', ['walk_shield_left/walk_shield_left_1.png']);
         this.animations.add('idle_shield_right', ['walk_shield_right/walk_shield_right_1.png']);
         this.animations.add('idle_shield_down', ['walk_shield_down/walk_shield_down_1.png']);
@@ -116,79 +115,53 @@ export default class Player extends Entity {
         this.animations.add('lift_idle_down', ['lift_walk_down/lift_walk_down_1.png']);
         this.animations.add('lift_idle_up', ['lift_walk_up/lift_walk_up_1.png']);
 
-        //add attack animations
+        // add attack animations
         this._addDirectionalPrefixedFrames('attack', 9, 36);
 
-        //add bow attack animations
+        // add bow attack animations
         this._addDirectionalPrefixedFrames('attack_bow', 3, 24);
 
-        //add spin attack animations
+        // add spin attack animations
         this._addDirectionalPrefixedFrames('attack_spin', 12, 24);
 
-        //add attack tap animations
+        // add attack tap animations
         this._addDirectionalPrefixedFrames('attack_tap', 3, 24);
 
-        //add fall in hole animations
+        // add fall in hole animations
         this._addFrames(['fall_in_hole/fall_in_hole'], 4, 3);
 
-        //add lifting animations
+        // add lifting animations
         this._addDirectionalPrefixedFrames('lift', 4, 12);
 
-        //add lifting walking animations
+        // add lifting walking animations
         this.animations.add('lift_walk_left', [
             'lift_walk_left/lift_walk_left_1.png',
             'lift_walk_left/lift_walk_left_2.png',
             'lift_walk_left/lift_walk_left_3.png',
-            'lift_walk_left/lift_walk_left_2.png'
+            'lift_walk_left/lift_walk_left_2.png',
         ], 12, true);
 
         this.animations.add('lift_walk_right', [
             'lift_walk_right/lift_walk_right_1.png',
             'lift_walk_right/lift_walk_right_2.png',
             'lift_walk_right/lift_walk_right_3.png',
-            'lift_walk_right/lift_walk_right_2.png'
+            'lift_walk_right/lift_walk_right_2.png',
         ], 12, true);
 
-        //this._addFrames(['lift_walk_left', 'lift_walk_right'], 3, 0.2, true);
+        // this._addFrames(['lift_walk_left', 'lift_walk_right'], 3, 0.2, true);
         this._addFrames(['lift_walk_down/lift_walk_down', 'lift_walk_up/lift_walk_up'], 6, 15, true);
 
-        //add pulling animations
+        // add pulling animations
         this._addDirectionalPrefixedFrames('push', 5, 6, true);
 
-        //add walking-attacking animations
+        // add walking-attacking animations
         this._addFrames(['walk_attack_left/walk_attack_left', 'walk_attack_right/walk_attack_right'], 3, 24, true);
         this._addFrames(['walk_attack_down/walk_attack_down', 'walk_attack_up/walk_attack_up'], 6, 24, true);
 
-        //add walking with shield animations
+        // add walking with shield animations
         this._addDirectionalPrefixedFrames('walk_shield', 8, 24, true);
 
         this.textureDirty = true;
-    }
-
-    private _addDirectionalPrefixedFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
-        this._addDirectionalFrames(type + '_%s/' + type + '_%s', num, frameRate, loop);
-    }
-
-    private _updateAnimation() {
-        // update attack animation
-        if (this.attacking) {
-            this.animations.play('attack_' + this.facing);
-            return;
-        }
-
-        // update movement animation
-        var moving = this.moving[Phaser.UP] || this.moving[Phaser.DOWN] || this.moving[Phaser.LEFT] || this.moving[Phaser.RIGHT];
-
-        var anim = (moving ? 'walk' : 'idle');
-
-        if (this.carrying) {
-            anim = 'lift_' + anim;
-        }
-        else if (this.inventory.shield) {
-            anim += '_shield';
-        }
-
-        this.animations.play(anim + '_' + this._getFacingString());
     }
 
     setup(level: Level): Player {
@@ -276,17 +249,7 @@ export default class Player extends Entity {
         this._checkAttack();
     }
 
-    private _checkAttack() {
-        for(var i = this.inAttackRange.length - 1; i > -1; --i) {
-            var ent = this.inAttackRange[i];
-
-            if(math.isInViewCone(this, ent, Constants.PLAYER_ATTACK_CONE)) {
-                ent.damage(this.attackDamage);
-            }
-        }
-    }
-
-    //Talk, run, Lift/Throw/Push/Pull
+    // Talk, run, Lift/Throw/Push/Pull
     use(active: boolean) {
         if (!active || this.locked) {
             return;
@@ -298,19 +261,19 @@ export default class Player extends Entity {
         }
 
         // interact with the first thing in the use cone that you can
-        for(var i = 0; i < this.colliding.length; ++i) {
-            var ent = this.colliding[i];
+        for (let i = 0; i < this.colliding.length; ++i) {
+            const ent = this.colliding[i];
 
-            if(math.isInViewCone(this, ent, Constants.PLAYER_USE_CONE)) {
-                switch(ent.properties.type) {
+            if (math.isInViewCone(this, ent, Constants.PLAYER_USE_CONE)) {
+                switch (ent.properties.type) {
                     // TODO: Make the item decide this stuff? They all implement a `use` method instead?
-                    case Constants.MAP_OBJECTS.CHEST:
+                    case Constants.MAP_OBJECTS['CHEST']:
                         if (this.facing === Phaser.UP) {
                             this.openChest(ent);
                         }
                         break;
 
-                    case Constants.MAP_OBJECTS.SIGN:
+                    case Constants.MAP_OBJECTS['SIGN']:
                         if (this.facing === Phaser.UP) {
                             this.readSign(ent);
                         }
@@ -319,14 +282,14 @@ export default class Player extends Entity {
                         }
                         break;
 
-                    case Constants.MAP_OBJECTS.ROCK:
+                    case Constants.MAP_OBJECTS['ROCK']:
                         if (this.inventory.gloves) {
                             this.liftItem(ent);
                         }
                         break;
 
-                    case Constants.MAP_OBJECTS.GRASS:
-                    case Constants.MAP_OBJECTS.POT:
+                    case Constants.MAP_OBJECTS['GRASS']:
+                    case Constants.MAP_OBJECTS['POT']:
                         this.liftItem(ent);
                         break;
                 }
@@ -338,9 +301,7 @@ export default class Player extends Entity {
     }
 
     useItem(active: boolean) {
-        if(active) return;
-
-        var particle: ParticleEntity;
+        if (active) { return; }
 
         // if there is no item equipted or the item costs more magic than the player has currently
         if (!this.equipted || this.magic < this.equipted.cost) {
@@ -352,34 +313,19 @@ export default class Player extends Entity {
         this.magic -= this.equipted.cost;
 
         // create the item particle
-        particle = this.particlePool.alloc();
+        let particle = this.particlePool.alloc();
         particle.boot(this.equipted);
 
         this.parent.addChild(particle);
     }
 
-    private _destroyObject(obj: any) {
-        var spr = this.smashPool.alloc();
-
-        spr.animations.play(obj.properties.type);
-        spr.anchor.copyFrom(obj.anchor);
-        spr.position.copyFrom(obj.position);
-        spr.visible = true;
-
-        //add sprite
-        obj.parent.addChild(spr);
-
-        //TODO: drops?
-        obj.destroy();
-    }
-
     destroy() {
-        debugger;
+        // debugger;
     }
 
     throwItem() {
-        var v = this._getFacingVector(),
-            yf = v.y === -1 ? 0 : 1;
+        const v = this._getFacingVector();
+        const yf = v.y === -1 ? 0 : 1;
 
         this.carrying = null;
         this.throwSound.play();
@@ -387,10 +333,10 @@ export default class Player extends Entity {
         this.game.add.tween(this.carrying)
             .to({
                 x: this.carrying.x + (Constants.PLAYER_THROW_DISTANCE_X * v.x),
-                y: this.carrying.y + (Constants.PLAYER_THROW_DISTANCE_Y * v.y) + (yf * this.height)
+                y: this.carrying.y + (Constants.PLAYER_THROW_DISTANCE_Y * v.y) + (yf * this.height),
             }, 250)
             .start()
-            .onComplete.addOnce(function () {
+            .onComplete.addOnce(() => {
                 this._destroyObject(this.carrying);
             }, this);
 
@@ -404,11 +350,11 @@ export default class Player extends Entity {
         }
 
         // conditional loot based on inventory
-        var loot = chest.properties.loot.split(','),
-            i = 0;
+        let loot = chest.properties.loot.split(',');
+        let i = 0;
 
         // find the first loot item they don't have already
-        while(i < loot.length - 1 && this.inventory[loot[i]]) {
+        while (i < loot.length - 1 && this.inventory[loot[i]]) {
             ++i;
         }
 
@@ -425,7 +371,7 @@ export default class Player extends Entity {
         this.openChestSound.play();
 
         // show loot
-        var obj = this.itemPool.alloc();
+        const obj = this.itemPool.alloc();
         this.parent.addChild(obj);
         obj.boot(chest, loot);
         obj.position.y -= 5;
@@ -439,7 +385,7 @@ export default class Player extends Entity {
             .to({ y: obj.y - 5 }, 1500)
             .start()
             .onComplete.addOnce(function () {
-                //TODO: Show dialog when first time item has been got
+                // TODO: Show dialog when first time item has been got
 
                 // unlock the player
                 this.unlock();
@@ -451,7 +397,7 @@ export default class Player extends Entity {
                 // update the inventory/hud
                 this.inventory[obj.itemType] += obj.value;
 
-                //TODO: hud updates
+                // TODO: hud updates
                 // this.emit('updateHud');
             }, this);
 
@@ -468,21 +414,21 @@ export default class Player extends Entity {
         // lock player movement
         this.lock();
 
-        //TODO: item physics
+        // TODO: item physics
         // change physics to sensor
         // item.disablePhysics();
         // item.sensor = true;
         // item.enablePhysics();
 
         // remove from collision list
-        var idx = this.colliding.indexOf(item);
+        const idx = this.colliding.indexOf(item);
         if (idx !== -1) {
             this.colliding.splice(idx, 1);
         }
 
         // drop the loot
         if (item.properties.loot) {
-            var obj = this.itemPool.alloc();
+            const obj = this.itemPool.alloc();
 
             obj.boot(item);
             this.game.add.existing(obj);
@@ -502,7 +448,7 @@ export default class Player extends Entity {
         // item.setTexture(new PIXI.Texture(item.texture.baseTexture));
         // item.setFrame(item.frames.getFrameByName('dungeon/' + item.itemType + (item.properties.heavy ? '_heavy' : '') + '.png'));
 
-        //lift the item
+        // lift the item
         this.animations.play('lift_' + this._getFacingString());
         this.liftSound.play();
 
@@ -515,21 +461,21 @@ export default class Player extends Entity {
     }
 
     collectLoot(item: WorldItem) {
-        switch(item.itemType) {
-            case Constants.WORLD_ITEMS.HEART:
+        switch (item.itemType) {
+            case Constants.WORLD_ITEMS['HEART']:
                 this.heal(1);
                 break;
 
-            case Constants.WORLD_ITEMS.MAGIC:
+            case Constants.WORLD_ITEMS['MAGIC']:
                 this.magic += item.value;
-                if(this.magic > this.maxMagic) {
+                if (this.magic > this.maxMagic) {
                     this.magic = this.maxMagic;
                 }
                 break;
 
-            case Constants.WORLD_ITEMS.ARROWS:
-            case Constants.WORLD_ITEMS.BOMBS:
-            case Constants.WORLD_ITEMS.RUPEES:
+            case Constants.WORLD_ITEMS['ARROWS']:
+            case Constants.WORLD_ITEMS['BOMBS']:
+            case Constants.WORLD_ITEMS['RUPEES']:
                 this.inventory[item.type] += item.value;
                 break;
         }
@@ -553,7 +499,7 @@ export default class Player extends Entity {
             if (obj.type) {
                 this.inAttackRange.push(obj);
 
-                //something new walked in while we were attacking
+                // something new walked in while we were attacking
                 if (this.attacking) {
                     this._checkAttack();
                 }
@@ -573,7 +519,7 @@ export default class Player extends Entity {
     onEndContact(obj: Entity | WorldItem, objShape: p2.Shape, myShape: p2.Shape) {
         // remove from attack range
         if (myShape === this.attackSensor) {
-            var i = this.inAttackRange.indexOf(obj);
+            const i = this.inAttackRange.indexOf(obj);
 
             if (i >= 0) {
                 this.inAttackRange.splice(i, 1);
@@ -581,9 +527,9 @@ export default class Player extends Entity {
         }
         // remove from collision list
         else if (!obj.body.data.shapes[0].sensor) {
-            var i = this.colliding.indexOf(obj);
+            const i = this.colliding.indexOf(obj);
 
-            if(i >= 0) {
+            if (i >= 0) {
                 this.colliding.splice(i, 1);
             }
 
@@ -597,11 +543,62 @@ export default class Player extends Entity {
         item.properties.loot = null;
 
         if (item.parent) {
-            var layer = <Phaser.Plugin.Tiled.Objectlayer>item.parent;
+            const layer = <Phaser.Plugin.Tiled.Objectlayer>item.parent;
 
             layer.objects[(<any>item)._objIndex].properties.loot = null;
 
             this.game.loadedSave.updateZoneData(layer);
+        }
+    }
+
+    private _destroyObject(obj: any) {
+        const spr = this.smashPool.alloc();
+
+        spr.animations.play(obj.properties.type);
+        spr.anchor.copyFrom(obj.anchor);
+        spr.position.copyFrom(obj.position);
+        spr.visible = true;
+
+        // add sprite
+        obj.parent.addChild(spr);
+
+        // TODO: drops?
+        obj.destroy();
+    }
+
+    private _addDirectionalPrefixedFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
+        this._addDirectionalFrames(type + '_%s/' + type + '_%s', num, frameRate, loop);
+    }
+
+    private _updateAnimation() {
+        // update attack animation
+        if (this.attacking) {
+            this.animations.play('attack_' + this.facing);
+            return;
+        }
+
+        // update movement animation
+        const moving = this.moving[Phaser.UP] || this.moving[Phaser.DOWN] || this.moving[Phaser.LEFT] || this.moving[Phaser.RIGHT];
+
+        let anim = (moving ? 'walk' : 'idle');
+
+        if (this.carrying) {
+            anim = 'lift_' + anim;
+        }
+        else if (this.inventory.shield) {
+            anim += '_shield';
+        }
+
+        this.animations.play(anim + '_' + this._getFacingString());
+    }
+
+    private _checkAttack() {
+        for (let i = this.inAttackRange.length - 1; i > -1; --i) {
+            const ent = this.inAttackRange[i];
+
+            if (math.isInViewCone(this, ent, Constants.PLAYER_ATTACK_CONE)) {
+                ent.damage(this.attackDamage);
+            }
         }
     }
 }

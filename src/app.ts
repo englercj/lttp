@@ -5,5 +5,7 @@ import '../less/main.less';
 import Game from './Game';
 
 window.onload = () => {
-    new Game();
+    const game = new Game();
+
+    (<any>window).game = game;
 };

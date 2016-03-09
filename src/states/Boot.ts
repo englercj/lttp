@@ -1,14 +1,20 @@
 import GameState from './GameState';
 
 export default class Boot extends GameState {
-    preload() {
+    preload(): void {
         super.preload();
 
         this.load.image('image_preloader', require('../../assets/ui/loader.png'));
-        this.load.atlas('sprite_rog_font', require('../../assets/sprites/fonts/retofganon.png'),  require('../../assets/sprites/fonts/retofganon.json'), null, Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+        this.load.atlas(
+            'sprite_rog_font',
+            require('../../assets/sprites/fonts/retofganon.png'),
+            require('../../assets/sprites/fonts/retofganon.json'),
+            null,
+            Phaser.Loader.TEXTURE_ATLAS_JSON_HASH
+        );
     }
 
-    create() {
+    create(): void {
         super.create();
 
         // don't specifically need multitouch, so turn it off.

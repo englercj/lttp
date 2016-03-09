@@ -4,6 +4,8 @@ import PlayerInventory from '../data/PlayerInventory';
 import { IItemDescriptor } from '../data/ItemDescriptors';
 
 export default class Save {
+    private static VERSION: number = 1;
+
     // player data
     inventory: PlayerInventory = new PlayerInventory();
     equipted: IItemDescriptor = null;
@@ -23,16 +25,12 @@ export default class Save {
 
     lastUsedExit: any = {
         name: 'linkshouse',
-        properties: {
-            loc: [125, 140]
-        }
+        properties: { loc: [125, 140] },
     };
 
     saveFileExists: boolean = false;
 
     private _cacheKey: string;
-
-    private static VERSION: number = 1;
 
     constructor(slot: number, name?: string) {
         this._cacheKey = this._key(slot);
@@ -52,7 +50,7 @@ export default class Save {
     }
 
     load(): Save {
-        var data = Storage.load(this._cacheKey);
+        const data = Storage.load(this._cacheKey);
 
         if (data) {
             this.loadFrom(data);
@@ -69,8 +67,8 @@ export default class Save {
     }
 
     updateZoneData(layer: Phaser.Plugin.Tiled.Objectlayer) {
-        var mapData = this.mapData[layer.map.name] || { zones: {} },
-            zoneData = mapData.zones[layer.name] || { objects: [] };
+        const mapData = this.mapData[layer.map.name] || { zones: {} };
+        const zoneData = mapData.zones[layer.name] || { objects: [] };
 
         zoneData.objects.length = 0;
 
@@ -78,11 +76,11 @@ export default class Save {
         // then the indexes change and saved data is invalid. Instead there should be a keying system.
         // Potentially hashing some data about the object to generate a unique key?
 
-        for (var i = 0, il = layer.objects.length; i < il; ++i) {
+        for (let i = 0, il = layer.objects.length; i < il; ++i) {
             zoneData.objects.push({
                 properties: {
-                    loot: (<any>layer.objects[i]).properties.loot
-                }
+                    loot: layer.objects[i].properties.loot,
+                },
             });
         }
 
@@ -129,7 +127,7 @@ export default class Save {
         }
     }
 
-    private _key(slot: number = this.slot, version: number = Save.VERSION): string {
+    private _key(slot: number = this.slot, version: number = Save.VERSION) {
         return 'save:' + version  + ':' + slot;
     }
 

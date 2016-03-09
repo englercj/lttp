@@ -22,7 +22,7 @@ export default class Hud extends Phaser.Group {
             bombs:      new InventoryCounter(game, this, 135, 30, 'rupees', 0),
             arrows:     new InventoryCounter(game, this, 195, 30, 'bombs', 0),
             magicMeter: new InventoryCounter(game, this, 245, 30, 'arrows', 0),
-            life:       new LifeMeter(game, this, 320, 35, 3)
+            life:       new LifeMeter(game, this, 320, 35, 3),
         };
     }
 

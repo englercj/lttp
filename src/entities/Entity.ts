@@ -100,7 +100,7 @@ export default class Entity extends Phaser.Sprite {
     }
 
     _addDirectionalFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
-        if(type.indexOf('%s') === -1) {
+        if (type.indexOf('%s') === -1) {
             type += '_%s';
         }
 
@@ -108,21 +108,21 @@ export default class Entity extends Phaser.Sprite {
             type.replace(/%s/g, 'left'),
             type.replace(/%s/g, 'right'),
             type.replace(/%s/g, 'down'),
-            type.replace(/%s/g, 'up')
+            type.replace(/%s/g, 'up'),
         ], num, frameRate, loop);
     }
 
     _addFrames(types: string[], num: number, frameRate: number = 60, loop: boolean = false) {
-        for(var t = 0, tl = types.length; t < tl; ++t) {
-            var frames: string[] = [],
-                type = types[t],
-                name = type.replace(/.+\/|\.png|_%./g, '');
+        for (let t = 0, tl = types.length; t < tl; ++t) {
+            const frames: string[] = [];
+            let type = types[t];
+            const name = type.replace(/.+\/|\.png|_%./g, '');
 
-            if(type.indexOf('%d') === -1) {
+            if (type.indexOf('%d') === -1) {
                 type += '_%d';
             }
 
-            for(var f = 1; f <= num; ++f) {
+            for (let f = 1; f <= num; ++f) {
                 frames.push(type.replace(/%d/g, f.toString()) + '.png');
             }
 

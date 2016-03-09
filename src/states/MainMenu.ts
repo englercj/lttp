@@ -1,4 +1,3 @@
-import Game from '../Game';
 import GameState from './GameState';
 import Constants from '../data/Constants';
 import Pool from '../utility/Pool';
@@ -13,19 +12,6 @@ enum MainMenuActiveMenu {
 };
 
 export default class MainMenu extends GameState {
-
-    private active: MainMenuActiveMenu;
-    private pnameI: number;
-    private selected: number;
-    private selectedChar: Phaser.Point;
-    private delta: Phaser.Point;
-
-    private line: Phaser.Graphics;
-
-    private saves: Save[];
-
-    private characters: ReturnOfGanon[][];
-
     music: Phaser.Sound;
 
     frames: Phaser.FrameData;
@@ -55,6 +41,18 @@ export default class MainMenu extends GameState {
 
     fontpool: Pool<ReturnOfGanon>;
     heartpool: Pool<Phaser.Sprite>;
+
+    private active: MainMenuActiveMenu;
+    private pnameI: number;
+    private selected: number;
+    private selectedChar: Phaser.Point;
+    private delta: Phaser.Point;
+
+    private line: Phaser.Graphics;
+
+    private saves: Save[];
+
+    private characters: ReturnOfGanon[][];
 
     preload() {
         super.preload();
@@ -96,36 +94,36 @@ export default class MainMenu extends GameState {
 
     move(direction: number) {
         if (this.active === MainMenuActiveMenu.SELECT) {
-            if(direction === Phaser.DOWN) {
+            if (direction === Phaser.DOWN) {
                 this.selected++;
                 this.selected %= 5;
             }
-            else if(direction === Phaser.UP) {
+            else if (direction === Phaser.UP) {
                 this.selected--;
 
-                if(this.selected === -1) {
+                if (this.selected === -1) {
                     this.selected = 4;
                 }
             }
 
-            switch(this.selected) {
-                case 0: //slot 1
+            switch (this.selected) {
+                case 0: // slot 1
                     this.fairySprite.position.y = 72;
                     break;
 
-                case 1: //slot 2
+                case 1: // slot 2
                     this.fairySprite.position.y = 103;
                     break;
 
-                case 2: //slot 3
+                case 2: // slot 3
                     this.fairySprite.position.y = 132;
                     break;
 
-                case 3: //copy
+                case 3: // copy
                     this.fairySprite.position.y = 177;
                     break;
 
-                case 4: //erase
+                case 4: // erase
                     this.fairySprite.position.y = 192;
                     break;
             }
@@ -133,8 +131,8 @@ export default class MainMenu extends GameState {
             this.cursorSound.play();
         }
         else if (this.active === MainMenuActiveMenu.REGISTER) {
-            //move line around, and move text around
-            switch(direction) {
+            // move line around, and move text around
+            switch (direction) {
                 case Phaser.DOWN:
                     this.selectedChar.y++;
                     break;
@@ -158,11 +156,11 @@ export default class MainMenu extends GameState {
             this.line.position.y = 132 + (this.selectedChar.y * this.delta.y);
             this.charactersGroup.position.x = -((this.selectedChar.x - 6) * this.delta.x);
         }
-        else if(this.active === MainMenuActiveMenu.ERASE) {
-
+        else if (this.active === MainMenuActiveMenu.ERASE) {
+            // TODO: Implement ERASE
         }
-        else if(this.active === MainMenuActiveMenu.COPY) {
-
+        else if (this.active === MainMenuActiveMenu.COPY) {
+            // TODO: Implement COPY
         }
     }
 
@@ -197,16 +195,16 @@ export default class MainMenu extends GameState {
             this.selectSound.play();
         }
         else if (this.active === MainMenuActiveMenu.REGISTER) {
-            //add letter
-            var n = this.pname.text,
-                ch = this.characters[this.selectedChar.y][this.selectedChar.x];
+            // add letter
+            let n = this.pname.text;
+            const ch = this.characters[this.selectedChar.y][this.selectedChar.x];
 
             if (ch.name === 'end') {
                 if (!n.trim()) {
                     return this.activate(MainMenuActiveMenu.SELECT);
                 }
                 else {
-                    var ls = new Save(this.selected, n.split('').filter((ch, i) => (i % 2 === 0)).join(''));
+                    const ls = new Save(this.selected, n.split('').filter((ch: string, i: number) => (i % 2 === 0)).join(''));
                     ls.save();
 
                     this.selectSound.play();
@@ -226,7 +224,7 @@ export default class MainMenu extends GameState {
 
             // max length, replace other characters
             if (n.length === 11 || this.pnameI < (n.length / 2)) {
-                var i = this.pnameI * 2;
+                const i = this.pnameI * 2;
 
                 n = n.substr(0, i) + ch.text + n.substr(i + 1);
             }
@@ -247,11 +245,11 @@ export default class MainMenu extends GameState {
 
             this.lowhpSound.play();
         }
-        else if(this.active === MainMenuActiveMenu.ERASE) {
-
+        else if (this.active === MainMenuActiveMenu.ERASE) {
+            // TODO: Implement ERASE
         }
-        else if(this.active === MainMenuActiveMenu.COPY) {
-
+        else if (this.active === MainMenuActiveMenu.COPY) {
+            // TODO: Implement COPY
         }
     }
 
@@ -271,16 +269,16 @@ export default class MainMenu extends GameState {
         else if (menu === MainMenuActiveMenu.SELECT) {
             this.selectGroup.visible = true;
 
-            var s = this.saves = [
+            const s = this.saves = [
                 new Save(0),
                 new Save(1),
-                new Save(2)
+                new Save(2),
             ];
 
-            for(var i = 0; i < s.length; ++i) {
-                var sv = s[i].load();
-                var spr = this.linkSprites[i];
-                var txt = this.slotTexts[i];
+            for (let i = 0; i < s.length; ++i) {
+                const sv = s[i].load();
+                const spr = this.linkSprites[i];
+                const txt = this.slotTexts[i];
 
                 txt.text = (i + 1) + '.' + (sv.saveFileExists ? sv.name : '');
 
@@ -307,32 +305,35 @@ export default class MainMenu extends GameState {
     }
 
     private _renderHearts(group: Phaser.Group, value: number, max: number) {
-        var x = 0,
-            y = 20,
-            size = 16,
-            perRow = 10;
+        let x = 0;
+        let y = 20;
+        const size = 16;
+        const perRow = 10;
 
-        for(var hp = value; hp > 0; --hp) {
+        let done = 0;
+
+        for (let hp = value; hp > 0; --hp) {
             done++;
 
-            var spr = this.heartpool.alloc();
+            const spr = this.heartpool.alloc();
             spr.setFrame(this.frames.getFrameByName(hp < 1 ? 'heart-half.png' : 'heart-full.png'));
             spr.position.x = x;
             spr.position.y = y + (hp < 1 ? 2 : 0);
             spr.visible = true;
 
-            if((x / size) >= (perRow - 1)) {
+            if ((x / size) >= (perRow - 1)) {
                 x = 0;
                 y += size;
-            } else {
+            }
+            else {
                 x += size;
             }
 
             group.add(spr);
         }
 
-        for(var done = 0; done < max; ++done) {
-            var spr = this.heartpool.alloc();
+        for (; done < max; ++done) {
+            const spr = this.heartpool.alloc();
 
             spr.setFrame(this.frames.getFrameByName('heart-empty.png'));
             spr.position.x = x;
@@ -342,7 +343,8 @@ export default class MainMenu extends GameState {
             if ((x / size) >= (perRow - 1)) {
                 x = 0;
                 y += size;
-            } else {
+            }
+            else {
                 x += size;
             }
 
@@ -358,33 +360,35 @@ export default class MainMenu extends GameState {
         this.fairySprite = this.add.sprite(27, 72, 'sprite_select', null, this.selectGroup);
         this.fairySprite.animations.add('flap', ['fairy1.png', 'fairy2.png'], 6, true).play();
 
-        this.linkSprites[0] = this.add.sprite(52, 64, 'sprite_select', null, this.selectGroup);
+        this.linkSprites = [
+            this.add.sprite(52, 64, 'sprite_select', null, this.selectGroup),
+            this.add.sprite(52, 96, 'sprite_select', null, this.selectGroup),
+            this.add.sprite(52, 124, 'sprite_select', null, this.selectGroup),
+        ];
         this.linkSprites[0].visible = false;
-
-        this.linkSprites[1] = this.add.sprite(52, 96, 'sprite_select', null, this.selectGroup);
         this.linkSprites[1].visible = false;
-
-        this.linkSprites[2] = this.add.sprite(52, 124, 'sprite_select', null, this.selectGroup);
         this.linkSprites[2].visible = false;
 
-        this.heartsGroups[0] = this.add.group(this.selectGroup);
+        this.heartsGroups = [
+            this.add.group(this.selectGroup),
+            this.add.group(this.selectGroup),
+            this.add.group(this.selectGroup),
+        ];
         this.heartsGroups[0].position.set(142, 63);
-
-        this.heartsGroups[1] = this.add.group(this.selectGroup);
         this.heartsGroups[1].position.set(142, 93);
-
-        this.heartsGroups[2] = this.add.group(this.selectGroup);
         this.heartsGroups[2].position.set(142, 142);
 
-        var textGroup = this.add.group(this.selectGroup);
+        const textGroup = this.add.group(this.selectGroup);
 
         textGroup.add(this.fontpool.alloc(false, 40, 25, 'PLAYER SELECT', 16));
         textGroup.add(this.fontpool.alloc(false, 50, 178, 'COPY  PLAYER', 16));
         textGroup.add(this.fontpool.alloc(false, 50, 193, 'ERASE PLAYER', 16));
 
-        this.slotTexts[0] = textGroup.add(this.fontpool.alloc(false, 72, 72, '1.', 16));
-        this.slotTexts[1] = textGroup.add(this.fontpool.alloc(false, 72, 102, '2.', 16));
-        this.slotTexts[2] = textGroup.add(this.fontpool.alloc(false, 72, 132, '3.', 16));
+        this.slotTexts = [
+            textGroup.add(this.fontpool.alloc(false, 72, 72, '1.', 16)),
+            textGroup.add(this.fontpool.alloc(false, 72, 102, '2.', 16)),
+            textGroup.add(this.fontpool.alloc(false, 72, 132, '3.', 16)),
+        ];
     }
 
     private _setupRegister() {
@@ -392,49 +396,54 @@ export default class MainMenu extends GameState {
 
         this.pointerSprite = this.add.sprite(30, 88, 'sprite_select', 'pointer.png', this.registerGroup);
 
-        var textGroup = this.add.group(this.registerGroup),
-            lines = [
-                'ABCDEFGHIJ  abcdefghij  01234',
-                'KLMNOPQRST  klmnopqrst  56789',
-                'UVWXYZDPC   uvwxyzDPC   EQPP ',
-                '     <> =+       <> =+  <> =+'
-            ];
+        const textGroup = this.add.group(this.registerGroup);
+        const lines = [
+            'ABCDEFGHIJ  abcdefghij  01234',
+            'KLMNOPQRST  klmnopqrst  56789',
+            'UVWXYZDPC   uvwxyzDPC   EQPP ',
+            '     <> =+       <> =+  <> =+',
+        ];
 
         textGroup.add(this.fontpool.alloc(false, 40, 40, 'REGISTER  YOUR  NAME', 16));
 
         this.pname = textGroup.add(this.fontpool.alloc(false, 30, 96, '', 16));
 
-        //create all the characters
+        // create all the characters
         this.charactersGroup = this.add.group(textGroup);
         this.characters = [];
 
-        var sx = 32,
-            sy = 125,
-            cx = sx,
-            cy = sy;
+        const sx = 32;
+        const sy = 125;
+        let cx = sx;
+        let cy = sy;
 
-        for(var y = 0; y < lines.length; ++y) {
+        for (let y = 0; y < lines.length; ++y) {
             this.characters[y] = [];
 
-            var line = lines[y].split('');
-            for(var x = 0; x < line.length; ++x) {
-                var txt = this.charactersGroup.add(this.fontpool.alloc(false, cx, cy));
+            const line = lines[y].split('');
+
+            for (let x = 0; x < line.length; ++x) {
+                const txt = this.charactersGroup.add(this.fontpool.alloc(false, cx, cy));
 
                 this.characters[y][x] = txt;
 
                 if (line[x] === '=') {
                     txt.text = 'END';
                     txt.name = 'end';
-                } else if (line[x] === '+') {
+                }
+                else if (line[x] === '+') {
                     txt.text = ' ';
                     txt.name = 'end';
-                } else if (line[x] === '<') {
+                }
+                else if (line[x] === '<') {
                     txt.text = '<';
                     txt.name = 'left';
-                } else if (line[x] === '>') {
+                }
+                else if (line[x] === '>') {
                     txt.text = '>';
                     txt.name = 'right';
-                } else {
+                }
+                else {
                     txt.text = line[x];
                 }
 
@@ -457,29 +466,29 @@ export default class MainMenu extends GameState {
     }
 
     private _onInputDown(key: number, value: number, event: any) {
-        switch(key) {
+        switch (key) {
             case Phaser.Keyboard.DOWN:
             case Phaser.Keyboard.S:
             case Phaser.Gamepad.XBOX360_DPAD_DOWN:
-                this.move(Phaser.DOWN)
+                this.move(Phaser.DOWN);
                 break;
 
             case Phaser.Keyboard.UP:
             case Phaser.Keyboard.W:
             case Phaser.Gamepad.XBOX360_DPAD_UP:
-                this.move(Phaser.UP)
+                this.move(Phaser.UP);
                 break;
 
             case Phaser.Keyboard.LEFT:
             case Phaser.Keyboard.A:
             case Phaser.Gamepad.XBOX360_DPAD_LEFT:
-                this.move(Phaser.LEFT)
+                this.move(Phaser.LEFT);
                 break;
 
             case Phaser.Keyboard.RIGHT:
             case Phaser.Keyboard.D:
             case Phaser.Gamepad.XBOX360_DPAD_RIGHT:
-                this.move(Phaser.RIGHT)
+                this.move(Phaser.RIGHT);
                 break;
 
             case Phaser.Gamepad.XBOX360_STICK_LEFT_X:
@@ -501,5 +510,6 @@ export default class MainMenu extends GameState {
     }
 
     private _onInputUp(key: number, value: number, event: any) {
+        // abstract
     }
 }

@@ -22,8 +22,8 @@ export interface IItemDescriptor {
     particle?: IParticleDescriptor;
 }
 
-export const ItemDescriptors: { [key: string]: IItemDescriptor } = {
-    //Special items
+export const itemDescriptors: TTable<IItemDescriptor> = {
+    // Special items
     sword:        { name: 'sword',        icon: 'items/sword%d.png',        position: [180, 160] },
     shield:       { name: 'shield',       icon: 'items/shield%d.png',       position: [200, 160] },
     armor:        { name: 'armor',        icon: 'items/armor%d.png',        position: [220, 160] },
@@ -36,7 +36,7 @@ export const ItemDescriptors: { [key: string]: IItemDescriptor } = {
     txtRun:       { name: 'txtRun',       icon: 'text/run.png',             position: [81, 176] },
     txtSwim:      { name: 'txtSwim',      icon: 'text/swim.png',            position: [121, 176] },
 
-    //equiptable items
+    // equiptable items
     boomerang:    { name: 'boomerang',    icon: 'items/boomerang%d.png',    position: [56, 32],      grid: [1, 0] },
     hookshot:     { name: 'hookshot',     icon: 'items/hookshot.png',       position: [80, 32],      grid: [2, 0] },
     bombs:        { name: 'bombs',        icon: 'items/bomb.png',           position: [104, 32],     grid: [3, 0] },
@@ -53,23 +53,26 @@ export const ItemDescriptors: { [key: string]: IItemDescriptor } = {
     net:          { name: 'net',          icon: 'items/net.png',            position: [104, 80],     grid: [3, 2] },
     book:         { name: 'book',         icon: 'items/book_of_mudora.png', position: [128, 80],     grid: [4, 2] },
     bottle:       { name: 'bottle',       icon: 'items/bottle_empty.png',   position: [32, 104],     grid: [0, 3] },
-    somaria:      { name: 'somaria',      icon: 'items/cane_of_somaria.png',position: [56, 104],     grid: [1, 3] },
+    somaria:      { name: 'somaria',      icon: 'items/cane_of_somaria.png', position: [56, 104],    grid: [1, 3] },
     byrna:        { name: 'byrna',        icon: 'items/cane_of_byrna.png',  position: [80, 104],     grid: [2, 3] },
     cape:         { name: 'cape',         icon: 'items/magic_cape.png',     position: [104, 104],    grid: [3, 3] },
     mirror:       { name: 'mirror',       icon: 'items/magic_mirror.png',   position: [128, 104],    grid: [4, 3] },
 
     bow: {
         name: 'bow',
-        icon: function (game) {
-            if (game.player.inventory.silver_arrows && game.player.inventory.arrows)
+        icon: function (game: Game) {
+            if (game.player.inventory.silverArrows && game.player.inventory.arrows) {
                 return 'items/bow_and_silver_arrow.png';
-            else if (game.player.inventory.arrows)
-                return 'items/bow_and_arrow.png'
-            else
+            }
+            else if (game.player.inventory.arrows) {
+                return 'items/bow_and_arrow.png';
+            }
+            else {
                 return 'items/bow.png';
+            }
         },
         position: [32, 32],
-        grid: [0, 0]
+        grid: [0, 0],
     },
 
     lantern: {
@@ -86,7 +89,7 @@ export const ItemDescriptors: { [key: string]: IItemDescriptor } = {
             framerate: 9,
             loop: false,
             spacing: 2,
-            hitArea: new Phaser.Rectangle(0, 8, 8, 8)
-        }
-    }
-}
+            hitArea: new Phaser.Rectangle(0, 8, 8, 8),
+        },
+    },
+};

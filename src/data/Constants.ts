@@ -1,4 +1,4 @@
-export enum ENTITY_TYPE {
+export const enum ENTITY_TYPE {
     // player/npc entities
     PLAYER,
     ENEMY,
@@ -7,39 +7,37 @@ export enum ENTITY_TYPE {
 }
 
 export default class Constants {
-    static ENTITY_TYPE = ENTITY_TYPE;
-
-    static WORLD_ITEMS = {
+    static WORLD_ITEMS: TTable<string> = {
         HEART:   'heart',
         MAGIC:   'magic',
         ARROWS:  'arrows',
         BOMBS:   'bombs',
-        RUPEES:  'rupees'
-    }
+        RUPEES:  'rupees',
+    };
 
-    static MAP_OBJECTS = {
+    static MAP_OBJECTS: TTable<string> = {
         CHEST:   'chest',
         SIGN:    'sign',
         ROCK:    'rock',
         GRASS:   'grass',
         POT:     'pot',
-        MINE:    'mine'
-    }
+        MINE:    'mine',
+    };
 
-    static STATES = {
+    static STATES: TTable<string> = {
         BOOT:       'state_boot',
         PRELOADER:  'state_preloader',
         INTRO:      'state_intro',
         MAIN_MENU:  'state_mainmenu',
-        PLAY:       'state_play'
-    }
+        PLAY:       'state_play',
+    };
 
-    static LEVELS = {
+    static LEVELS: TTable<string> = {
         CAVE034:    'level_case034',
         DARKWORLD:  'level_darkworld',
         LIGHTWORLD: 'level_lightworld',
-        LINKSHOUSE: 'level_linkshouse'
-    }
+        LINKSHOUSE: 'level_linkshouse',
+    };
 
     // deminsions of the screen
     static GAME_WIDTH:           number = 256;
@@ -48,36 +46,36 @@ export default class Constants {
     static GAME_TEXT_SCALE:      number = 1.5;
     static GAME_SAVE_INTERVAL:   number = 10000;
 
-    //cone within hit detector to check for interactions
+    // cone within hit detector to check for interactions
     static PLAYER_ATTACK_CONE:   number = 0.5;
     static PLAYER_USE_CONE:      number = 0.4;
 
-    //radius of hit detector
+    // radius of hit detector
     static PLAYER_ATTACK_SENSOR_RADIUS:  number = 18;
 
-    //distance to throw an item
+    // distance to throw an item
     static PLAYER_THROW_DISTANCE_X:      number = 75;
     static PLAYER_THROW_DISTANCE_Y:      number = 50;
 
-    //how long to run into something before an action takes place (blocked/jump down)
+    // how long to run into something before an action takes place (blocked/jump down)
     static PLAYER_BLOCKED_WAIT_TIME:     number = 500;
 
-    //time it takes to execute a jump animation (in seconds)
+    // time it takes to execute a jump animation (in seconds)
     static PLAYER_JUMP_TIME:             number = 0.5;
     static PLAYER_JUMP_DISTANCE:         number = 50;
 
-    //time it takes for the inventory menu to drop down (in seconds)
+    // time it takes for the inventory menu to drop down (in seconds)
     static PLAYER_INVENTORY_DROP_TIME:   number = 0.5;
 
-    //volume for sounds
+    // volume for sounds
     static AUDIO_EFFECT_VOLUME:  number = 0.80;
     static AUDIO_MUSIC_VOLUME:   number = 0.20;
 
-    //tilemap pack location
+    // tilemap pack location
     static ASSET_TILEMAP_PACKS_URL: string = 'assets/tilemap-assets.json';
     static ASSET_TILEMAP_PACKS_KEY: string = 'pack_tilemap_asssets';
 
-    //input data
+    // input data
     static INPUT_GAMEPAD_AXIS_THRESHOLD: number = 0.25;
 
     // some effect constants
@@ -101,7 +99,7 @@ export default class Constants {
         'left',
         'right',
         'up',
-        'down'
+        'down',
     ];
 
     static DIRECTION_VECTOR_MAP: Phaser.Point[] = [
@@ -109,6 +107,6 @@ export default class Constants {
         Constants.VECTOR_LEFT,
         Constants.VECTOR_RIGHT,
         Constants.VECTOR_UP,
-        Constants.VECTOR_DOWN
+        Constants.VECTOR_DOWN,
     ];
 }

@@ -11,21 +11,21 @@ function prepareFontData(game: Game, monospace: number = 0): string {
     const key = 'sprite_hud_font';
     const fontName = 'HudFont' + (monospace ? 'Mono' + monospace.toString() : '');
 
-    if (Font.cachedFonts[fontName]) return fontName;
+    if (Font.cachedFonts[fontName]) { return fontName; }
 
     const fontData: IBitmapFontJson = {
         font: {
             info: {
                 _face: fontName,
-                _size: 16
+                _size: 16,
             },
             common: {
-                _lineHeight: 16
+                _lineHeight: 16,
             },
             chars: {
-                char: []
-            }
-        }
+                char: [],
+            },
+        },
     };
 
     const frames = game.cache.getFrameData(key);
@@ -36,7 +36,7 @@ function prepareFontData(game: Game, monospace: number = 0): string {
         let code = letter.charCodeAt(0);
         let frame = frames.getFrameByName(letter + '.png');
 
-        if (!frame) continue;
+        if (!frame) { continue; }
 
         let rect = frame.getRect();
 
@@ -48,7 +48,7 @@ function prepareFontData(game: Game, monospace: number = 0): string {
             _height: rect.height,
             _xoffset: 0,
             _yoffset: 0,
-            _xadvance: monospace || frame.width
+            _xadvance: monospace || frame.width,
         });
     }
 

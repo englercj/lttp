@@ -29,14 +29,14 @@ export default class Smash extends Entity {
     }
 
     private _addSlices(name: string, sx: number, sy: number, tx: number, ty: number) {
-        var frames: string[] = [];
+        const frames: string[] = [];
 
-        while(sx !== tx || sy !== ty) {
+        while (sx !== tx || sy !== ty) {
             frames.push('slice_' + sx + '_' + sy + '.png');
 
-            sy++
+            ++sy;
 
-            if(sy > 9) {
+            if (sy > 9) {
                 sx++;
                 sy = 0;
             }
@@ -46,7 +46,7 @@ export default class Smash extends Entity {
     }
 
     private _start(animation: Phaser.Animation) {
-        if(animation.name.indexOf('grass') !== -1) {
+        if (animation.name.indexOf('grass') !== -1) {
             this.grassSound.play();
         }
         else {

@@ -15,7 +15,7 @@ export default class Dialog extends Phaser.Group {
     font: ReturnOfGanon;
 
     text: string = '';
-    range: number[] = [0, 1]; //start pos, length
+    range: number[] = [0, 1]; // start pos, length
 
     fastSpeed: number = 15;
     typeSpeed: number = 60;
@@ -112,16 +112,16 @@ export default class Dialog extends Phaser.Group {
     speedUp() {
         this.speed = this.fastSpeed;
 
-        Game.timer.add(this.speedCooldown, () => { this.speed = this.typeSpeed }, this);
+        Game.timer.add(this.speedCooldown, () => { this.speed = this.typeSpeed; }, this);
 
         return this;
     }
 
     // TODO: This needs to be cleaned up quite a bit
     private _type() {
-        var newlines = this.font.text.match(rgxNewlines);
+        const newlines = this.font.text.match(rgxNewlines);
 
-        if((this.range[0] + this.range[1]) > this.text.length) {
+        if ((this.range[0] + this.range[1]) > this.text.length) {
             this.typing = false;
 
             this.font.visible = true;
@@ -144,7 +144,7 @@ export default class Dialog extends Phaser.Group {
             if (this.bufferScroll.y > -32) {
                 Game.timer.add(this.fastSpeed, this._type, this);
             } else {
-                var newStart = this.text.indexOf('\n', this.range[0]);
+                const newStart = this.text.indexOf('\n', this.range[0]);
 
                 this.range[1] = this.range[1] - (newStart - this.range[0]) - 1;
                 this.range[0] = newStart + 1;
@@ -171,21 +171,21 @@ export default class Dialog extends Phaser.Group {
     }
 
     private _getPreviousSpace(str: string, i: number) {
-        var sub = 0;
+        let sub = 0;
 
         do {
-            if(str[i - sub] === ' ') {
+            if (str[i - sub] === ' ') {
                 return i - sub;
             }
 
             sub++;
-        } while((i + sub) < str.length || (i - sub) > 0);
+        } while ((i + sub) < str.length || (i - sub) > 0);
     }
 
     private _insertNewlines(text: string) {
-        var i = 30;
-        while(text[i]) {
-            var sp = this._getPreviousSpace(text, i);
+        let i = 30;
+        while (text[i]) {
+            const sp = this._getPreviousSpace(text, i);
             text = [text.slice(0, sp), text.slice(sp + 1)].join('\n');
             i += 30;
         }

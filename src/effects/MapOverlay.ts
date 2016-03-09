@@ -18,7 +18,7 @@ export default class MapOverlay extends Phaser.Group {
 
         this.fixedToCamera = true;
 
-        this._darkener = game.add.tileSprite(0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT, PIXI.TextureCache['image_black']);
+        this._darkener = game.add.tileSprite(0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT, game.cache.getTexture('image_black'));
         this._darkener.alpha = 0.5;
         this.add(this._darkener);
 
@@ -31,7 +31,7 @@ export default class MapOverlay extends Phaser.Group {
             'rain/rain1.png',
             'rain/rain2.png',
             'rain/rain3.png',
-            'rain/rain4.png'
+            'rain/rain4.png',
         ], 18, true);
 
         // this.deactivate();
@@ -44,7 +44,7 @@ export default class MapOverlay extends Phaser.Group {
 
         this._activeEffect = anim;
 
-        switch(anim) {
+        switch (anim) {
             case 'rain':
                 this._animator.animations.play('rain');
                 this._animator.visible = true;

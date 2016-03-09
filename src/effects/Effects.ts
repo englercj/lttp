@@ -1,6 +1,12 @@
 import Game from '../Game';
 import ScreenFlash from './ScreenFlash';
 
+interface IOverScale {
+    object: Phaser.Sprite;
+    cache: Phaser.Point;
+    scale: number;
+}
+
 export default class Effects extends Phaser.Plugin {
     game: Game;
 
@@ -9,8 +15,7 @@ export default class Effects extends Phaser.Plugin {
     private _shakeWorldTime: number = 20;
     private _shakeWorldMax: number = 20;
 
-    private _overScales: any[] = [];
-    private _overScalesCounter = 0;
+    private _overScales: IOverScale[] = [];
 
     private _screenFlashPool: ScreenFlash[] = [];
 
@@ -46,7 +51,7 @@ export default class Effects extends Phaser.Plugin {
      * @param duration - The duration of the flash.
      */
     flashScreen(color: string = 'white', duration?: number, maxAlpha: number = 0, easing?: any) {
-        var obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
+        let obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
 
         obj.color = color;
         obj.alpha = 1;
@@ -63,25 +68,13 @@ export default class Effects extends Phaser.Plugin {
      * @param duration - The duration of the flash.
      */
     fadeScreen(color: string = 'white', duration?: number, maxAlpha: number = 1, easing?: any) {
-        var obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
+        let obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
 
         obj.color = color;
         obj.alpha = 0;
         obj.flash(maxAlpha, duration, easing);
 
         return obj;
-    }
-
-    private _createScreenFlashForPool(): ScreenFlash {
-        var obj = new ScreenFlash(this.game);
-
-        obj.onComplete.add(this._onFlashComplete, this);
-
-        return obj;
-    }
-
-    private _onFlashComplete(obj: ScreenFlash) {
-        this._screenFlashPool.push(obj);
     }
 
     /**
@@ -98,7 +91,7 @@ export default class Effects extends Phaser.Plugin {
         this._overScales.push({
             object: object,
             cache: initialScale,
-            scale: scale
+            scale: scale,
         });
     }
 
@@ -143,13 +136,11 @@ export default class Effects extends Phaser.Plugin {
      * if they are queued to do so.
      */
     update() {
-        var scaleObj: any;
-
         // screen shake
         if (this._shakeWorldTime > 0) {
-            var magnitude = (this._shakeWorldTime / this._shakeWorldMax) * this._shakeWorldMax;
-            var x = this.game.rnd.integerInRange(-magnitude, magnitude);
-            var y = this.game.rnd.integerInRange(-magnitude, magnitude);
+            const magnitude = (this._shakeWorldTime / this._shakeWorldMax) * this._shakeWorldMax;
+            const x = this.game.rnd.integerInRange(-magnitude, magnitude);
+            const y = this.game.rnd.integerInRange(-magnitude, magnitude);
 
             this.game.camera.x = x;
             this.game.camera.y = y;
@@ -162,8 +153,8 @@ export default class Effects extends Phaser.Plugin {
         }
 
         // over scales
-        for (var i = this._overScales.length - 1; i >= 0; --i) {
-            scaleObj = this._overScales[i];
+        for (let i = this._overScales.length - 1; i >= 0; --i) {
+            let scaleObj = this._overScales[i];
 
             if (scaleObj.scale > 0.01) {
                 scaleObj.object.scale.x = scaleObj.scale * scaleObj.cache.x;
@@ -177,5 +168,17 @@ export default class Effects extends Phaser.Plugin {
                 this._overScales.splice(i, 1);
             }
         }
+    }
+
+    private _createScreenFlashForPool(): ScreenFlash {
+        let obj = new ScreenFlash(this.game);
+
+        obj.onComplete.add(this._onFlashComplete, this);
+
+        return obj;
+    }
+
+    private _onFlashComplete(obj: ScreenFlash) {
+        this._screenFlashPool.push(obj);
     }
 }

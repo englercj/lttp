@@ -34,24 +34,24 @@ export default class Game extends Phaser.Game {
         super(
             Constants.GAME_WIDTH,
             Constants.GAME_HEIGHT,
-            Phaser.AUTO,// renderer
-            'game',     // DOM parent ID
-            null,       // default state obj
-            false,      // transparent
-            false,      // antialias
-            { p2: true }// physics config
+            Phaser.AUTO,    // renderer
+            'game',         // DOM parent ID
+            null,           // default state obj
+            false,          // transparent
+            false,          // antialias
+            { p2: true }    // physics config
         );
 
-        this.state.add(Constants.STATES.BOOT, BootState, false);
-        this.state.add(Constants.STATES.PRELOADER, PreloaderState, false);
-        this.state.add(Constants.STATES.INTRO, IntroState, false);
-        this.state.add(Constants.STATES.MAIN_MENU, MainMenuState, false);
-        this.state.add(Constants.STATES.PLAY, PlayState, false);
+        this.state.add(Constants.STATES['BOOT'], BootState, false);
+        this.state.add(Constants.STATES['PRELOADER'], PreloaderState, false);
+        this.state.add(Constants.STATES['INTRO'], IntroState, false);
+        this.state.add(Constants.STATES['MAIN_MENU'], MainMenuState, false);
+        this.state.add(Constants.STATES['PLAY'], PlayState, false);
 
-        this.state.add(Constants.LEVELS.CAVE034, Cave034, false);
-        this.state.add(Constants.LEVELS.DARKWORLD, Darkworld, false);
-        this.state.add(Constants.LEVELS.LIGHTWORLD, Lightworld, false);
-        this.state.add(Constants.LEVELS.LINKSHOUSE, LinksHouse, false);
+        this.state.add(Constants.LEVELS['CAVE034'], Cave034, false);
+        this.state.add(Constants.LEVELS['DARKWORLD'], Darkworld, false);
+        this.state.add(Constants.LEVELS['LIGHTWORLD'], Lightworld, false);
+        this.state.add(Constants.LEVELS['LINKSHOUSE'], LinksHouse, false);
 
         this.state.start('state_boot');
     }
@@ -60,15 +60,21 @@ export default class Game extends Phaser.Game {
         super.boot();
 
         // Setup our scaling parameters, we want the largest the browser can fit, minimum of our size.
+        this.scale.windowConstraints.bottom = 'layout';
+
+        console.log(this);
+
         this.scale.setMinMax(
             Constants.GAME_WIDTH,
             Constants.GAME_HEIGHT
         );
 
         this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
+        // this.scale.pageAlignVertically = true;
 
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+        this.scale.refresh();
 
         // capture keyboard keys
         this.input.keyboard.addKeyCapture([
@@ -77,7 +83,7 @@ export default class Game extends Phaser.Game {
             Phaser.Keyboard.UP,
             Phaser.Keyboard.DOWN,
             Phaser.Keyboard.LEFT,
-            Phaser.Keyboard.RIGHT
+            Phaser.Keyboard.RIGHT,
         ]);
 
         // start polling for gamepad input

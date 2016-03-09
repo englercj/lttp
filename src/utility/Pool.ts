@@ -47,7 +47,7 @@ export default class Pool<T> {
 
     // less common helpers
     preallocate(num: number): Pool<T> {
-        for(var i = 0; i < num; ++i) {
+        for (let i = 0; i < num; ++i) {
             this.free(this.alloc(true));
         }
 
@@ -60,7 +60,7 @@ export default class Pool<T> {
     }
 
     remove(obj: T): T {
-        var idx = this._pool.indexOf(obj);
+        const idx = this._pool.indexOf(obj);
 
         if (idx !== -1) {
             this._pool.splice(idx, 1);

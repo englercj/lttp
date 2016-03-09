@@ -6,6 +6,7 @@
 
 const gulp      = require('gulp');
 const gutil     = require('gulp-util');
+const tslint    = require('gulp-tslint');
 const tiledPack = require('gulp-phaser-tiled-pack');
 const del       = require('del');
 const runSeq    = require('run-sequence');
@@ -28,13 +29,6 @@ webpackDevServerConfig.debug = true;
 gulp.task('default', ['build']);
 
 /**
- * pre-build - Run a couple tasks before the build starts.
- */
-gulp.task('pre-build', function (done) {
-    runSeq('clean', ['tilemap:pack', 'copy'], done);
-});
-
-/**
  * build - Builds the bundle and processes resources.
  */
 gulp.task('build', function (done) {
@@ -45,9 +39,14 @@ gulp.task('build', function (done) {
  * dev - Development build meant for rebuilding incrementally during development.
  */
 gulp.task('dev', function (done) {
-    runSeq('pre-build', ['webpack:dev-server'], function () {
-        return gulp.watch('./assets/levels/**/*.json', ['tilemap:pack']);
-    }, done);
+    runSeq('pre-build', ['watch', 'webpack:dev-server'], done);
+});
+
+/**
+ * watch - WAtches for file changes to the asset pack.
+ */
+gulp.task('watch', function () {
+    return gulp.watch('./assets/levels/**/*.json', ['tilemap:pack']);
 });
 
 /**
@@ -55,6 +54,22 @@ gulp.task('dev', function (done) {
  */
 gulp.task('clean', function () {
     return del(webpackConfig.output.path);
+});
+
+/**
+ * pre-build - Run a couple tasks before the build starts.
+ */
+gulp.task('pre-build', ['lint'], function (done) {
+    runSeq('clean', ['tilemap:pack', 'copy'], done);
+});
+
+/**
+ * lint - Runs a fine-toothed comb over the typescript to remove lint.
+ */
+gulp.task('lint', function () {
+    return gulp.src(['./src/**/*.ts', './typings/**/*/.d.ts'])
+        .pipe(tslint())
+        .pipe(tslint.report('verbose'));
 });
 
 /**

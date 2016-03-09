@@ -29,17 +29,20 @@ export default class WorldItem extends Entity {
             bombs: 'inventory/bombs_%d.png',
             arrows: 'inventory/arrows_%d.png',
             magic: 'magic/magic_%d.png',
-            rupees: 'rupees_%d'
+            rupees: 'rupees_%d',
         };
 
         this.itemType = null;
         this.value = 0;
 
-        for(var i = 0, a = [1,5,20], n = 0; n = a[i]; ++i) {
+        let a = [1, 5, 20];
+
+        for (let i = 0; i < a.length; ++i) {
+            let n = a[i];
             this.animations.add('rupees_' + n, [
                 'inventory/rupees_' + n + '_1.png',
                 'inventory/rupees_' + n + '_2.png',
-                'inventory/rupees_' + n + '_3.png'
+                'inventory/rupees_' + n + '_3.png',
             ], 6, true);
         }
 
@@ -48,10 +51,11 @@ export default class WorldItem extends Entity {
     }
 
     boot(item: any, forceLoot: string = '') {
-        var loot = forceLoot || item.properties.loot,
-            type = loot.split('_')[0],
-            value = parseInt(loot.split('_')[1], 10) || 1,
-            frame = this.frameKeys[type] || 'items/' + loot + '.png';
+        const loot = forceLoot || item.properties.loot;
+        const type = loot.split('_')[0];
+        const value = parseInt(loot.split('_')[1], 10) || 1;
+
+        let frame = this.frameKeys[type] || 'items/' + loot + '.png';
 
         if (value) {
             frame = frame.replace('%d', value.toString());
@@ -60,19 +64,20 @@ export default class WorldItem extends Entity {
         this.itemType = type;
         this.value = value;
 
-        if(type === 'rupees') {
+        if (type === 'rupees') {
             this.animations.play(frame);
-        } else {
+        }
+        else {
             this.animations.stop();
             this.setFrame(this.frames.getFrameByName(frame));
         }
 
-        this.position.x = item.position.x;// + (item.width / 2);
-        this.position.y = item.position.y;// - (item.height / 2);
+        this.position.x = item.position.x; // + (item.width / 2);
+        this.position.y = item.position.y; // - (item.height / 2);
 
         this.visible = true;
 
-        //smallness
+        // smallness
         // this.hitArea = new gf.Rectangle(4, 4, 8, 8);
 
         // if(psys)
@@ -89,7 +94,8 @@ export default class WorldItem extends Entity {
             Game.timer.add(100, function () {
                 this.rupeesSound2.play();
             }, this);
-        } else {
+        }
+        else {
             this.itemSound.play();
         }
     }
