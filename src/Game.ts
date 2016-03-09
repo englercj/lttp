@@ -107,7 +107,7 @@ export default class Game extends Phaser.Game {
         this._autosaveInterval = setInterval(this.save.bind(this), Constants.GAME_SAVE_INTERVAL);
     }
 
-    save(exit?: Phaser.Plugin.Tiled.TiledObject, previousLayer?: Phaser.Plugin.Tiled.Objectlayer) {
+    save(exit?: Phaser.Plugin.Tiled.ITiledObject, previousLayer?: Phaser.Plugin.Tiled.Objectlayer) {
         if (exit) {
             this.loadedSave.updateExit(exit);
         }

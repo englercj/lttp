@@ -1,6 +1,6 @@
 import Game from '../Game';
 import ReturnOfGanon from '../fonts/ReturnOfGanon';
-import { default as ItemDescriptors, IItemDescriptor } from '../data/ItemDescriptors';
+import { default as ItemDescriptors, IItemDescriptor, IconCallback } from '../data/ItemDescriptors';
 import Constants from '../data/Constants';
 import GameState from '../states/GameState';
 
@@ -132,10 +132,10 @@ export default class Inventory extends Phaser.Group {
 
                 //run icon function if there is one
                 if (typeof item.icon === 'function') {
-                    ico = item.icon(this.game);
+                    ico = (<IconCallback>item.icon)(this.game);
                 }
                 else {
-                    ico = item.icon.replace('%d', val);
+                    ico = (<string>item.icon).replace('%d', val);
                 }
 
                 //enable item and set texture
@@ -154,7 +154,7 @@ export default class Inventory extends Phaser.Group {
         // always show lift power
         this.items['txtLiftNum'].visible = true;
         this.items['txtLiftNum'].setFrame(this.frames.getFrameByName(
-            this.items['txtLiftNum'].item.icon.replace('%d', this.game.player.inventory.gloves + 1)
+            (<string>this.items['txtLiftNum'].item.icon).replace('%d', this.game.player.inventory.gloves + 1)
         ));
 
         // first item added
@@ -234,7 +234,7 @@ export default class Inventory extends Phaser.Group {
 
         // add item sprites
         for(var i in ItemDescriptors) {
-            var item: IItemDescriptor = ItemDescriptors[i];
+            var item = ItemDescriptors[i];
             var sprite = <InventoryItemSprite>(this.game.add.sprite(item.position[0], item.position[1], 'sprite_gui', item.icon.replace('%d', 1), this));
 
             sprite.item = item;

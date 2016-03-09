@@ -14,8 +14,8 @@ export default class Level extends GameState {
     tiledmap: Phaser.Plugin.Tiled.Tilemap = null;
 
     // layer and zone tracking
-    activeZone: Phaser.Plugin.Tiled.TiledObject = null;
-    oldZone: Phaser.Plugin.Tiled.TiledObject = null;
+    activeZone: Phaser.Plugin.Tiled.ITiledObject = null;
+    oldZone: Phaser.Plugin.Tiled.ITiledObject = null;
 
     oldLayer: Phaser.Plugin.Tiled.Objectlayer = null;
     oldLayerOverlay: Phaser.Plugin.Tiled.Objectlayer = null;
@@ -150,12 +150,12 @@ export default class Level extends GameState {
         this.overlay = null;
     }
 
-    onBeginContact(bodyA: p2.Body, bodyB: p2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
-        this._checkContact('onBeginContact', bodyA, bodyB, shapeA, shapeB, contactEquations);
+    onBeginContact(bodyA: p2.BodyEx, bodyB: p2.BodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
+        this._checkContact(true, bodyA, bodyB, shapeA, shapeB, contactEquations);
     }
 
-    onEndContact(bodyA: p2.Body, bodyB: p2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
-        this._checkContact('onEndContact', bodyA, bodyB, shapeA, shapeB, contactEquations);
+    onEndContact(bodyA: p2.BodyEx, bodyB: p2.BodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
+        this._checkContact(false, bodyA, bodyB, shapeA, shapeB, contactEquations);
     }
 
     private _enableDebugBodies(layer: Phaser.Plugin.Tiled.Objectlayer) {
@@ -168,7 +168,7 @@ export default class Level extends GameState {
         }
     }
 
-    private _checkContact(method: string, bodyA: p2.Body, bodyB: p2.Body, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
+    private _checkContact(begin: boolean, bodyA: p2.BodyEx, bodyB: p2.BodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
         if (!bodyA.parent || !bodyB.parent) {
             return;
         }
@@ -182,13 +182,13 @@ export default class Level extends GameState {
             playerShape = playerIsA ? shapeA : shapeB,
             objBody = playerIsA ? bodyB.parent : bodyA.parent,
             objShape = playerIsA ? shapeB : shapeA,
-            obj = objBody.sprite || objBody.tiledObject;
+            obj = objBody.sprite || (<any>objBody).tiledObject; // the tiledObject property is added by phaser-tiled
 
         if (!obj) {
             return;
         }
 
-        if (method === 'onBeginContact' && playerShape === this.game.player.bodyShape) {
+        if (begin && playerShape === this.game.player.bodyShape) {
             // colliding with a new zone
             if (obj.type === 'zone') {
                 return this._zone(obj, this.game.player._getFacingVector());
@@ -199,10 +199,13 @@ export default class Level extends GameState {
             }
         }
 
-        this.game.player[method](obj, objShape, playerShape);
+        if (begin)
+            this.game.player.onBeginContact(obj, objShape, playerShape);
+        else
+            this.game.player.onEndContact(obj, objShape, playerShape);
     }
 
-    private _exit(exit: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
+    private _exit(exit: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
         if (!exit.properties.animation) {
             this._mapTransition(exit, vec);
         }
@@ -219,7 +222,7 @@ export default class Level extends GameState {
         }
     }
 
-    private _mapTransition(exit: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
+    private _mapTransition(exit: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
         switch (exit.properties.transition) {
             case 'none':
                 this._gotoLevel(exit, vec);
@@ -240,13 +243,13 @@ export default class Level extends GameState {
         }
     }
 
-    private _gotoLevel(exit: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
+    private _gotoLevel(exit: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
         this.game.save(exit);
 
         this.game.state.start('level_' + exit.name);
     }
 
-    private _zone(zone: Phaser.Plugin.Tiled.TiledObject, vec: IPoint) {
+    private _zone(zone: Phaser.Plugin.Tiled.ITiledObject, vec: IPoint) {
         // done repeat zoning
         if (zone === this.activeZone) {
             return;
@@ -402,13 +405,13 @@ export default class Level extends GameState {
     /**
      * Input Handling
      */
-    onKeyboardDown(event) {
+    onKeyboardDown(event: KeyboardEvent) {
         super.onKeyboardDown(event);
 
         this.handleKeyboard(event.keyCode, true);
     }
 
-    onKeyboardUp(event) {
+    onKeyboardUp(event: KeyboardEvent) {
         super.onKeyboardUp(event);
 
         this.handleKeyboard(event.keyCode, false);

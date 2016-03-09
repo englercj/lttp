@@ -599,7 +599,7 @@ export default class Player extends Entity {
         if (item.parent) {
             var layer = <Phaser.Plugin.Tiled.Objectlayer>item.parent;
 
-            (<ITiledLayerData>layer.objects[(<any>item)._objIndex]).properties.loot = null;
+            layer.objects[(<any>item)._objIndex].properties.loot = null;
 
             this.game.loadedSave.updateZoneData(layer);
         }

@@ -1,22 +1,36 @@
 import Game from '../Game';
 
-export interface IFontData {
-    name: string;
-    size: number;
-    lineHeight: number;
-    chars: { [character: string]: IFontCharacterData };
+export interface IBitmapFontJson {
+    font: {
+        info: {
+            _face: string;
+            _size: number;
+        };
+
+        common: {
+            _lineHeight: number;
+        };
+
+        chars: {
+            char: IBitmapFontCharacterJson[]
+        }
+    };
+
 }
 
-export interface IFontCharacterData {
-    kerning: Object;
-    texture: PIXI.Texture;
-    xAdvance: number;
-    xOffset: number;
-    yOffset: number;
+export interface IBitmapFontCharacterJson {
+    _id: number;
+    _x: number;
+    _y: number;
+    _width: number;
+    _height: number;
+    _xoffset: number;
+    _yoffset: number;
+    _xadvance: number;
 }
 
 export default class Font extends Phaser.BitmapText {
-    static cachedFonts: { [key: string]: IFontData } = {};
+    static cachedFonts: { [key: string]: boolean } = {};
 
     game: Game;
 

@@ -1,6 +1,6 @@
 import Game from '../Game';
 
-type iconCallback = (game: Game) => string;
+export type IconCallback = (game: Game) => string;
 
 export interface IParticleDescriptor {
     path: string;
@@ -15,7 +15,7 @@ export interface IParticleDescriptor {
 
 export interface IItemDescriptor {
     name: string;
-    icon: (string | iconCallback);
+    icon: (string | IconCallback);
     position: number[];
     grid?: number[];
     cost?: number;
@@ -23,6 +23,8 @@ export interface IItemDescriptor {
 }
 
 export default class ItemDescriptors {
+    [key: string]: IItemDescriptor;
+
     //Special items
     public static sword:        IItemDescriptor = { name: 'sword',        icon: 'items/sword%d.png',        position: [180, 160] };
     public static shield:       IItemDescriptor = { name: 'shield',       icon: 'items/shield%d.png',       position: [200, 160] };

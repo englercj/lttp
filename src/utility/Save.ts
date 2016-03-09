@@ -90,7 +90,7 @@ export default class Save {
         this.mapData[layer.map.name] = mapData;
     }
 
-    updateExit(exit: Phaser.Plugin.Tiled.TiledObject) {
+    updateExit(exit: Phaser.Plugin.Tiled.ITiledObject) {
         this.lastUsedExit = exit;
     }
 

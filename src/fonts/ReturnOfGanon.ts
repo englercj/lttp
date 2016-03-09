@@ -1,31 +1,41 @@
-import { default as Font, IFontData } from './Font';
+import Game from '../Game';
+import { default as Font, IBitmapFontJson } from './Font';
 
 export default class ReturnOfGanon extends Font {
     // You may notice that the "size" param default is 16, not 32 like when we create the font in "prepareFontData"
     // this is because we actually want the font to be half-size when used.
-    constructor(game: Phaser.Game, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 16) {
+    constructor(game: Game, x: number = 0, y: number = 0, text: string = '', monospace: number = 0, size: number = 16) {
         super(game, prepareFontData(game, monospace), x, y, text, monospace, size);
     }
 }
 
-function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
-    var key = 'ReturnOfGanon' + (monospace ? 'Mono' + monospace.toString() : '');
+function prepareFontData(game: Game, monospace: number = 0): string {
+    const key = 'sprite_rog_font';
+    const fontName = 'ReturnOfGanon' + (monospace ? 'Mono' + monospace.toString() : '');
 
-    if (Font.cachedFonts[key]) return key;
+    if (Font.cachedFonts[fontName]) return fontName;
 
-    var fontData: IFontData = {
-        name: key,
-        size: 32,
-        lineHeight: 32,
-        chars: {}
+    const fontData: IBitmapFontJson = {
+        font: {
+            info: {
+                _face: fontName,
+                _size: 32
+            },
+            common: {
+                _lineHeight: 32
+            },
+            chars: {
+                char: []
+            }
+        }
     };
 
-    var frames = game.cache.getFrameData('sprite_rog_font');
+    const frames = game.cache.getFrameData(key);
     const letters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;\',-!.?<>() ';
     const spaceFrame = new Phaser.Frame(0, 0, 0, 0, 0, 'spacer');
 
     // special characters use names in the file names
-    var map: any = {
+    let map: any = {
         //TODO: Colon, semicolon, pipe, mudora symbols, heart symbols
         ':': 'colon',
         ';': 'semicolon',
@@ -43,12 +53,12 @@ function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
     };
 
     // lowercase alpha characters are named "_x" where "x" is the character
-    'abcdefghijklmnopqrstuvwxyz'.split('').forEach(function(c) {
+    'abcdefghijklmnopqrstuvwxyz'.split('').forEach(function (c) {
         map[c] = '_' + c;
     });
 
     // these characters are offset a bit
-    'acegjmnopqrsuvwxyz<>'.split('').forEach(function(c) {
+    'acegjmnopqrsuvwxyz<>'.split('').forEach(function (c) {
         map[c] = {
             yOffset: 6,
             name: map[c]
@@ -86,23 +96,30 @@ function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
         let code = letter.charCodeAt(0);
         let val = map[letter] || letter;
         let frame = frames.getFrameByName((val.name || val) + '.png');
+        let rect = frame.getRect();
 
         if (code === 32) {
             frame = spaceFrame;
+            rect = frame.getRect();
         }
 
         if (!frame) continue;
 
-        fontData.chars[code] = {
-            kerning: {},
-            texture: new PIXI.Texture(PIXI.utils.BaseTextureCache['sprite_rog_font'], frame.getRect()),
-            xAdvance: monospace || val.xAdvance || frame.width,
-            xOffset: val.xOffset || 0,
-            yOffset: val.yOffset || 0
-        };
+        fontData.font.chars.char.push({
+            _id: code,
+            _x: rect.x,
+            _y: rect.y,
+            _width: rect.width,
+            _height: rect.height,
+            _xoffset: 0,
+            _yoffset: 0,
+            _xadvance: monospace || frame.width
+        });
     }
 
-    PIXI.extras.BitmapText.fonts[key] = Font.cachedFonts[key] = fontData;
+    const baseTexture = game.cache.getBaseTexture(key);
 
-    return fontData.name;
+    game.cache.addBitmapFont(fontName, null, baseTexture.source, fontData, 'json', 0, 0);
+
+    return fontName;
 }

@@ -1,4 +1,6 @@
 export default class PlayerInventory {
+    [key: string]: number;
+
     // upgradable items
     armor:          number = 0;
     sword:          number = 0;

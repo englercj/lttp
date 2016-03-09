@@ -1,46 +1,61 @@
-import { default as Font, IFontData } from './Font';
+import Game from '../Game';
+import { default as Font, IBitmapFontJson } from './Font';
 
 export default class Hud extends Font {
-    constructor(game: Phaser.Game, x: number, y: number, text: string = '', monospace: number = 0, size: number = 16) {
+    constructor(game: Game, x: number, y: number, text: string = '', monospace: number = 0, size: number = 16) {
         super(game, prepareFontData(game, monospace), x, y, text, monospace, size);
     }
 }
 
-function prepareFontData(game: Phaser.Game, monospace: number = 0): string {
-    var key = 'HudFont' + (monospace ? 'Mono' + monospace.toString() : '');
+function prepareFontData(game: Game, monospace: number = 0): string {
+    const key = 'sprite_hud_font';
+    const fontName = 'HudFont' + (monospace ? 'Mono' + monospace.toString() : '');
 
-    if (Font.cachedFonts[key]) return key;
+    if (Font.cachedFonts[fontName]) return fontName;
 
-    var fontData: IFontData = {
-        name: key,
-        size: 16,
-        lineHeight: 16,
-        chars: {}
+    const fontData: IBitmapFontJson = {
+        font: {
+            info: {
+                _face: fontName,
+                _size: 16
+            },
+            common: {
+                _lineHeight: 16
+            },
+            chars: {
+                char: []
+            }
+        }
     };
 
-    var frames = game.cache.getFrameData('sprite_hud_font');
+    const frames = game.cache.getFrameData(key);
     const letters = '0123456789';
-    let letter: string;
-    let code: number;
-    let frame: Phaser.Frame;
 
-    for(var i = 0; i < letters.length; ++i) {
-        letter = letters.charAt(i);
-        code = letter.charCodeAt(0);
-        frame = frames.getFrameByName(letter + '.png');
+    for (let i = 0; i < letters.length; ++i) {
+        let letter = letters.charAt(i);
+        let code = letter.charCodeAt(0);
+        let frame = frames.getFrameByName(letter + '.png');
+        let rect = frame.getRect();
 
         if (!frame) continue;
 
-        fontData.chars[code] = {
-            kerning: {},
-            texture: new PIXI.Texture(PIXI.utils.BaseTextureCache['sprite_hud_font'], frame.getRect()),
-            xAdvance: monospace || frame.width,
-            xOffset: 0,
-            yOffset: 0
-        };
+        fontData.font.chars.char.push({
+            _id: code,
+            _x: rect.x,
+            _y: rect.y,
+            _width: rect.width,
+            _height: rect.height,
+            _xoffset: 0,
+            _yoffset: 0,
+            _xadvance: monospace || frame.width
+        });
     }
 
-    PIXI.extras.BitmapText.fonts[key] = Font.cachedFonts[key] = fontData;
+    const baseTexture = game.cache.getBaseTexture(key);
 
-    return fontData.name;
+    game.cache.addBitmapFont(fontName, null, baseTexture.source, fontData, 'json', 0, 0);
+
+    Font.cachedFonts[fontName] = true;
+
+    return fontName;
 }
