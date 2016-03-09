@@ -14,6 +14,13 @@ declare module p2 {
 }
 /* tslint:enable:no-internal-module */
 
+// declare phaser-debug
+declare module 'phaser-debug' {
+    export = class Debug extends Phaser.Plugin {
+        constructor(game: Phaser.Game, parent: PIXI.DisplayObject);
+    }
+}
+
 // stub require so TS will shut up
 declare var require: (file: string) => any;
 
@@ -23,3 +30,5 @@ declare type TPoint = (PIXI.Point|Phaser.Point|Phaser.Physics.P2.InversePointPro
 
 declare type TTable<V> = { [index: string]: V };
 declare type TArrayTable<V> = { [index: number]: V };
+
+declare type TColorRGBA = number[];

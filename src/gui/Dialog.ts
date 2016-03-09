@@ -34,7 +34,7 @@ export default class Dialog extends Phaser.Group {
     onTypingComplete: Phaser.Signal;
 
     constructor(game: Game, parent?: any, showFrame: boolean = true) {
-        super(game, parent);
+        super(game, parent, 'dialog');
 
         // load sound
         this.openSound = this.game.add.audio('effect_pause_close', Constants.AUDIO_EFFECT_VOLUME);

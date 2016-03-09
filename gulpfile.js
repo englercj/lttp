@@ -95,7 +95,6 @@ gulp.task('webpack:dev-server', function (done) {
 
     new WebpackDevServer(webpack(webpackDevServerConfig), {
         contentBase: 'public/',
-        inline: true,
         stats: { colors: true }
     }).listen(port, 'localhost', function (err) {
         if (err)

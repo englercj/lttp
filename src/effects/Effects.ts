@@ -1,5 +1,6 @@
 import Game from '../Game';
 import ScreenFlash from './ScreenFlash';
+import Constants from '../data/Constants';
 
 interface IOverScale {
     object: Phaser.Sprite;
@@ -44,18 +45,18 @@ export default class Effects extends Phaser.Plugin {
     }
 
     /**
-     * Flashes a color to the screen.
+     * Flashes a color to the screen, then fades away.
      *
      * @param color - The color to use for the flash.
      * @param maxAlpha - The max alpha to flash to.
      * @param duration - The duration of the flash.
      */
-    flashScreen(color: string = 'white', duration?: number, maxAlpha: number = 0, easing?: any) {
+    flashScreen(color: TColorRGBA = Constants.COLORS.WHITE, duration?: number, maxAlpha: number = 0, easing?: any) {
         let obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
 
         obj.color = color;
-        obj.alpha = 1;
-        obj.flash(maxAlpha, duration, easing);
+        obj.alpha = maxAlpha;
+        obj.flash(0, duration, easing);
 
         return obj;
     }
@@ -67,7 +68,7 @@ export default class Effects extends Phaser.Plugin {
      * @param maxAlpha - The max alpha to flash to.
      * @param duration - The duration of the flash.
      */
-    fadeScreen(color: string = 'white', duration?: number, maxAlpha: number = 1, easing?: any) {
+    fadeScreen(color: TColorRGBA = Constants.COLORS.WHITE, duration?: number, maxAlpha: number = 1, easing?: any) {
         let obj = this._screenFlashPool.pop() || this._createScreenFlashForPool();
 
         obj.color = color;

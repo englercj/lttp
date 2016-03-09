@@ -17,6 +17,7 @@ import Darkworld from './levels/Darkworld';
 import Lightworld from './levels/Lightworld';
 import LinksHouse from './levels/LinksHouse';
 
+import Debug = require('phaser-debug');
 import Tiled = require('phaser-tiled');
 
 export default class Game extends Phaser.Game {
@@ -42,16 +43,16 @@ export default class Game extends Phaser.Game {
             { p2: true }    // physics config
         );
 
-        this.state.add(Constants.STATES['BOOT'], BootState, false);
-        this.state.add(Constants.STATES['PRELOADER'], PreloaderState, false);
-        this.state.add(Constants.STATES['INTRO'], IntroState, false);
-        this.state.add(Constants.STATES['MAIN_MENU'], MainMenuState, false);
-        this.state.add(Constants.STATES['PLAY'], PlayState, false);
+        this.state.add(Constants.STATES.BOOT, BootState, false);
+        this.state.add(Constants.STATES.PRELOADER, PreloaderState, false);
+        this.state.add(Constants.STATES.INTRO, IntroState, false);
+        this.state.add(Constants.STATES.MAIN_MENU, MainMenuState, false);
+        this.state.add(Constants.STATES.PLAY, PlayState, false);
 
-        this.state.add(Constants.LEVELS['CAVE034'], Cave034, false);
-        this.state.add(Constants.LEVELS['DARKWORLD'], Darkworld, false);
-        this.state.add(Constants.LEVELS['LIGHTWORLD'], Lightworld, false);
-        this.state.add(Constants.LEVELS['LINKSHOUSE'], LinksHouse, false);
+        this.state.add(Constants.LEVELS.CAVE034, Cave034, false);
+        this.state.add(Constants.LEVELS.DARKWORLD, Darkworld, false);
+        this.state.add(Constants.LEVELS.LIGHTWORLD, Lightworld, false);
+        this.state.add(Constants.LEVELS.LINKSHOUSE, LinksHouse, false);
 
         this.state.start('state_boot');
     }
@@ -89,7 +90,7 @@ export default class Game extends Phaser.Game {
         // start polling for gamepad input
         this.input.gamepad.start();
 
-        // this.add.plugin(new Phaser.Plugin.Debug(this));
+        this.add.plugin(new Debug(this, this.stage));
         this.add.plugin(new Tiled(this, this.stage));
 
         this.effects = <Effects>this.add.plugin(new Effects(this));

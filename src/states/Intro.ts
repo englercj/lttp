@@ -241,7 +241,7 @@ export default class Intro extends GameState {
         this.mapGroup.visible = true;
         this.mapGroup.alpha = 1;
 
-        const diff = 128 * Constants.GAME_SCALE;
+        const diff = 128;
         const maxScale = 65;
 
         this.mapGroup.scale.set(1, 1);
@@ -326,13 +326,13 @@ export default class Intro extends GameState {
 
         const effects = this.game.effects;
 
-        effects.flashScreen('red', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
+        effects.flashScreen(Constants.COLORS.RED, Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
             .onComplete
             .addOnce(() => {
-                effects.flashScreen('green', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
+                effects.flashScreen(Constants.COLORS.GREEN, Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
                     .onComplete
                     .addOnce(() => {
-                        effects.flashScreen('blue', Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
+                        effects.flashScreen(Constants.COLORS.BLUE, Constants.EFFECT_INTRO_FLASH_LENGTH, Constants.EFFECT_INTRO_FLASH_ALPHA)
                             .onComplete
                             .addOnce(() => {
                                 this.blink(num, cb);

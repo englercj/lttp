@@ -1,39 +1,41 @@
 import Game from '../Game';
+import Constants from '../data/Constants';
 
-export default class ScreenFlash extends Phaser.Sprite {
+export default class ScreenFlash extends Phaser.BitmapData {
     game: Game;
-
-    key: Phaser.BitmapData;
 
     onComplete: Phaser.Signal;
 
-    constructor(game: Game) {
-        super(game, 0, 0, game.add.bitmapData(game.width, game.height, '', true));
+    private _worldObject: Phaser.Image;
 
-        this.color = 'white';
+    constructor(game: Game, color?: TColorRGBA) {
+        super(game, '', game.width, game.height);
 
-        this.alpha = 0;
+        this._worldObject = this.addToWorld();
+        this._worldObject.alpha = 0;
 
         this.onComplete = new Phaser.Signal();
+
+        this.color = color || Constants.COLORS.WHITE;
     }
 
     flash(maxAlpha: number = 1, duration: number = 100, easing: any = Phaser.Easing.Linear.None): ScreenFlash {
-        this.game.add.tween(this)
+        this.game.add.tween(this._worldObject)
             .to({ alpha: maxAlpha }, duration, easing)
             .start()
-            .onComplete.addOnce(function() {
-                this.alpha = 0;
+            .onComplete.addOnce(() => {
+                this._worldObject.alpha = 0;
                 this.onComplete.dispatch(this);
             }, this);
 
         return this;
     }
 
-    get color(): string {
-        return <string>(this.key.ctx.fillStyle);
+    set color(c: TColorRGBA) {
+        this.fill(c[0], c[1], c[2], c[3]);
     }
-    set color(theColor: string) {
-        this.key.ctx.fillStyle = theColor || 'white';
-        this.key.ctx.fillRect(0, 0, this.game.width, this.game.height);
+
+    set alpha(v: number) {
+        this._worldObject.alpha = v;
     }
 }

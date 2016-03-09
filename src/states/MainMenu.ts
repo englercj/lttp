@@ -353,12 +353,14 @@ export default class MainMenu extends GameState {
     }
 
     private _setupSelect() {
-        this.selectGroup = this.add.group();
+        this.selectGroup = this.add.group(this.world, 'select');
 
         this.selectSprite = this.add.sprite(0, 0, 'sprite_select', 'select.png', this.selectGroup);
+        this.selectSprite.name = 'select';
 
         this.fairySprite = this.add.sprite(27, 72, 'sprite_select', null, this.selectGroup);
         this.fairySprite.animations.add('flap', ['fairy1.png', 'fairy2.png'], 6, true).play();
+        this.fairySprite.name = 'fairy';
 
         this.linkSprites = [
             this.add.sprite(52, 64, 'sprite_select', null, this.selectGroup),
@@ -366,19 +368,22 @@ export default class MainMenu extends GameState {
             this.add.sprite(52, 124, 'sprite_select', null, this.selectGroup),
         ];
         this.linkSprites[0].visible = false;
+        this.linkSprites[0].name = 'link-1';
         this.linkSprites[1].visible = false;
+        this.linkSprites[1].name = 'link-2';
         this.linkSprites[2].visible = false;
+        this.linkSprites[2].name = 'link-3';
 
         this.heartsGroups = [
-            this.add.group(this.selectGroup),
-            this.add.group(this.selectGroup),
-            this.add.group(this.selectGroup),
+            this.add.group(this.selectGroup, 'hearts-1'),
+            this.add.group(this.selectGroup, 'hearts-2'),
+            this.add.group(this.selectGroup, 'hearts-3'),
         ];
         this.heartsGroups[0].position.set(142, 63);
         this.heartsGroups[1].position.set(142, 93);
         this.heartsGroups[2].position.set(142, 142);
 
-        const textGroup = this.add.group(this.selectGroup);
+        const textGroup = this.add.group(this.selectGroup, 'text');
 
         textGroup.add(this.fontpool.alloc(false, 40, 25, 'PLAYER SELECT', 16));
         textGroup.add(this.fontpool.alloc(false, 50, 178, 'COPY  PLAYER', 16));
@@ -392,11 +397,12 @@ export default class MainMenu extends GameState {
     }
 
     private _setupRegister() {
-        this.registerGroup = this.add.group();
+        this.registerGroup = this.add.group(this.world, 'register');
 
         this.pointerSprite = this.add.sprite(30, 88, 'sprite_select', 'pointer.png', this.registerGroup);
+        this.pointerSprite.name = 'pointer';
 
-        const textGroup = this.add.group(this.registerGroup);
+        const textGroup = this.add.group(this.registerGroup, 'text');
         const lines = [
             'ABCDEFGHIJ  abcdefghij  01234',
             'KLMNOPQRST  klmnopqrst  56789',
@@ -409,7 +415,7 @@ export default class MainMenu extends GameState {
         this.pname = textGroup.add(this.fontpool.alloc(false, 30, 96, '', 16));
 
         // create all the characters
-        this.charactersGroup = this.add.group(textGroup);
+        this.charactersGroup = this.add.group(textGroup, 'characters');
         this.characters = [];
 
         const sx = 32;
@@ -455,12 +461,13 @@ export default class MainMenu extends GameState {
         }
 
         this.line = this.add.graphics(24, 132, this.registerGroup);
-        this.line.lineStyle(2, 0xffffff, 1);
+        this.line.name = 'line';
+        this.line.lineStyle(1, 0xffffff, 0.5);
         this.line.moveTo(0, 0);
         this.line.lineTo(624, 0);
-        this.line.scale.set(1 / Constants.GAME_SCALE, 1 / Constants.GAME_SCALE);
 
         this.registerSprite = this.add.sprite(0, 0, 'sprite_select', 'register.png', this.registerGroup);
+        this.registerSprite.name = 'register';
 
         this.registerGroup.visible = false;
     }

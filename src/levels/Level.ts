@@ -359,7 +359,7 @@ export default class Level extends GameState {
             case 'fade':
                 /* falls through */
             default:
-                this.game.effects.fadeScreen('black', Constants.EFFECT_MAP_TRANSITION_TIME)
+                this.game.effects.fadeScreen(Constants.COLORS.BLACK, Constants.EFFECT_MAP_TRANSITION_TIME)
                     .onComplete.addOnce(function () {
                         this._gotoLevel(exit, vec);
                     }, this);
@@ -437,7 +437,7 @@ export default class Level extends GameState {
 
         switch (this.activeZone.properties.transition) {
             case 'fade':
-                this.game.effects.fadeScreen('black', Constants.EFFECT_ZONE_TRANSITION_TIME)
+                this.game.effects.fadeScreen(Constants.COLORS.BLACK, Constants.EFFECT_ZONE_TRANSITION_TIME)
                     .onComplete.addOnce(function () {
                         // pan camera
                         this.camera.x += this.camera.width * vec.x;
@@ -514,12 +514,7 @@ export default class Level extends GameState {
 
         this.firstZone = false;
 
-        this.camera.bounds.setTo(
-            zone.x * Constants.GAME_SCALE,
-            zone.y * Constants.GAME_SCALE,
-            zone.width * Constants.GAME_SCALE,
-            zone.height * Constants.GAME_SCALE
-        );
+        this.camera.bounds.copyFrom(zone);
 
         this.camera.follow(this.game.player, Phaser.Camera.FOLLOW_LOCKON);
         // this.camera.pan(1, 1);

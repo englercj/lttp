@@ -7,7 +7,8 @@ export const enum ENTITY_TYPE {
 }
 
 export default class Constants {
-    static WORLD_ITEMS: TTable<string> = {
+    /* tslint:disable:typedef */
+    static WORLD_ITEMS = {
         HEART:   'heart',
         MAGIC:   'magic',
         ARROWS:  'arrows',
@@ -15,7 +16,7 @@ export default class Constants {
         RUPEES:  'rupees',
     };
 
-    static MAP_OBJECTS: TTable<string> = {
+    static MAP_OBJECTS = {
         CHEST:   'chest',
         SIGN:    'sign',
         ROCK:    'rock',
@@ -24,7 +25,7 @@ export default class Constants {
         MINE:    'mine',
     };
 
-    static STATES: TTable<string> = {
+    static STATES = {
         BOOT:       'state_boot',
         PRELOADER:  'state_preloader',
         INTRO:      'state_intro',
@@ -32,17 +33,25 @@ export default class Constants {
         PLAY:       'state_play',
     };
 
-    static LEVELS: TTable<string> = {
+    static LEVELS = {
         CAVE034:    'level_case034',
         DARKWORLD:  'level_darkworld',
         LIGHTWORLD: 'level_lightworld',
         LINKSHOUSE: 'level_linkshouse',
     };
 
+    static COLORS = {
+        WHITE:  [255,   255,    255,    1],
+        BLACK:  [  0,     0,      0,    1],
+        RED:    [255,     0,      0,    1],
+        GREEN:  [  0,   255,      0,    1],
+        BLUE:   [  0,     0,    255,    1],
+    };
+    /* tslint:enable:typedef */
+
     // deminsions of the screen
     static GAME_WIDTH:           number = 256;
     static GAME_HEIGHT:          number = 224;
-    static GAME_SCALE:           number = 3;
     static GAME_TEXT_SCALE:      number = 1.5;
     static GAME_SAVE_INTERVAL:   number = 10000;
 
@@ -79,8 +88,8 @@ export default class Constants {
     static INPUT_GAMEPAD_AXIS_THRESHOLD: number = 0.25;
 
     // some effect constants
-    static EFFECT_INTRO_FLASH_ALPHA: number = 0.9;
-    static EFFECT_INTRO_FLASH_LENGTH: number = 60;
+    static EFFECT_INTRO_FLASH_ALPHA: number = 0.6;
+    static EFFECT_INTRO_FLASH_LENGTH: number = 15;
 
     static EFFECT_ZONE_TRANSITION_TIME: number = 500;
     static EFFECT_ZONE_TRANSITION_SPACE: number = 20;

@@ -12,6 +12,7 @@ const VENDOR_PATH = path.join(__dirname, '/vendor');
 const phaser = path.join(VENDOR_PATH, 'phaser.js');
 const pixi = path.join(VENDOR_PATH, 'pixi.js');
 const p2 = path.join(VENDOR_PATH, 'p2.js');
+const phaserDebug = path.join(__dirname, 'node_modules', 'phaser-debug', 'dist', 'phaser-debug.js');
 
 module.exports = {
     cache: true,
@@ -19,7 +20,7 @@ module.exports = {
     recordsPath: path.join(__dirname, '.records'),
     entry: {
         app: './src/app.ts',
-        vendor: ['pixi.js', 'p2', 'phaser', 'phaser-tiled']
+        vendor: ['pixi.js', 'p2', 'phaser', 'phaser-tiled', 'phaser-debug']
     },
     output: {
         path: path.join(__dirname, 'public'),
@@ -34,6 +35,7 @@ module.exports = {
             'pixi.js': pixi,
             'p2': p2,
             'phaser': phaser,
+            'phaser-debug': phaserDebug,
         }
     },
     module: {

@@ -14,8 +14,6 @@ export default class Hud extends Phaser.Group {
     constructor(game: Game, parent?: any) {
         super(game, parent, 'HUD');
 
-        // this.scale.set(Data.Constants.GAME_SCALE / 2);
-
         this.items = {
             equipted:   new MagicMeter(game, this, 40, 36, 1),
             rupees:     new EquiptedItem(game, this, 75, 42, ''),

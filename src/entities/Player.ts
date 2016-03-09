@@ -267,13 +267,13 @@ export default class Player extends Entity {
             if (math.isInViewCone(this, ent, Constants.PLAYER_USE_CONE)) {
                 switch (ent.properties.type) {
                     // TODO: Make the item decide this stuff? They all implement a `use` method instead?
-                    case Constants.MAP_OBJECTS['CHEST']:
+                    case Constants.MAP_OBJECTS.CHEST:
                         if (this.facing === Phaser.UP) {
                             this.openChest(ent);
                         }
                         break;
 
-                    case Constants.MAP_OBJECTS['SIGN']:
+                    case Constants.MAP_OBJECTS.SIGN:
                         if (this.facing === Phaser.UP) {
                             this.readSign(ent);
                         }
@@ -282,14 +282,14 @@ export default class Player extends Entity {
                         }
                         break;
 
-                    case Constants.MAP_OBJECTS['ROCK']:
+                    case Constants.MAP_OBJECTS.ROCK:
                         if (this.inventory.gloves) {
                             this.liftItem(ent);
                         }
                         break;
 
-                    case Constants.MAP_OBJECTS['GRASS']:
-                    case Constants.MAP_OBJECTS['POT']:
+                    case Constants.MAP_OBJECTS.GRASS:
+                    case Constants.MAP_OBJECTS.POT:
                         this.liftItem(ent);
                         break;
                 }
@@ -462,20 +462,20 @@ export default class Player extends Entity {
 
     collectLoot(item: WorldItem) {
         switch (item.itemType) {
-            case Constants.WORLD_ITEMS['HEART']:
+            case Constants.WORLD_ITEMS.HEART:
                 this.heal(1);
                 break;
 
-            case Constants.WORLD_ITEMS['MAGIC']:
+            case Constants.WORLD_ITEMS.MAGIC:
                 this.magic += item.value;
                 if (this.magic > this.maxMagic) {
                     this.magic = this.maxMagic;
                 }
                 break;
 
-            case Constants.WORLD_ITEMS['ARROWS']:
-            case Constants.WORLD_ITEMS['BOMBS']:
-            case Constants.WORLD_ITEMS['RUPEES']:
+            case Constants.WORLD_ITEMS.ARROWS:
+            case Constants.WORLD_ITEMS.BOMBS:
+            case Constants.WORLD_ITEMS.RUPEES:
                 this.inventory[item.type] += item.value;
                 break;
         }
