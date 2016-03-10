@@ -216,12 +216,16 @@ export default class Player extends Entity {
     }
 
     move(direction: number, value: number, active: boolean) {
-        this.moving[direction] = active ? value : 0;
+        const newValue = active ? value : 0;
 
-        this.facing = direction;
+        if (this.moving[direction] !== newValue) {
+            this.moving[direction] = newValue;
 
-        this.moveDirty = true;
-        this.textureDirty = true;
+            this.moveDirty = true;
+            this.textureDirty = true;
+        }
+
+        this.evalFacingDirection();
     }
 
     attack(active: boolean) {
@@ -324,7 +328,7 @@ export default class Player extends Entity {
     }
 
     throwItem() {
-        const v = this._getFacingVector();
+        const v = this.getFacingVector();
         const yf = v.y === -1 ? 0 : 1;
 
         this.carrying = null;
@@ -449,7 +453,7 @@ export default class Player extends Entity {
         // item.setFrame(item.frames.getFrameByName('dungeon/' + item.itemType + (item.properties.heavy ? '_heavy' : '') + '.png'));
 
         // lift the item
-        this.animations.play('lift_' + this._getFacingString());
+        this.animations.play('lift_' + this.getFacingString());
         this.liftSound.play();
 
         this.game.add.tween(item.body)
@@ -589,7 +593,7 @@ export default class Player extends Entity {
             anim += '_shield';
         }
 
-        this.animations.play(anim + '_' + this._getFacingString());
+        this.animations.play(anim + '_' + this.getFacingString());
     }
 
     private _checkAttack() {

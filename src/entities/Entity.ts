@@ -90,12 +90,29 @@ export default class Entity extends Phaser.Sprite {
         return this;
     }
 
-    _getFacingString(): string {
+    getFacingString(): string {
         return Constants.DIRECTION_STRING_MAP[this.facing];
     }
 
-    _getFacingVector(): Phaser.Point {
+    getFacingVector(): Phaser.Point {
         return Constants.DIRECTION_VECTOR_MAP[this.facing];
+    }
+
+    evalFacingDirection(): number {
+        if (this.moving[Phaser.UP]) {
+            this.facing = Phaser.UP;
+        }
+        else if (this.moving[Phaser.DOWN]) {
+            this.facing = Phaser.DOWN;
+        }
+        else if (this.moving[Phaser.LEFT]) {
+            this.facing = Phaser.LEFT;
+        }
+        else if (this.moving[Phaser.RIGHT]) {
+            this.facing = Phaser.RIGHT;
+        }
+
+        return this.facing;
     }
 
     _addDirectionalFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
