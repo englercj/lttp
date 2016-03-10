@@ -524,7 +524,6 @@ export default class Level extends GameState {
         this.camera.bounds.copyFrom(zone);
 
         this.camera.follow(this.game.player, Phaser.Camera.FOLLOW_LOCKON);
-        // this.camera.pan(1, 1);
 
         // play zone music, or the map music if there is no zone music
         this._setupMusic(zone.properties.music || this.tiledmap.properties.music);
