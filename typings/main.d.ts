@@ -14,9 +14,16 @@ declare module p2 {
 }
 /* tslint:enable:no-internal-module */
 
-// declare phaser-debug
+// declare stub phaser-debug
 declare module 'phaser-debug' {
     export = class Debug extends Phaser.Plugin {
+        constructor(game: Phaser.Game, parent: PIXI.DisplayObject);
+    }
+}
+
+// declare stub phaser-tiled
+declare module 'phaser-tiled' {
+    export = class Tiled extends Phaser.Plugin {
         constructor(game: Phaser.Game, parent: PIXI.DisplayObject);
     }
 }

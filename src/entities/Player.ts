@@ -493,10 +493,10 @@ export default class Player extends Entity {
         }
     }
 
-    onBeginContact(obj: Entity | WorldItem, objShape: p2.Shape, myShape: p2.Shape) {
+    onBeginContact(obj: Entity /*| Phaser.Plugin.Tiled.ITiledObject*/, objShape: p2.Shape, myShape: p2.Shape) {
         // we got into range of something to attack
         if (myShape === this.attackSensor) {
-            if (obj.type) {
+            if (obj.type && obj.body) {
                 this.inAttackRange.push(obj);
 
                 // something new walked in while we were attacking
@@ -506,7 +506,7 @@ export default class Player extends Entity {
             }
         }
         // colliding with a blocking object
-        else if (!objShape.sensor) {
+        else if (obj.body && !obj.body.data.shapes[0].sensor) {
             this.colliding.push(obj);
             // this._isBlocked();
         }
@@ -516,7 +516,7 @@ export default class Player extends Entity {
         }
     }
 
-    onEndContact(obj: Entity | WorldItem, objShape: p2.Shape, myShape: p2.Shape) {
+    onEndContact(obj: Entity /*| Phaser.Plugin.Tiled.ITiledObject*/, objShape: p2.Shape, myShape: p2.Shape) {
         // remove from attack range
         if (myShape === this.attackSensor) {
             const i = this.inAttackRange.indexOf(obj);
@@ -526,7 +526,7 @@ export default class Player extends Entity {
             }
         }
         // remove from collision list
-        else if (!obj.body.data.shapes[0].sensor) {
+        else if (obj.body && !obj.body.data.shapes[0].sensor) {
             const i = this.colliding.indexOf(obj);
 
             if (i >= 0) {

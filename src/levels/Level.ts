@@ -61,7 +61,9 @@ export default class Level extends GameState {
     private firstZone: boolean = true;
 
     // the data loaded for this level in its pack
-    private packData: any;
+    private packData: any = null;
+
+    private _tempVector: Phaser.Point = new Phaser.Point();
 
     preload() {
         super.preload();
@@ -77,8 +79,6 @@ export default class Level extends GameState {
 
         this.overlay = this.add.existing(new MapOverlay(this.game));
 
-        // this.game.physics.startSystem(Phaser.Physics.P2JS);
-
         // These <any> casts are because typescript doesn't have a method for extending existing classes
         // defined in external .d.ts files. This means phaser-tiled can't properly extend the type defs
         // for the classes it added methods to. I promise these exist :)
@@ -91,9 +91,11 @@ export default class Level extends GameState {
         (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'exits');
         (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'zones');
 
-        // this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
-        // this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
-        // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
+        if (Constants.DEBUG) {
+            this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
+            this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
+            // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
+        }
 
         // setup the player for a new level
         const exit = this.game.loadedSave.lastUsedExit;
@@ -113,7 +115,7 @@ export default class Level extends GameState {
         this.game.physics.p2.onBeginContact.add(this.onBeginContact, this);
         this.game.physics.p2.onEndContact.add(this.onEndContact, this);
 
-        // this.firstZone = true;
+        this.firstZone = true;
 
         // this.lastExit = exit;
 
@@ -277,15 +279,17 @@ export default class Level extends GameState {
         }
     }
 
-    // private _enableDebugBodies(layer: Phaser.Plugin.Tiled.Objectlayer) {
-    //     if (!layer) {
-    //         return;
-    //     }
+    private _enableDebugBodies(layer: Phaser.Plugin.Tiled.Objectlayer) {
+        if (!layer) {
+            return;
+        }
 
-    //     for (let i = 0; i < layer.bodies.length; ++i) {
-    //         layer.bodies[i].debug = true;
-    //     }
-    // }
+        for (let i = 0; i < layer.bodies.length; ++i) {
+            let body: Phaser.Physics.P2.Body = layer.bodies[i];
+
+            body.debug = true;
+        }
+    }
 
     private _checkContact(begin: boolean, bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
         if (!bodyA.parent || !bodyB.parent) {
@@ -307,14 +311,16 @@ export default class Level extends GameState {
             return;
         }
 
-        if (begin && playerShape === this.game.player.bodyShape) {
+        if (begin && contactEquations.length && playerShape === this.game.player.bodyShape) {
+            this._tempVector.set(-contactEquations[0].normalA[0], -contactEquations[0].normalA[1]);
+
             // colliding with a new zone
             if (obj.type === 'zone') {
-                return this._zone(obj, this.game.player._getFacingVector());
+                return this._zone(obj, this._tempVector);
             }
             // collide with an exit
             else if (obj.type === 'exit') {
-                return this._exit(obj, this.game.player._getFacingVector());
+                return this._exit(obj, this._tempVector);
             }
         }
 
@@ -443,13 +449,7 @@ export default class Level extends GameState {
                         this.camera.x += this.camera.width * vec.x;
                         this.camera.y += this.camera.height * vec.y;
 
-                        // set link position
-                        if (vec.x) {
-                            this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                        }
-                        else {
-                            this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                        }
+                        this._transitionPlayer(!!vec.x, vel);
 
                         // zone ready
                         this._zoneReady();
@@ -461,13 +461,7 @@ export default class Level extends GameState {
                 this.camera.x += this.camera.width * vec.x;
                 this.camera.y += this.camera.height * vec.y;
 
-                // set link position
-                if (vec.x) {
-                    this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                }
-                else {
-                    this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                }
+                this._transitionPlayer(!!vec.x, vel);
 
                 // zone ready
                 this._zoneReady();
@@ -478,11 +472,9 @@ export default class Level extends GameState {
             default:
                 if (vec.x) {
                     cameraEnd['x'] = this.camera.x + this.camera.width * vel;
-                    playerEnd['x'] = Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
                 }
                 else {
                     cameraEnd['y'] = this.camera.y + this.camera.height * vel;
-                    playerEnd['y'] = Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
                 }
 
                 this.game.add.tween(this.camera)
@@ -490,16 +482,31 @@ export default class Level extends GameState {
                     .start()
                     .onComplete.addOnce(this._zoneReady, this);
 
-                // this.game.add.tween(this.game.player.body)
-                //     .to(playerEnd, Data.Constants.EFFECT_ZONE_TRANSITION_TIME)
-                //     .start()
-                if (vec.x) {
-                    this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                }
-                else {
-                    this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vel;
-                }
+                this._transitionPlayer(!!vec.x, vel, true);
                 break;
+        }
+    }
+
+    private _transitionPlayer(horizontal: boolean, vector: number, ease: boolean = true) {
+        if (ease) {
+            const playerEnd: TTable<number> = {
+                x: this.game.player.body.x,
+                y: this.game.player.body.y
+            };
+
+            playerEnd[horizontal ? 'x' : 'y'] += Constants.EFFECT_ZONE_TRANSITION_SPACE * vector;
+
+            this.game.add.tween(this.game.player.body)
+                .to(playerEnd, Constants.EFFECT_ZONE_TRANSITION_TIME)
+                .start();
+        }
+        else {
+            if (horizontal) {
+                this.game.player.body.x += Constants.EFFECT_ZONE_TRANSITION_SPACE * vector;
+            }
+            else {
+                this.game.player.body.y += Constants.EFFECT_ZONE_TRANSITION_SPACE * vector;
+            }
         }
     }
 

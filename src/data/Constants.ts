@@ -7,6 +7,8 @@ export const enum ENTITY_TYPE {
 }
 
 export default class Constants {
+    static DEBUG: boolean = true;
+
     /* tslint:disable:typedef */
     static WORLD_ITEMS = {
         HEART:   'heart',

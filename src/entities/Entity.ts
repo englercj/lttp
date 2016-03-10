@@ -83,8 +83,7 @@ export default class Entity extends Phaser.Sprite {
         this.body.setZeroDamping();
         this.body.fixedRotation = true;
 
-        this.body.debug = false;
-        this.body.debug = true;
+        this.body.debug = Constants.DEBUG;
 
         level.physics.p2.addBody(this.body);
 

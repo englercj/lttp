@@ -8,7 +8,7 @@ export default class Darkworld extends Level {
 
         // Music
         this.load.audio('music_darkworld', [
-            'assets/audio/music/dark_world.lite.ogg',
+            require('../../assets/audio/music/dark_world.lite.ogg'),
         ]);
     }
 }

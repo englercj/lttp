@@ -16513,7 +16513,7 @@
                  "name":"Link's House",
                  "properties":
                     {
-                     "sensor":"true"
+                     "collisionResponse":"false"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -16618,7 +16618,7 @@
                  "name":"Bridge",
                  "properties":
                     {
-                     "sensor":"true"
+                     "collisionResponse":"false"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -16828,7 +16828,7 @@
                  "name":"Great Swamp",
                  "properties":
                     {
-                     "sensor":"true"
+                     "collisionResponse":"false"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -17041,7 +17041,7 @@
                  "name":"Link's House - West",
                  "properties":
                     {
-                     "sensor":"true"
+                     "collisionResponse":"false"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -17052,7 +17052,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":256,
          "x":0,
          "y":0
