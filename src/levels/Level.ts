@@ -92,7 +92,7 @@ export default class Level extends GameState {
         (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'zones');
 
         if (Constants.DEBUG) {
-            this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
+            // this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
             this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
             // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
         }
@@ -437,7 +437,6 @@ export default class Level extends GameState {
     private _zoneTransition(vec: TPoint) {
         const vel = vec.x ? vec.x : vec.y;
         const cameraEnd: TTable<number> = {};
-        const playerEnd: TTable<number> = {};
 
         this.game.player.lock();
 
@@ -491,7 +490,7 @@ export default class Level extends GameState {
         if (ease) {
             const playerEnd: TTable<number> = {
                 x: this.game.player.body.x,
-                y: this.game.player.body.y
+                y: this.game.player.body.y,
             };
 
             playerEnd[horizontal ? 'x' : 'y'] += Constants.EFFECT_ZONE_TRANSITION_SPACE * vector;
