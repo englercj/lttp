@@ -46,7 +46,7 @@ gulp.task('dev', function (done) {
  * watch - WAtches for file changes to the asset pack.
  */
 gulp.task('watch', function () {
-    return gulp.watch('./assets/levels/**/*.json', ['tilemap:pack']);
+    return gulp.watch('./assets/levels/**/*.json', ['tilemap:pack', 'copy']);
 });
 
 /**
