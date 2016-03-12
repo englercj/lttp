@@ -21,7 +21,7 @@
   "dependencies": {
     "lz-string": "^1.4.4",
     "phaser": "^2.4.6",
-    "phaser-debug": "^1.1.8",
+    "phaser-debug": "git+https://github.com/englercj/phaser-debug.git#master",
     "phaser-tiled": "git+https://github.com/englercj/phaser-tiled.git#thin-tiles"
   },
   "devDependencies": {
