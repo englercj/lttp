@@ -12,18 +12,21 @@ any of the assets taken from the original game.
 
 This game is built with [Phaser](http://phaser.io).
 
-### Running the Game
+### Building and running the game
 
-The current state of the game is highly in flux, but you can always run the current state of master by installing
-[Node.js](http://nodejs.org), and running the following:
+When the project gets more stable I will host a playable version on GitHub Pages, but for now you need to build manually.
 
-```shell
-cd lttp-phaser
+This project uses [node](https://nodejs.org/) for building and [git-lfs](https://git-lfs.github.com/) for managing
+binary files in the project. You will need to install both to work on this project.
+
+After you have the dependencies above installed, clone this repository. If you already cloned this repository before
+installing git-lfs you can get the binary files by using `git lfs pull` to update your local binary files.
+
+Once you have the repostiory cloned, you can install dependencies and run the development server:
+
+```
 npm install && npm start
 ```
-
-Then point your browser to [http://localhost:8000](http://localhost:8000). If you wish to use a gamepad you will need
-to be running Chrome 24+ or a [special build of Firefox](http://people.mozilla.com/~tmielczarek/mouselock+gamepad/).
 
 ### Resources
 
@@ -40,12 +43,19 @@ information, and misc details of the game:
 
 ### Roadmap
 
-Below is the current TODO list for the project:
+Below is a non-exhaustive TODO list for the project:
 
-* Enemies (generic npc loading from tmx)
-* Dialog
-* Cutscenes
-* First Dungeon (palace)
+- Signage
+- Lifting items
+- Fix drops
+- Add handling for gamepad axis sticks
+- Implement ERASE/COPY menu options in main menu
+- NPCs (generic npc loading from tmx)
+- Implement better level loading and manifest
+- Finish up ROG Font characters
+- Bosses and boss mechanics
+- First Dungeon (palace)
+- Intro dialog
 
 ### License and Legal
 
