@@ -76,6 +76,8 @@ export default class Level extends GameState {
 
     private _cameraBounds: Phaser.Rectangle;
 
+    private _paused: boolean = false;
+
     preload() {
         super.preload();
 
@@ -131,11 +133,11 @@ export default class Level extends GameState {
 
         this.game.player.onReadSign.add((sign: Entity) => {
             this.showDialog(sign.properties.text);
-        });
+        }, this);
 
         this.game.player.onInventoryChange.add(() => {
             this.hud.updateValues(this.game.player);
-        });
+        }, this);
 
         this.hud.updateValues(this.game.player);
 
@@ -176,9 +178,14 @@ export default class Level extends GameState {
         // transitioning to a new state will destroy the world, including the player so remove it.
         this.game.player.parent.removeChild(this.game.player);
 
+        this.game.player.onReadSign.removeAll(this);
+        this.game.player.onInventoryChange.removeAll(this);
+
         // remove the listeners or they will keep firing
-        this.game.physics.p2.onBeginContact.removeAll();
-        this.game.physics.p2.onEndContact.removeAll();
+        this.game.physics.p2.onBeginContact.removeAll(this);
+        this.game.physics.p2.onEndContact.removeAll(this);
+
+        this
 
         this.activeZone = null;
         this.oldZone = null;
@@ -197,31 +204,34 @@ export default class Level extends GameState {
     }
 
     showDialog(text: (string|string[])) {
-        // this.pause();
-        this.physics.p2.pause();
+        this.pause();
 
         this.dialog.show(text);
     }
 
     pause() {
-        // render the current world onto a texture
-        this.hud.visible = false;
-        this._bgtx.render(this.world);
-        this._bgspr.visible = true;
+        // // render the current world onto a texture
+        // this.hud.visible = false;
+        // this._bgtx.render(this.world);
+        // this._bgspr.visible = true;
 
-        // turn the camera back on
-        this.hud.visible = true;
+        // // turn the camera back on
+        // this.hud.visible = true;
 
-        // hides and stop updates to the world
-        this.world.visible = false;
+        // // hides and stop updates to the world
+        // this.world.visible = false;
+
+        this._paused = true;
 
         // stop physics updates
         this.physics.p2.pause();
     }
 
     resume() {
-        this._bgspr.visible = false;
-        this.world.visible = true;
+        // this._bgspr.visible = false;
+        // this.world.visible = true;
+
+        this._paused = false;
 
         // restart physics simulation
         this.physics.p2.resume();
@@ -290,22 +300,25 @@ export default class Level extends GameState {
     }
 
     handleKeyboard(key: number, active: boolean) {
+        if (key === this.keymap.keyboard.use && this.dialog.visible) {
+            if (this.dialog.typing || this.dialog.queue.length) {
+                this.dialog.advance();
+            }
+            else {
+                this.dialog.hide();
+                this.resume();
+            }
+            return;
+        }
+
+        if (this._paused) {
+            return;
+        }
+
         switch (key) {
             // use
             case this.keymap.keyboard.use:
-                if (this.dialog.visible) {
-                    if (this.dialog.typing || this.dialog.queue.length) {
-                        this.dialog.advance();
-                    }
-                    else {
-                        this.dialog.hide();
-                        // this.resume();
-                        this.physics.p2.resume();
-                    }
-                }
-                else {
-                    this.game.player.use(active);
-                }
+                this.game.player.use(active);
                 break;
 
             // use item
