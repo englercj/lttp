@@ -2,7 +2,6 @@ import GameState from './GameState';
 import Player from '../entities/Player';
 
 export default class Play extends GameState {
-
     preload() {
         super.preload();
 

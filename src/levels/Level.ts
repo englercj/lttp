@@ -2,6 +2,9 @@ import MapOverlay from '../effects/MapOverlay';
 import GameState from '../states/GameState';
 import { IKeymap } from '../data/Keymap';
 import Constants from '../data/Constants';
+import Hud from '../gui/Hud';
+import Dialog from '../gui/Dialog';
+import Entity from '../entities/Entity';
 
 export default class Level extends GameState {
     // key for the level data
@@ -25,6 +28,9 @@ export default class Level extends GameState {
 
     // misc sprites used for map effects
     overlay: MapOverlay = null;
+
+    dialog: Dialog = null;
+    hud: Hud = null;
 
     keymap: IKeymap = {
         keyboard: {
@@ -58,26 +64,43 @@ export default class Level extends GameState {
     };
 
     // flag whether the zone load
-    private firstZone: boolean = true;
+    private _firstZone: boolean = true;
 
     // the data loaded for this level in its pack
-    private packData: any = null;
+    private _packData: any = null;
 
     private _tempVector: Phaser.Point = new Phaser.Point();
+
+    private _bgtx: Phaser.RenderTexture = null;
+    private _bgspr: Phaser.Sprite = null;
 
     preload() {
         super.preload();
 
         // should be loaded by the preloader state
-        this.packData = this.cache.getJSON(Constants.ASSET_TILEMAP_PACKS_KEY);
+        this._packData = this.cache.getJSON(Constants.ASSET_TILEMAP_PACKS_KEY);
 
-        this.load.pack(this.levelKey, null, this.packData);
+        this.load.pack(this.levelKey, null, this._packData);
     }
 
     create() {
         super.create();
 
         this.overlay = this.add.existing(new MapOverlay(this.game));
+
+        this.dialog = this.add.existing(new Dialog(this.game, null, true, false));
+        this.dialog.fixedToCamera = true;
+        this.dialog.cameraOffset.set(34, 146);
+
+        this.hud = this.add.existing(new Hud(this.game));
+        this.hud.fixedToCamera = true;
+        this.hud.cameraOffset.set(0, 0);
+
+        this._bgtx = this.game.add.renderTexture(this.game.width, this.game.height);
+        this._bgspr = this.game.add.sprite(0, 0, this._bgtx);
+        this._bgspr.fixedToCamera = true;
+        this._bgspr.name = '_bgSprite';
+        this._bgspr.visible = false;
 
         // These <any> casts are because typescript doesn't have a method for extending existing classes
         // defined in external .d.ts files. This means phaser-tiled can't properly extend the type defs
@@ -102,6 +125,16 @@ export default class Level extends GameState {
         this.game.player.reset(exit.properties.loc[0], exit.properties.loc[1]);
         this.game.player.setup(this);
 
+        this.game.player.onReadSign.add((sign: Entity) => {
+            this.showDialog(sign.properties.text);
+        });
+
+        this.game.player.onInventoryChange.add(() => {
+            this.hud.updateValues(this.game.player);
+        });
+
+        this.hud.updateValues(this.game.player);
+
         this.tiledmap.getObjectlayer('player').add(this.game.player);
 
         // ensure gravity is off
@@ -115,7 +148,7 @@ export default class Level extends GameState {
         this.game.physics.p2.onBeginContact.add(this.onBeginContact, this);
         this.game.physics.p2.onEndContact.add(this.onEndContact, this);
 
-        this.firstZone = true;
+        this._firstZone = true;
 
         // this.lastExit = exit;
 
@@ -126,6 +159,8 @@ export default class Level extends GameState {
         // );
 
         this.world.bringToTop(this.overlay);
+        this.world.bringToTop(this.dialog);
+        this.world.bringToTop(this.hud);
     }
 
     shutdown() {
@@ -152,6 +187,40 @@ export default class Level extends GameState {
 
         this.overlay.destroy(true);
         this.overlay = null;
+
+        this.dialog.destroy(true);
+        this.dialog = null;
+    }
+
+    showDialog(text: (string|string[])) {
+        // this.pause();
+        this.physics.p2.pause();
+
+        this.dialog.show(text);
+    }
+
+    pause() {
+        // render the current world onto a texture
+        this.hud.visible = false;
+        this._bgtx.render(this.world);
+        this._bgspr.visible = true;
+
+        // turn the camera back on
+        this.hud.visible = true;
+
+        // hides and stop updates to the world
+        this.world.visible = false;
+
+        // stop physics updates
+        this.physics.p2.pause();
+    }
+
+    resume() {
+        this._bgspr.visible = false;
+        this.world.visible = true;
+
+        // restart physics simulation
+        this.physics.p2.resume();
     }
 
     onBeginContact(bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
@@ -220,7 +289,19 @@ export default class Level extends GameState {
         switch (key) {
             // use
             case this.keymap.keyboard.use:
-                this.game.player.use(active);
+                if (this.dialog.visible) {
+                    if (this.dialog.typing || this.dialog.queue.length) {
+                        this.dialog.advance();
+                    }
+                    else {
+                        this.dialog.hide();
+                        // this.resume();
+                        this.physics.p2.resume();
+                    }
+                }
+                else {
+                    this.game.player.use(active);
+                }
                 break;
 
             // use item
@@ -426,7 +507,7 @@ export default class Level extends GameState {
         this.camera.unfollow();
         this.camera.setBoundsToWorld();
 
-        if (!this.firstZone) {
+        if (!this._firstZone) {
             this._zoneTransition(vec);
         }
         else {
@@ -518,7 +599,7 @@ export default class Level extends GameState {
 
         const zone = this.activeZone;
 
-        this.firstZone = false;
+        this._firstZone = false;
 
         this.camera.bounds.copyFrom(zone);
 

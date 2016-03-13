@@ -16,9 +16,9 @@ export default class LifeMeter extends GuiItem {
     constructor(game: Game, parent: Hud, x: number, y: number, value: number = 0) {
         super(game, parent, x, y, 'life', value);
 
-        this.dash1 = game.add.sprite(35, 0, 'sprite_gui', 'hud/life-dash.png', this);
-        this.dash2 = game.add.sprite(100, 0, 'sprite_gui', 'hud/life-dash.png', this);
-        this.life = game.add.sprite(65, -7, 'image_life', null, this);
+        this.dash1 = game.add.sprite(18, 0, 'sprite_gui', 'hud/life-dash.png', this);
+        this.dash2 = game.add.sprite(56, 0, 'sprite_gui', 'hud/life-dash.png', this);
+        this.life = game.add.sprite(36, -2, 'sprite_gui', 'text/life.png', this);
 
         this.frames = game.cache.getFrameData('sprite_gui');
 
@@ -35,8 +35,8 @@ export default class LifeMeter extends GuiItem {
         }
 
         let x = 0;
-        let y = 20;
-        const size = 16;
+        let y = 7;
+        const size = 8;
         const perRow = 10;
         let done = 0;
 

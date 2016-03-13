@@ -1,11 +1,11 @@
 import lzstring = require('lz-string');
 
-export default class Storage {
-    static save(key: string, value: any) {
+export default {
+    save(key: string, value: any) {
         localStorage.setItem(key, lzstring.compressToUTF16(JSON.stringify(value)));
-    }
+    },
 
-    static load(key: string) {
+    load(key: string) {
         const val: string = localStorage.getItem(key);
 
         try {
@@ -14,9 +14,9 @@ export default class Storage {
         catch (e) {
             return val;
         }
-    }
+    },
 
-    static remove(key: string) {
+    remove(key: string) {
         localStorage.removeItem(key);
-    }
-}
+    },
+};

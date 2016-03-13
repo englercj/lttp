@@ -5,8 +5,9 @@ const coneVec = new Phaser.Point(0, 0);
 export default {
     isInViewCone(viewer: Entity, obj: Entity, coneSize: number) {
         coneVec.set(
-            obj.x - viewer.x,
-            obj.y - viewer.y
+            // size offset compensates for anchor (0, 1) that tiled objects have
+            (obj.x + (obj.width / 2)) - viewer.x,
+            (obj.y - (obj.height / 2)) - viewer.y
         );
 
         coneVec.normalize();

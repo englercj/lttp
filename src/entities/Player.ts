@@ -40,6 +40,9 @@ export default class Player extends Entity {
     errorSound: Phaser.Sound;
     fallSound: Phaser.Sound;
 
+    onReadSign: Phaser.Signal;
+    onInventoryChange: Phaser.Signal;
+
     equipted: IItemDescriptor;
 
     inventory: PlayerInventory;
@@ -74,6 +77,9 @@ export default class Player extends Entity {
         this.itemFanfaireSound = game.add.sound('effect_item_fanfaire', Constants.AUDIO_EFFECT_VOLUME);
         this.errorSound = game.add.sound('effect_error', Constants.AUDIO_EFFECT_VOLUME);
         this.fallSound = game.add.sound('effect_fall', Constants.AUDIO_EFFECT_VOLUME);
+
+        this.onReadSign = new Phaser.Signal();
+        this.onInventoryChange = new Phaser.Signal();
 
         this.equipted = null;
 
@@ -279,7 +285,7 @@ export default class Player extends Entity {
 
                     case Constants.MAP_OBJECTS.SIGN:
                         if (this.facing === Phaser.UP) {
-                            this.readSign(ent);
+                            this.onReadSign.dispatch(ent);
                         }
                         else {
                             this.liftItem(ent);
@@ -398,20 +404,14 @@ export default class Player extends Entity {
                 this.itemPool.free(obj);
                 obj.pickup();
 
-                // update the inventory/hud
+                // update the inventory
                 this.inventory[obj.itemType] += obj.value;
 
-                // TODO: hud updates
-                // this.emit('updateHud');
+                this.onInventoryChange.dispatch();
             }, this);
 
         // TODO: remove loot from level for next time
         // this._markEmpty(chest);
-    }
-
-    readSign(sign: any) {
-        // TODO: Signage
-        // this.emit('readSign', sign);
     }
 
     liftItem(item: Entity) {

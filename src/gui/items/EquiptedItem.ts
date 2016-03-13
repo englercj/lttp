@@ -17,7 +17,7 @@ export default class EquiptedItem extends GuiItem {
         this.itemSprite = game.add.sprite(6, 0, 'sprite_gui', 'items/lantern.png', this);
 
         this.itemSprite.visible = false;
-        this.itemSprite.scale.set(2);
+        // this.itemSprite.scale.set(2);
 
         this.setValue(value);
     }

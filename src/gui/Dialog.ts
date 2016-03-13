@@ -15,6 +15,7 @@ export default class Dialog extends Phaser.Group {
     font: ReturnOfGanon;
 
     text: string = '';
+    queue: string[] = [];
     range: number[] = [0, 1]; // start pos, length
 
     fastSpeed: number = 15;
@@ -27,14 +28,18 @@ export default class Dialog extends Phaser.Group {
 
     typing: boolean = false;
 
+    autoAdvance: boolean;
+
     buffer: Phaser.RenderTexture;
     bufferSprite: Phaser.Sprite;
     bufferScroll: Phaser.Point;
 
     onTypingComplete: Phaser.Signal;
 
-    constructor(game: Game, parent?: any, showFrame: boolean = true) {
+    constructor(game: Game, parent?: any, showFrame: boolean = true, autoAdvance: boolean = false) {
         super(game, parent, 'dialog');
+
+        this.autoAdvance = autoAdvance;
 
         // load sound
         this.openSound = this.game.add.audio('effect_pause_close', Constants.AUDIO_EFFECT_VOLUME);
@@ -64,25 +69,27 @@ export default class Dialog extends Phaser.Group {
         this.onTypingComplete = new Phaser.Signal();
     }
 
-    show(text: string, speed?: number, insertNewlines: boolean = true, playSound: boolean = true, cb?: () => void) {
+    show(text: (string|string[]), speed?: number, insertNewlines: boolean = true, playSound: boolean = true) {
         this.visible = true;
 
         this.range[0] = 0;
         this.range[1] = 1;
 
-        this.text = insertNewlines ? this._insertNewlines(text) : text;
         this.speed = speed || this.typeSpeed;
         this.font.text = '';
-
-        if (this.text.charAt(this.text.length - 1) !== '\n') {
-            this.text += '\n';
-        }
 
         if (playSound) {
             this.openSound.play();
         }
 
-        this._type();
+        if (Array.isArray(text)) {
+            for (let i = 0; i < text.length; ++i) {
+                this.append(text[i], insertNewlines);
+            }
+        }
+        else {
+            this.append(text, insertNewlines);
+        }
 
         return this;
     }
@@ -94,17 +101,30 @@ export default class Dialog extends Phaser.Group {
     }
 
     append(text: string, insertNewlines: boolean = true) {
-        this.text += insertNewlines ? this._insertNewlines(text) : text;
+        let newText = insertNewlines ? this._insertNewlines(text) : text;
 
-        if (this.text.charAt(this.text.length - 1) !== '\n') {
-            this.text += '\n';
+        if (newText.charAt(newText.length - 1) !== '\n') {
+            newText += '\n';
         }
 
         if (!this.typing) {
+            this.text = newText;
             this._type();
+        }
+        else {
+            this.queue.push(newText);
         }
 
         return this;
+    }
+
+    advance() {
+        if (this.typing) {
+            this.speedUp();
+        }
+        else if (this.queue.length) {
+            this.append(this.queue.pop());
+        }
     }
 
     speedUp() {
@@ -127,7 +147,12 @@ export default class Dialog extends Phaser.Group {
             this.bufferSprite.visible = true;
             this.font.visible = false;
 
-            this.onTypingComplete.dispatch();
+            if (!this.queue.length) {
+                this.onTypingComplete.dispatch();
+            }
+            else if (this.autoAdvance) {
+                this.append(this.queue.pop());
+            }
         }
         else if (newlines && newlines.length && newlines.length === 3) {
             this.typing = true;
@@ -184,7 +209,7 @@ export default class Dialog extends Phaser.Group {
     private _insertNewlines(text: string) {
         let i = 30;
         while (text[i]) {
-            const sp = this._getPreviousSpace(text, i);
+            const sp = this._getPreviousSpace(<string>text, i);
             text = [text.slice(0, sp), text.slice(sp + 1)].join('\n');
             i += 30;
         }

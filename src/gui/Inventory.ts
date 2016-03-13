@@ -217,7 +217,6 @@ export default class Inventory extends Phaser.Group {
         this.activeItem.visible = false;
 
         this.activeText = new ReturnOfGanon(this.game, 175, 55);
-        // this.activeText.scale.x = this.activeText.scale.y = 0.3;
         this.activeText.visible = false;
         this.add(this.activeText);
     }

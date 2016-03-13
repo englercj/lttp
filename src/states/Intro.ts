@@ -503,7 +503,7 @@ export default class Intro extends GameState {
         this.loreImg4.name = 'image4';
         this.loreImg4.alpha = 0;
 
-        this.loreDialog = new Dialog(this.game, this.loreGroup, false);
+        this.loreDialog = new Dialog(this.game, this.loreGroup, false, true);
         this.loreDialog.name = 'dialog';
         this.loreDialog.position.set(34, 124);
     }

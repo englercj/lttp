@@ -14,13 +14,13 @@ export default class InventoryCounter extends GuiItem {
         this.icon = game.add.sprite(0, 0, 'sprite_gui', 'hud/indicator-' + this.name + '.png', this);
 
         if (name === 'rupees') {
-            this.icon.position.x += 13;
+            this.icon.position.x += 8;
         }
         else if (name === 'bombs') {
-            this.icon.position.x += 5;
+            this.icon.position.x += 4;
         }
 
-        this.font = new HudFont(game, 0, 30);
+        this.font = new HudFont(game, 0, 10, '', 16, 8);
         this.add(this.font);
 
         this.setValue(value);

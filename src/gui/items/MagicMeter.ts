@@ -12,7 +12,7 @@ export default class MagicMeter extends GuiItem {
         super(game, parent, x, y, 'magic', value);
 
         this.background = game.add.sprite(0, 0, 'sprite_gui', 'hud/magic_meter.png', this);
-        this.valueSprite = game.add.sprite(6, 0, 'sprite_gui', 'hud/magic_meter_value.png', this);
+        this.valueSprite = game.add.sprite(3, 0, 'sprite_gui', 'hud/magic_meter_value.png', this);
 
         this.maxHeight = this.valueSprite.height;
 
@@ -23,7 +23,7 @@ export default class MagicMeter extends GuiItem {
         super.setValue(val);
 
         this.valueSprite.height = this.maxHeight * val;
-        this.valueSprite.position.y = (this.maxHeight - this.valueSprite.height) + (8 * this.valueSprite.scale.y);
+        this.valueSprite.position.y = (this.maxHeight - this.valueSprite.height) + (4 * this.valueSprite.scale.y);
 
         return this;
     }
