@@ -7,7 +7,7 @@ export default class WorldItem extends Entity {
     rupeesSound1: Phaser.Sound;
     rupeesSound2: Phaser.Sound;
 
-    frameKeys: { [key: string]: string };
+    frameKeys: TTable<string>;
 
     itemType: string;
 

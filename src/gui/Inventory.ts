@@ -21,7 +21,7 @@ export default class Inventory extends Phaser.Group {
 
     private grid: InventoryItemSprite[][][];
 
-    private items: { [name: string]: InventoryItemSprite };
+    private items: TTable<InventoryItemSprite>;
 
     private selected: InventoryItemSprite;
     private selector: Phaser.Sprite;

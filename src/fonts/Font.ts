@@ -30,7 +30,7 @@ export interface IBitmapFontCharacterJson {
 }
 
 export default class Font extends Phaser.BitmapText {
-    static cachedFonts: { [key: string]: boolean } = {};
+    static cachedFonts: TTable<boolean> = {};
 
     game: Game;
 
