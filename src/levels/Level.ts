@@ -74,6 +74,8 @@ export default class Level extends GameState {
     private _bgtx: Phaser.RenderTexture = null;
     private _bgspr: Phaser.Sprite = null;
 
+    private _cameraBounds: Phaser.Rectangle;
+
     preload() {
         super.preload();
 
@@ -87,6 +89,8 @@ export default class Level extends GameState {
         super.create();
 
         this.overlay = this.add.existing(new MapOverlay(this.game));
+
+        this._cameraBounds = new Phaser.Rectangle(0, 0, 0, 0);
 
         this.dialog = this.add.existing(new Dialog(this.game, null, true, false));
         this.dialog.fixedToCamera = true;
@@ -505,7 +509,7 @@ export default class Level extends GameState {
         // const zoneData = mapData ? mapData[this.activeLayer.name] : null;
 
         this.camera.unfollow();
-        this.camera.setBoundsToWorld();
+        this.camera.bounds = null;
 
         if (!this._firstZone) {
             this._zoneTransition(vec);
@@ -601,7 +605,8 @@ export default class Level extends GameState {
 
         this._firstZone = false;
 
-        this.camera.bounds.copyFrom(zone);
+        this._cameraBounds.copyFrom(zone);
+        this.camera.bounds = this._cameraBounds;
 
         this.camera.follow(this.game.player, Phaser.Camera.FOLLOW_LOCKON);
 

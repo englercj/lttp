@@ -14,7 +14,6 @@ export default class Preloader extends GameState {
         // LOAD EM UP!
 
         // Images
-        this.load.image('image_life', require('../../assets/ui/life.png'));
         this.load.image('image_lore_bg1', require('../../assets/ui/lore_bg1.png'));
         this.load.image('image_lore_bg2', require('../../assets/ui/lore_bg2.png'));
 

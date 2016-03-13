@@ -93,7 +93,7 @@ export default class Constants {
     static EFFECT_INTRO_FLASH_ALPHA: number = 0.6;
     static EFFECT_INTRO_FLASH_LENGTH: number = 15;
 
-    static EFFECT_ZONE_TRANSITION_TIME: number = 500;
+    static EFFECT_ZONE_TRANSITION_TIME: number = 250;
     static EFFECT_ZONE_TRANSITION_SPACE: number = 20;
 
     static EFFECT_MAP_TRANSITION_TIME: number = 500;
