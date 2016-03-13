@@ -102,7 +102,7 @@
                  "name":"Inside",
                  "properties":
                     {
-                     "sensor":"true"
+                     "collisionResponse":"false"
                     },
                  "rotation":0,
                  "type":"zone",
@@ -113,7 +113,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":16,
          "x":0,
          "y":0
@@ -130,7 +130,6 @@
                  "properties":
                     {
                      "loc":"[2240,2817]",
-                     "sensor":"true",
                      "transition":"fade"
                     },
                  "rotation":0,

@@ -257,6 +257,7 @@
                  "name":"Entrance",
                  "properties":
                     {
+                     "collisionResponse":"false",
                      "transition":"fade"
                     },
                  "rotation":0,
@@ -272,6 +273,7 @@
                  "name":"Exit",
                  "properties":
                     {
+                     "collisionResponse":"false",
                      "transition":"fade"
                     },
                  "rotation":0,
@@ -283,7 +285,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":32,
          "x":0,
          "y":0
