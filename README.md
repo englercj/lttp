@@ -1,4 +1,4 @@
-## The Legend of Zelda: A Link to the Past (WebGL Edition)
+## Lttp
 
 This is a recreation of [Nintendo's The Legend of Zelda: A Link to the Past](http://www.nintendo.com/games/detail/5oMtHuB3aOHoawfC6brZ6myQYnE4flQ_).
 This is _not_ a port of the game, this is _not_ code conversion, this is _not_ the ROM running in an emulator. This is
