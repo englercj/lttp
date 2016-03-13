@@ -76,6 +76,7 @@ export default class Dialog extends Phaser.Group {
         this.range[1] = 1;
 
         this.speed = speed || this.typeSpeed;
+        this.text = '';
         this.font.text = '';
 
         if (playSound) {
@@ -108,7 +109,7 @@ export default class Dialog extends Phaser.Group {
         }
 
         if (!this.typing) {
-            this.text = newText;
+            this.text += newText;
             this._type();
         }
         else {
