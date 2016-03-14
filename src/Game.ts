@@ -60,6 +60,8 @@ export default class Game extends Phaser.Game {
     boot() {
         super.boot();
 
+        this.renderer.renderSession.roundPixels = true;
+
         // Setup our scaling parameters, we want the largest the browser can fit, minimum of our size.
         this.scale.windowConstraints.bottom = 'layout';
 
