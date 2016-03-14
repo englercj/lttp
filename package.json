@@ -22,7 +22,7 @@
     "lz-string": "^1.4.4",
     "phaser": "^2.4.6",
     "phaser-debug": "git+https://github.com/englercj/phaser-debug.git#master",
-    "phaser-tiled": "git+https://github.com/englercj/phaser-tiled.git#thin-tiles"
+    "phaser-tiled": "2.0.0"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
