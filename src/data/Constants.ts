@@ -98,6 +98,9 @@ export default class Constants {
 
     static EFFECT_MAP_TRANSITION_TIME: number = 500;
 
+    static EFFECT_OVERLAY_SCROLL_TIME: number = 100;
+    static EFFECT_OVERLAY_SCROLL_FACTOR: number = 0.5;
+
     // direction vectors
     static VECTOR_ZERO: Phaser.Point = new Phaser.Point(0, -1);
     static VECTOR_UP: Phaser.Point = new Phaser.Point(0, -1);

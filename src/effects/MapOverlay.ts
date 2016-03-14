@@ -10,9 +10,11 @@ export default class MapOverlay extends Phaser.Group {
 
     private _darkenerBmd: Phaser.BitmapData;
     private _darkener: Phaser.Image;
-    private _animator: Phaser.Sprite;
+    private _animator: Phaser.TileSprite;
 
     private _activeEffect: string;
+
+    private _cachedCameraPos: Phaser.Point;
 
     constructor(game: Game) {
         super(game, null, 'map overlay');
@@ -28,10 +30,12 @@ export default class MapOverlay extends Phaser.Group {
 
         this.add(this._darkener);
 
-        this._animator = game.add.sprite(0, 0, 'sprite_overlays', null, this);
+        this._animator = game.add.tileSprite(0, 0, game.width, game.height, 'sprite_overlays', null, this);
         this._animator.alpha = 0.8;
         this._animator.name = 'animator';
         this.add(this._animator);
+
+        this._cachedCameraPos = new Phaser.Point(this.game.camera.view.x, this.game.camera.view.y);
 
         // add rain animation
         this._animator.animations.add('rain', [
@@ -66,5 +70,23 @@ export default class MapOverlay extends Phaser.Group {
         this._darkener.visible = false;
 
         this.visible = false;
+    }
+
+    update() {
+        if (this.game.camera.view.x !== this._cachedCameraPos.x) {
+            const diff = this.game.camera.view.x - this._cachedCameraPos.x;
+
+            this._cachedCameraPos.x = this.game.camera.view.x;
+
+            this._animator.tilePosition.x -= diff * Constants.EFFECT_OVERLAY_SCROLL_FACTOR;
+        }
+
+        if (this.game.camera.view.y !== this._cachedCameraPos.y) {
+            const diff = this.game.camera.view.y - this._cachedCameraPos.y;
+
+            this._cachedCameraPos.y = this.game.camera.view.y;
+
+            this._animator.tilePosition.y -= diff * Constants.EFFECT_OVERLAY_SCROLL_FACTOR;
+        }
     }
 }
