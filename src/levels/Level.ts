@@ -71,8 +71,8 @@ export default class Level extends GameState {
 
     private _tempVector: Phaser.Point = new Phaser.Point();
 
-    private _bgtx: Phaser.RenderTexture = null;
-    private _bgspr: Phaser.Sprite = null;
+    // private _bgtx: Phaser.RenderTexture = null;
+    // private _bgspr: Phaser.Sprite = null;
 
     private _cameraBounds: Phaser.Rectangle;
 
@@ -102,11 +102,11 @@ export default class Level extends GameState {
         this.hud.fixedToCamera = true;
         this.hud.cameraOffset.set(0, 0);
 
-        this._bgtx = this.game.add.renderTexture(this.game.width, this.game.height);
-        this._bgspr = this.game.add.sprite(0, 0, this._bgtx);
-        this._bgspr.fixedToCamera = true;
-        this._bgspr.name = '_bgSprite';
-        this._bgspr.visible = false;
+        // this._bgtx = this.game.add.renderTexture(this.game.width, this.game.height);
+        // this._bgspr = this.game.add.sprite(0, 0, this._bgtx);
+        // this._bgspr.fixedToCamera = true;
+        // this._bgspr.name = '_bgSprite';
+        // this._bgspr.visible = false;
 
         // These <any> casts are because typescript doesn't have a method for extending existing classes
         // defined in external .d.ts files. This means phaser-tiled can't properly extend the type defs
@@ -184,8 +184,6 @@ export default class Level extends GameState {
         // remove the listeners or they will keep firing
         this.game.physics.p2.onBeginContact.removeAll(this);
         this.game.physics.p2.onEndContact.removeAll(this);
-
-        this
 
         this.activeZone = null;
         this.oldZone = null;
