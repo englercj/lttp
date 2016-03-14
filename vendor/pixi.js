@@ -7,7 +7,7 @@
 *
 * Phaser - http://phaser.io
 *
-* v2.4.6 "Baerlon" - Built: Tue Mar 08 2016 08:35:31
+* v2.4.7 "Hinderstap" - Built: Sun Mar 13 2016 18:10:07
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -1227,9 +1227,10 @@ PIXI.DisplayObjectContainer.prototype.displayObjectContainerUpdateTransform = PI
  */
 PIXI.DisplayObjectContainer.prototype.getBounds = function()
 {
-    if(this.children.length === 0)return PIXI.EmptyRectangle;
-
-    // TODO the bounds have already been calculated this render session so return what we have
+    if (this.children.length === 0)
+    {
+        return PIXI.EmptyRectangle;
+    }
 
     var minX = Infinity;
     var minY = Infinity;
@@ -1243,11 +1244,14 @@ PIXI.DisplayObjectContainer.prototype.getBounds = function()
 
     var childVisible = false;
 
-    for(var i=0,j=this.children.length; i<j; i++)
+    for (var i = 0; i < this.children.length; i++)
     {
         var child = this.children[i];
         
-        if(!child.visible)continue;
+        if (!child.visible)
+        {
+            continue;
+        }
 
         childVisible = true;
 
@@ -1263,8 +1267,10 @@ PIXI.DisplayObjectContainer.prototype.getBounds = function()
         maxY = maxY > childMaxY ? maxY : childMaxY;
     }
 
-    if(!childVisible)
+    if (!childVisible)
+    {
         return PIXI.EmptyRectangle;
+    }
 
     var bounds = this._bounds;
 
@@ -1273,9 +1279,6 @@ PIXI.DisplayObjectContainer.prototype.getBounds = function()
     bounds.width = maxX - minX;
     bounds.height = maxY - minY;
 
-    // TODO: store a reference so that if this function gets called again in the render cycle we do not have to recalculate
-    //this._currentBounds = bounds;
-   
     return bounds;
 };
 
@@ -1291,7 +1294,7 @@ PIXI.DisplayObjectContainer.prototype.getLocalBounds = function()
 
     this.worldTransform = PIXI.identityMatrix;
 
-    for(var i=0,j=this.children.length; i<j; i++)
+    for (var i = 0; i < this.children.length; i++)
     {
         this.children[i].updateTransform();
     }
@@ -1299,6 +1302,11 @@ PIXI.DisplayObjectContainer.prototype.getLocalBounds = function()
     var bounds = this.getBounds();
 
     this.worldTransform = matrixCache;
+	
+    for (i = 0; i < this.children.length; i++)
+    {
+        this.children[i].updateTransform();
+    }	
 
     return bounds;
 };
@@ -8225,8 +8233,6 @@ PIXI.TilingSprite.prototype.generateTilingTexture = function(forcePowerOfTwo, re
 
     var texture = this.texture;
     var frame = texture.frame;
-
-    console.log('generateTilingTexture', texture, frame);
 
     var targetWidth = this._frame.sourceSizeW;
     var targetHeight = this._frame.sourceSizeH;

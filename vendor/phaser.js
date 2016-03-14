@@ -7,7 +7,7 @@
 *
 * Phaser - http://phaser.io
 *
-* v2.4.6 "Baerlon" - Built: Tue Mar 08 2016 08:35:31
+* v2.4.7 "Hinderstap" - Built: Sun Mar 13 2016 18:10:08
 *
 * By Richard Davey http://www.photonstorm.com @photonstorm
 *
@@ -55,7 +55,7 @@ var Phaser = Phaser || {
     * @constant
     * @type {string}
     */
-    VERSION: '2.4.6',
+    VERSION: '2.4.7-dev',
 
     /**
     * An array of Phaser game instances.
@@ -3973,6 +3973,7 @@ Phaser.Polygon.prototype = {
      * - An array of Point objects: `[new Phaser.Point(x1, y1), ...]`
      * - An array of objects with public x/y properties: `[obj1, obj2, ...]`
      * - An array of paired numbers that represent point coordinates: `[x1,y1, x2,y2, ...]`
+     * - An array of arrays with two elements representing x/y coordinates: `[[x1, y1], [x2, y2], ...]`
      * - As separate Point arguments: `setTo(new Phaser.Point(x1, y1), ...)`
      * - As separate objects with public x/y properties arguments: `setTo(obj1, obj2, ...)`
      * - As separate arguments representing point coordinates: `setTo(x1,y1, x2,y2, ...)`
@@ -4005,6 +4006,10 @@ Phaser.Polygon.prototype = {
                 {
                     var p = new PIXI.Point(points[i], points[i + 1]);
                     i++;
+                }
+                else if (Array.isArray(points[i]))
+                {
+                    var p = new PIXI.Point(points[i][0], points[i][1]);
                 }
                 else
                 {
@@ -6818,7 +6823,7 @@ Phaser.Signal.prototype = {
     * @property {function} _boundDispatch - The bound dispatch function, if any.
     * @private
     */
-    _boundDispatch: true,
+    _boundDispatch: false,
 
     /**
     * @method Phaser.Signal#validateListener
@@ -11120,7 +11125,7 @@ Object.defineProperty(Phaser.World.prototype, "height", {
 Object.defineProperty(Phaser.World.prototype, "centerX", {
 
     get: function () {
-        return this.bounds.halfWidth;
+        return this.bounds.halfWidth + this.bounds.x;
     }
 
 });
@@ -11133,7 +11138,7 @@ Object.defineProperty(Phaser.World.prototype, "centerX", {
 Object.defineProperty(Phaser.World.prototype, "centerY", {
 
     get: function () {
-        return this.bounds.halfHeight;
+        return this.bounds.halfHeight + this.bounds.y;
     }
 
 });
@@ -13451,10 +13456,10 @@ Object.defineProperty(Phaser.Input.prototype, "worldY", {
 * The Mouse class is responsible for handling all aspects of mouse interaction with the browser.
 *
 * It captures and processes mouse events that happen on the game canvas object.
-* It also adds a single `mouseup` listener to `window` which is used to capture the mouse being released 
+* It also adds a single `mouseup` listener to `window` which is used to capture the mouse being released
 * when not over the game.
 *
-* You should not normally access this class directly, but instead use a Phaser.Pointer object 
+* You should not normally access this class directly, but instead use a Phaser.Pointer object
 * which normalises all game input for you, including accurate button handling.
 *
 * @class Phaser.Mouse
@@ -13828,7 +13833,7 @@ Phaser.Mouse.prototype = {
 
     /**
     * The internal method that handles the mouse up event from the window.
-    * 
+    *
     * @method Phaser.Mouse#onMouseUpGlobal
     * @param {MouseEvent} event - The native event from the browser. This gets stored in Mouse.event.
     */
@@ -13850,7 +13855,7 @@ Phaser.Mouse.prototype = {
 
     /**
     * The internal method that handles the mouse out event from the window.
-    * 
+    *
     * @method Phaser.Mouse#onMouseOutGlobal
     * @param {MouseEvent} event - The native event from the browser. This gets stored in Mouse.event.
     */
@@ -13875,7 +13880,7 @@ Phaser.Mouse.prototype = {
         //  the browser opening a context-menu or similar.
         //  On OS X Chrome especially this is bad news, as it blocks
         //  us then getting a mouseup event, so we need to force that through.
-        //  
+        //
         //  No matter what, we must cancel the left and right buttons
 
         this.input.mousePointer.stop(event);
@@ -14004,7 +14009,7 @@ Phaser.Mouse.prototype = {
 
     /**
     * Internal pointerLockChange handler.
-    * 
+    *
     * @method Phaser.Mouse#pointerLockChange
     * @param {Event} event - The native event from the browser. This gets stored in Mouse.event.
     */
@@ -14065,6 +14070,7 @@ Phaser.Mouse.prototype = {
         }
 
         window.removeEventListener('mouseup', this._onMouseUpGlobal, true);
+        window.removeEventListener('mouseout', this._onMouseOutGlobal, true);
 
         document.removeEventListener('pointerlockchange', this._pointerLockChange, true);
         document.removeEventListener('mozpointerlockchange', this._pointerLockChange, true);
@@ -49835,7 +49841,7 @@ Phaser.Sound.prototype = {
             if (volume === undefined) { volume = this._volume; }
             if (loop === undefined) { loop = this.loop; }
 
-            this.position = position;
+            this.position = Math.max(0, position);
             this.volume = volume;
             this.loop = loop;
             this.duration = 0;
@@ -50657,7 +50663,7 @@ Phaser.SoundManager.prototype = {
     /**
     * Sets the Input Manager touch callback to be SoundManager.unlock.
     * Required for iOS audio device unlocking. Mostly just used internally.
-    * 
+    *
     * @method Phaser.SoundManager#setTouchLock
     */
     setTouchLock: function () {
@@ -50682,7 +50688,7 @@ Phaser.SoundManager.prototype = {
 
     /**
     * Enables the audio, usually after the first touch.
-    * 
+    *
     * @method Phaser.SoundManager#unlock
     * @return {boolean} True if the callback should be removed, otherwise false.
     */
@@ -51127,12 +51133,20 @@ Phaser.SoundManager.prototype = {
 
         this.onSoundDecode.dispose();
 
-        this.context.close();
-
-        if (this.context && window['PhaserGlobal'])
+        if (this.context)
         {
-            //  Store this in the PhaserGlobal window var, if set, to allow for re-use if the game is created again without the page refreshing
-            window['PhaserGlobal'].audioContext = this.context;
+            if (window['PhaserGlobal'])
+            {
+                //  Store this in the PhaserGlobal window var, if set, to allow for re-use if the game is created again without the page refreshing
+                window['PhaserGlobal'].audioContext = this.context;
+            }
+            else
+            {
+                if (this.context.close)
+                {
+                    this.context.close();
+                }
+            }
         }
 
     }
@@ -60056,6 +60070,40 @@ Phaser.Physics.P2.Body.prototype = {
     },
 
     /**
+    * Applies a force to the Body that causes it to 'thrust' to the left, based on its current angle and the given speed.
+    * The speed is represented in pixels per second. So a value of 100 would move 100 pixels in 1 second (1000ms).
+    *
+    * @method Phaser.Physics.P2.Body#thrustLeft
+    * @param {number} speed - The speed at which it should move to the left.
+    */
+    thrustLeft: function (speed) {
+
+        var magnitude = this.world.pxmi(-speed);
+        var angle = this.data.angle;
+
+        this.data.force[0] += magnitude * Math.cos(angle);
+        this.data.force[1] += magnitude * Math.sin(angle);
+
+    },
+
+    /**
+    * Applies a force to the Body that causes it to 'thrust' to the right, based on its current angle and the given speed.
+    * The speed is represented in pixels per second. So a value of 100 would move 100 pixels in 1 second (1000ms).
+    *
+    * @method Phaser.Physics.P2.Body#thrustRight
+    * @param {number} speed - The speed at which it should move to the right.
+    */
+    thrustRight: function (speed) {
+
+        var magnitude = this.world.pxmi(-speed);
+        var angle = this.data.angle;
+
+        this.data.force[0] -= magnitude * Math.cos(angle);
+        this.data.force[1] -= magnitude * Math.sin(angle);
+
+    },
+
+    /**
     * Applies a force to the Body that causes it to 'thrust' backwards (in reverse), based on its current angle and the given speed.
     * The speed is represented in pixels per second. So a value of 100 would move 100 pixels in 1 second (1000ms).
     *
@@ -61739,7 +61787,7 @@ Phaser.Utils.extend(Phaser.Physics.P2.BodyDebug.prototype, {
         var hex;
         hex = c.toString(16);
 
-        if (hex.len === 2)
+        if (hex.length === 2)
         {
             return hex;
         }
