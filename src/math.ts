@@ -24,4 +24,4 @@ export default {
                 return (coneVec.x > 0 && coneVec.y > -coneSize && coneVec.y < coneSize);
         }
     },
-}
+};
