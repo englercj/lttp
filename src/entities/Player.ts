@@ -209,7 +209,7 @@ export class Player extends Entity
         for (let i = 0; i < this.colliding.length; ++i) {
             const ent = this.colliding[i];
 
-            if (math.isInViewCone(this, ent, PLAYER_USE_CONE)) {
+            if (isInViewCone(this, ent, PLAYER_USE_CONE)) {
                 switch (ent.properties.type) {
                     // TODO: Make the item decide this stuff? They all implement a `use` method instead?
                     case MAP_OBJECTS.CHEST:
@@ -531,7 +531,7 @@ export class Player extends Entity
         for (let i = this.inAttackRange.length - 1; i > -1; --i) {
             const ent = this.inAttackRange[i];
 
-            if (math.isInViewCone(this, ent, PLAYER_ATTACK_CONE)) {
+            if (isInViewCone(this, ent, PLAYER_ATTACK_CONE)) {
                 ent.damage(this.attackDamage);
             }
         }

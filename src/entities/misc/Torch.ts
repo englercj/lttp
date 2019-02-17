@@ -1,12 +1,13 @@
-import Game from '../../Game';
-import Entity from '../Entity';
+import { Entity } from '../Entity';
 
-export class Torch extends Entity {
+export class Torch extends Entity
+{
     light: number = 0.25;
     fuelTime: number = 5000;
 
-    constructor(game: Game) {
-        super(game, 'sprite_misc', false);
+    constructor(scene: Phaser.Scene)
+    {
+        super(scene, 'sprite_misc');
 
         this.animations.add('torch', [
             'torch/torch0.png',
@@ -25,7 +26,8 @@ export class Torch extends Entity {
         ], 0.09, true);
     }
 
-    lite() {
+    lite()
+    {
         this.animations.play('torch_lit');
         Game.timer.add(this.fuelTime, this.extinguish, this);
 
@@ -33,7 +35,8 @@ export class Torch extends Entity {
         // lttp.play.world.findLayer('darkness').alpha -= this.light;
     }
 
-    extinguish() {
+    extinguish()
+    {
         this.animations.stop('torch');
 
         // darken dat world

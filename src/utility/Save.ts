@@ -2,7 +2,7 @@ import * as Storage from './Storage';
 import { Player } from '../entities/Player';
 import { PlayerInventory } from '../data/PlayerInventory';
 import { IItemDescriptor } from '../data/ItemDescriptors';
-import { IRectangle, IObjectlayer, TObject } from 'gl-tiled';
+import { IRectangle, IObjectlayer } from 'gl-tiled';
 import { IDictionary } from './IDictionary';
 
 export interface IZoneData

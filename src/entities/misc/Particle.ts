@@ -1,32 +1,36 @@
-import Game from '../../Game';
-import Entity from '../Entity';
+import { Entity } from '../Entity';
 import { IItemDescriptor } from '../../data/ItemDescriptors';
 
-export class Particle extends Entity {
+export class Particle extends Entity
+{
     particleType: string;
 
-    constructor(game: Game) {
-        super(game, 'sprite_particles');
+    constructor(scene: Phaser.Scene)
+    {
+        super(scene, 'sprite_particles');
 
-        this.body.data.shapes[0].sensor = true;
+        this.setSensor(true);
 
         this.particleType = '';
 
-        this.anchor.set(0, 1);
+        this.originY = 1;
 
         this.events.onAnimationComplete.add(this.expire, this);
     }
 
-    boot(item: IItemDescriptor, phys: boolean = false) {
+    boot(item: IItemDescriptor, phys: boolean = false)
+    {
         const cfg = item.particle;
 
         this.visible = true;
         // this.hitArea = cfg.hitArea || new Rectangle(0, 8, 8, 8);
 
-        if (!this.animations.getAnimation(item.name)) {
+        if (!this.animations.getAnimation(item.name))
+        {
             const frames: string[] = [];
 
-            for (let i = 0; i < cfg.num; ++i) {
+            for (let i = 0; i < cfg.num; ++i)
+            {
                 frames.push(cfg.path + (i + 1) + cfg.ext);
             }
 
@@ -45,7 +49,8 @@ export class Particle extends Entity {
         const player = this.game.player;
         const space = cfg.spacing;
 
-        switch (player.facing) {
+        switch (player.facing)
+        {
             case Phaser.UP:
                 this.x = player.x + (player.width / 2) - (this.width / 2);
                 this.y = player.y - space - player.height;
@@ -86,14 +91,16 @@ export class Particle extends Entity {
         // }
     }
 
-    expire() {
+    expire()
+    {
         // clearTimeout(this.velto);
         this.animations.stop();
         this.visible = false;
         // this.disablePhysics();
     }
 
-    reverse() {
+    reverse()
+    {
         // clearTimeout(this.velto);
         // this.velocity.x = -this.velocity.x;
         // this.velocity.y = -this.velocity.y;

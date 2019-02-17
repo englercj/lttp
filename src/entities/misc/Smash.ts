@@ -1,16 +1,17 @@
-import Game from '../../Game';
-import Entity from '../Entity';
-import Constants from '../../data/Constants';
+import { Entity } from '../Entity';
+import { AUDIO_EFFECT_VOLUME } from '../../data/Constants';
 
-export class Smash extends Entity {
-    grassSound: Phaser.Sound;
-    smashSound: Phaser.Sound;
+export class Smash extends Entity
+{
+    grassSound: Phaser.Sound.BaseSound;
+    smashSound: Phaser.Sound.BaseSound;
 
-    constructor(game: Game) {
-        super(game, 'sprite_particles', false);
+    constructor(scene: Phaser.Scene)
+    {
+        super(scene, 'sprite_particles');
 
-        this.grassSound = game.add.sound('effect_grass_cut', Constants.AUDIO_EFFECT_VOLUME);
-        this.smashSound = game.add.sound('effect_smash', Constants.AUDIO_EFFECT_VOLUME);
+        this.grassSound = scene.sound.add('effect_grass_cut', { volume: AUDIO_EFFECT_VOLUME });
+        this.smashSound = scene.sound.add('effect_smash', { volume: AUDIO_EFFECT_VOLUME });
 
         this.events.onAnimationComplete.add(this._done, this);
         this.events.onAnimationStart.add(this._start, this);
@@ -18,7 +19,8 @@ export class Smash extends Entity {
         this._addAnimations();
     }
 
-        private _addAnimations() {
+    private _addAnimations()
+    {
         this._addSlices('pot', 0, 0, 0, 7);
         this._addSlices('grass', 0, 8, 1, 5);
         this._addSlices('grass_pink', 1, 6, 2, 3);
@@ -28,15 +30,18 @@ export class Smash extends Entity {
         this._addSlices('grass_dark', 4, 8, 5, 6);
     }
 
-    private _addSlices(name: string, sx: number, sy: number, tx: number, ty: number) {
+    private _addSlices(name: string, sx: number, sy: number, tx: number, ty: number)
+    {
         const frames: string[] = [];
 
-        while (sx !== tx || sy !== ty) {
+        while (sx !== tx || sy !== ty)
+        {
             frames.push('slice_' + sx + '_' + sy + '.png');
 
             ++sy;
 
-            if (sy > 9) {
+            if (sy > 9)
+            {
                 sx++;
                 sy = 0;
             }
@@ -45,16 +50,20 @@ export class Smash extends Entity {
         this.animations.add(name, frames, 12);
     }
 
-    private _start(animation: Phaser.Animation) {
-        if (animation.name.indexOf('grass') !== -1) {
+    private _start(animation: Phaser.Animation)
+    {
+        if (animation.name.indexOf('grass') !== -1)
+        {
             this.grassSound.play();
         }
-        else {
+        else
+        {
             this.smashSound.play();
         }
     }
 
-    private _done(animation: Phaser.Animation) {
+    private _done(animation: Phaser.Animation)
+    {
         this.visible = false;
     }
 }

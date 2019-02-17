@@ -1,5 +1,4 @@
-import { Level } from '../levels/Level';
-import { EEntityType, DIRECTION_STRING_MAP, DIRECTION_VECTOR_MAP, DEBUG } from '../data/Constants';
+import { EEntityType, DIRECTION_STRING_MAP, DIRECTION_VECTOR_MAP } from '../data/Constants';
 
 export type TMatterShapeType = 'rectangle'|'circle'|'trapezoid'|'polygon'|'fromVertices'|'fromVerts'|'fromPhysicsEditor';
 
