@@ -1,9 +1,11 @@
-﻿import Level from './Level';
+﻿import { Level } from './Level';
 
-export default class Lightworld extends Level {
+export class Lightworld extends Level
+{
     levelKey: string = 'lightworld';
 
-    preload() {
+    preload()
+    {
         super.preload();
 
         // Music

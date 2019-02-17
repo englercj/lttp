@@ -1,14 +1,15 @@
 // import styles
-import '../less/main.less';
+import '../assets/index.css';
 
-// import Phaser patches
-import './utility/phaser-patches';
+// Import the phaser engine
+import 'phaser';
 
 // start game
-import Game from './Game';
+import { Game } from './Game';
 
-window.onload = () => {
+window.onload = function ()
+{
     const game = new Game();
 
-    (<any>window).game = game;
+    (window as any).game = game;
 };

@@ -2,7 +2,7 @@ import Game from '../../Game';
 import Entity from '../Entity';
 import Constants from '../../data/Constants';
 
-export default class Smash extends Entity {
+export class Smash extends Entity {
     grassSound: Phaser.Sound;
     smashSound: Phaser.Sound;
 

@@ -1,18 +1,20 @@
 {
     "compilerOptions": {
+        "outDir": "dist",
         "target": "es5",
         "module": "commonjs",
         "moduleResolution": "node",
+        "sourceMap": true,
         "declaration": false,
-        "noImplicitAny": true,
         "removeComments": true,
-        "sourceMap": true
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true
     },
-    "exclude": [
-        "assets",
-        "less",
-        "node_modules",
-        "public",
-        "vendor"
+    "include": [
+        "src/**/*",
+        "typings/**/*"
     ]
 }

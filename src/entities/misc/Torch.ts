@@ -1,7 +1,7 @@
 import Game from '../../Game';
 import Entity from '../Entity';
 
-export default class Torch extends Entity {
+export class Torch extends Entity {
     light: number = 0.25;
     fuelTime: number = 5000;
 

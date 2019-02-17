@@ -1,92 +1,109 @@
-import Game from '../Game';
-import Constants from '../data/Constants';
+import { COLORS, EFFECT_OVERLAY_SCROLL_FACTOR } from '../data/Constants';
 
-export default class MapOverlay extends Phaser.Group {
-    game: Game;
-
-    key: Phaser.BitmapData;
-
-    onComplete: Phaser.Signal;
-
-    private _darkenerBmd: Phaser.BitmapData;
-    private _darkener: Phaser.Image;
-    private _animator: Phaser.TileSprite;
+export class MapOverlay extends Phaser.GameObjects.Container
+{
+    private _darkenerTexture: Phaser.Textures.CanvasTexture;
+    private _darkener: Phaser.GameObjects.Image;
+    private _animator: Phaser.GameObjects.TileSprite;
 
     private _activeEffect: string;
 
-    private _cachedCameraPos: Phaser.Point;
+    private _rainFrame = 0;
+    private _rainFrameTime = 18;
+    private _rainTimer: Phaser.Time.TimerEvent = null;
+    private _rainFrames = [
+        'rain/rain1.png',
+        'rain/rain2.png',
+        'rain/rain3.png',
+        'rain/rain4.png',
+    ];
 
-    constructor(game: Game) {
-        super(game, null, 'map overlay');
+    private _cachedCameraPos: Phaser.Math.Vector2;
 
-        this.fixedToCamera = true;
+    constructor(scene: Phaser.Scene)
+    {
+        super(scene, null);
 
-        this._darkenerBmd = game.add.bitmapData(game.width, game.height);
-        this._darkenerBmd.fill.apply(this._darkenerBmd, Constants.COLORS.BLACK);
+        this.setScrollFactor(0);
 
-        this._darkener = this._darkenerBmd.addToWorld();
+        const camera = scene.cameras.main;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = camera.width;
+        canvas.height = camera.height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = `rgba(${COLORS.BLACK[0]}, ${COLORS.BLACK[1]}, ${COLORS.BLACK[2]}, ${COLORS.BLACK[3]})`;
+        ctx.fillRect(0, 0, camera.width, camera.height);
+
+        this._darkenerTexture = scene.game.textures.addCanvas('map_overlay_darkener', canvas);
+
+        this._darkener = scene.add.image(0, 0, 'map_overlay_darkener');
         this._darkener.alpha = 0.5;
         this._darkener.name = 'darkener';
-
         this.add(this._darkener);
 
-        this._animator = game.add.tileSprite(0, 0, game.width, game.height, 'sprite_overlays', null, this);
+        this._animator = scene.add.tileSprite(0, 0, camera.width, camera.height, 'sprite_overlays');
         this._animator.alpha = 0.8;
         this._animator.name = 'animator';
+        this._animator.setFrame('rain/rain1.png');
         this.add(this._animator);
 
-        this._cachedCameraPos = new Phaser.Point(this.game.camera.view.x, this.game.camera.view.y);
-
-        // add rain animation
-        this._animator.animations.add('rain', [
-            'rain/rain1.png',
-            'rain/rain2.png',
-            'rain/rain3.png',
-            'rain/rain4.png',
-        ], 18, true);
-
-        // this.deactivate();
+        this._cachedCameraPos = new Phaser.Math.Vector2(camera.x, camera.y);
     }
 
-    activate(anim: string) {
-        // this.deactivate();
-
+    activate(anim: string)
+    {
         this.visible = true;
 
         this._activeEffect = anim;
 
-        switch (anim) {
+        switch (anim)
+        {
             case 'rain':
-                this._animator.animations.play('rain');
+                this._nextRainFrame();
+                // this._animator.anims.play('rain');
                 this._animator.visible = true;
                 this._darkener.visible = true;
         }
     }
 
-    deactivate() {
-        this._animator.animations.stop();
+    deactivate()
+    {
+        this._rainTimer.remove(false);
+        // this._animator.anims.stop();
         this._animator.visible = false;
-
         this._darkener.visible = false;
 
         this.visible = false;
     }
 
-    update() {
-        if (this.game.camera.view.x !== this._cachedCameraPos.x) {
-            const diff = this.game.camera.view.x - this._cachedCameraPos.x;
+    update()
+    {
+        if (this.scene.cameras.main.x !== this._cachedCameraPos.x)
+        {
+            const diff = this.scene.cameras.main.x - this._cachedCameraPos.x;
 
-            this._cachedCameraPos.x = this.game.camera.view.x;
+            this._cachedCameraPos.x = this.scene.cameras.main.x;
 
-            this._animator.tilePosition.x -= diff * Constants.EFFECT_OVERLAY_SCROLL_FACTOR;
+            this._animator.tilePositionX -= diff * EFFECT_OVERLAY_SCROLL_FACTOR;
         }
 
-        if (this.game.camera.view.y !== this._cachedCameraPos.y) {
-            const diff = this.game.camera.view.y - this._cachedCameraPos.y;
+        if (this.scene.cameras.main.y !== this._cachedCameraPos.y)
+        {
+            const diff = this.scene.cameras.main.y - this._cachedCameraPos.y;
 
-            this._cachedCameraPos.y = this.game.camera.view.y;
+            this._cachedCameraPos.y = this.scene.cameras.main.y;
 
-            this._animator.tilePosition.y -= diff * Constants.EFFECT_OVERLAY_SCROLL_FACTOR;
+            this._animator.tilePositionY -= diff * EFFECT_OVERLAY_SCROLL_FACTOR;
         }
+    }
+
+    private _nextRainFrame()
+    {
+        const frame = this._rainFrames[this._rainFrame];
+        this._animator.setFrame(frame);
+
+        this._rainTimer = this.scene.time.delayedCall(this._rainFrameTime, this._nextRainFrame, [], this);
+        this._rainFrame = (this._rainFrame + 1) % this._rainFrames.length;
     }
 }

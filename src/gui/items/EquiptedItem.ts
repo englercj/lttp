@@ -1,20 +1,19 @@
-import Game from '../../Game';
-import Hud from '../Hud';
-import GuiItem from './GuiItem';
+import { GuiItem } from './GuiItem';
 
-export default class EquiptedItem extends GuiItem {
-    frameSprite: Phaser.Sprite;
-    itemSprite: Phaser.Sprite;
+export class EquiptedItem extends GuiItem<string>
+{
+    frameSprite: Phaser.GameObjects.Sprite;
+    itemSprite: Phaser.GameObjects.Sprite;
 
-    frames: Phaser.FrameData;
+    constructor(scene: Phaser.Scene, x: number, y: number, value: string = '')
+    {
+        super(scene, x, y, 'equipted', value);
 
-    constructor(game: Game, parent: Hud, x: number, y: number, value: string = '') {
-        super(game, parent, x, y, 'equipted', value);
+        this.frameSprite = scene.add.sprite(0, 0, 'sprite_gui', 'hud/item-frame.png');
+        this.itemSprite = scene.add.sprite(6, 0, 'sprite_gui', 'items/lantern.png');
 
-        this.frames = game.cache.getFrameData('sprite_gui');
-
-        this.frameSprite = game.add.sprite(0, 0, 'sprite_gui', 'hud/item-frame.png', this);
-        this.itemSprite = game.add.sprite(6, 0, 'sprite_gui', 'items/lantern.png', this);
+        this.add(this.frameSprite);
+        this.add(this.itemSprite);
 
         this.itemSprite.visible = false;
         // this.itemSprite.scale.set(2);
@@ -22,17 +21,18 @@ export default class EquiptedItem extends GuiItem {
         this.setValue(value);
     }
 
-    setValue(val: any) {
+    setValue(val: string): this
+    {
         super.setValue(val);
 
-        const tx = this.frames.getFrameByName('items/' + val + '.png');
-
-        if (!tx) {
+        if (!val)
+        {
             this.itemSprite.visible = false;
         }
-        else {
+        else
+        {
             this.itemSprite.visible = true;
-            this.itemSprite.setFrame(tx);
+            this.itemSprite.setFrame(`items/${val}.png`);
         }
 
         return this;

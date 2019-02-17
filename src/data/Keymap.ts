@@ -1,9 +1,11 @@
-export interface IKeymap {
+export interface IKeymap
+{
     keyboard: IKeys;
     gamepad: IKeys;
 }
 
-export interface IKeys {
+export interface IKeys
+{
     up: number;
     down: number;
     left: number;

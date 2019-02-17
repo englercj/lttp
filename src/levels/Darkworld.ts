@@ -1,9 +1,11 @@
-﻿import Level from './Level';
+﻿import { Level } from './Level';
 
-export default class Darkworld extends Level {
+export class Darkworld extends Level
+{
     levelKey: string = 'darkworld';
 
-    preload() {
+    preload()
+    {
         super.preload();
 
         // Music

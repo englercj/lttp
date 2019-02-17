@@ -1,14 +1,12 @@
 { "height":16,
+ "infinite":false,
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 17, 28, 0, 0, 29, 30, 149, 150, 151, 152, 35, 36, 122, 123, 124, 40, 41, 42, 0, 0, 51, 45, 46, 47, 48, 49, 49, 49, 49, 49, 49, 49, 142, 56, 0, 0, 51, 45, 60, 61, 62, 63, 63, 63, 63, 167, 168, 63, 147, 56, 0, 0, 58, 97, 74, 75, 157, 63, 63, 63, 180, 181, 182, 104, 105, 139, 0, 0, 72, 111, 88, 63, 63, 63, 63, 63, 115, 195, 196, 118, 119, 120, 0, 0, 86, 87, 88, 63, 63, 63, 63, 63, 129, 130, 131, 132, 133, 134, 0, 0, 51, 190, 102, 103, 104, 63, 63, 63, 63, 144, 172, 63, 147, 56, 0, 0, 51, 190, 191, 192, 193, 63, 63, 63, 63, 63, 63, 63, 147, 56, 0, 0, 51, 52, 53, 160, 77, 77, 78, 170, 77, 77, 159, 160, 161, 56, 0, 0, 65, 66, 67, 68, 13, 95, 92, 93, 94, 95, 67, 68, 69, 70, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":16,
+         "id":1,
          "name":"ground",
          "opacity":1,
-         "properties":
-            {
-             "preRender":"true"
-            },
          "type":"tilelayer",
          "visible":true,
          "width":16,
@@ -17,7 +15,7 @@
         }, 
         {
          "draworder":"topdown",
-         "height":16,
+         "id":2,
          "name":"Inside",
          "objects":[
                 {
@@ -25,10 +23,12 @@
                  "height":0,
                  "id":1,
                  "name":"",
-                 "properties":
-                    {
-                     "loot":"lantern"
-                    },
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"lantern"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -41,10 +41,12 @@
                  "height":0,
                  "id":2,
                  "name":"",
-                 "properties":
-                    {
-                     "loot":"heart"
-                    },
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"heart"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -57,10 +59,12 @@
                  "height":0,
                  "id":3,
                  "name":"",
-                 "properties":
-                    {
-                     "loot":"heart"
-                    },
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"heart"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -73,10 +77,12 @@
                  "height":0,
                  "id":4,
                  "name":"",
-                 "properties":
-                    {
-                     "loot":"heart"
-                    },
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"heart"
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -87,23 +93,24 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":16,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":16,
+         "id":3,
          "name":"zones",
          "objects":[
                 {
                  "height":256,
                  "id":5,
                  "name":"Inside",
-                 "properties":
-                    {
-                     "collisionResponse":"false"
-                    },
+                 "properties":[
+                        {
+                         "name":"collisionResponse",
+                         "type":"string",
+                         "value":"false"
+                        }],
                  "rotation":0,
                  "type":"zone",
                  "visible":true,
@@ -114,24 +121,29 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":16,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":16,
+         "id":4,
          "name":"exits",
          "objects":[
                 {
                  "height":12,
                  "id":6,
                  "name":"lightworld",
-                 "properties":
-                    {
-                     "loc":"[2240,2817]",
-                     "transition":"fade"
-                    },
+                 "properties":[
+                        {
+                         "name":"loc",
+                         "type":"string",
+                         "value":"[2240,2817]"
+                        }, 
+                        {
+                         "name":"transition",
+                         "type":"string",
+                         "value":"fade"
+                        }],
                  "rotation":0,
                  "type":"exit",
                  "visible":true,
@@ -142,25 +154,24 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":16,
          "x":0,
          "y":0
         }, 
         {
          "draworder":"topdown",
-         "height":16,
+         "id":5,
          "name":"player",
          "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":16,
          "x":0,
          "y":0
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":16,
+         "id":6,
          "name":"top",
          "opacity":1,
          "type":"tilelayer",
@@ -171,17 +182,13 @@
         }, 
         {
          "draworder":"topdown",
-         "height":16,
+         "id":7,
          "name":"collisions",
          "objects":[
                 {
                  "height":24,
                  "id":7,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -193,10 +200,6 @@
                  "height":152,
                  "id":8,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -208,10 +211,6 @@
                  "height":152,
                  "id":9,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -223,10 +222,6 @@
                  "height":24,
                  "id":10,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -238,10 +233,6 @@
                  "height":24,
                  "id":11,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -253,10 +244,6 @@
                  "height":32,
                  "id":12,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -268,10 +255,6 @@
                  "height":20,
                  "id":13,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -283,10 +266,6 @@
                  "height":40,
                  "id":14,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -298,10 +277,6 @@
                  "height":16,
                  "id":15,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -313,10 +288,6 @@
                  "height":16,
                  "id":16,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -328,10 +299,6 @@
                  "height":32,
                  "id":17,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -343,10 +310,6 @@
                  "height":32,
                  "id":18,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -358,10 +321,6 @@
                  "height":16,
                  "id":19,
                  "name":"",
-                 "properties":
-                    {
-
-                    },
                  "rotation":0,
                  "type":"collision",
                  "visible":true,
@@ -372,17 +331,20 @@
          "opacity":1,
          "type":"objectgroup",
          "visible":false,
-         "width":16,
          "x":0,
          "y":0
         }],
+ "nextlayerid":8,
  "nextobjectid":20,
  "orientation":"orthogonal",
- "properties":
-    {
-     "music":"music_village"
-    },
+ "properties":[
+        {
+         "name":"music",
+         "type":"string",
+         "value":"music_village"
+        }],
  "renderorder":"right-down",
+ "tiledversion":"1.2.2",
  "tileheight":16,
  "tilesets":[
         {
@@ -393,10 +355,6 @@
          "imagewidth":224,
          "margin":0,
          "name":"linkhouse\/linkhouse-Tileset",
-         "properties":
-            {
-
-            },
          "spacing":0,
          "tilecount":196,
          "tileheight":16,
@@ -410,26 +368,38 @@
          "imagewidth":128,
          "margin":0,
          "name":"overworlditems",
-         "properties":
-            {
-
-            },
          "spacing":0,
          "tilecount":128,
          "tileheight":16,
-         "tileproperties":
-            {
-             "35":
+         "tiles":[
                 {
-                 "collides":"true",
-                 "type":"pot"
-                },
-             "72":
+                 "id":35,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"string",
+                         "value":"true"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"pot"
+                        }]
+                }, 
                 {
-                 "collides":"true",
-                 "type":"chest"
-                }
-            },
+                 "id":72,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"string",
+                         "value":"true"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"chest"
+                        }]
+                }],
          "tilewidth":16
         }, 
         {
@@ -440,172 +410,493 @@
          "imagewidth":256,
          "margin":0,
          "name":"Colliders",
-         "properties":
-            {
-
-            },
          "spacing":0,
          "tilecount":128,
          "tileheight":16,
-         "tileproperties":
-            {
-             "0":
+         "tiles":[
                 {
-                 "collides":"true"
-                },
-             "1":
+                 "id":0,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"string",
+                         "value":"true"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,8,16]",
-                 "type":"solid"
-                },
-             "10":
+                 "id":1,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,8,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[8,0,16,0,16,16,0,16,0,8,8,8]",
-                 "type":"solid"
-                },
-             "11":
+                 "id":2,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[8,0,8,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,0,16,16,8,8,8,8,16,0,16]",
-                 "type":"solid"
-                },
-             "12":
+                 "id":3,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,0,16,16,8,16,8,8,0,8]",
-                 "type":"solid"
-                },
-             "16":
+                 "id":4,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,8,16,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "type":"jump"
-                },
-             "17":
+                 "id":5,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[16,0,16,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,8,16]",
-                 "type":"jump"
-                },
-             "18":
+                 "id":6,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[8,0,8,16]",
-                 "type":"jump"
-                },
-             "19":
+                 "id":7,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,0,16,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,8]",
-                 "type":"jump"
-                },
-             "2":
+                 "id":8,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,0,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[8,0,8,16]",
-                 "type":"solid"
-                },
-             "20":
+                 "id":9,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,8,0,8,8,16,8,16,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,8,16,8]",
-                 "type":"jump"
-                },
-             "21":
+                 "id":10,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[8,0,16,0,16,16,0,16,0,8,8,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[16,0,16,16,0,16]",
-                 "type":"jump"
-                },
-             "22":
+                 "id":11,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,0,16,16,8,8,8,8,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,16,0,16]",
-                 "type":"jump"
-                },
-             "23":
+                 "id":12,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,0,16,16,8,16,8,8,0,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"solid"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,0,16,16]",
-                 "type":"jump"
-                },
-             "24":
+                 "id":16,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,0,0,16]",
-                 "type":"jump"
-                },
-             "25":
+                 "id":17,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,8,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,8,0,8,8,16,8,16,16,0,16]",
-                 "type":"jump"
-                },
-             "26":
+                 "id":18,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[8,0,8,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[8,0,16,0,16,16,0,16,0,8,8,8]",
-                 "type":"jump"
-                },
-             "27":
+                 "id":19,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,0,16,16,8,8,8,8,16,0,16]",
-                 "type":"jump"
-                },
-             "28":
+                 "id":20,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,8,16,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,0,16,16,8,16,8,8,0,8]",
-                 "type":"jump"
-                },
-             "3":
+                 "id":21,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[16,0,16,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,8]",
-                 "type":"solid"
-                },
-             "4":
+                 "id":22,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,8,16,8]",
-                 "type":"solid"
-                },
-             "5":
+                 "id":23,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,0,16,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[16,0,16,16,0,16]",
-                 "type":"solid"
-                },
-             "6":
+                 "id":24,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,0,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,16,0,16]",
-                 "type":"solid"
-                },
-             "7":
+                 "id":25,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,8,0,8,8,16,8,16,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,0,16,16]",
-                 "type":"solid"
-                },
-             "8":
+                 "id":26,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[8,0,16,0,16,16,0,16,0,8,8,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,16,0,0,16]",
-                 "type":"solid"
-                },
-             "9":
+                 "id":27,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,0,16,16,8,8,8,8,16,0,16]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }, 
                 {
-                 "body":"static",
-                 "hitArea":"[0,0,8,0,8,8,16,8,16,16,0,16]",
-                 "type":"solid"
-                }
-            },
+                 "id":28,
+                 "properties":[
+                        {
+                         "name":"body",
+                         "type":"string",
+                         "value":"static"
+                        }, 
+                        {
+                         "name":"hitArea",
+                         "type":"string",
+                         "value":"[0,0,16,0,16,16,8,16,8,8,0,8]"
+                        }, 
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"jump"
+                        }]
+                }],
          "tilewidth":16
         }],
  "tilewidth":16,
- "version":1,
+ "type":"map",
+ "version":1.2,
  "width":16
 }

@@ -1,47 +1,71 @@
-import Game from '../Game';
-import Level from '../levels/Level';
-import { default as Constants, ENTITY_TYPE } from '../data/Constants';
+import { Level } from '../levels/Level';
+import { EEntityType, DIRECTION_STRING_MAP, DIRECTION_VECTOR_MAP, DEBUG } from '../data/Constants';
 
-export default class Entity extends Phaser.Sprite {
-    game: Game;
+export type TMatterShapeType = 'rectangle'|'circle'|'trapezoid'|'polygon'|'fromVertices'|'fromVerts'|'fromPhysicsEditor';
 
+export interface IMatterShape
+{
+    type?: TMatterShapeType;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+
+    // circle:
+    radius?: number;
+    maxSides?: number;
+
+    // trapezoid
+    slope?: number;
+}
+
+export interface IMatterOptions
+{
+    shape: IMatterShape | TMatterShapeType;
+}
+
+export class Entity extends Phaser.Physics.Matter.Sprite
+{
     // is this sprite able to move?
-    locked: boolean = false;
+    locked = false;
 
     // maximum health of this entity
-    maxHealth: number = 3;
+    maxHealth = 3;
 
     // current health of this entity
-    health: number = 3;
+    health = 3;
 
     // moveSpeed the entity moves at
-    moveSpeed: number = 80;
+    moveSpeed = 80;
 
     // current direction of movement
-    movement: Phaser.Point = new Phaser.Point();
+    movement = new Phaser.Math.Vector2();
 
     // the amount of damage this entity deals normally
-    attackDamage: number = 1;
+    attackDamage = 1;
 
     // state of movement of this entity
-    moving: number[] = [0, 0, 0, 0, 0];
+    moving = [0, 0, 0, 0, 0];
 
     // the direction the entity is facing
-    facing: number = Phaser.DOWN;
+    facing = Phaser.DOWN;
 
     // a few dirty flags
-    moveDirty: boolean = false;
-    textureDirty: boolean = false;
+    moveDirty = false;
+    textureDirty = false;
 
     // type of this entity
-    entityType: ENTITY_TYPE = ENTITY_TYPE.NEUTRAL;
-
-    frames: Phaser.FrameData;
+    entityType = EEntityType.Neutral;
 
     properties: any;
 
-    constructor(game: Game, key: any, frame?: any) {
-        super(game, 0, 0, key, frame);
+    constructor(
+        scene: Phaser.Scene,
+        texture: string,
+        frame?: string | number,
+        options = {})
+    {
+        super(scene.matter.world, 0, 0, texture, frame);
 
         // TODO: collision groups
         // if (this.body) {
@@ -49,27 +73,26 @@ export default class Entity extends Phaser.Sprite {
         // }
     }
 
-    heal(amount: number) {
-        if (this.alive) {
-            this.health += amount;
-        }
-
-        this.health = this.health > this.maxHealth ? this.maxHealth : this.health;
+    heal(amount: number): this
+    {
+        this.health = Phaser.Math.Clamp(this.health + amount, 0, this.maxHealth);
 
         return this;
     }
 
-    lock(): Entity {
-        this.body.setZeroVelocity();
+    lock(): this
+    {
+        this.setStatic(true);
 
         this.locked = true;
 
         return this;
     }
 
-    unlock(): Entity {
-        this.body.velocity.x = this.movement.x;
-        this.body.velocity.y = this.movement.y;
+    unlock(): this
+    {
+        this.setStatic(false);
+        this.setVelocity(this.movement.x, this.movement.y);
 
         this.locked = false;
         this.textureDirty = true;
@@ -77,72 +100,44 @@ export default class Entity extends Phaser.Sprite {
         return this;
     }
 
-    setup(level: Level): Entity {
-        level.physics.enable(this, Phaser.Physics.P2JS);
+    setup(): this
+    {
+        this.scene.physics.add.existing(this, false);
 
-        this.body.setZeroDamping();
-        this.body.fixedRotation = true;
-
-        this.body.debug = Constants.DEBUG;
-
-        level.physics.p2.addBody(this.body);
+        this.setFixedRotation();
 
         return this;
     }
 
-    getFacingString(): string {
-        return Constants.DIRECTION_STRING_MAP[this.facing];
+    getFacingString(): string
+    {
+        return DIRECTION_STRING_MAP[this.facing];
     }
 
-    getFacingVector(): Phaser.Point {
-        return Constants.DIRECTION_VECTOR_MAP[this.facing];
+    getFacingVector(): Phaser.Math.Vector2
+    {
+        return DIRECTION_VECTOR_MAP[this.facing];
     }
 
-    evalFacingDirection(): number {
-        if (this.moving[Phaser.UP]) {
+    evalFacingDirection(): number
+    {
+        if (this.moving[Phaser.UP])
+        {
             this.facing = Phaser.UP;
         }
-        else if (this.moving[Phaser.DOWN]) {
+        else if (this.moving[Phaser.DOWN])
+        {
             this.facing = Phaser.DOWN;
         }
-        else if (this.moving[Phaser.LEFT]) {
+        else if (this.moving[Phaser.LEFT])
+        {
             this.facing = Phaser.LEFT;
         }
-        else if (this.moving[Phaser.RIGHT]) {
+        else if (this.moving[Phaser.RIGHT])
+        {
             this.facing = Phaser.RIGHT;
         }
 
         return this.facing;
-    }
-
-    _addDirectionalFrames(type: string, num: number, frameRate: number = 60, loop: boolean = false) {
-        if (type.indexOf('%s') === -1) {
-            type += '_%s';
-        }
-
-        this._addFrames([
-            type.replace(/%s/g, 'left'),
-            type.replace(/%s/g, 'right'),
-            type.replace(/%s/g, 'down'),
-            type.replace(/%s/g, 'up'),
-        ], num, frameRate, loop);
-    }
-
-    _addFrames(types: string[], num: number, frameRate: number = 60, loop: boolean = false) {
-        for (let t = 0, tl = types.length; t < tl; ++t) {
-            const frames: string[] = [];
-            let type = types[t];
-            const name = type.replace(/.+\/|\.png|_%./g, '');
-
-            if (type.indexOf('%d') === -1) {
-                type += '_%d';
-            }
-
-            for (let f = 1; f <= num; ++f) {
-                frames.push(type.replace(/%d/g, f.toString()) + '.png');
-            }
-
-            this.animations.add(name, frames, frameRate, loop);
-        }
     }
 }

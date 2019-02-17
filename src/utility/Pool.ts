@@ -1,37 +1,36 @@
-import Game from '../Game';
-
-interface IConstructable<T> {
-    new(...args: any[]): T;
-    prototype: T;
-}
-
-export default class Pool<T> {
-    game: Game;
-    group: Phaser.Group;
+export class Pool<T extends Phaser.GameObjects.GameObject>
+{
+    readonly scene: Phaser.Scene;
+    readonly group: Phaser.GameObjects.Group;
 
     private _ctor: IConstructable<T>;
     private _pool: T[] = [];
 
-    constructor(game: Game, ctor: IConstructable<T>, group: Phaser.Group = null) {
-        this.game = game;
+    constructor(scene: Phaser.Scene, ctor: IConstructable<T>, group: Phaser.GameObjects.Group = null)
+    {
+        this.scene = scene;
         this.group = group;
 
         this._ctor = ctor;
     }
 
     // main methods
-    alloc(forceNew: boolean = false, ...args: any[]): T {
+    alloc(forceNew: boolean = false, ...args: any[]): T
+    {
         let obj: T;
 
-        if (!forceNew) {
+        if (!forceNew)
+        {
             obj = this._pool.pop();
         }
 
-        if (!obj) {
-            args.unshift(this.game);
+        if (!obj)
+        {
+            args.unshift(this.scene);
             obj = this._construct(args);
 
-            if (this.group) {
+            if (this.group)
+            {
                 this.group.add(obj);
             }
         }
@@ -39,38 +38,46 @@ export default class Pool<T> {
         return obj;
     }
 
-    free(obj: T): Pool<T> {
+    free(obj: T): this
+    {
         this._pool.push(obj);
 
         return this;
     }
 
     // less common helpers
-    preallocate(num: number): Pool<T> {
-        for (let i = 0; i < num; ++i) {
+    preallocate(num: number): this
+    {
+        for (let i = 0; i < num; ++i)
+        {
             this.free(this.alloc(true));
         }
 
         return this;
     }
 
-    clear(): Pool<T> {
+    clear(): this
+    {
         this._pool.length = 0;
         return this;
     }
 
-    remove(obj: T): T {
+    remove(obj: T): T
+    {
         const idx = this._pool.indexOf(obj);
 
-        if (idx !== -1) {
+        if (idx !== -1)
+        {
             this._pool.splice(idx, 1);
         }
 
         return obj;
     }
 
-    private _construct(args: any[]): T {
-        switch (args.length) {
+    private _construct(args: any[]): T
+    {
+        switch (args.length)
+        {
             case 0:
                 return new this._ctor();
             case 1:
@@ -87,12 +94,13 @@ export default class Pool<T> {
                 return new this._ctor(args[0], args[1], args[2], args[3], args[4], args[5]);
             default:
                 const ctor = this._ctor;
-                function PoolObjectCtor(): void {
+                const PoolObjectCtor = function (this: T)
+                {
                     return ctor.apply(this, args);
-                }
+                };
                 PoolObjectCtor.prototype = ctor.prototype;
 
-                return new (<any>PoolObjectCtor)();
+                return new (PoolObjectCtor as any)();
         }
     }
 }

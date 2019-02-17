@@ -1,5 +1,6 @@
-﻿import Level from './Level';
+﻿import { Level } from './Level';
 
-export default class Cave034 extends Level {
+export class Cave034 extends Level
+{
     levelKey: string = 'cave_034';
 }

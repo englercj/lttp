@@ -1,7 +1,8 @@
 // TODO: Finish up guard entity
-import Enemy from '../Enemy';
+import { Enemy } from '../Enemy';
 
-export default class Guard extends Enemy {
+export class Guard extends Enemy
+{
     /*
     var Guard = function(type) {
         Enemy.call(this, lttp.game.cache.getTextures('sprite_enemies'), 0.2);

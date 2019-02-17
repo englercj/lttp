@@ -1,37 +1,44 @@
-import Game from '../../Game';
-import GuiItem from './GuiItem';
-import Hud from '../Hud';
+import { GuiItem } from './GuiItem';
 
-export default class LifeMeter extends GuiItem {
+export class LifeMeter extends GuiItem<number>
+{
     max: number;
 
-    dash1: Phaser.Sprite;
-    dash2: Phaser.Sprite;
-    life: Phaser.Sprite;
+    dash1: Phaser.GameObjects.Sprite;
+    dash2: Phaser.GameObjects.Sprite;
+    life: Phaser.GameObjects.Sprite;
 
-    hearts: Phaser.Sprite[];
+    hearts: Phaser.GameObjects.Group;
 
-    frames: Phaser.FrameData;
+    constructor(scene: Phaser.Scene, x: number, y: number, value: number = 0)
+    {
+        super(scene, x, y, 'life', value);
 
-    constructor(game: Game, parent: Hud, x: number, y: number, value: number = 0) {
-        super(game, parent, x, y, 'life', value);
+        this.dash1 = scene.add.sprite(18, 0, 'sprite_gui', 'hud/life-dash.png');
+        this.dash2 = scene.add.sprite(56, 0, 'sprite_gui', 'hud/life-dash.png');
+        this.life = scene.add.sprite(36, -2, 'sprite_gui', 'text/life.png');
 
-        this.dash1 = game.add.sprite(18, 0, 'sprite_gui', 'hud/life-dash.png', this);
-        this.dash2 = game.add.sprite(56, 0, 'sprite_gui', 'hud/life-dash.png', this);
-        this.life = game.add.sprite(36, -2, 'sprite_gui', 'text/life.png', this);
+        this.add([
+            this.dash1,
+            this.dash2,
+            this.life,
+        ]);
 
-        this.frames = game.cache.getFrameData('sprite_gui');
-
-        this.hearts = [];
+        this.hearts = scene.add.group({
+            defaultKey: 'sprite_gui',
+        });
 
         this.setValue(value);
     }
 
-    setValue(val: any) {
+    setValue(val: number)
+    {
         super.setValue(val);
 
-        for (let i = 0, il = this.hearts.length; i < il; ++i) {
-            this.hearts[i].visible = false;
+        const childs = this.hearts.getChildren();
+        for (let i = 0; i < childs.length; ++i)
+        {
+            this.hearts.killAndHide(childs[i]);
         }
 
         let x = 0;
@@ -40,40 +47,48 @@ export default class LifeMeter extends GuiItem {
         const perRow = 10;
         let done = 0;
 
-        for (let hp = val; hp > 0; --hp) {
+        for (let hp = val; hp > 0; --hp)
+        {
             let off = 0;
-            let frame: Phaser.Frame;
+            let frame: string = '';
 
             // handle partial heart
-            if (hp < 1) {
-                frame = this.frames.getFrameByName('hud/heart-half.png');
+            if (hp < 1)
+            {
+                frame = 'hud/heart-half.png';
                 off = 2;
             }
-            else {
-                frame = this.frames.getFrameByName('hud/heart-full.png');
+            else
+            {
+                frame = 'hud/heart-full.png';
             }
 
             this.enableHeartSprite(done, frame, x, y + off);
 
-            if ((x / size) >= (perRow - 1)) {
+            if ((x / size) >= (perRow - 1))
+            {
                 x = 0;
                 y += size;
             }
-            else {
+            else
+            {
                 x += size;
             }
 
             done++;
         }
 
-        for (done; done < this.max; ++done) {
-            this.enableHeartSprite(done, this.frames.getFrameByName('hud/heart-empty.png'), x, y);
+        for (done; done < this.max; ++done)
+        {
+            this.enableHeartSprite(done, 'hud/heart-empty.png', x, y);
 
-            if ((x / size) >= (perRow - 1)) {
+            if ((x / size) >= (perRow - 1))
+            {
                 x = 0;
                 y += size;
             }
-            else {
+            else
+            {
                 x += size;
             }
         }
@@ -81,13 +96,15 @@ export default class LifeMeter extends GuiItem {
         return this;
     }
 
-    enableHeartSprite(idx: number, frame: Phaser.Frame, x: number, y: number) {
-        const spr = this.hearts[idx] || (this.hearts[idx] = this.game.add.sprite(0, 0, 'sprite_gui', null, this));
+    enableHeartSprite(idx: number, frame: string, x: number, y: number): Phaser.GameObjects.Sprite
+    {
+        const sprite: Phaser.GameObjects.Sprite = this.hearts.get(x, y);
 
-        spr.setFrame(frame);
-        spr.position.set(x, y);
-        spr.visible = true;
+        this.add(sprite);
 
-        return spr;
+        sprite.setFrame(frame);
+        sprite.visible = true;
+
+        return sprite;
     }
 }

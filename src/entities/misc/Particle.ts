@@ -2,7 +2,7 @@ import Game from '../../Game';
 import Entity from '../Entity';
 import { IItemDescriptor } from '../../data/ItemDescriptors';
 
-export default class Particle extends Entity {
+export class Particle extends Entity {
     particleType: string;
 
     constructor(game: Game) {

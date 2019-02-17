@@ -1,46 +1,53 @@
-import Storage from './Storage';
-import Player from '../entities/Player';
-import PlayerInventory from '../data/PlayerInventory';
+import * as Storage from './Storage';
+import { Player } from '../entities/Player';
+import { PlayerInventory } from '../data/PlayerInventory';
 import { IItemDescriptor } from '../data/ItemDescriptors';
+import { IRectangle, IObjectlayer, TObject } from 'gl-tiled';
+import { IDictionary } from './IDictionary';
 
-export default class Save {
-    private static VERSION: number = 1;
+export interface IZoneData
+{
+    objects: { properties: { loot: string } }[];
+}
+
+export interface IMapData
+{
+    zones: IDictionary<IZoneData>;
+}
+
+export class Save
+{
+    private static VERSION = 1;
 
     // player data
-    inventory: PlayerInventory = new PlayerInventory();
+    inventory = new PlayerInventory();
     equipted: IItemDescriptor = null;
 
-    health: number = 3;
-    maxHealth: number = 3;
+    health = 3;
+    maxHealth = 3;
 
-    magic: number = 0;
-    maxMagic: number = 10;
-
-    // save slot info
-    slot: number;
-    name: string;
+    magic = 0;
+    maxMagic = 10;
 
     // other save data
-    mapData: any = {};
+    mapData: IDictionary<IMapData> = {};
 
-    lastUsedExit: any = {
-        name: 'linkshouse',
-        properties: { loc: [125, 140] },
-    };
+    lastUsedExit: IRectangle = null;
 
-    saveFileExists: boolean = false;
+    saveFileExists = false;
 
+    // save slot info
     private _cacheKey: string;
 
-    constructor(slot: number, name?: string) {
+    constructor(public readonly slot: number, public name: string = "")
+    {
         this._cacheKey = this._key(slot);
-        this.slot = slot;
-        this.name = name;
     }
 
-    save(player?: Player): Save {
+    save(player?: Player): this
+    {
         // load the player data into this save object
-        this.loadFrom(player);
+        this._readFrom(player);
 
         this.saveFileExists = true;
 
@@ -49,25 +56,31 @@ export default class Save {
         return this;
     }
 
-    load(): Save {
+    load(): this
+    {
         const data = Storage.load(this._cacheKey);
 
-        if (data) {
-            this.loadFrom(data);
+        if (data)
+        {
+            this._readFrom(data);
             this.saveFileExists = true;
         }
 
         return this;
     }
 
-    remove() {
+    remove(): this
+    {
         Storage.remove(this._cacheKey);
 
         this.saveFileExists = false;
+
+        return this;
     }
 
-    updateZoneData(layer: Phaser.Plugin.Tiled.Objectlayer) {
-        const mapData = this.mapData[layer.map.name] || { zones: {} };
+    updateZoneData(map: string, layer: IObjectlayer)
+    {
+        const mapData = this.mapData[map] || { zones: {} };
         const zoneData = mapData.zones[layer.name] || { objects: [] };
 
         zoneData.objects.length = 0;
@@ -76,7 +89,8 @@ export default class Save {
         // then the indexes change and saved data is invalid. Instead there should be a keying system.
         // Potentially hashing some data about the object to generate a unique key?
 
-        for (let i = 0, il = layer.objects.length; i < il; ++i) {
+        for (let i = 0; i < layer.objects.length; ++i)
+        {
             zoneData.objects.push({
                 properties: {
                     loot: layer.objects[i].properties.loot,
@@ -85,14 +99,16 @@ export default class Save {
         }
 
         mapData.zones[layer.name] = zoneData;
-        this.mapData[layer.map.name] = mapData;
+        this.mapData[map] = mapData;
     }
 
-    updateExit(exit: Phaser.Plugin.Tiled.ITiledObject) {
+    updateExit(exit: IRectangle)
+    {
         this.lastUsedExit = exit;
     }
 
-    copyTo(player: Player) {
+    copyTo(player: Player)
+    {
         player.name = this.name;
 
         player.inventory = this.inventory;
@@ -105,10 +121,10 @@ export default class Save {
         player.maxMagic = this.maxMagic;
     }
 
-    private loadFrom(data: (Player|Save)) {
-        if (!data) {
+    private _readFrom(data: (Player|Save))
+    {
+        if (!data)
             return;
-        }
 
         this.name = data.name;
 
@@ -121,13 +137,15 @@ export default class Save {
         this.magic = data.magic;
         this.maxMagic = data.maxMagic;
 
-        if (!(data instanceof Player)) {
-            this.mapData = (<Save>data).mapData;
-            this.lastUsedExit = (<Save>data).lastUsedExit;
+        if (!(data instanceof Player))
+        {
+            this.mapData = data.mapData;
+            this.lastUsedExit = data.lastUsedExit;
         }
     }
 
-    private _key(slot: number = this.slot, version: number = Save.VERSION) {
+    private _key(slot: number = this.slot, version: number = Save.VERSION)
+    {
         return 'save:' + version  + ':' + slot;
     }
 

@@ -1,20 +1,14 @@
-import Game from '../../Game';
-import Hud from '../Hud';
+export class GuiItem<T> extends Phaser.GameObjects.Container
+{
+    constructor(scene: Phaser.Scene, x: number, y: number, name: string, public value: T)
+    {
+        super(scene, x, y);
 
-export default class GuiItem extends Phaser.Group {
-    game: Game;
-
-    value: any;
-
-    constructor(game: Game, parent: Hud, x: number, y: number, name: string, value: any = 0) {
-        super(game, parent, name);
-
-        this.value = value;
-
-        this.position.set(x, y);
+        this.name = name;
     }
 
-    setValue(val: any) {
+    setValue(val: T): this
+    {
         this.value = val;
 
         return this;
