@@ -10,10 +10,10 @@ export class Game extends Phaser.Game
     constructor()
     {
         super({
-            title: 'Link to the Past',
+            title: 'TLoZ: LttP',
             url: 'https://github.com/englercj/lttp',
             version: '1.0.0',
-            type: Phaser.AUTO,
+            type: Phaser.WEBGL,
             scene: BootScene,
             scale: {
                 mode: Phaser.Scale.FIT,

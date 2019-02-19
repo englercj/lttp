@@ -19,10 +19,64 @@
          "name":"Inside",
          "objects":[
                 {
+                 "gid":232,
+                 "height":16,
+                 "id":24,
+                 "name":"heart-pot2",
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"heart"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":41,
+                 "y":120
+                }, 
+                {
+                 "gid":232,
+                 "height":16,
+                 "id":25,
+                 "name":"heart-pot2",
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"heart"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":41,
+                 "y":104
+                }, 
+                {
+                 "gid":232,
+                 "height":16,
+                 "id":26,
+                 "name":"heart-pot1",
+                 "properties":[
+                        {
+                         "name":"loot",
+                         "type":"string",
+                         "value":"heart"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":41,
+                 "y":88
+                }, 
+                {
                  "gid":269,
-                 "height":0,
-                 "id":1,
-                 "name":"",
+                 "height":16,
+                 "id":27,
+                 "name":"lantern-chest",
                  "properties":[
                         {
                          "name":"loot",
@@ -32,63 +86,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
+                 "width":16,
                  "x":192,
                  "y":176
-                }, 
-                {
-                 "gid":232,
-                 "height":0,
-                 "id":2,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"loot",
-                         "type":"string",
-                         "value":"heart"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":41,
-                 "y":120
-                }, 
-                {
-                 "gid":232,
-                 "height":0,
-                 "id":3,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"loot",
-                         "type":"string",
-                         "value":"heart"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":41,
-                 "y":104
-                }, 
-                {
-                 "gid":232,
-                 "height":0,
-                 "id":4,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"loot",
-                         "type":"string",
-                         "value":"heart"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":41,
-                 "y":88
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -120,7 +120,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -135,9 +135,14 @@
                  "name":"lightworld",
                  "properties":[
                         {
-                         "name":"loc",
-                         "type":"string",
-                         "value":"[2240,2817]"
+                         "name":"spawnX",
+                         "type":"int",
+                         "value":2240
+                        }, 
+                        {
+                         "name":"spawnY",
+                         "type":"int",
+                         "value":2817
                         }, 
                         {
                          "name":"transition",
@@ -335,7 +340,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":20,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "properties":[
         {

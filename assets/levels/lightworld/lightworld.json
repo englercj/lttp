@@ -10964,17 +10964,6 @@
                          "width":16,
                          "x":240,
                          "y":3200
-                        }, 
-                        {
-                         "height":112,
-                         "id":1179,
-                         "name":"",
-                         "rotation":0,
-                         "type":"collision",
-                         "visible":true,
-                         "width":48,
-                         "x":0,
-                         "y":3696
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -13043,9 +13032,14 @@
                  "name":"linkshouse",
                  "properties":[
                         {
-                         "name":"loc",
-                         "type":"string",
-                         "value":"[127,200]"
+                         "name":"spawnX",
+                         "type":"int",
+                         "value":127
+                        }, 
+                        {
+                         "name":"spawnY",
+                         "type":"int",
+                         "value":200
                         }, 
                         {
                          "name":"transition",
@@ -13070,9 +13064,14 @@
                          "value":"fall_in_hole"
                         }, 
                         {
-                         "name":"loc",
-                         "type":"string",
-                         "value":"[416, 144]"
+                         "name":"spawnX",
+                         "type":"int",
+                         "value":416
+                        }, 
+                        {
+                         "name":"spawnY",
+                         "type":"int",
+                         "value":144
                         }, 
                         {
                          "name":"transition",
@@ -77549,6 +77548,17 @@
                  "width":0,
                  "x":0,
                  "y":4048
+                }, 
+                {
+                 "height":112,
+                 "id":1554,
+                 "name":"",
+                 "rotation":0,
+                 "type":"collision",
+                 "visible":true,
+                 "width":48,
+                 "x":0,
+                 "y":3696
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -77557,7 +77567,7 @@
          "y":0
         }],
  "nextlayerid":48,
- "nextobjectid":1554,
+ "nextobjectid":1555,
  "orientation":"orthogonal",
  "properties":[
         {

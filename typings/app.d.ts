@@ -7,8 +7,11 @@ declare interface IConstructable<T>
     prototype: T;
 }
 
-declare module 'phaser/src/utils/Class'
+declare namespace Phaser
 {
-    export function extend(ctor: Function, definition: any, isClassDescriptor: boolean, extend: Function): void;
-    export function mixin(myClass: Function, mixins: any[]): void;
+    export namespace Class
+    {
+        export function extend(ctor: Function, definition: any, isClassDescriptor: boolean, extend: Function): void;
+        export function mixin(myClass: Function, mixins: any[]): void;
+    }
 }

@@ -1,11 +1,15 @@
-import { GLTilemap, IRectangle, IObjectlayer } from 'gl-tiled';
+import { IRectangle, IObjectlayer, ITilemap } from 'gl-tiled';
 import { MapOverlay } from '../effects/MapOverlay';
 import { IKeymap } from '../data/Keymap';
-import { ASSET_TILEMAP_PACKS_KEY } from '../data/Constants';
+import { ASSET_TILEMAP_PACKS_KEY, DEBUG } from '../data/Constants';
 import { Hud } from '../gui/Hud';
 import { Dialog } from '../gui/Dialog';
 import { Entity } from '../entities/Entity';
 import { BaseLttpScene } from '../scenes/BaseLttpScene';
+import { TiledMap } from '../tiledmap/TiledMap';
+import { Save } from '../utility/Save';
+import { Player } from '../entities/Player';
+import { IAssetPack } from '../utility/IAssetPack';
 
 export interface ILevelSceneData
 {
@@ -20,7 +24,7 @@ export class LevelScene extends BaseLttpScene
     levelKey: string = '';
 
     // the reference to the tiled map
-    tiledmap: GLTilemap = null;
+    tiledmap: TiledMap = null;
 
     // layer and zone tracking
     activeZone: IRectangle = null;
@@ -76,7 +80,8 @@ export class LevelScene extends BaseLttpScene
     private _firstZone: boolean = true;
 
     // the data loaded for this level in its pack
-    private _packData: any = null;
+    private _packData: IAssetPack = null;
+    private _levelData: ITilemap = null;
 
     private _tempVector = new Phaser.Math.Vector2(0, 0);
 
@@ -99,11 +104,17 @@ export class LevelScene extends BaseLttpScene
         // should've been loaded by BootScene
         this._packData = this.cache.json.get(ASSET_TILEMAP_PACKS_KEY);
 
-        this.load.pack(this.levelKey, null, this._packData);
+        this.load.pack({
+            key: ASSET_TILEMAP_PACKS_KEY,
+            url: this._packData,
+            dataKey: this.levelKey,
+        });
     }
 
     create()
     {
+        this._levelData = this.cache.json.get(this.levelKey);
+
         this.overlay = new MapOverlay(this);
         this.add.existing(this.overlay);
 
@@ -115,34 +126,19 @@ export class LevelScene extends BaseLttpScene
         this.dialog.setScrollFactor(0);
         this.add.existing(this.hud);
 
-        // this._bgtx = this.game.add.renderTexture(this.game.width, this.game.height);
-        // this._bgspr = this.game.add.sprite(0, 0, this._bgtx);
-        // this._bgspr.fixedToCamera = true;
-        // this._bgspr.name = '_bgSprite';
-        // this._bgspr.visible = false;
+        this.tiledmap = new TiledMap(this, 0, 0, this._levelData, this._packData[this.levelKey]);
 
-        // These <any> casts are because typescript doesn't have a method for extending existing classes
-        // defined in external .d.ts files. This means phaser-tiled can't properly extend the type defs
-        // for the classes it added methods to. I promise these exist :)
-        // More info:
-        // https://github.com/Microsoft/TypeScript/issues/9
-        // https://github.com/Microsoft/TypeScript/issues/819
-        this.tiledmap = (<any>this.add).tiledmap(this.levelKey);
-
-        (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'collisions');
-        (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'exits');
-        (<any>this.physics.p2).convertTiledCollisionObjects(this.tiledmap, 'zones');
-
-        if (DEBUG) {
-            // this._enableDebugBodies(this.tiledmap.getObjectlayer('collisions'));
-            this._enableDebugBodies(this.tiledmap.getObjectlayer('exits'));
-            // this._enableDebugBodies(this.tiledmap.getObjectlayer('zones'));
-        }
+        // TODO: Object layers and collision
+        this.tiledmap.createLayer('collisions');
+        this.tiledmap.createLayer('exits');
+        this.tiledmap.createLayer('zones');
 
         // setup the player for a new level
-        const exit = this.game.loadedSave.lastUsedExit;
-        this.game.player.reset(exit.properties.loc[0], exit.properties.loc[1]);
-        this.game.player.setup(this);
+        const loadedSave: Save = this.registry.get('loadedSave');
+        const player: Player = this.registry.get('player');
+        const exit = loadedSave.lastUsedExit;
+        player.setPosition(parseInt(exit.properties.loc[0], 10), exit.properties.loc[1]);
+        player.setup(this);
 
         this.game.player.onReadSign.add((sign: Entity) => {
             this.showDialog(sign.properties.text);

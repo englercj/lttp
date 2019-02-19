@@ -102,11 +102,6 @@ export class Save
         this.mapData[map] = mapData;
     }
 
-    updateExit(exit: IRectangle)
-    {
-        this.lastUsedExit = exit;
-    }
-
     copyTo(player: Player)
     {
         player.name = this.name;
