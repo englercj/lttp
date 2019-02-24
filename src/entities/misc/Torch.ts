@@ -8,28 +8,12 @@ export class Torch extends Entity
     constructor(scene: Phaser.Scene)
     {
         super(scene, 'sprite_misc');
-
-        this.animations.add('torch', [
-            'torch/torch0.png',
-        ]);
-
-        this.animations.add('torch_lit', [
-            'torch/torch1.png',
-            'torch/torch2.png',
-            'torch/torch3.png',
-        ], 0.09, true);
-
-        this.animations.add('wall_torch', [
-            'torch/wall_torch1.png',
-            'torch/wall_torch2.png',
-            'torch/wall_torch3.png',
-        ], 0.09, true);
     }
 
     lite()
     {
-        this.animations.play('torch_lit');
-        Game.timer.add(this.fuelTime, this.extinguish, this);
+        this.anims.play('torch_lit');
+        this.scene.time.delayedCall(this.fuelTime, this.extinguish, [], this);
 
         // light up dat world
         // lttp.play.world.findLayer('darkness').alpha -= this.light;
@@ -37,7 +21,7 @@ export class Torch extends Entity
 
     extinguish()
     {
-        this.animations.stop('torch');
+        this.anims.play('torch');
 
         // darken dat world
         // lttp.play.world.findLayer('darkness').alpha += this.light;

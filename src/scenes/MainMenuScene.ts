@@ -1,5 +1,4 @@
 import { BaseLttpScene } from './BaseLttpScene';
-import { Pool } from '../utility/Pool';
 import { Save } from '../utility/Save';
 import { ReturnOfGanonFont } from '../fonts/ReturnOfGanonFont';
 import {
@@ -70,7 +69,7 @@ export class MainMenuScene extends BaseLttpScene
 
     constructor()
     {
-        super({ key: MainMenuScene.KEY });
+        super(MainMenuScene.KEY);
     }
 
     create()
@@ -99,7 +98,7 @@ export class MainMenuScene extends BaseLttpScene
         this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, this._onKeyboardDown, this);
         this.input.gamepad.on(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_DOWN, this._onGamepadDown, this);
 
-        this.events.on('shutdown', () =>
+        this.events.once('shutdown', () =>
         {
             this.input.keyboard.off(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, this._onKeyboardDown, this);
             this.input.gamepad.off(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_DOWN, this._onGamepadDown, this);

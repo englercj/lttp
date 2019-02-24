@@ -1,15 +1,15 @@
-import { BaseLttpScene } from './BaseLttpScene';
 import { LevelScene } from './LevelScene';
 import { Player } from '../entities/Player';
 import { Save } from '../utility/Save';
+import { UIScene } from './UIScene';
 
-export class GameScene extends BaseLttpScene
+export class GameScene extends Phaser.Scene
 {
     static KEY = 'GameScene';
 
     constructor()
     {
-        super({ key: GameScene.KEY });
+        super(GameScene.KEY);
     }
 
     create(loadedSave: Save)
@@ -28,6 +28,6 @@ export class GameScene extends BaseLttpScene
         this.registry.set('loadedSave', loadedSave);
 
         this.scene.launch(LevelScene.KEY, { key: loadedSave.lastUsedExit.name });
-        // TODO: Add a "menus" scene for inventory and such so we can pause game/level to show that.
+        this.scene.launch(UIScene.KEY, { player });
     }
 }

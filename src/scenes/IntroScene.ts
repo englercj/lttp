@@ -98,7 +98,7 @@ export class IntroScene extends BaseLttpScene
 
     constructor()
     {
-        super({ key: IntroScene.KEY });
+        super(IntroScene.KEY);
     }
 
     preload()
@@ -122,7 +122,20 @@ export class IntroScene extends BaseLttpScene
 
         this.flashEffect = new ScreenFlash(this.cameras.main);
 
-        this.minimap = new TiledMap(this, 0, 0, this.cache.json.get('lw_minimap'));
+        const tilesetTx = this.textures.get('lw_minimap_tiles').getSourceImage();
+        const assets = { 'lw_minimap_tileset.png': tilesetTx as HTMLImageElement };
+
+        this.minimap = new TiledMap(this, 0, 0,
+            this.cache.json.get('lw_minimap'),
+            [{
+                type: 'image',
+                subtype: 'tileset',
+                key: 'lw_minimap_tiles',
+                name: 'lw_minimap_tileset.png',
+                url: require('../../assets/levels/minimaps/lw_minimap_tileset.png'),
+                originalUrl: 'lw_minimap_tileset.png',
+            }]);
+
         this.minimap.name = 'minimap';
         this.minimap.visible = false;
         this.minimap.alpha = 0;

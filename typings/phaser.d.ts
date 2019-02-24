@@ -57761,6 +57761,59 @@ declare namespace Phaser {
                     name: string;
                 };
 
+                interface IContact
+                {
+                    normalImpulse: number;
+                    tangentImpulse: number;
+                    vertex: {
+                        index: number;
+                        isInternal: boolean;
+                        body: MatterJS.Body;
+                        contact: IContact;
+                        x: number;
+                        y: number;
+                    };
+                }
+
+                interface ICollision
+                {
+                    axisBody: MatterJS.Body;
+                    axisNumber: number;
+                    bodyA: MatterJS.Body;
+                    bodyB: MatterJS.Body;
+                    collided: boolean;
+                    depth: number;
+                    normal: { x: number; y: number; };
+                    parentA: MatterJS.Body;
+                    parentB: MatterJS.Body;
+                    penetration: { x: number; y: number; };
+                    supports: {
+                        body: MatterJS.Body;
+                        contact: IContact;
+                        index: number;
+                        isInternal: boolean;
+                        x: number;
+                        y: number;
+                    }[];
+                    tangent: { x: number; y: number; };
+                }
+
+                interface ICollisionPair
+                {
+                    id: string;
+
+                    activeContacts: IContact[];
+                    bodyA: MatterJS.Body;
+                    bodyB: MatterJS.Body;
+                    collision: ICollision;
+                    friction: number;
+                    inverseMass: number;
+                    isActive: boolean;
+                    isSensor: boolean;
+                    timeCreated: number;
+                    timeUpdated: number;
+                }
+
                 /**
                  * The Matter Physics Before Update Event.
                  *
@@ -57774,7 +57827,7 @@ declare namespace Phaser {
                     /**
                      * A list of all affected pairs in the collision.
                      */
-                    pairs: any[];
+                    pairs: ICollisionPair[];
                     /**
                      * The Matter Engine `timing.timestamp` value for the event.
                      */
@@ -57803,7 +57856,7 @@ declare namespace Phaser {
                     /**
                      * A list of all affected pairs in the collision.
                      */
-                    pairs: any[];
+                    pairs: ICollisionPair[];
                     /**
                      * The Matter Engine `timing.timestamp` value for the event.
                      */
@@ -57832,7 +57885,7 @@ declare namespace Phaser {
                     /**
                      * A list of all affected pairs in the collision.
                      */
-                    pairs: any[];
+                    pairs: ICollisionPair[];
                     /**
                      * The Matter Engine `timing.timestamp` value for the event.
                      */
@@ -76743,6 +76796,34 @@ declare namespace MatterJS {
      * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
      */
     class Body {
+        id: number;
+        type: 'body';
+
+        angle: number;
+        axes: ({ x: number; y: number; })[];
+        bounds: {
+            min: { x: number; y: number; };
+            max: { x: number; y: number; };
+        };
+        circleRadius: number;
+        density: number;
+        force: { x: number; y: number; };
+        friction: number;
+        ignoreGravity: boolean;
+        inertia: number;
+        isSensor: boolean;
+        isSleeping: boolean;
+        isStatic: boolean;
+        label: string;
+        mass: number;
+        parent?: Body;
+        parts: Body[];
+        position: { x: number; y: number; };
+        timeScale: number;
+        velocity: { x: number; y: number; };
+
+        // from phaser3
+        gameObject: Phaser.GameObjects.GameObject;
     }
 
     /**

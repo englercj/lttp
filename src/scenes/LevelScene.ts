@@ -1,15 +1,14 @@
-import { IRectangle, IObjectlayer, ITilemap } from 'gl-tiled';
+import { ITilemap, IRectangleObject, IObject, IObjectgroup } from 'gl-tiled';
 import { MapOverlay } from '../effects/MapOverlay';
-import { IKeymap } from '../data/Keymap';
-import { ASSET_TILEMAP_PACKS_KEY, DEBUG } from '../data/Constants';
-import { Hud } from '../gui/Hud';
-import { Dialog } from '../gui/Dialog';
+import { IKeymap, keymap } from '../data/Keymap';
+import { ASSET_TILEMAP_PACKS_KEY, EFFECT_MAP_TRANSITION_TIME, EFFECT_ZONE_TRANSITION_TIME, COLORS, EFFECT_ZONE_TRANSITION_SPACE, AUDIO_MUSIC_VOLUME } from '../data/Constants';
 import { Entity } from '../entities/Entity';
 import { BaseLttpScene } from '../scenes/BaseLttpScene';
 import { TiledMap } from '../tiledmap/TiledMap';
 import { Save } from '../utility/Save';
 import { Player } from '../entities/Player';
 import { IAssetPack } from '../utility/IAssetPack';
+import { getTiledProperty, getTiledPropertyValue } from '../tiledmap/property_utils';
 
 export interface ILevelSceneData
 {
@@ -27,54 +26,20 @@ export class LevelScene extends BaseLttpScene
     tiledmap: TiledMap = null;
 
     // layer and zone tracking
-    activeZone: IRectangle = null;
-    oldZone: IRectangle = null;
+    activeZone: IRectangleObject = null;
+    oldZone: IRectangleObject = null;
 
-    oldLayer: IObjectlayer = null;
-    oldLayerOverlay: IObjectlayer = null;
+    oldLayer: IObjectgroup = null;
+    oldLayerOverlay: Phaser.GameObjects.Container = null;
 
-    activeLayer: IObjectlayer = null;
-    activeLayerOverlay: IObjectlayer = null;
+    activeLayer: IObjectgroup = null;
+    activeLayerOverlay: Phaser.GameObjects.Container = null;
 
     // ambient music
     music: Phaser.Sound.BaseSound = null;
 
     // misc sprites used for map effects
     overlay: MapOverlay = null;
-
-    dialog: Dialog = null;
-    hud: Hud = null;
-
-    keymap: IKeymap = {
-        keyboard: {
-            up:         Phaser.Input.Keyboard.KeyCodes.W,
-            down:       Phaser.Input.Keyboard.KeyCodes.S,
-            left:       Phaser.Input.Keyboard.KeyCodes.A,
-            right:      Phaser.Input.Keyboard.KeyCodes.D,
-
-            use:        Phaser.Input.Keyboard.KeyCodes.E,
-            useItem:    Phaser.Input.Keyboard.KeyCodes.V,
-            attack:     Phaser.Input.Keyboard.KeyCodes.SPACE,
-
-            menuSave:   Phaser.Input.Keyboard.KeyCodes.B,
-            menuMap:    Phaser.Input.Keyboard.KeyCodes.M,
-            menuInv:    Phaser.Input.Keyboard.KeyCodes.I,
-        },
-        gamepad: {
-            up:         Phaser.Input.Gamepad.Configs.XBOX_360.DPAD_UP,
-            down:       Phaser.Input.Gamepad.Configs.XBOX_360.DPAD_DOWN,
-            left:       Phaser.Input.Gamepad.Configs.XBOX_360.DPAD_LEFT,
-            right:      Phaser.Input.Gamepad.Configs.XBOX_360.DPAD_RIGHT,
-
-            use:        Phaser.Input.Gamepad.Configs.XBOX_360.A,
-            useItem:    Phaser.Input.Gamepad.Configs.XBOX_360.Y,
-            attack:     Phaser.Input.Gamepad.Configs.XBOX_360.B,
-
-            menuSave:   Phaser.Input.Gamepad.Configs.XBOX_360.BACK,
-            menuMap:    Phaser.Input.Gamepad.Configs.XBOX_360.X,
-            menuInv:    Phaser.Input.Gamepad.Configs.XBOX_360.START,
-        },
-    };
 
     // flag whether the zone load
     private _firstZone: boolean = true;
@@ -83,14 +48,12 @@ export class LevelScene extends BaseLttpScene
     private _packData: IAssetPack = null;
     private _levelData: ITilemap = null;
 
-    private _tempVector = new Phaser.Math.Vector2(0, 0);
-
-    // private _bgtx: Phaser.RenderTexture = null;
-    // private _bgspr: Phaser.Sprite = null;
-
     private _cameraBounds = new Phaser.Geom.Rectangle(0, 0, 0, 0);
 
-    private _paused: boolean = false;
+    constructor()
+    {
+        super(LevelScene.KEY);
+    }
 
     init(data: ILevelSceneData)
     {
@@ -114,17 +77,7 @@ export class LevelScene extends BaseLttpScene
     create()
     {
         this._levelData = this.cache.json.get(this.levelKey);
-
-        this.overlay = new MapOverlay(this);
-        this.add.existing(this.overlay);
-
-        this.dialog = new Dialog(this, 34, 146, true, false);
-        this.dialog.setScrollFactor(0);
-        this.add.existing(this.dialog);
-
-        this.hud = new Hud(this, 0, 0);
-        this.dialog.setScrollFactor(0);
-        this.add.existing(this.hud);
+        this._firstZone = true;
 
         this.tiledmap = new TiledMap(this, 0, 0, this._levelData, this._packData[this.levelKey]);
 
@@ -137,325 +90,225 @@ export class LevelScene extends BaseLttpScene
         const loadedSave: Save = this.registry.get('loadedSave');
         const player: Player = this.registry.get('player');
         const exit = loadedSave.lastUsedExit;
-        player.setPosition(parseInt(exit.properties.loc[0], 10), exit.properties.loc[1]);
+        const locXProp = getTiledProperty('locX', exit.properties);
+        const locYProp = getTiledProperty('locY', exit.properties);
+        player.setPosition(
+            locXProp && locXProp.type === 'int' ? locXProp.value : 0,
+            locYProp && locYProp.type === 'int' ? locYProp.value : 0);
+
         player.setup(this);
 
-        this.game.player.onReadSign.add((sign: Entity) => {
-            this.showDialog(sign.properties.text);
-        }, this);
+        // Add the player to the right layer on the map
+        this.tiledmap.getContainer('player').add(player);
 
-        this.game.player.onInventoryChange.add(() => {
-            this.hud.updateValues(this.game.player);
-        }, this);
-
-        this.hud.updateValues(this.game.player);
-
-        this.tiledmap.getObjectlayer('player').add(this.game.player);
-
-        // ensure gravity is off
-        this.game.physics.p2.world.gravity[0] = 0;
-        this.game.physics.p2.world.gravity[1] = 0;
+        // Create the map overlay
+        this.overlay = new MapOverlay(this);
+        this.add.existing(this.overlay);
 
         // setup camera to follow the player
-        this.game.camera.follow(this.game.player, Phaser.Camera.FOLLOW_LOCKON);
+        this.cameras.main.startFollow(player);
 
-        // setup handlers for player sensor collisions
-        this.game.physics.p2.onBeginContact.add(this.onBeginContact, this);
-        this.game.physics.p2.onEndContact.add(this.onEndContact, this);
+        // setup handlers for system events
+        this.physics.world.on(Phaser.Physics.Matter.Events.COLLISION_START, this.onCollisionStart, this);
+        this.physics.world.on(Phaser.Physics.Matter.Events.COLLISION_END, this.onCollisionEnd, this);
 
-        this._firstZone = true;
+        this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, this._handleKeyboard, this);
+        this.input.keyboard.on(Phaser.Input.Keyboard.Events.ANY_KEY_UP, this._handleKeyboard, this);
+        this.input.gamepad.on(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_DOWN, this._handleGamepadButton, this);
 
-        // this.lastExit = exit;
-
-        // set link position
-        // this.game.player.position.set(
-        //     exit.properties.loc[0],
-        //     exit.properties.loc[1]
-        // );
-
-        this.world.bringToTop(this.overlay);
-        this.world.bringToTop(this.dialog);
-        this.world.bringToTop(this.hud);
+        this.events.once('shutdown', this.shutdown, this);
     }
 
-    shutdown() {
-        super.shutdown();
-
+    shutdown()
+    {
         // lose reference to player in camera
-        this.game.camera.unfollow();
+        this.cameras.main.stopFollow();
 
-        // transitioning to a new state will destroy the world, including the player so remove it.
-        this.game.player.parent.removeChild(this.game.player);
+        const player: Player = this.registry.get('player');
+        player.removeAllListeners('readSign');
+        player.removeAllListeners('inventoryChange');
 
-        this.game.player.onReadSign.removeAll(this);
-        this.game.player.onInventoryChange.removeAll(this);
+        // remove the listeners for system events
+        this.physics.world.off(Phaser.Physics.Matter.Events.COLLISION_START, this.onCollisionStart, this);
+        this.physics.world.off(Phaser.Physics.Matter.Events.COLLISION_END, this.onCollisionEnd, this);
 
-        // remove the listeners or they will keep firing
-        this.game.physics.p2.onBeginContact.removeAll(this);
-        this.game.physics.p2.onEndContact.removeAll(this);
-
-        this.activeZone = null;
-        this.oldZone = null;
-
-        this.oldLayer = null;
-        this.oldLayerOverlay = null;
-
-        this.activeLayer = null;
-        this.activeLayerOverlay = null;
-
-        this.overlay.destroy(true);
-        this.overlay = null;
-
-        this.dialog.destroy(true);
-        this.dialog = null;
+        this.input.keyboard.off(Phaser.Input.Keyboard.Events.ANY_KEY_DOWN, this._handleKeyboard, this);
+        this.input.gamepad.off(Phaser.Input.Gamepad.Events.GAMEPAD_BUTTON_DOWN, this._handleGamepadButton, this);
     }
 
-    showDialog(text: (string|string[])) {
-        this.pause();
-
-        this.dialog.show(text);
+    onCollisionStart(event: Phaser.Physics.Matter.Events.CollisionStartEvent, bodyA: MatterJS.Body, bodyB: MatterJS.Body)
+    {
+        this._checkContact(true, event, bodyA, bodyB);
     }
 
-    pause() {
-        // // render the current world onto a texture
-        // this.hud.visible = false;
-        // this._bgtx.render(this.world);
-        // this._bgspr.visible = true;
-
-        // // turn the camera back on
-        // this.hud.visible = true;
-
-        // // hides and stop updates to the world
-        // this.world.visible = false;
-
-        this._paused = true;
-
-        // stop physics updates
-        this.physics.p2.pause();
+    onCollisionEnd(event: Phaser.Physics.Matter.Events.CollisionEndEvent, bodyA: MatterJS.Body, bodyB: MatterJS.Body)
+    {
+        this._checkContact(false, event, bodyA, bodyB);
     }
 
-    resume() {
-        // this._bgspr.visible = false;
-        // this.world.visible = true;
-
-        this._paused = false;
-
-        // restart physics simulation
-        this.physics.p2.resume();
-    }
-
-    onBeginContact(bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
-        this._checkContact(true, bodyA, bodyB, shapeA, shapeB, contactEquations);
-    }
-
-    onEndContact(bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
-        this._checkContact(false, bodyA, bodyB, shapeA, shapeB, contactEquations);
-    }
-
-    /**
-     * Input Handling
-     */
-    onKeyboardDown(event: KeyboardEvent) {
-        super.onKeyboardDown(event);
-
-        this.handleKeyboard(event.keyCode, true);
-    }
-
-    onKeyboardUp(event: KeyboardEvent) {
-        super.onKeyboardUp(event);
-
-        this.handleKeyboard(event.keyCode, false);
-    }
-
-    onGamepadDown(button: number, value: number) {
-        super.onGamepadDown(button, value);
-
-        this.handleGamepadButton(button, value, true);
-    }
-
-    onGamepadUp(button: number, value: number) {
-        super.onGamepadUp(button, value);
-
-        this.handleGamepadButton(button, value, false);
-    }
-
-    onGamepadAxis(pad: Phaser.SinglePad, index: number, value: number) {
-        super.onGamepadAxis(pad, index, value);
-
-        this.handleGamepadAxis(index, value, true);
-    }
-
-    handleGamepadAxis(index: number, value: number, active: boolean) {
+    private _handleGamepadAxis(index: number, value: number, active: boolean)
+    {
         // TODO: stick handling
         // switch(index) {
         //     // AXIS UP/DOWN
         //     case Phaser.Input.Gamepad.Configs.XBOX_360.STICK_LEFT_Y:
-        //         this.game.player.lookUp(value > 0 ? active : false);
-        //         this.game.player.duck(value < 0 ? active : false);
+        //         player.lookUp(value > 0 ? active : false);
+        //         player.duck(value < 0 ? active : false);
         //         GarageServerIO.addInput({ name: 'lookUp', active: value > 0 ? active : false, value: value });
         //         GarageServerIO.addInput({ name: 'duck', active: value < 0 ? active : false, value: value });
         //         break;
 
         //     // AXIS LEFT/RIGHT
         //     case Phaser.Input.Gamepad.Configs.XBOX_360.STICK_LEFT_X:
-        //         this.game.player.move(Phaser.RIGHT, value, value > 0 ? active : false);
-        //         this.game.player.move(Phaser.LEFT, -value, value < 0 ? active : false);
+        //         player.move(Phaser.RIGHT, value, value > 0 ? active : false);
+        //         player.move(Phaser.LEFT, -value, value < 0 ? active : false);
         //         GarageServerIO.addInput({ name: 'forward', active: value > 0 ? active : false, value: value });
         //         GarageServerIO.addInput({ name: 'backward', active: value < 0 ? active : false, value: -value });
         //         break;
         // }
     }
 
-    handleKeyboard(key: number, active: boolean) {
-        if (key === this.keymap.keyboard.use && this.dialog.visible) {
-            if (this.dialog.typing || this.dialog.queue.length) {
-                this.dialog.advance();
-            }
-            else {
-                this.dialog.hide();
-                this.resume();
-            }
-            return;
-        }
+    private _handleKeyboard(event: KeyboardEvent)
+    {
+        // TODO: Does this get hit when paused?
 
-        if (this._paused) {
-            return;
-        }
+        const key = event.keyCode;
+        const active = event.type === 'keydown';
 
-        switch (key) {
-            // use
-            case this.keymap.keyboard.use:
-                this.game.player.use(active);
+        const player: Player = this.registry.get('player');
+
+        switch (key)
+        {
+            case keymap.keyboard.use:
+                player.use(active);
                 break;
 
-            // use item
-            case this.keymap.keyboard.useItem:
-                this.game.player.useItem(active);
+            case keymap.keyboard.useItem:
+                player.useItem(active);
                 break;
 
-            // attack
-            case this.keymap.keyboard.attack:
-                this.game.player.attack(active);
+            case keymap.keyboard.attack:
+                player.attack(active);
                 break;
 
-            // UP
-            case this.keymap.keyboard.up:
-                this.game.player.move(Phaser.UP, 1, active);
+            case keymap.keyboard.up:
+                player.move(Phaser.UP, 1, active);
                 break;
 
-            // DOWN
-            case this.keymap.keyboard.down:
-                this.game.player.move(Phaser.DOWN, 1, active);
+            case keymap.keyboard.down:
+                player.move(Phaser.DOWN, 1, active);
                 break;
 
-            // LEFT
-            case this.keymap.keyboard.left:
-                this.game.player.move(Phaser.LEFT, 1, active);
+            case keymap.keyboard.left:
+                player.move(Phaser.LEFT, 1, active);
                 break;
 
-            // RIGHT
-            case this.keymap.keyboard.right:
-                this.game.player.move(Phaser.RIGHT, 1, active);
+            case keymap.keyboard.right:
+                player.move(Phaser.RIGHT, 1, active);
                 break;
         }
     }
 
-    handleGamepadButton(button: number, value: number, active: boolean) {
-        switch (button) {
-            // UP
-            case this.keymap.gamepad.up:
-                this.game.player.move(Phaser.UP, value, active);
+    private _handleGamepadButton(index: number, value: number, active: boolean)
+    {
+        const player: Player = this.registry.get('player');
+
+        switch (index)
+        {
+            case keymap.gamepad.up:
+                player.move(Phaser.UP, value, active);
                 break;
 
-            // DOWN
-            case this.keymap.gamepad.down:
-                this.game.player.move(Phaser.DOWN, value, active);
+            case keymap.gamepad.down:
+                player.move(Phaser.DOWN, value, active);
                 break;
 
-            // LEFT
-            case this.keymap.gamepad.left:
-                this.game.player.move(Phaser.LEFT, value, active);
+            case keymap.gamepad.left:
+                player.move(Phaser.LEFT, value, active);
                 break;
 
-            // RIGHT
-            case this.keymap.gamepad.right:
-                this.game.player.move(Phaser.RIGHT, value, active);
+            case keymap.gamepad.right:
+                player.move(Phaser.RIGHT, value, active);
                 break;
         }
     }
 
-    private _enableDebugBodies(layer: Phaser.Plugin.Tiled.Objectlayer) {
-        if (!layer) {
+    private _checkContact(begin: boolean, event: Phaser.Physics.Matter.Events.CollisionStartEvent | Phaser.Physics.Matter.Events.CollisionEndEvent, bodyA: MatterJS.Body, bodyB: MatterJS.Body)
+    {
+        if (!bodyA.gameObject || !bodyB.gameObject)
             return;
-        }
 
-        for (let i = 0; i < layer.bodies.length; ++i) {
-            let body: Phaser.Physics.P2.Body = layer.bodies[i];
+        const player = this.registry.get('player');
 
-            body.debug = true;
-        }
-    }
-
-    private _checkContact(begin: boolean, bodyA: p2.IBodyEx, bodyB: p2.IBodyEx, shapeA: p2.Shape, shapeB: p2.Shape, contactEquations: any) {
-        if (!bodyA.parent || !bodyB.parent) {
+        if (bodyA.gameObject !== player && bodyB.gameObject !== player)
             return;
-        }
 
-        if (bodyA.parent.sprite !== this.game.player && bodyB.parent.sprite !== this.game.player) {
+        const playerIsA = bodyA.gameObject === player;
+        const playerBody = playerIsA ? bodyA : bodyB;
+        const objBody = playerIsA ? bodyB : bodyA;
+
+        // Note: the tiledObject property is added by gl-tiled
+        const obj = objBody.gameObject || (objBody as any).tiledObject;
+
+        if (!obj)
             return;
-        }
 
-        const playerIsA = bodyA.parent.sprite === this.game.player;
-        // const playerBody = playerIsA ? bodyA.parent : bodyB.parent;
-        const playerShape = playerIsA ? shapeA : shapeB;
-        const objBody = playerIsA ? bodyB.parent : bodyA.parent;
-        const objShape = playerIsA ? shapeB : shapeA;
-        const obj = objBody.sprite || (<any>objBody).tiledObject; // the tiledObject property is added by phaser-tiled
-
-        if (!obj) {
-            return;
-        }
-
-        if (begin && contactEquations.length && playerShape === this.game.player.bodyShape) {
-            this._tempVector.set(-contactEquations[0].normalA[0], -contactEquations[0].normalA[1]);
+        if (begin)
+        {
+            const normal = new Phaser.Math.Vector2(event.pairs[0].collision.normal);
 
             // colliding with a new zone
-            if (obj.type === 'zone') {
-                return this._zone(obj, this._tempVector);
+            if (obj.type === 'zone')
+            {
+                return this._zone(obj, normal);
             }
             // collide with an exit
-            else if (obj.type === 'exit') {
-                return this._exit(obj, this._tempVector);
+            else if (obj.type === 'exit')
+            {
+                return this._exit(obj, normal);
             }
         }
 
-        if (begin) {
-            this.game.player.onBeginContact(obj, objShape, playerShape);
+        if (begin)
+        {
+            player.onBeginContact(obj, objBody, playerBody);
         }
-        else {
-            this.game.player.onEndContact(obj, objShape, playerShape);
+        else
+        {
+            player.onEndContact(obj, objBody, playerBody);
         }
     }
 
-    private _exit(exit: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
-        if (!exit.properties.animation) {
+    private _exit(exit: IRectangleObject, vec: Phaser.Math.Vector2)
+    {
+        const animation = getTiledPropertyValue('animation', exit.properties);
+
+        if (!animation)
+        {
             this._mapTransition(exit, vec);
         }
-        else {
-            this.game.player.events.onAnimationComplete.addOnce(function() {
-                this._doMapTransition(exit, vec);
-                this.game.player.unlock();
-            }, this);
+        else
+        {
+            const player: Player = this.registry.get('player');
+            player.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () =>
+            {
+                this._mapTransition(exit, vec);
+                player.unlock();
+            });
 
-            this.game.player.lock();
-            this.game.player.animations.play(exit.properties.animation);
+            player.lock();
+            player.anims.play(animation.toString());
 
             return;
         }
     }
 
-    private _mapTransition(exit: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
-        switch (exit.properties.transition) {
+    private _mapTransition(exit: IRectangleObject, vec: Phaser.Math.Vector2)
+    {
+        const transition = getTiledPropertyValue('transition', exit.properties);
+
+        switch (transition)
+        {
             case 'none':
                 this._gotoLevel(exit, vec);
                 break;
@@ -470,25 +323,30 @@ export class LevelScene extends BaseLttpScene
             case 'fade':
                 /* falls through */
             default:
-                this.game.effects.fadeScreen(COLORS.BLACK, EFFECT_MAP_TRANSITION_TIME)
-                    .onComplete.addOnce(function () {
-                        this._gotoLevel(exit, vec);
-                    }, this);
+                this.cameras.main.fade(EFFECT_MAP_TRANSITION_TIME, 0, 0, 0, false, () =>
+                {
+                    this._gotoLevel(exit, vec);
+                });
                 break;
         }
     }
 
-    private _gotoLevel(exit: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
-        this.game.save(exit);
+    private _gotoLevel(exit: IRectangleObject, vec: Phaser.Math.Vector2)
+    {
+        const loadedSave: Save = this.registry.get('loadedSave');
+        if (loadedSave)
+        {
+            loadedSave.lastUsedExit = exit;
+            loadedSave.save(this.registry.get('player'));
+        }
 
-        this.game.state.start('level_' + exit.name);
+        this.scene.restart({ key: `level_${exit.name}` });
     }
 
-    private _zone(zone: Phaser.Plugin.Tiled.ITiledObject, vec: TPoint) {
-        // done repeat zoning
-        if (zone === this.activeZone) {
+    private _zone(zone: IRectangleObject, vec: Phaser.Math.Vector2)
+    {
+        if (zone === this.activeZone)
             return;
-        }
 
         // save old actives
         this.oldZone = this.activeZone;
@@ -497,73 +355,79 @@ export class LevelScene extends BaseLttpScene
 
         // assign new actives
         this.activeZone = zone;
-        this.activeLayer = this.tiledmap.getObjectlayer(zone.name);
-        this.activeLayerOverlay = this.tiledmap.getObjectlayer(zone.name + '_overlay');
+        this.activeLayer = this.tiledmap.getObjectgroup(zone.name);
+        this.activeLayerOverlay = this.tiledmap.getContainer(zone.name + '_overlay');
 
         // spawn layer objects
-        this.activeLayer.spawn(Phaser.Physics.P2JS);
+        this.tiledmap.createLayer(zone.name);
 
         this._setupOverlay();
 
         this._setupZone(vec);
     }
 
-    private _setupOverlay() {
+    private _setupOverlay()
+    {
         this.overlay.deactivate();
 
-        if (this.oldLayerOverlay) {
-            this.oldLayerOverlay.despawn();
-        }
+        if (this.oldLayerOverlay)
+            this.tiledmap.destroyLayer(this.oldLayerOverlay.name);
 
         // show overlay for layer or map
-        if (this.activeLayerOverlay) {
-            this.activeLayerOverlay.spawn(Phaser.Physics.P2JS);
+        if (this.activeLayerOverlay)
+        {
+            this.tiledmap.createLayer(this.activeLayerOverlay.name);
         }
-        else if (this.tiledmap.properties.overlay) {
-            this.overlay.activate(this.tiledmap.properties.overlay);
+        else
+        {
+            const overlayProp = getTiledProperty('overlay', this.tiledmap.desc.properties);
+
+            if (overlayProp && overlayProp.type === 'string')
+                this.overlay.activate(overlayProp.value);
         }
     }
 
-    private _setupZone(vec: TPoint) {
-        // const mapData = this.game.loadedSave.mapData[this.tiledmap.name];
-        // const zoneData = mapData ? mapData[this.activeLayer.name] : null;
+    private _setupZone(vec: Phaser.Math.Vector2)
+    {
+        this.cameras.main.stopFollow();
+        this.cameras.main.removeBounds();
 
-        this.camera.unfollow();
-        this.camera.bounds = null;
-
-        if (!this._firstZone) {
+        if (!this._firstZone)
             this._zoneTransition(vec);
-        }
-        else {
+        else
             this._zoneReady();
-        }
     }
 
-    private _zoneTransition(vec: TPoint) {
+    private _zoneTransition(vec: Phaser.Math.Vector2)
+    {
         const vel = vec.x ? vec.x : vec.y;
-        const cameraEnd: Dictionary<number> = {};
+        const cameraEnd = new Phaser.Math.Vector2();
+        const player = this.registry.get('player');
 
-        this.game.player.lock();
+        player.lock();
 
-        switch (this.activeZone.properties.transition) {
+        const transition = getTiledPropertyValue('transition', this.activeZone.properties);
+
+        switch (transition)
+        {
             case 'fade':
-                this.game.effects.fadeScreen(COLORS.BLACK, EFFECT_ZONE_TRANSITION_TIME)
-                    .onComplete.addOnce(function () {
-                        // pan camera
-                        this.camera.x += this.camera.width * vec.x;
-                        this.camera.y += this.camera.height * vec.y;
+                this.cameras.main.fade(EFFECT_ZONE_TRANSITION_TIME, COLORS.BLACK[0], COLORS.BLACK[1], COLORS.BLACK[2], false, () =>
+                {
+                    // pan camera
+                    this.cameras.main.x += this.cameras.main.width * vec.x;
+                    this.cameras.main.y += this.cameras.main.height * vec.y;
 
-                        this._transitionPlayer(!!vec.x, vel);
+                    this._transitionPlayer(!!vec.x, vel);
 
-                        // zone ready
-                        this._zoneReady();
-                    }, this);
+                    // zone ready
+                    this._zoneReady();
+                });
                 break;
 
             case 'none':
                 // pan camera
-                this.camera.x += this.camera.width * vec.x;
-                this.camera.y += this.camera.height * vec.y;
+                this.cameras.main.x += this.cameras.main.width * vec.x;
+                this.cameras.main.y += this.cameras.main.height * vec.y;
 
                 this._transitionPlayer(!!vec.x, vel);
 
@@ -574,81 +438,91 @@ export class LevelScene extends BaseLttpScene
             case 'slide':
                 /* falls through */
             default:
-                if (vec.x) {
-                    cameraEnd['x'] = this.camera.x + this.camera.width * vel;
-                }
-                else {
-                    cameraEnd['y'] = this.camera.y + this.camera.height * vel;
-                }
+                if (vec.x)
+                    cameraEnd.x = this.cameras.main.x + this.cameras.main.width * vel;
+                else
+                    cameraEnd.y = this.cameras.main.y + this.cameras.main.height * vel;
 
-                this.game.add.tween(this.camera)
-                    .to(cameraEnd, EFFECT_ZONE_TRANSITION_TIME)
-                    .start()
-                    .onComplete.addOnce(this._zoneReady, this);
+                this.tweens.add({
+                    targets: this.cameras.main,
+                    duration: EFFECT_ZONE_TRANSITION_TIME,
+                    x: cameraEnd.x,
+                    y: cameraEnd.y,
+                    onComplete: () => this._zoneReady(),
+                });
 
                 this._transitionPlayer(!!vec.x, vel, true);
                 break;
         }
     }
 
-    private _transitionPlayer(horizontal: boolean, vector: number, ease: boolean = true) {
-        if (ease) {
-            const playerEnd: Dictionary<number> = {
-                x: this.game.player.body.x,
-                y: this.game.player.body.y,
-            };
+    private _transitionPlayer(horizontal: boolean, vector: number, ease: boolean = true)
+    {
+        const player = this.registry.get('player');
+
+        if (ease)
+        {
+            const playerEnd = new Phaser.Math.Vector2(player.body.x, player.body.y);
 
             playerEnd[horizontal ? 'x' : 'y'] += EFFECT_ZONE_TRANSITION_SPACE * vector;
 
-            this.game.add.tween(this.game.player.body)
-                .to(playerEnd, EFFECT_ZONE_TRANSITION_TIME)
-                .start();
+            this.tweens.add({
+                targets: player.body,
+                x: playerEnd.x,
+                y: playerEnd.y,
+            });
         }
-        else {
-            if (horizontal) {
-                this.game.player.body.x += EFFECT_ZONE_TRANSITION_SPACE * vector;
-            }
-            else {
-                this.game.player.body.y += EFFECT_ZONE_TRANSITION_SPACE * vector;
-            }
+        else
+        {
+            if (horizontal)
+                player.body.x += EFFECT_ZONE_TRANSITION_SPACE * vector;
+            else
+                player.body.y += EFFECT_ZONE_TRANSITION_SPACE * vector;
         }
     }
 
-    private _zoneReady() {
-        if (this.oldLayer) {
-            this.game.save(null, this.oldLayer);
+    private _zoneReady()
+    {
+        if (this.oldLayer)
+        {
+            const loadedSave: Save = this.registry.get('loadedSave');
+            if (loadedSave)
+            {
+                loadedSave.updateZoneData(this.levelKey, this.oldLayer);
+                loadedSave.save();
+            }
 
-            this.oldLayer.despawn();
+            this.tiledmap.destroyLayer(this.oldLayer.name);
         }
 
         const zone = this.activeZone;
 
         this._firstZone = false;
 
-        this._cameraBounds.copyFrom(zone);
-        this.camera.bounds = this._cameraBounds;
+        this._cameraBounds.setTo(zone.x, zone.y, zone.width, zone.height);
+        this.cameras.main.setBounds(zone.x, zone.y, zone.width, zone.height);
 
-        this.camera.follow(this.game.player, Phaser.Camera.FOLLOW_LOCKON);
+        const player = this.registry.get('player');
+        this.cameras.main.startFollow(player);
 
         // play zone music, or the map music if there is no zone music
-        this._setupMusic(zone.properties.music || this.tiledmap.properties.music);
+        const musicProp = getTiledProperty('music', zone.properties) || getTiledProperty('music', this.tiledmap.desc.properties);
+        this._setupMusic(musicProp && musicProp.type === 'string' ? musicProp.value : '');
 
-        this.game.player.unlock();
+        player.unlock();
     }
 
-    private _setupMusic(key?: string) {
+    private _setupMusic(key?: string)
+    {
         // no key or already playing
-        if (!key || (this.music && this.music.key === key)) {
+        if (!key || (this.music && this.music.key === key))
             return;
-        }
 
         // destroy current music object
-        if (this.music) {
+        if (this.music)
             this.music.destroy();
-        }
 
-        this.music = this.add.audio(key, AUDIO_MUSIC_VOLUME, true);
-
+        this.music = this.sound.add(key, { volume: AUDIO_MUSIC_VOLUME, loop: true });
         this.music.play();
     }
 }

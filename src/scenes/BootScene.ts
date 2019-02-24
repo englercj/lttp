@@ -9,7 +9,7 @@ export class BootScene extends BaseLttpScene
 
     constructor()
     {
-        super({ key: BootScene.KEY });
+        super(BootScene.KEY);
     }
 
     preload()
@@ -191,6 +191,21 @@ export class BootScene extends BaseLttpScene
             const p = desc.particle;
             this._createIndexedAnim([p.path + '%d'], p.num, p.framerate, p.repeat);
         }
+
+        // Torch
+        this._createAnim('torch', null, -1, ['torch/torch0.png']);
+
+        this._createAnim('torch_lit', 0.09, -1, [
+            'torch/torch1.png',
+            'torch/torch2.png',
+            'torch/torch3.png',
+        ]);
+
+        this._createAnim('wall_torch', 0.09, -1, [
+            'torch/wall_torch1.png',
+            'torch/wall_torch2.png',
+            'torch/wall_torch3.png',
+        ]);
 
         // Link - Idle
         this._createAnim('idle_shield_left', null, -1, ['walk_shield_left/walk_shield_left_1.png']);

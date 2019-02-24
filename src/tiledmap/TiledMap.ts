@@ -1,6 +1,7 @@
-import { GLTilemap, ITilemap, IObjectgroup, IPolygonObject, IPolylineObject, ITileObject, IEllipseObject, IPointObject, IRectangleObject, ITextObject, GLTileset, IProperty, IObject, IObjectBase } from 'gl-tiled';
-import { IAssets, IDictionary } from 'gl-tiled/dist/src/typings/types';
+import { GLTilemap, IAssetCache, ITilemap, IObjectgroup, IPolygonObject, IPolylineObject, ITileObject, IEllipseObject, IPointObject, IRectangleObject, ITextObject, GLTileset, IProperty, IObjectBase, ILayer } from 'gl-tiled';
 import { IAssetData } from '../utility/IAssetPack';
+import { IDictionary } from '../utility/IDictionary';
+import { getTiledProperty, getTiledPropertyValue } from './property_utils';
 
 export class TiledMap extends Phaser.GameObjects.GameObject
     implements
@@ -11,7 +12,8 @@ export class TiledMap extends Phaser.GameObjects.GameObject
 {
     fullscreen = true;
 
-    readonly layerObjects: IDictionary<(Phaser.GameObjects.GameObject | MatterJS.Body)[]> = {};
+    private readonly containers: IDictionary<Phaser.GameObjects.Container> = {};
+    private readonly bodies: IDictionary<MatterJS.Body[]> = {};
 
     private _assetData: IAssetData[];
     private _tilemap: GLTilemap;
@@ -22,7 +24,7 @@ export class TiledMap extends Phaser.GameObjects.GameObject
     {
         super(scene, 'TiledMap');
 
-        const assets = assetData.reduce<IAssets>((prev, curr) =>
+        const assets = assetData.reduce<IAssetCache>((prev, curr) =>
         {
             const sourceImg = this.scene.textures.get(curr.key).getSourceImage();
 
@@ -37,9 +39,35 @@ export class TiledMap extends Phaser.GameObjects.GameObject
         this._assetData = assetData;
         this._tilemap = new GLTilemap(mapData, { assetCache: assets });
 
+        this._createObjectContainers(mapData.layers);
+
         scene.events.on(Phaser.Scenes.Events.UPDATE, this.onUpdate, this);
 
         this.setPosition(x, y);
+    }
+
+    get desc() { return this._tilemap.desc; }
+
+    getContainer(...name: string[]): Phaser.GameObjects.Container
+    {
+        const key = name.join('/');
+        return this.containers[key];
+    }
+
+    getBodies(...name: string[]): MatterJS.Body[]
+    {
+        const key = name.join('/');
+        return this.bodies[key] || [];
+    }
+
+    getObjectgroup(...name: string[]): IObjectgroup | null
+    {
+        const group = this._tilemap.findLayerDesc(...name);
+
+        if (group && group.type === 'objectgroup')
+            return group;
+
+        return null;
     }
 
     createLayer(...name: string[]): boolean
@@ -51,7 +79,7 @@ export class TiledMap extends Phaser.GameObjects.GameObject
 
         if (layerDesc.type === 'objectgroup')
         {
-            this._createObjectgroup(layerDesc);
+            this._createObjectgroup(name, layerDesc);
         }
         else
         {
@@ -70,7 +98,7 @@ export class TiledMap extends Phaser.GameObjects.GameObject
 
         if (layerDesc.type === 'objectgroup')
         {
-            this._destroyObjectgroup(layerDesc);
+            this._destroyObjectgroup(name);
         }
         else
         {
@@ -153,34 +181,63 @@ export class TiledMap extends Phaser.GameObjects.GameObject
         }
     }
 
-    private _destroyObjectgroup(layerDesc: IObjectgroup): void
+    private _createObjectContainers(layers: ILayer[], parent?: Phaser.GameObjects.Container)
     {
-        const group = this.layerObjects[layerDesc.name];
-
-        if (!group)
-            return;
-
-        for (let i = 0; i < group.length; ++i)
+        for (let i = 0; i < layers.length; ++i)
         {
-            const obj = group[i];
+            const layer = layers[i];
 
-            if (obj instanceof Phaser.GameObjects.GameObject)
+            if (layer.type === 'group' || layer.type === 'objectgroup')
             {
-                obj.destroy();
-            }
-            else
-            {
-                this.scene.matter.world.remove(obj, true);
+                const name = (parent ? `${parent.name}/` : '') + layer.name;
+                const container = this.scene.add.container(layer.x, layer.y);
+
+                container.name = name;
+
+                this.containers[name] = container;
+
+                if (parent)
+                    parent.add(container);
+
+                if (layer.type === 'group')
+                {
+                    this._createObjectContainers(layer.layers, container);
+                }
             }
         }
     }
 
-    private _createObjectgroup(layerDesc: IObjectgroup): void
+    private _destroyObjectgroup(name: string[]): void
     {
-        if (!this.layerObjects[layerDesc.name])
-            this.layerObjects[layerDesc.name] = [];
+        const key = name.join('/');
 
-        const group = this.layerObjects[layerDesc.name];
+        const container = this.containers[key];
+
+        if (container)
+            container.removeAll(true);
+
+        const bodies = this.bodies[key];
+
+        if (bodies)
+        {
+            for (let i = 0; i < bodies.length; ++i)
+            {
+                this.scene.matter.world.remove(bodies[i], true);
+            }
+
+            bodies.length = 0;
+        }
+    }
+
+    private _createObjectgroup(name: string[], layerDesc: IObjectgroup): void
+    {
+        const key = name.join('/');
+
+        if (!this.bodies[key])
+            this.bodies[key] = [];
+
+        const container = this.containers[key];
+        const bodies = this.bodies[key];
 
         for (let i = 0; i < layerDesc.objects.length; ++i)
         {
@@ -188,31 +245,36 @@ export class TiledMap extends Phaser.GameObjects.GameObject
 
             if ((object as any).gid)
             {
-                group.push(this._createTileObject(object as ITileObject));
-            }
-            if ((object as any).ellipse)
-            {
-                group.push(this._createEllipseObject(object as IEllipseObject));
-            }
-            if ((object as any).point)
-            {
-                group.push(this._createPointObject(object as IPointObject));
-            }
-            if ((object as any).polygon)
-            {
-                group.push(this._createPolygonObject(object as IPolygonObject));
-            }
-            else if ((object as any).polyline)
-            {
-                group.push(this._createPolylineObject(object as IPolylineObject));
+                container.add(this._createTileObject(object as ITileObject));
             }
             else if ((object as any).text)
             {
-                group.push(this._createTextObject(object as ITextObject));
+                container.add(this._createTextObject(object as ITextObject));
             }
             else
             {
-                group.push(this._createRectangleObject(object as IRectangleObject));
+                if ((object as any).ellipse)
+                {
+                    bodies.push(this._createEllipseObject(object as IEllipseObject));
+                }
+                else if ((object as any).point)
+                {
+                    bodies.push(this._createPointObject(object as IPointObject));
+                }
+                else if ((object as any).polygon)
+                {
+                    bodies.push(this._createPolygonObject(object as IPolygonObject));
+                }
+                else if ((object as any).polyline)
+                {
+                    bodies.push(this._createPolylineObject(object as IPolylineObject));
+                }
+                else
+                {
+                    bodies.push(this._createRectangleObject(object as IRectangleObject));
+                }
+
+                (bodies[bodies.length - 1] as any).tiledObject = object;
             }
         }
     }
@@ -235,27 +297,12 @@ export class TiledMap extends Phaser.GameObjects.GameObject
         return '';
     }
 
-    private _getProperty(key: string, properties: IProperty[])
-    {
-        for (let i = 0; i < properties.length; ++i)
-        {
-            const prop = properties[i];
-
-            if (prop.name === key)
-            {
-                return prop.value;
-            }
-        }
-
-        return null;
-    }
-
     private _getMatterOptions(object: IObjectBase): any
     {
-        return {
-            isSensor: !!this._getProperty('sensor', object.properties),
-            isStatic: !!this._getProperty('static', object.properties),
-        };
+        const isSensor = getTiledPropertyValue('sensor', object.properties);
+        const isStatic = getTiledPropertyValue('static', object.properties);
+
+        return { isSensor, isStatic };
     }
 
     private _createTileObject(object: ITileObject): Phaser.GameObjects.Image
@@ -284,7 +331,7 @@ export class TiledMap extends Phaser.GameObjects.GameObject
                         tileset.desc.tileheight);
                 }
 
-                const collides = this._getProperty('collides', object.properties);
+                const collides = getTiledPropertyValue('collides', object.properties);
 
                 if (collides)
                 {

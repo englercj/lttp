@@ -2,8 +2,9 @@ import * as Storage from './Storage';
 import { Player } from '../entities/Player';
 import { PlayerInventory } from '../data/PlayerInventory';
 import { IItemDescriptor } from '../data/ItemDescriptors';
-import { IRectangle, IObjectlayer } from 'gl-tiled';
+import { IRectangleObject, IObjectgroup } from 'gl-tiled';
 import { IDictionary } from './IDictionary';
+import { getTiledPropertyValue, getTiledProperty } from '../tiledmap/property_utils';
 
 export interface IZoneData
 {
@@ -32,7 +33,7 @@ export class Save
     // other save data
     mapData: IDictionary<IMapData> = {};
 
-    lastUsedExit: IRectangle = null;
+    lastUsedExit: IRectangleObject = null;
 
     saveFileExists = false;
 
@@ -78,7 +79,7 @@ export class Save
         return this;
     }
 
-    updateZoneData(map: string, layer: IObjectlayer)
+    updateZoneData(map: string, layer: IObjectgroup)
     {
         const mapData = this.mapData[map] || { zones: {} };
         const zoneData = mapData.zones[layer.name] || { objects: [] };
@@ -91,9 +92,11 @@ export class Save
 
         for (let i = 0; i < layer.objects.length; ++i)
         {
+            const lootProp = getTiledProperty('loot', layer.objects[i].properties);
+
             zoneData.objects.push({
                 properties: {
-                    loot: layer.objects[i].properties.loot,
+                    loot: lootProp && lootProp.type === 'string' ? lootProp.value : '',
                 },
             });
         }
