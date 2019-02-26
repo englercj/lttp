@@ -1,8 +1,7 @@
-import { ITilemap, IRectangleObject, IObject, IObjectgroup } from 'gl-tiled';
+import { ITilemap, IRectangleObject, IObjectgroup } from 'gl-tiled';
 import { MapOverlay } from '../effects/MapOverlay';
-import { IKeymap, keymap } from '../data/Keymap';
+import { keymap } from '../data/Keymap';
 import { ASSET_TILEMAP_PACKS_KEY, EFFECT_MAP_TRANSITION_TIME, EFFECT_ZONE_TRANSITION_TIME, COLORS, EFFECT_ZONE_TRANSITION_SPACE, AUDIO_MUSIC_VOLUME } from '../data/Constants';
-import { Entity } from '../entities/Entity';
 import { BaseLttpScene } from '../scenes/BaseLttpScene';
 import { TiledMap } from '../tiledmap/TiledMap';
 import { Save } from '../utility/Save';
