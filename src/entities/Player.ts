@@ -1,4 +1,3 @@
-import { Level } from '../levels/Level';
 import { Pool } from '../utility/Pool';
 import { isInViewCone } from '../math';
 import { EEntityType, AUDIO_EFFECT_VOLUME } from '../data/Constants';
@@ -9,10 +8,11 @@ import { ParticleEntity } from './misc/Particle';
 import { SmashEntity } from './misc/Smash';
 import { WorldItem } from './items/WorldItem';
 
+export const READ_SIGN_EVENT = 'readSign';
+export const INVENTORY_CHANGE_EVENT = 'inventoryChange';
+
 export class Player extends Entity
 {
-    name: string;
-
     // player type
     entityType = EEntityType.Player;
 
@@ -35,30 +35,25 @@ export class Player extends Entity
     // a pool of particles to throw around
     particlePool: Pool<ParticleEntity>;
 
-    liftSound: Phaser.Sound;
-    throwSound: Phaser.Sound;
-    openChestSound: Phaser.Sound;
-    itemFanfaireSound: Phaser.Sound;
-    errorSound: Phaser.Sound;
-    fallSound: Phaser.Sound;
+    liftSound: Phaser.Sound.BaseSound;
+    throwSound: Phaser.Sound.BaseSound;
+    openChestSound: Phaser.Sound.BaseSound;
+    itemFanfaireSound: Phaser.Sound.BaseSound;
+    errorSound: Phaser.Sound.BaseSound;
+    fallSound: Phaser.Sound.BaseSound;
 
-    onReadSign: Phaser.Signal;
-    onInventoryChange: Phaser.Signal;
+    equipted: IItemDescriptor = null;
 
-    equipted: IItemDescriptor;
+    inventory = new PlayerInventory();
 
-    inventory: PlayerInventory;
+    carrying: Phaser.GameObjects.Sprite = null;
 
-    carrying: Phaser.Sprite;
+    attacking = false;
+    chargingAttack = false;
 
-    attacking: boolean;
-    chargingAttack: boolean;
-
-    bodyShape: p2.Shape;
-    attackSensor: p2.Shape;
-
-    constructor(game: Game) {
-        super(game, 'sprite_link');
+    constructor(scene: Phaser.Scene)
+    {
+        super(scene, 'sprite_link');
 
         this.ignoreDestroy = true;
 
@@ -71,42 +66,23 @@ export class Player extends Entity
         this.inAttackRange = [];
         this.colliding = [];
 
-        this.smashPool = new Pool<SmashEntity>(game, SmashEntity);
-        this.itemPool = new Pool<WorldItem>(game, WorldItem);
-        this.particlePool = new Pool<ParticleEntity>(game, ParticleEntity);
+        this.smashPool = new Pool(scene, SmashEntity);
+        this.itemPool = new Pool(scene, WorldItem);
+        this.particlePool = new Pool(scene, ParticleEntity);
 
-        this.liftSound = game.add.sound('effect_lift', { volume: AUDIO_EFFECT_VOLUME });
-        this.throwSound = game.add.sound('effect_throw', { volume: AUDIO_EFFECT_VOLUME });
-        this.openChestSound = game.add.sound('effect_chest', { volume: AUDIO_EFFECT_VOLUME });
-        this.itemFanfaireSound = game.add.sound('effect_item_fanfaire', { volume: AUDIO_EFFECT_VOLUME });
-        this.errorSound = game.add.sound('effect_error', { volume: AUDIO_EFFECT_VOLUME });
-        this.fallSound = game.add.sound('effect_fall', { volume: AUDIO_EFFECT_VOLUME });
-
-        this.onReadSign = new Phaser.Signal();
-        this.onInventoryChange = new Phaser.Signal();
-
-        this.equipted = null;
-
-        this.inventory = new PlayerInventory();
-
-        this.carrying = null;
-
-        this.attacking = false;
-        this.chargingAttack = false;
-
-        this.anchor.set(0.5);
-
-        this.bodyShape = null;
-        this.attackSensor = null;
-
-        // TODO: carry follow
-        // this.on('physUpdate', this._physUpdate.bind(this));
+        this.liftSound = scene.sound.add('effect_lift', { volume: AUDIO_EFFECT_VOLUME });
+        this.throwSound = scene.sound.add('effect_throw', { volume: AUDIO_EFFECT_VOLUME });
+        this.openChestSound = scene.sound.add('effect_chest', { volume: AUDIO_EFFECT_VOLUME });
+        this.itemFanfaireSound = scene.sound.add('effect_item_fanfaire', { volume: AUDIO_EFFECT_VOLUME });
+        this.errorSound = scene.sound.add('effect_error', { volume: AUDIO_EFFECT_VOLUME });
+        this.fallSound = scene.sound.add('effect_fall', { volume: AUDIO_EFFECT_VOLUME });
 
         this.addAnimations();
     }
 
-    setup(level: Level): Player {
-        super.setup(level);
+    setup(): this
+    {
+        super.setup();
 
         this.unlock();
 

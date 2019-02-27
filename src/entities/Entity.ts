@@ -25,6 +25,8 @@ export interface IMatterOptions
 
 export class Entity extends Phaser.Physics.Matter.Sprite
 {
+    body: MatterJS.Body;
+
     // is this sprite able to move?
     locked = false;
 

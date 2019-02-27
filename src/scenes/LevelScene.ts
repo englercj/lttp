@@ -95,10 +95,10 @@ export class LevelScene extends BaseLttpScene
             locXProp && locXProp.type === 'int' ? locXProp.value : 0,
             locYProp && locYProp.type === 'int' ? locYProp.value : 0);
 
-        player.setup(this);
-
         // Add the player to the right layer on the map
+        this.add.existing(player);
         this.tiledmap.getContainer('player').add(player);
+        player.setup(this);
 
         // Create the map overlay
         this.overlay = new MapOverlay(this);
