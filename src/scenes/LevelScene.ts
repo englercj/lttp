@@ -98,7 +98,7 @@ export class LevelScene extends BaseLttpScene
         // Add the player to the right layer on the map
         this.add.existing(player);
         this.tiledmap.getContainer('player').add(player);
-        player.setup(this);
+        player.setup();
 
         // Create the map overlay
         this.overlay = new MapOverlay(this);

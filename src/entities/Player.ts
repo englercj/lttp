@@ -76,8 +76,6 @@ export class Player extends Entity
         this.itemFanfaireSound = scene.sound.add('effect_item_fanfaire', { volume: AUDIO_EFFECT_VOLUME });
         this.errorSound = scene.sound.add('effect_error', { volume: AUDIO_EFFECT_VOLUME });
         this.fallSound = scene.sound.add('effect_fall', { volume: AUDIO_EFFECT_VOLUME });
-
-        this.addAnimations();
     }
 
     setup(): this
@@ -98,44 +96,12 @@ export class Player extends Entity
         return this;
     }
 
-    update() {
-        super.update();
-
-        if (this.textureDirty) {
-            this.textureDirty = false;
-
-            this._updateAnimation();
-        }
-
-        if (!this.locked && this.moveDirty) {
-            // Update X movement
-            if (this.moving[Phaser.LEFT]) {
-                this.body.velocity.x = -this.moving[Phaser.LEFT] * this.moveSpeed;
-            }
-            else if (this.moving[Phaser.RIGHT]) {
-                this.body.velocity.x = this.moving[Phaser.RIGHT] * this.moveSpeed;
-            }
-            else {
-                this.body.velocity.x = 0;
-            }
-
-            // Update Y movement
-            if (this.moving[Phaser.UP]) {
-                this.body.velocity.y = -this.moving[Phaser.UP] * this.moveSpeed;
-            }
-            else if (this.moving[Phaser.DOWN]) {
-                this.body.velocity.y = this.moving[Phaser.DOWN] * this.moveSpeed;
-            }
-            else {
-                this.body.velocity.y = 0;
-            }
-        }
-    }
-
-    move(direction: number, value: number, active: boolean) {
+    move(direction: number, value: number, active: boolean)
+    {
         const newValue = active ? value : 0;
 
-        if (this.moving[direction] !== newValue) {
+        if (this.moving[direction] !== newValue)
+        {
             this.moving[direction] = newValue;
 
             this.moveDirty = true;

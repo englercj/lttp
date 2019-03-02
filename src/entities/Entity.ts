@@ -51,10 +51,6 @@ export class Entity extends Phaser.Physics.Matter.Sprite
     // the direction the entity is facing
     facing = Phaser.DOWN;
 
-    // a few dirty flags
-    moveDirty = false;
-    textureDirty = false;
-
     // type of this entity
     entityType = EEntityType.Neutral;
 
@@ -96,7 +92,6 @@ export class Entity extends Phaser.Physics.Matter.Sprite
         this.setVelocity(this.movement.x, this.movement.y);
 
         this.locked = false;
-        this.textureDirty = true;
 
         return this;
     }
